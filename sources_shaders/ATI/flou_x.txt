@@ -1,0 +1,336 @@
+//======================================================================================================
+//
+//				Compatible ATI
+//				Floutage horizontal
+//
+//======================================================================================================
+
+
+uniform int taille_flou;
+uniform float saturation_flou;
+uniform sampler2D texture;
+
+void main(void)
+{
+   float taille_texture=textureSize(texture,0).x;
+   float intensite;
+   float amplitude=0.;
+   vec4 p=vec4 ( 0.);
+   
+   if (taille_flou <=10)
+   {
+   
+   //for (dx=-taille_flou;dx<taille_flou;dx++)
+   //{
+		/*
+      intensite=1.-abs(float(dx)/float(taille_flou));
+      p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+float(dx)/taille_texture,gl_TexCoord[0].y)));
+      amplitude+=intensite;
+	  */
+	  
+	  intensite=0.1;
+      p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(-10./taille_texture),gl_TexCoord[0].y)));
+      amplitude+=intensite;
+	  
+	  intensite+=0.1;
+      p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(-9./taille_texture),gl_TexCoord[0].y)));
+      amplitude+=intensite;
+	  
+	  intensite+=0.1;
+      p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(-8./taille_texture),gl_TexCoord[0].y)));
+      amplitude+=intensite;
+	  
+	  intensite+=0.1;
+      p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(-7./taille_texture),gl_TexCoord[0].y)));
+      amplitude+=intensite;
+	  
+	  intensite+=0.1;
+      p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(-6./taille_texture),gl_TexCoord[0].y)));
+      amplitude+=intensite;
+	  
+	  intensite+=0.1;
+      p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(-5./taille_texture),gl_TexCoord[0].y)));
+      amplitude+=intensite;
+	  
+	  intensite+=0.1;
+      p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(-4./taille_texture),gl_TexCoord[0].y)));
+      amplitude+=intensite;
+	  
+	  intensite+=0.1;
+      p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(-3./taille_texture),gl_TexCoord[0].y)));
+      amplitude+=intensite;
+	  
+	  intensite+=0.1;
+      p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(-2./taille_texture),gl_TexCoord[0].y)));
+      amplitude+=intensite;
+	  
+	  intensite+=0.1;
+      p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(-1./taille_texture),gl_TexCoord[0].y)));
+      amplitude+=intensite;
+	  
+	  // - 
+	  
+	  
+	  intensite-=0.1;
+      p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(0./taille_texture),gl_TexCoord[0].y)));
+      amplitude+=intensite;
+	  
+	  intensite-=0.1;
+      p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(1./taille_texture),gl_TexCoord[0].y)));
+      amplitude+=intensite;
+	  
+	  intensite-=0.1;
+      p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(2./taille_texture),gl_TexCoord[0].y)));
+      amplitude+=intensite;
+	  
+	  intensite-=0.1;
+      p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(3./taille_texture),gl_TexCoord[0].y)));
+      amplitude+=intensite;
+	  
+	  intensite-=0.1;
+      p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(4./taille_texture),gl_TexCoord[0].y)));
+      amplitude+=intensite;
+	  
+	  intensite-=0.1;
+      p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(5./taille_texture),gl_TexCoord[0].y)));
+      amplitude+=intensite;
+	  
+	  intensite-=0.1;
+      p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(6./taille_texture),gl_TexCoord[0].y)));
+      amplitude+=intensite;
+	  
+	  intensite-=0.1;
+      p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(7./taille_texture),gl_TexCoord[0].y)));
+      amplitude+=intensite;
+	  
+	  intensite-=0.1;
+      p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(8./taille_texture),gl_TexCoord[0].y)));
+      amplitude+=intensite;
+	  
+	  intensite-=0.1;
+      p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(9./taille_texture),gl_TexCoord[0].y)));
+      amplitude+=intensite;
+	  
+	  
+   //}
+   
+   }
+   
+   else if (taille_flou <=25)
+   {
+		intensite=1.-25./25.;;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(-25./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+
+		intensite+=1.-24./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(-24./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+
+		intensite+=1.-23./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(-23./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+
+		intensite+=1.-22./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(-22./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+
+		intensite+=1.-21./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(-21./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+
+		intensite+=1.-20./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(-20./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+
+		intensite+=1.-19/25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(-19./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+
+		intensite+=1.-18./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(-18./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+
+		intensite+=1.-17./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(-17./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+
+		intensite+=1.-16./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(-16./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+		
+		intensite+=1.-15./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(-15./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+		
+		intensite+=1.-14./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(-14./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+		
+		intensite+=1.-13./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(-13./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+		
+		intensite+=1.-12./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(-12./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+		
+		intensite+=1.-11./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(-11./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+		
+		intensite+=1.-10./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(-10./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+		
+		intensite+=1.-9./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(-9./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+		
+		intensite+=1.-8./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(-8./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+		
+		intensite+=1.-7./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(-7./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+		
+		intensite+=1.-6./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(-6./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+		
+		intensite+=1.-5./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(-5./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+		
+		intensite+=1.-4./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(-4./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+		
+		intensite+=1.-3./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(-3./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+		
+		intensite+=1.-2./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(-2./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+		
+		intensite+=1.-1./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(-1./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+		
+		intensite+=1.-0./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(-0./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+
+		// - 
+
+
+		intensite=1.-1./25.;;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(1./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+
+		intensite+=1.-2./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(2./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+
+		intensite+=1.-3./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(3./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+
+		intensite+=1.-4./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(4./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+
+		intensite+=1.-5./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(5./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+
+		intensite+=1.-6./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(6./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+
+		intensite+=1.-7/25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(7./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+
+		intensite+=1.-8./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(8./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+
+		intensite+=1.-9./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(9./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+
+		intensite+=1.-10./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(10./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+		
+		intensite+=1.-11./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(11./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+		
+		intensite+=1.-12./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(12./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+		
+		intensite+=1.-13./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(13./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+		
+		intensite+=1.-14./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(14./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+		
+		intensite+=1.-15./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(15./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+		
+		intensite+=1.-16./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(16./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+		
+		intensite+=1.-17./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(17./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+		
+		intensite+=1.-18./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(18./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+		
+		intensite+=1.-19./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(19./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+		
+		intensite+=1.-20./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(20./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+		
+		intensite+=1.-21./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(21./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+		
+		intensite+=1.-22./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(22./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+		
+		intensite+=1.-23./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(23./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+		
+		intensite+=1.-24./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(24./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+		
+		intensite+=1.-25./25.;
+		p+= intensite *(texture2D(texture,vec2(gl_TexCoord[0].x+(25./taille_texture),gl_TexCoord[0].y)));
+		amplitude+=intensite;
+		
+		
+   }
+   
+   p*=saturation_flou/amplitude;
+   p.a=1.;
+   
+   
+   gl_FragColor = p;
+}

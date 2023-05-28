@@ -1,0 +1,41 @@
+//======================================================================
+//				Compatible ATI - pas de source lumineuse
+//				Transition entre deux textures de couleur,
+//				avec une troisième texture en niveau de gris pour le
+//				facteur de transition
+//				Fragment shader
+//======================================================================
+
+uniform sampler2D texture_depart;
+uniform sampler2D texture_destination;
+uniform sampler2D texture_transition;
+uniform float niveau_transition;
+
+varying vec2 coordonnees_texture_depart;
+varying vec2 coordonnees_texture_destination;
+varying vec2 coordonnees_texture_transition;
+
+varying vec4 couleur;
+
+void main( void )
+{
+	vec4 texel_depart=texture2D( texture_depart, coordonnees_texture_depart );
+	vec4 texel_destination=texture2D( texture_destination, coordonnees_texture_destination );
+	vec4 texel_transition=texture2D( texture_transition, coordonnees_texture_transition );
+	
+	//if (texel_depart.a<0.5 && texel_destination.a<0.5) discard;	//Transparence
+	
+	float marge=0.01;
+	float contour=0.5;
+	
+	if (niveau_transition<(texel_transition.r-marge))couleur*=texel_depart;
+	else if (niveau_transition>(texel_transition.r+marge) )couleur*=texel_destination;
+	else
+	{
+		float niveau=clamp((niveau_transition-(texel_transition.r-marge))/(marge*2.),0.,1.);
+		couleur*=clamp(((1.-niveau)*texel_depart+niveau*texel_destination)+ sin(niveau*3.141592635)*contour,vec4(0.,0.,0.,0.),vec4(1.,1.,1.,1.));
+	}
+	//couleur*=((1.-niveau_transition_2)*texel_depart+niveau_transition_2*texel_destination);
+
+    gl_FragColor =  couleur;
+}

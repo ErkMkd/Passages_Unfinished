@@ -1,0 +1,75 @@
+//======================================================================
+//				Transition entre deux textures de couleur,
+//				le long de l'axe Z du volume
+//				Fragment shader
+//				La transparence est gérée en tout ou rien
+//======================================================================
+
+uniform sampler2D texture_depart;
+uniform sampler2D texture_destination;
+uniform int drapeaux_textures;
+
+uniform float niveau_transition; //Varie entre 0 et 1
+uniform float largeur_fondu;	//Varie entre 0 et 1
+
+varying vec2 coordonnees_texture_depart;
+varying vec2 coordonnees_texture_destination;
+varying float position_axe;	//La position du fragement le long de l'axe, varie entre 0 et 1
+
+varying vec4 couleur;
+varying vec3 couleur_speculaire; //Spérarée pour apparaître par dessus les textures
+
+void main( void )
+{
+	vec4 texel_depart;
+	vec4 texel_destination;
+	vec4 couleur_texel;
+	
+	vec4 couleur_transition=vec4(0.,1.,1.,1.);
+	
+	if(drapeaux_textures & 1) texel_depart=texture2D( texture_depart, coordonnees_texture_depart );
+	else texel_depart=vec4(1.,1.,1.,1.);
+	if(drapeaux_textures & 2)texel_destination=texture2D( texture_destination, coordonnees_texture_destination );
+	else texel_destination=vec4(1.,1.,1.,1.);
+	
+	//if (texel_depart.a<0.5 && texel_destination.a<0.5) discard;	//Transparence
+	
+	float largeur_transition=largeur_fondu/2.;
+	if(niveau_transition<largeur_transition) largeur_transition=niveau_transition;
+	else if(niveau_transition>(1.-largeur_transition)) largeur_transition=(1.-niveau_transition);
+	
+	if((niveau_transition+largeur_transition)<position_axe) 
+	{
+		if (texel_depart.a<0.5)discard;	//Transparence
+		couleur_texel=texel_depart;
+	}
+	else if((niveau_transition-largeur_transition)>position_axe) 
+	{
+		if (texel_destination.a<0.5)discard;	//Transparence
+		couleur_texel=texel_destination;
+	}
+	else if(largeur_transition>0.)
+	{
+		float pos_largeur_transition=(position_axe-(niveau_transition-largeur_transition))/(largeur_transition*2.);
+		if(pos_largeur_transition<0.5)
+		{
+			if(texel_destination.a<0.5)discard;
+			else
+			{
+				pos_largeur_transition*=2.;
+				couleur_texel=clamp(couleur_transition*pos_largeur_transition + texel_destination*(1.-pos_largeur_transition),0.,1.);
+			}
+		}
+		else
+		{
+			if(texel_depart.a<0.5)discard;
+			else 
+			{
+				pos_largeur_transition=(pos_largeur_transition-0.5)*2.;
+				couleur_texel=clamp(texel_depart*pos_largeur_transition + couleur_transition*(1.-pos_largeur_transition),0.,1.);
+			}
+		}
+	}
+
+    gl_FragColor =  couleur_texel*clamp(couleur+vec4(couleur_speculaire,0.),0.,1.);
+}

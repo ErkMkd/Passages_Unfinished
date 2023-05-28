@@ -1,0 +1,130 @@
+/************************************************************************************************************
+
+		Compatible ATI - 3 sources lumineuses
+		Rendu avec réflexion du cube d'arrière-plan
+
+**************************************************************************************************************/
+uniform int drapeaux_sources;	//Les bits d'activation des sources lumineuses
+varying vec4 couleur;
+varying vec3 couleur_speculaire; //Spérarée pour apparaître par dessus les textures
+
+uniform mat4 matrice_volume;	//Pour avoir les coordonnées du sommet dans l'espace absolu
+uniform vec3 position_oeil;
+varying vec3 vecteur_reflet;
+
+void main( void )
+{
+	gl_Position =  gl_ModelViewProjectionMatrix * gl_Vertex;
+	//---------- Réflexion --------------------
+	vec3 position_volume=vec3(matrice_volume[3][0],matrice_volume[3][1],matrice_volume[3][2]);
+	vec3 position_sommet=(matrice_volume*gl_Vertex).xyz;
+	vec3 normale_absolue = (matrice_volume * vec4(gl_Normal,1.)).xyz-position_volume;
+	vecteur_reflet=reflect(position_sommet-position_oeil,normale_absolue);
+	
+	
+	//--------- Eclairages ------------------
+	
+	//Données de l'observateur:
+	position_sommet=(gl_ModelViewMatrix*gl_Vertex).xyz;
+    vec3 normale 				= gl_NormalMatrix * gl_Normal;
+	vec3 direction_oeil 	= -normalize(position_sommet);
+	
+	// Calcul des sources:
+			
+			couleur_speculaire=vec3 (0.,0.,0.);
+			vec3 couleur_rgb=vec3(0.,0.,0.);
+			vec3 position_source;
+			vec3 direction_source;
+			float distance_source;
+			vec3 reflet_source;
+			float attenuation;
+			vec3 couleur_ambiante;
+			vec3 couleur_diffuse;
+			
+			//for(int n=0;n<gl_MaxLights;n++)
+			//{
+				if ( drapeaux_sources & 0x1 ) 
+				{
+					position_source 		= (gl_LightSource[0].position).xyz;
+					direction_source 		= position_source-position_sommet;
+					distance_source 		= length(direction_source);
+					direction_source		= normalize(direction_source);
+					reflet_source			= normalize(direction_oeil+direction_source);
+					
+					//Composantes:
+				
+					attenuation		=	1./ (gl_LightSource[0].constantAttenuation 
+												+ gl_LightSource[0].linearAttenuation * distance_source
+												+  distance_source * distance_source * gl_LightSource[0].quadraticAttenuation);
+				
+					couleur_ambiante   = 	gl_FrontMaterial.ambient.rgb*gl_LightSource[0].ambient.rgb;
+			   
+					couleur_diffuse 	= 	gl_LightSource[0].diffuse.rgb * gl_FrontMaterial.diffuse.rgb
+												* max(dot(normale,direction_source),0.);
+					
+					couleur_rgb				+=	attenuation * (couleur_ambiante + couleur_diffuse);
+				
+					couleur_speculaire 	+= attenuation* (
+															gl_LightSource[0].specular.rgb * gl_FrontMaterial.specular.rgb
+															* pow(max(dot(reflet_source,normale),0.),gl_FrontMaterial.shininess)
+														);
+				}
+				
+				if ( drapeaux_sources & 0x2 ) 
+				{
+					position_source 		= (gl_LightSource[1].position).xyz;
+					direction_source 		= position_source-position_sommet;
+					distance_source 		= length(direction_source);
+					direction_source		= normalize(direction_source);
+					reflet_source			= normalize(direction_oeil+direction_source);
+					
+					//Composantes:
+				
+					attenuation		=	1./ (gl_LightSource[1].constantAttenuation 
+												+ gl_LightSource[1].linearAttenuation * distance_source
+												+  distance_source * distance_source * gl_LightSource[1].quadraticAttenuation);
+				
+					couleur_ambiante   = 	gl_FrontMaterial.ambient.rgb*gl_LightSource[1].ambient.rgb;
+			   
+					couleur_diffuse 	= 	gl_LightSource[1].diffuse.rgb * gl_FrontMaterial.diffuse.rgb
+												* max(dot(normale,direction_source),0.);
+					
+					couleur_rgb				+=	attenuation * (couleur_ambiante + couleur_diffuse);
+				
+					couleur_speculaire 	+= attenuation* (
+															gl_LightSource[1].specular.rgb * gl_FrontMaterial.specular.rgb
+															* pow(max(dot(reflet_source,normale),0.),gl_FrontMaterial.shininess)
+														);
+				}
+				
+				if ( drapeaux_sources & 0x4 ) 
+				{
+					position_source 		= (gl_LightSource[2].position).xyz;
+					direction_source 		= position_source-position_sommet;
+					distance_source 		= length(direction_source);
+					direction_source		= normalize(direction_source);
+					reflet_source			= normalize(direction_oeil+direction_source);
+					
+					//Composantes:
+				
+					attenuation		=	1./ (gl_LightSource[2].constantAttenuation 
+												+ gl_LightSource[2].linearAttenuation * distance_source
+												+  distance_source * distance_source * gl_LightSource[2].quadraticAttenuation);
+				
+					couleur_ambiante   = 	gl_FrontMaterial.ambient.rgb*gl_LightSource[2].ambient.rgb;
+			   
+					couleur_diffuse 	= 	gl_LightSource[2].diffuse.rgb * gl_FrontMaterial.diffuse.rgb
+												* max(dot(normale,direction_source),0.);
+					
+					couleur_rgb				+=	attenuation * (couleur_ambiante + couleur_diffuse);
+				
+					couleur_speculaire 	+= attenuation* (
+															gl_LightSource[2].specular.rgb * gl_FrontMaterial.specular.rgb
+															* pow(max(dot(reflet_source,normale),0.),gl_FrontMaterial.shininess)
+														);
+				}
+		
+		//----------- Couleur de base:
+		vec3 couleur_ambiante_globale = gl_FrontMaterial.ambient.rgb*gl_LightModel.ambient.rgb;
+		couleur=vec4(gl_FrontMaterial.emission.rgb + couleur_ambiante_globale + couleur_rgb , gl_FrontMaterial.diffuse.a);		
+}

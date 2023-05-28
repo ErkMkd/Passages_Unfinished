@@ -1,0 +1,89 @@
+//=======================================================================================================
+//				Compatible ATI - 3 sources lumineuses
+//				Réflexion du cube d'arrière-plan et ondes aqueuses avec éclairage - Vertex Shader
+//=======================================================================================================
+
+//Eclairage:
+uniform int drapeaux_sources;	//Les bits d'activation des sources lumineuses
+varying vec4 couleur;
+varying vec3 couleur_speculaire; //Spérarée pour apparaître par dessus les textures
+
+//Réflexion:
+
+uniform mat4 matrice_volume;	//Pour avoir les coordonnées du sommet dans l'espace absolu
+uniform vec3 position_oeil;
+varying vec3 vecteur_sommet_oeil;	//Dans l'epace absolu
+
+//Ondes:
+
+uniform vec3 tangente;
+uniform vec3 binormale;
+
+uniform	vec3  centre_gravite_face;
+uniform float vitesse_ondes;
+uniform float echelle_texture_bruit_ondes;
+uniform float position_temps;
+
+varying vec3 tangente_sommet;
+varying vec3 binormale_sommet;
+varying vec2 position_sommet_2d;
+varying vec2 texture_bruit_coord;
+
+varying vec3 direction_sommet_oeil;	//Dans le repère de l'oeil
+varying vec3 directions_sources[4];
+varying float distances_sources[4];
+varying vec3 normale_face;
+
+
+void main( void )
+{
+	gl_Position 			=  gl_ModelViewProjectionMatrix * gl_Vertex;
+	
+	//---------- Réflexion --------------------
+	vec3 position_volume=vec3(matrice_volume[3][0],matrice_volume[3][1],matrice_volume[3][2]);
+	vec3 position_sommet=(matrice_volume*gl_Vertex).xyz;
+	vecteur_sommet_oeil=position_sommet-position_oeil;
+	//vec3 normale_absolue = (matrice_volume * vec4(gl_Normal,1.)).xyz-position_volume;
+	//vecteur_reflet=reflect(vecteur_sommet_oeil,normale_absolue);
+	
+	
+	//Position du sommet dans le plan de la face:
+	tangente_sommet			= tangente;
+	binormale_sommet		= binormale;
+	position_sommet	= gl_Vertex.xyz-centre_gravite_face;
+	position_sommet_2d.x 	= dot(position_sommet,tangente);
+	position_sommet_2d.y 	= dot(position_sommet,binormale);
+	
+	//Coordonnées de la texture de bruit:
+	float pas_texture=(vitesse_ondes*position_temps);
+	texture_bruit_coord			=	(position_sommet_2d+vec2(-pas_texture,-pas_texture))/echelle_texture_bruit_ondes;
+	//texture_bruit_coord			=	(position_sommet_2d+vec2(pas_texture,0.))/echelle_texture_bruit_ondes;
+	
+	//Données de l'observateur:
+	position_sommet 	= (gl_ModelViewMatrix * gl_Vertex).xyz;
+    normale_face 			= gl_Normal;
+	direction_sommet_oeil 	= -position_sommet;
+	
+	// Calcul des sources:		
+			
+		if (drapeaux_sources & 0x1)
+		{
+			vec3 position_source 		= (gl_LightSource[0].position).xyz;
+			directions_sources[0] 		= position_source-position_sommet;
+			distances_sources[0] 		= length(directions_sources[0]);
+		}
+		if (drapeaux_sources & 0x2)
+		{
+			vec3 position_source 		= (gl_LightSource[1].position).xyz;
+			directions_sources[1] 		= position_source-position_sommet;
+			distances_sources[1] 		= length(directions_sources[1]);
+		}
+		if (drapeaux_sources & 0x4)
+		{
+			vec3 position_source 		= (gl_LightSource[2].position).xyz;
+			directions_sources[2] 		= position_source-position_sommet;
+			distances_sources[2] 		= length(directions_sources[2]);
+		}
+		
+	
+}

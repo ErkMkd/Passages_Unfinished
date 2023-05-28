@@ -1,0 +1,40 @@
+varying vec2 coordonnees_texture_couleur;
+varying vec4 couleur;
+varying vec4 couleur_secondaire;
+
+//attribute tangente;
+//attribute binormale;
+
+void main( void )
+{
+    gl_Position =  gl_ModelViewProjectionMatrix * gl_Vertex;
+	vec3 position_sommet = (gl_ModelViewMatrix * gl_Vertex).xyz;
+    coordonnees_texture_couleur     = gl_MultiTexCoord0.xy;
+   
+   //--------- Calcul de l'éclairage:
+    vec3 normale = gl_NormalMatrix * gl_Normal;
+	vec3 position_source = (gl_LightSource[0].position).xyz;
+	vec3 direction_source = position_source-position_sommet;
+	float distance_source = length(direction_source);
+	direction_source=normalize(direction_source);
+	float angle_source_normale=dot(direction_source,normale);
+	
+	vec3 direction_oeil = normalize(position_sommet);
+	vec3 reflet_source = direction_source-angle_source_normale*normale*2.;
+   
+    float facteur_diffuse = max(dot(normale,direction_source),0.);
+	vec4 couleur_diffuse = gl_LightSource[0].diffuse * gl_FrontMaterial.diffuse;
+	
+	float facteur_speculaire = pow(max(0.,dot(reflet_source,direction_oeil)),gl_FrontMaterial.shininess);
+	vec4 couleur_speculaire = gl_LightSource[0].specular * gl_FrontMaterial.specular;
+	
+	float attenuation=1./ (gl_LightSource[0].constantAttenuation 
+							+ gl_LightSource[0].linearAttenuation * distance_source
+							+  distance_source * distance_source * gl_LightSource[0].quadraticAttenuation);
+   
+   
+   //Calcul de l'éclairement du sommet:
+   couleur_secondaire= (couleur_speculaire * facteur_speculaire) * attenuation;
+   couleur = (couleur_diffuse * facteur_diffuse) * attenuation;
+			
+}

@@ -1,0 +1,148 @@
+/*
+		Affichage des ombres portées, rendu sans texture (autre que la texture de profondeur)
+*/
+
+//------------- Données de gestion des ombres:
+
+uniform sampler2D texture_profondeur;		//Unité de texture 0
+uniform float composantes_convertion[2];		//Les composantes de la matrice de projection de la source, utilisées pour la convertion de profondeur
+uniform float seuil_ombres;	//Pour éviter les trop grandes razances qui étirent la texture de profondeur, je défini un seuil: seuil_ombres=cos(angle_max) - angle en radians
+uniform float intensite_ombres;
+
+varying vec4 coordonnees_texture_ombres;
+varying float distance_source_des_ombres;
+
+//---------------- Données de gestion des sources lumineuses:
+uniform int drapeaux_sources;	//Les bits d'activation des sources lumineuses
+
+varying vec3 direction_oeil;
+varying vec3 directions_sources[8];
+varying float distances_sources[8];
+varying vec3 normale_face;
+varying vec3 couleur_ambiante_globale;
+
+void main(void)
+{
+	//float facteur_attenuation_ombres=0.1;
+	
+	
+	//---------- Calcul couleurs:
+	vec3 normale=normalize(normale_face);
+	vec3 direction_oeil_unitaire=normalize(direction_oeil);
+	vec3 couleur_rgb=vec3(0.,0.,0.);
+	vec3 couleur_speculaire=vec3 (0.,0.,0.);
+	vec3 couleur_rgb_source_ombres;
+	vec3 couleur_speculaire_source_ombres;
+	
+	
+	//------------- Source des ombres:
+	vec3 direction_source_unitaire	= normalize(directions_sources[0]);
+	float angle_source_normale  = max(dot(normale,direction_source_unitaire),0.);
+	vec3 reflet_source			= normalize(direction_oeil_unitaire+direction_source_unitaire);
+			
+	//Composantes:
+	
+	float attenuation		=	1./ (gl_LightSource[0].constantAttenuation 
+								+ gl_LightSource[0].linearAttenuation * distances_sources[0]
+								+  distances_sources[0] * distances_sources[0] * gl_LightSource[0].quadraticAttenuation);
+
+	vec3 couleur_ambiante   = 	gl_FrontMaterial.ambient.rgb*gl_LightSource[0].ambient.rgb;
+
+	vec3 couleur_diffuse 	= 	gl_LightSource[0].diffuse.rgb * gl_FrontMaterial.diffuse.rgb * angle_source_normale;
+	
+	couleur_rgb_source_ombres		=	attenuation * (couleur_ambiante + couleur_diffuse);
+	if (angle_source_normale>0.)
+	{
+		couleur_speculaire_source_ombres 	= attenuation* (
+												gl_LightSource[0].specular.rgb * gl_FrontMaterial.specular.rgb
+												* pow(max(dot(reflet_source,normale),0.),gl_FrontMaterial.shininess)
+											);
+	}
+	
+	
+	//------------- Les autres sources:
+	
+	for (int n=1; n<gl_MaxLights;n++)
+	{
+		if ( !(drapeaux_sources & (1<<n)) ) continue;
+		direction_source_unitaire	= normalize(directions_sources[n]);
+		angle_source_normale  = max(dot(normale,direction_source_unitaire),0.);
+		reflet_source			= normalize(direction_oeil_unitaire+direction_source_unitaire);
+				
+		//Composantes:
+		
+		attenuation		=	1./ (gl_LightSource[n].constantAttenuation 
+									+ gl_LightSource[n].linearAttenuation * distances_sources[n]
+									+  distances_sources[n] * distances_sources[n] * gl_LightSource[n].quadraticAttenuation);
+	
+		couleur_ambiante   = 	gl_FrontMaterial.ambient.rgb*gl_LightSource[n].ambient.rgb;
+   
+		couleur_diffuse 	= 	gl_LightSource[n].diffuse.rgb * gl_FrontMaterial.diffuse.rgb * angle_source_normale;
+		
+		couleur_rgb				+=	attenuation * (couleur_ambiante + couleur_diffuse);
+		if (angle_source_normale>0.)
+		{
+			couleur_speculaire 	+= attenuation* (
+													gl_LightSource[n].specular.rgb * gl_FrontMaterial.specular.rgb
+													* pow(max(dot(reflet_source,normale),0.),gl_FrontMaterial.shininess)
+												);
+		}
+	}
+	
+	//---------- Calcul ombre:
+		//Test si la face est dans le bon sens:
+		
+		if (dot(normalize(directions_sources[0]),normalize(normale_face))>seuil_ombres)
+		{
+			//Test de dépassement du champ de vision de la source des ombres:
+			float cx=coordonnees_texture_ombres.x/coordonnees_texture_ombres.w;
+			float cy=coordonnees_texture_ombres.y/coordonnees_texture_ombres.w;
+			if ( cx>1. || cx<0. || cy>1. || cy<0.)
+			{
+				couleur_speculaire+=couleur_speculaire_source_ombres;
+				couleur_rgb+=couleur_rgb_source_ombres;
+			}
+			//Projection des ombres:
+			else
+			{
+				float distance_zBuf = textureProj( texture_profondeur, coordonnees_texture_ombres);
+				
+				//Conversion Zbuffer->Ze:
+				float Zndc = distance_zBuf*2.-1.;
+				float distance_proche = composantes_convertion[0]/(Zndc+composantes_convertion[1]);
+				
+				//Test de distance:
+
+				if ( (distance_proche+0.05) >= (distance_source_des_ombres)) //Voir à faire une distance minimum test réglable
+				{
+					couleur_speculaire+=couleur_speculaire_source_ombres;
+					couleur_rgb+=couleur_rgb_source_ombres;
+				}
+				
+				//Ombre avec intensité réglable:
+				else
+				{
+					couleur_speculaire+=(1.-intensite_ombres)*couleur_speculaire_source_ombres;
+					couleur_rgb+=(1.-intensite_ombres)*couleur_rgb_source_ombres;
+				}
+				
+				
+				//Atténuation de l'ombre en fonction de la distance:
+				/*
+				else
+				{
+					couleur+=vec4(	clamp(facteur_attenuation_ombres
+									*(distance_source_des_ombres-distance_proche),0.,1.)
+									*couleur_source_des_ombres,0.);
+				}
+				*/
+			}
+			
+		}
+		
+	//------- Détermine la couleur:
+			vec4 couleur=vec4(gl_FrontMaterial.emission.rgb + couleur_ambiante_globale + couleur_rgb , gl_FrontMaterial.diffuse.a);	
+			gl_FragColor =  clamp(vec4(couleur_speculaire,0.) + couleur,0.,1.);
+			//gl_FragColor=vec4(1.,0.,0.,1.);
+	
+}

@@ -1,0 +1,24 @@
+//======================================================================
+//				Transition entre deux textures de couleur,
+//				avec une troisième texture en niveau de gris pour le
+//				facteur de transition
+//				Vertex shader
+//======================================================================
+
+varying vec2 coordonnees_texture_depart;
+varying vec2 coordonnees_texture_destination;
+varying vec2 coordonnees_texture_transition;
+
+varying vec4 couleur;
+
+void main( void )
+{
+	//Données de l'observateur:
+    gl_Position =  gl_ModelViewProjectionMatrix * gl_Vertex;
+	couleur		=	gl_Color;
+	
+	coordonnees_texture_depart     		= gl_MultiTexCoord0.xy;
+	coordonnees_texture_destination     = gl_MultiTexCoord1.xy;
+	coordonnees_texture_transition     	= gl_MultiTexCoord2.xy;
+	
+}

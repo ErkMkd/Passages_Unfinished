@@ -1,0 +1,33 @@
+//======================================================================
+//				
+//		Shader de post-rendu.
+//		Superpose deux textures avec un masque
+//		Si le texel de la texture 1 est de la couleur du masque,
+//		alors c'est le texel de la texture 2 qui est affiché
+//
+//======================================================================
+
+uniform sampler2D texture_1;
+uniform sampler2D texture_2;
+uniform vec3 couleur_masque;
+
+varying vec2 coordonnees_texture_1;
+varying vec2 coordonnees_texture_2;
+varying vec4 couleur;
+
+void main( void )
+{
+	
+	vec3 texel_1=texture2D( texture_1, coordonnees_texture_1 ).rgb;
+
+	if (texel_1==couleur_masque)
+	{
+		vec3 texel_2=texture2D( texture_2, coordonnees_texture_2 ).rgb;	
+		couleur.rgb*=texel_2;
+	}
+	else couleur.rgb*=texel_1;
+	
+	
+
+    gl_FragColor =  couleur;
+}

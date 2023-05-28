@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Passages" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Option show_notes="0">
+			<notes>
+				<![CDATA[Passages - Notes de développement
+Démo PC - Groupe: Genesis Project
+
+Notes:
+
+18 Juin 2011: 
+! Ca y est, j'ai compris comment fonctionne le tempon de profondeur pour calculer les ombres portées.
+
+1 août 2011:
+
+Les réflexions + ondulations aqueuses fonctionnent.
+
+Les réflexion utilisent les textures "CUBE MAP". C'est embêtant car cela ne permet pas de changer rapidement de textures de réflexion.
+Il faut faire en sorte que la réflexion utilise comme arrière-plan une simple texture.
+
+
+28 Aout 2011:
+
+J'ai compté les lignes de code: 30776 en ce jour.
+
+19 Janvier 2012:
+Mise à niveau de la gestion des shaders.
+Attention à la création de texture de bruit
+Flou x et flou y à ajouter.
+
+20 Janvier 2012
+Reste à Déboguer le nouveau gestionnaire de shaders 
+
+21 Janvier 2012
+Déboguage OK.
+Je commence le code d'un afficheur d'image 2d, incluant zoom, scroll, rotation.
+L'image va s'afficher en arrière-plan.
+Après je l'implémenterai au post-rendu.
+
+24 Janvier 2012
+L'afficheur d'image est au point. Ajout du zoom de l'image de fin de la démo.
+Je vais m'attaquer à l'initialisation des rendus avec les shaders. Pour le moment
+le choix du shader pour une surface se fait d'une façon hazardeuse.
+
+29 Janvier 2012
+OK maintenant les modes de rendu sont mieux gérés. Pour les rendus un peu complexes,
+j'ai créé une classe "Effet Spécial".
+Prochaine étape: La transition entre le ver et le vaisseau.
+
+4 Février
+Le masquage entre deux rendus est fait, ce qui me permet la transition entre le serpent et la scène du starfield.
+Je fais l'animation de la caméra.
+
+5 Février
+Préparation de l'édition de la scène du starfield.
+
+9 Février
+Le vaisseau s'affiche plus lentement en mode Tableau qu'en mode Immédiat. !?
+Je me suis rendu compte que pour afficher les surfaces luminescentes et les profondeurs, je peux utiliser les listes d'affichage. Ca va me faire gagner un peu de temps.
+Faudra voir à gérer les activation/Désactivations de textures différemment.
+
+10 Février
+Gestion plus souple des listes d'affichage. On peut les utiliser uniquement pour les surfaces lumineuses ou les profondeurs. Bien sûr cela ne marche pas pour les objets à géométrie variable (Annélide, Serpent...)
+Ajout des effets spéciaux aux surfaces transparentes affichées via la table globale de la scène.
+Il me reste à dessiner les textures des infrastructures du vaisseau, pour la transition avec le squelette du ver.
+
+15 Février:
+Musique à 120 bpm:
+Normalement ça fait du 2 battement par seconde...
+
+16 Février:
+Baptêmes de la part d'HJE: le ver se nomme "Woody" et le serpent "Snacky" :)
+
+22 Février:
+-Remplacer le cube par un simple point sur la trajectoire (mode de visée du vaisseau: point)
+-Interpolation de la position de l'oeil vers la position de départ de la trajectoire de poursuite.
+
+24 Février:
+Merdoume! A débuguer le réglage du mode de rendu des surface. Le mode APLAT affecte toutes les autres surfaces des volumes en rendu LISTE ??? Why?
+
+28 Février:
+Ok les bugs sont guéris. J'ajoute la transition entre la scène du starfield et de l'arbre grace au masquage, déjà utilisé pour le caducée. A faire: un rendu avec auras dans le tempon d'écran 1 (et deux par la même occasion), pour masquage avec le tempon 2.
+
+28 Février - soir suivant:
+Le masquage est en place, reste à résoudre le problème des floutages qui modifient par endroit la couleur de masquage.
+Comment faire? Le mieux serait d'ajouter une tolérence pour la couleur du masque...
+
+1er  Mars 2012:
+Problème résolu: j'affiche la surface de masquage par dessus le rendu de la scène avec les auras. Le tempon de profondeur étant conservé après la superposition de la scène floutée, tout se passe bien.
+La prochaine fois, je pourrais travailler sur la transition.
+
+25 Avril 2012:
+Bug au niveau du shader des Ondes: il semble y avoir un problème de transmission des valeurs des tangentes et binormales... ???
+
+24 Mai 2012:
+Le papillon est prêt à jouer son rôle dans la démo \o/ Il peut voler, planer et se poser.
+Il se penche dans les virages, mais il faut que je teste cette fonction sur une trajectoire.
+
+-------------------------------------------------------------------------------------------
+A faire:
+
+-Réflexion+ondulations+texture couleur.
+-Réflexion+ondulations+texture couleur+ombres.
+-Réflexions sans utiliser les textures CUBE MAP.
+-Lissage des bordures des ombres portées.
+-Centraliser la gestion des fichier à la classe "Fichiers", pour pouvoir lire le
+tout dans une archive.
+]]>
+			</notes>
+		</Option>
+		<Build>
+			<Target title="Debug">
+				<Option output="bin\Debug\Passages" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="..\Passages" />
+				<Option object_output="obj\Debug\" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin\Release\Passages" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="..\Passages" />
+				<Option object_output="obj\Release\" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-DGLEW_STATIC" />
+			<Add directory="C:\Program Files\CodeBlocks\MinGW\include" />
+		</Compiler>
+		<Linker>
+			<Add option="-lglew32" />
+			<Add library="glut32" />
+			<Add library="opengl32" />
+			<Add library="glu32" />
+			<Add library="winmm" />
+			<Add library="gdi32" />
+			<Add library="C:\Program Files\CodeBlocks\MinGW\lib\libglew32.a" />
+			<Add library="C:\Program Files\CodeBlocks\MinGW\lib\libtiff.lib" />
+			<Add library="C:\Program Files\CodeBlocks\MinGW\lib\jpeg.lib" />
+			<Add library="C:\Program Files\CodeBlocks\MinGW\lib\bass.lib" />
+			<Add directory="C:\Program Files\CodeBlocks\MinGW\lib" />
+		</Linker>
+		<Unit filename="Tunnel.h" />
+		<Unit filename="Utiles\Bruit.h" />
+		<Unit filename="Utiles\Courbe_Bezier_Plan.h" />
+		<Unit filename="Utiles\Gestion_Shaders.h" />
+		<Unit filename="Utiles\Interpolations.h" />
+		<Unit filename="Utiles\Matrice4x4.h" />
+		<Unit filename="Utiles\Musique.h" />
+		<Unit filename="Utiles\OrganisationCouleurs.h" />
+		<Unit filename="Utiles\Texte.h" />
+		<Unit filename="Utiles\vec2d.h" />
+		<Unit filename="Utiles\vec3f.h" />
+		<Unit filename="chargeurs_images\Image.h" />
+		<Unit filename="chargeurs_images\Image_BMP.h" />
+		<Unit filename="chargeurs_images\Image_JPEG.h" />
+		<Unit filename="chargeurs_images\Image_TIFF.h" />
+		<Unit filename="chargeurs_images\Image_infos.h" />
+		<Unit filename="dksMoteur2d\dksAfficheImage.h" />
+		<Unit filename="dksMoteur2d\dksEcran.h" />
+		<Unit filename="dksMoteur2d\dksPostRendu.h" />
+		<Unit filename="dksMoteur2d\dksRendu.h" />
+		<Unit filename="dksMoteur3d\Articules\Papillon.h" />
+		<Unit filename="dksMoteur3d\Articules\dksInsecte.h" />
+		<Unit filename="dksMoteur3d\Articules\dksJongleur.h" />
+		<Unit filename="dksMoteur3d\Articules\dksJongleurVectorBalls.h" />
+		<Unit filename="dksMoteur3d\Articules\dksPersonnage.h" />
+		<Unit filename="dksMoteur3d\Elements_Fondamentaux\debug_volume_affiche.h" />
+		<Unit filename="dksMoteur3d\Elements_Fondamentaux\dksConteneur.h" />
+		<Unit filename="dksMoteur3d\Elements_Fondamentaux\dksFace.h" />
+		<Unit filename="dksMoteur3d\Elements_Fondamentaux\dksOeil.h" />
+		<Unit filename="dksMoteur3d\Elements_Fondamentaux\dksSourceLumineuse.h" />
+		<Unit filename="dksMoteur3d\Elements_Fondamentaux\dksSurface.h" />
+		<Unit filename="dksMoteur3d\Elements_Fondamentaux\dksTexture.h" />
+		<Unit filename="dksMoteur3d\Elements_Fondamentaux\dksVolume.h" />
+		<Unit filename="dksMoteur3d\Elements_Fondamentaux\dksVolume_init_mode_rendu.h" />
+		<Unit filename="dksMoteur3d\Elements_Fondamentaux\dksVolume_mode_rendu_immediat.h" />
+		<Unit filename="dksMoteur3d\Elements_Fondamentaux\dksVolume_mode_rendu_liste.h" />
+		<Unit filename="dksMoteur3d\Elements_Fondamentaux\dksVolume_mode_rendu_tableaux.h" />
+		<Unit filename="dksMoteur3d\Geometrie_Espace\dksAxeRotation.h" />
+		<Unit filename="dksMoteur3d\Geometrie_Espace\dksCourbeBezierEspace.h" />
+		<Unit filename="dksMoteur3d\Geometrie_Espace\dksRepere.h" />
+		<Unit filename="dksMoteur3d\Geometrie_Espace\dksTrajectoire.h" />
+		<Unit filename="dksMoteur3d\Geometrie_Espace\dksVecteur.h" />
+		<Unit filename="dksMoteur3d\Geometrie_Espace\dksVecteurUnitaire.h" />
+		<Unit filename="dksMoteur3d\Geometrie_Espace\vec3d.h" />
+		<Unit filename="dksMoteur3d\Geometrie_Plan\dksVecteurPlan.h" />
+		<Unit filename="dksMoteur3d\LWO\dksChargeLWO2.h" />
+		<Unit filename="dksMoteur3d\LWO\dksConvertionLWO2.h" />
+		<Unit filename="dksMoteur3d\Particules\dksAnneauElectrique.h" />
+		<Unit filename="dksMoteur3d\Particules\dksJetParticules.h" />
+		<Unit filename="dksMoteur3d\Particules\dksParticules.h" />
+		<Unit filename="dksMoteur3d\Particules\dksParticulesVolumes.h" />
+		<Unit filename="dksMoteur3d\Particules\dksSprite3d.h" />
+		<Unit filename="dksMoteur3d\Particules\dksSprites.h" />
+		<Unit filename="dksMoteur3d\Particules\dksStarfield.h" />
+		<Unit filename="dksMoteur3d\Rendu\Effets_Speciaux\ES_TransitionTexturesCouleurAxe.h" />
+		<Unit filename="dksMoteur3d\Rendu\Effets_Speciaux\dksEffetSpecial.h" />
+		<Unit filename="dksMoteur3d\Rendu\Shaders\Shader_Aplat_Brut.h" />
+		<Unit filename="dksMoteur3d\Rendu\Shaders\Shader_Masque_2_Textures.h" />
+		<Unit filename="dksMoteur3d\Rendu\dksShaders.h" />
+		<Unit filename="dksMoteur3d\Rendu\shaders\Shader_Couleur_Rugosite.h" />
+		<Unit filename="dksMoteur3d\Rendu\shaders\Shader_Decallage_Sommets.h" />
+		<Unit filename="dksMoteur3d\Rendu\shaders\Shader_Eclairage_Base.h" />
+		<Unit filename="dksMoteur3d\Rendu\shaders\Shader_Floutage.h" />
+		<Unit filename="dksMoteur3d\Rendu\shaders\Shader_Ombres.h" />
+		<Unit filename="dksMoteur3d\Rendu\shaders\Shader_Ondes.h" />
+		<Unit filename="dksMoteur3d\Rendu\shaders\Shader_Reflexion_Cube.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="dksMoteur3d\Rendu\shaders\Shader_Reflexion_Cube_Ondes.h" />
+		<Unit filename="dksMoteur3d\Rendu\shaders\Shader_Rugosite.h" />
+		<Unit filename="dksMoteur3d\Rendu\shaders\Shader_Transition_Textures_Couleur.h" />
+		<Unit filename="dksMoteur3d\Rendu\shaders\Shader_Transition_Textures_Couleur_Axe.h" />
+		<Unit filename="dksMoteur3d\Rendu\shaders\dksShader.h" />
+		<Unit filename="dksMoteur3d\Texte\dksPolice3d.h" />
+		<Unit filename="dksMoteur3d\Texte\dksTexte3d.h" />
+		<Unit filename="dksMoteur3d\Texte\dksTexteMap.h" />
+		<Unit filename="dksMoteur3d\Volumes\Annelide.h" />
+		<Unit filename="dksMoteur3d\Volumes\Serpent.h" />
+		<Unit filename="dksMoteur3d\Volumes\VolumeFacesSeparees.h" />
+		<Unit filename="dksMoteur3d\Volumes\dksBoiteCollision.h" />
+		<Unit filename="dksMoteur3d\Volumes\dksCube.h" />
+		<Unit filename="dksMoteur3d\Volumes\dksDamier.h" />
+		<Unit filename="dksMoteur3d\Volumes\dksPlan.h" />
+		<Unit filename="dksMoteur3d\Volumes\dksSphere.h" />
+		<Unit filename="dksMoteur3d\dksAffichagesDebogue.h" />
+		<Unit filename="dksMoteur3d\dksMoteur3d.h" />
+		<Unit filename="dksMoteur3d\dksMoteur3d_rendu_transparentes_immediat.h" />
+		<Unit filename="dksMoteur3d\dksMoteur3d_rendu_transparentes_tableaux.h" />
+		<Unit filename="gestion_fichiers\gestion_fichiers.h" />
+		<Unit filename="main.cpp" />
+		<Unit filename="scenes\Essaim.h" />
+		<Unit filename="scenes\Scene.h" />
+		<Unit filename="scenes\Scene_Arbre.h" />
+		<Unit filename="scenes\Scene_Caduce.h" />
+		<Unit filename="scenes\Scene_Fin.h" />
+		<Unit filename="scenes\Scene_Greetings.h" />
+		<Unit filename="scenes\Scene_Jungler_Credits.h" />
+		<Unit filename="scenes\Scene_LogoGP.h" />
+		<Unit filename="scenes\Scene_Starfield.h" />
+		<Unit filename="scenes\Scene_Tunnel.h" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

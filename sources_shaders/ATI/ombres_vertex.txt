@@ -1,0 +1,141 @@
+
+/************************************************************************************************************
+//		Compatible ATI - 3 sources lumineuses
+		Affichage des ombres portées, avec les sources lumineuses d'openGl, sans texture
+		Calcul les coordonnées UV de la texture de profondeur sur les sommets vus de la source génératrice des ombres
+		
+						!!! La source des ombres est obligatoirement la source 0 !!!
+
+**************************************************************************************************************/
+
+
+//------- Données de gestion des ombres:
+uniform mat4 matrice_projection_vision_source;
+uniform mat4 matrice_vision_source;
+uniform mat4 matrice_source_uv;	//transformation_uv*projection*vision*matrice_volume
+
+varying vec4 coordonnees_texture_ombres;
+varying float distance_source_des_ombres;
+
+//------ Données de gestion de la lumière:
+//	Couleur spéculaire séparée pour apparaître au-dessus des textures
+
+uniform int drapeaux_sources;	//Les bits d'activation des sources lumineuses
+varying vec4 couleur;
+varying vec3 couleur_speculaire;
+varying vec3 couleur_source_des_ombres;
+varying vec3 couleur_speculaire_source_des_ombres;
+
+varying vec3 direction_source_des_ombres;
+varying vec3 normale;
+
+//====================================
+//			Main
+//====================================
+
+void main( void )
+{	
+	//-------------- Calculs ombre:
+		distance_source_des_ombres=-(matrice_vision_source * gl_Vertex).z;
+		coordonnees_texture_ombres=(matrice_source_uv*gl_Vertex);
+	
+	//--------------- Position du sommet:
+		gl_Position 			=  gl_ModelViewProjectionMatrix * gl_Vertex;
+		vec3 position_sommet 	= (gl_ModelViewMatrix * gl_Vertex).xyz;
+		normale 			= gl_NormalMatrix * gl_Normal;
+		vec3 direction_oeil 	= -normalize(position_sommet);
+   
+   //--------- Calcul de l'éclairage:
+		
+		// - - - Source des ombres:
+			vec3 position_source 		= (gl_LightSource[0].position).xyz;
+			direction_source_des_ombres	= position_source-position_sommet;
+			float distance_source 		= length(direction_source_des_ombres);
+			vec3 direction_source		= normalize(direction_source_des_ombres);
+			vec3 reflet_source			= normalize(direction_oeil+direction_source);
+			
+			//Composantes:
+		
+			float attenuation						=	1./ (gl_LightSource[0].constantAttenuation 
+														+ gl_LightSource[0].linearAttenuation * distance_source
+														+  distance_source * distance_source * gl_LightSource[0].quadraticAttenuation);
+		
+			vec3 couleur_ambiante   				= 	gl_FrontMaterial.ambient.rgb*gl_LightSource[0].ambient.rgb;
+	   
+			vec3 couleur_diffuse 					= 	gl_LightSource[0].diffuse.rgb * gl_FrontMaterial.diffuse.rgb
+														* max(dot(normale,direction_source),0.);
+			
+			couleur_source_des_ombres				=	attenuation * couleur_diffuse;
+		
+			couleur_speculaire_source_des_ombres 	= 	gl_LightSource[0].specular.rgb * gl_FrontMaterial.specular.rgb
+														* pow(max(dot(reflet_source,normale),0.),gl_FrontMaterial.shininess) * attenuation ;
+			
+		// - - - La couleur ambiante de la source des ombres est toujours affichée.
+			vec3 couleur_rgb	=	attenuation*couleur_ambiante;
+		
+		// - - - Les autres sources:
+			
+			couleur_speculaire=vec3 (0.,0.,0.);
+			
+			//for(int n=1;n<gl_MaxLights;n++)
+			//{
+				if ( drapeaux_sources & 0x1 )
+				{
+					position_source 		= (gl_LightSource[1].position).xyz;
+					direction_source 	= position_source-position_sommet;
+					distance_source 		= length(direction_source);
+					direction_source			= normalize(direction_source);
+					reflet_source			= normalize(direction_oeil+direction_source);
+					
+					//Composantes:
+				
+					attenuation		=	1./ (gl_LightSource[1].constantAttenuation 
+												+ gl_LightSource[1].linearAttenuation * distance_source
+												+  distance_source * distance_source * gl_LightSource[1].quadraticAttenuation);
+				
+					couleur_ambiante   = 	gl_FrontMaterial.ambient.rgb*gl_LightSource[1].ambient.rgb;
+			   
+					couleur_diffuse 	= 	gl_LightSource[1].diffuse.rgb * gl_FrontMaterial.diffuse.rgb
+												* max(dot(normale,direction_source),0.);
+					
+					couleur_rgb				+=	attenuation * (couleur_ambiante + couleur_diffuse);
+				
+					couleur_speculaire 	+= gl_LightSource[1].specular.rgb * gl_FrontMaterial.specular.rgb
+										* pow(max(dot(reflet_source,normale),0.),gl_FrontMaterial.shininess) * attenuation ;
+				}
+			//}
+			
+			//for(int n=1;n<gl_MaxLights;n++)
+			//{
+				if ( drapeaux_sources & 0x2)
+				{
+				
+					position_source 		= (gl_LightSource[2].position).xyz;
+					direction_source 	= position_source-position_sommet;
+					distance_source 		= length(direction_source);
+					direction_source			= normalize(direction_source);
+					reflet_source			= normalize(direction_oeil+direction_source);
+					
+					//Composantes:
+				
+					attenuation		=	1./ (gl_LightSource[2].constantAttenuation 
+												+ gl_LightSource[2].linearAttenuation * distance_source
+												+  distance_source * distance_source * gl_LightSource[2].quadraticAttenuation);
+				
+					couleur_ambiante   = 	gl_FrontMaterial.ambient.rgb*gl_LightSource[2].ambient.rgb;
+			   
+					couleur_diffuse 	= 	gl_LightSource[2].diffuse.rgb * gl_FrontMaterial.diffuse.rgb
+												* max(dot(normale,direction_source),0.);
+					
+					couleur_rgb				+=	attenuation * (couleur_ambiante + couleur_diffuse);
+				
+					couleur_speculaire 	+= gl_LightSource[2].specular.rgb * gl_FrontMaterial.specular.rgb
+										* pow(max(dot(reflet_source,normale),0.),gl_FrontMaterial.shininess) * attenuation ;
+					
+				}
+			//}
+		
+		//----------- Couleur de base:
+		vec3 couleur_ambiante_globale = gl_FrontMaterial.ambient.rgb*gl_LightModel.ambient.rgb + gl_FrontMaterial.emission.rgb;
+		couleur=vec4(couleur_rgb + couleur_ambiante_globale,gl_FrontMaterial.diffuse.a);
+}

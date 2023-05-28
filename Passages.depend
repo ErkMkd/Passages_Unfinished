@@ -1,0 +1,2362 @@
+# depslib dependency file v1.0
+1340541038 source:h:\programmation\c++\passages\main.cpp
+	<windows.h>
+	<stdio.h>
+	<iostream>
+	<string>
+	<algorithm>
+	<gl/glew.h>
+	<gl/glut.h>
+	"dksMoteur2d/dksEcran.h"
+	"dksMoteur3d/LWO/dksChargeLWO2.h"
+	"dksMoteur3d/LWO/dksConvertionLWO2.h"
+	"dksMoteur3d/dksMoteur3d.h"
+	"dksMoteur3d/Rendu/dksShaders.h"
+	"dksMoteur3d/Volumes/dksCube.h"
+	"dksMoteur3d/Geometrie_Espace/dksTrajectoire.h"
+	"scenes/Scene_LogoGP.h"
+	"scenes/Scene_Tunnel.h"
+	"scenes/Scene_Caduce.h"
+	"scenes/Scene_Starfield.h"
+	"scenes/Scene_Arbre.h"
+	"scenes/Scene_Greetings.h"
+	"scenes/Scene_Jungler_Credits.h"
+	"scenes/Scene_Fin.h"
+	"Utiles/Texte.h"
+	"Utiles/Musique.h"
+	<stdlib.h>
+
+1228534332 c:\program files\codeblocks\mingw\include\windows.h
+	<winresrc.h>
+	<stdarg.h>
+	<windef.h>
+	<wincon.h>
+	<winbase.h>
+	<wingdi.h>
+	<winuser.h>
+	<winnls.h>
+	<winver.h>
+	<winnetwk.h>
+	<winreg.h>
+	<winsvc.h>
+	<cderr.h>
+	<dde.h>
+	<ddeml.h>
+	<dlgs.h>
+	<imm.h>
+	<lzexpand.h>
+	<mmsystem.h>
+	<nb30.h>
+	<rpc.h>
+	<shellapi.h>
+	<winperf.h>
+	<commdlg.h>
+	<winspool.h>
+	<winsock2.h>
+	<winsock.h>
+	<ole2.h>
+
+1228534332 c:\program files\codeblocks\mingw\include\winresrc.h
+	<winuser.h>
+	<winnt.h>
+	<winver.h>
+	<dde.h>
+	<dlgs.h>
+	<commctrl.h>
+
+1228534334 c:\program files\codeblocks\mingw\include\winuser.h
+
+1228534332 c:\program files\codeblocks\mingw\include\winnt.h
+	<winerror.h>
+	<string.h>
+	<basetsd.h>
+	<pshpack4.h>
+	<poppack.h>
+
+1228534332 c:\program files\codeblocks\mingw\include\winerror.h
+
+1250308680 c:\program files\codeblocks\mingw\include\string.h
+	<_mingw.h>
+	<stddef.h>
+
+1250308674 c:\program files\codeblocks\mingw\include\_mingw.h
+
+1228534312 c:\program files\codeblocks\mingw\include\basetsd.h
+
+1228534324 c:\program files\codeblocks\mingw\include\pshpack4.h
+
+1228534324 c:\program files\codeblocks\mingw\include\poppack.h
+
+1228534334 c:\program files\codeblocks\mingw\include\winver.h
+
+1228534314 c:\program files\codeblocks\mingw\include\dde.h
+
+1228534314 c:\program files\codeblocks\mingw\include\dlgs.h
+
+1228534314 c:\program files\codeblocks\mingw\include\commctrl.h
+	<prsht.h>
+
+1228534324 c:\program files\codeblocks\mingw\include\prsht.h
+
+1228534332 c:\program files\codeblocks\mingw\include\windef.h
+	<winnt.h>
+
+1228534332 c:\program files\codeblocks\mingw\include\wincon.h
+
+1228534330 c:\program files\codeblocks\mingw\include\winbase.h
+
+1228534332 c:\program files\codeblocks\mingw\include\wingdi.h
+
+1228534332 c:\program files\codeblocks\mingw\include\winnls.h
+
+1228534332 c:\program files\codeblocks\mingw\include\winnetwk.h
+
+1228534332 c:\program files\codeblocks\mingw\include\winreg.h
+
+1228534334 c:\program files\codeblocks\mingw\include\winsvc.h
+
+1228534312 c:\program files\codeblocks\mingw\include\cderr.h
+
+1228534314 c:\program files\codeblocks\mingw\include\ddeml.h
+
+1228534316 c:\program files\codeblocks\mingw\include\imm.h
+
+1228534320 c:\program files\codeblocks\mingw\include\lzexpand.h
+
+1228534322 c:\program files\codeblocks\mingw\include\mmsystem.h
+
+1228534322 c:\program files\codeblocks\mingw\include\nb30.h
+
+1228534326 c:\program files\codeblocks\mingw\include\rpc.h
+	<windows.h>
+	<rpcdce.h>
+	<rpcnsi.h>
+	<rpcnterr.h>
+	<winerror.h>
+	<excpt.h>
+
+1228534326 c:\program files\codeblocks\mingw\include\rpcdce.h
+	<basetyps.h>
+	<rpcdcep.h>
+
+1228534312 c:\program files\codeblocks\mingw\include\basetyps.h
+
+1228534328 c:\program files\codeblocks\mingw\include\rpcdcep.h
+
+1228534328 c:\program files\codeblocks\mingw\include\rpcnsi.h
+
+1228534328 c:\program files\codeblocks\mingw\include\rpcnterr.h
+
+1250308676 c:\program files\codeblocks\mingw\include\excpt.h
+	<_mingw.h>
+	<windef.h>
+
+1228534328 c:\program files\codeblocks\mingw\include\shellapi.h
+	<pshpack2.h>
+	<poppack.h>
+
+1228534324 c:\program files\codeblocks\mingw\include\pshpack2.h
+
+1228534332 c:\program files\codeblocks\mingw\include\winperf.h
+
+1228534314 c:\program files\codeblocks\mingw\include\commdlg.h
+	<unknwn.h>
+	<prsht.h>
+
+1228534330 c:\program files\codeblocks\mingw\include\unknwn.h
+	<windows.h>
+	<objfwd.h>
+	<wtypes.h>
+
+1228534324 c:\program files\codeblocks\mingw\include\objfwd.h
+	<basetyps.h>
+
+1228534334 c:\program files\codeblocks\mingw\include\wtypes.h
+	<rpc.h>
+	<rpcndr.h>
+
+1228534328 c:\program files\codeblocks\mingw\include\rpcndr.h
+	<rpcnsip.h>
+	<objfwd.h>
+
+1228534328 c:\program files\codeblocks\mingw\include\rpcnsip.h
+
+1228534334 c:\program files\codeblocks\mingw\include\winspool.h
+
+1228534334 c:\program files\codeblocks\mingw\include\winsock2.h
+	<windows.h>
+
+1228534332 c:\program files\codeblocks\mingw\include\winsock.h
+	<windows.h>
+	<mswsock.h>
+
+1228534322 c:\program files\codeblocks\mingw\include\mswsock.h
+
+1228534324 c:\program files\codeblocks\mingw\include\ole2.h
+	<winerror.h>
+	<objbase.h>
+	<olectlid.h>
+	<oleauto.h>
+	<oleidl.h>
+
+1228534324 c:\program files\codeblocks\mingw\include\objbase.h
+	<rpc.h>
+	<rpcndr.h>
+	<stdlib.h>
+	<basetyps.h>
+	<wtypes.h>
+	<unknwn.h>
+	<objidl.h>
+	<cguid.h>
+
+1250308680 c:\program files\codeblocks\mingw\include\stdlib.h
+	<_mingw.h>
+	<stddef.h>
+
+1228534324 c:\program files\codeblocks\mingw\include\objidl.h
+	<objfwd.h>
+
+1228534312 c:\program files\codeblocks\mingw\include\cguid.h
+
+1228534324 c:\program files\codeblocks\mingw\include\olectlid.h
+
+1228534324 c:\program files\codeblocks\mingw\include\oleauto.h
+	<oaidl.h>
+
+1228534322 c:\program files\codeblocks\mingw\include\oaidl.h
+	<windows.h>
+	<ole2.h>
+
+1228534324 c:\program files\codeblocks\mingw\include\oleidl.h
+	<objfwd.h>
+
+1250308680 c:\program files\codeblocks\mingw\include\stdio.h
+	<_mingw.h>
+	<stddef.h>
+	<stdarg.h>
+	<sys/types.h>
+
+1250308682 c:\program files\codeblocks\mingw\include\sys\types.h
+	<_mingw.h>
+	<stddef.h>
+
+1300052655 c:\program files\codeblocks\mingw\include\gl\glew.h
+	<stddef.h>
+	<inttypes.h>
+	<stdint.h>
+	<inttypes.h>
+	<OpenGL/glu.h>
+	<GL/glu.h>
+
+1250308676 c:\program files\codeblocks\mingw\include\inttypes.h
+	<_mingw.h>
+	<stdint.h>
+	<stddef.h>
+
+1250308680 c:\program files\codeblocks\mingw\include\stdint.h
+	<stddef.h>
+
+1228534334 c:\program files\codeblocks\mingw\include\gl\glu.h
+	<stddef.h>
+	<GL/gl.h>
+
+1300050784 c:\program files\codeblocks\mingw\include\gl\gl.h
+
+976670572 c:\program files\codeblocks\mingw\include\gl\glut.h
+	<windows.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1330468586 h:\programmation\c++\passages\dksmoteur2d\dksecran.h
+	"windows.h"
+
+1328773310 h:\programmation\c++\passages\dksmoteur3d\lwo\dkschargelwo2.h
+	<windows.h>
+	<stdio.h>
+	<stdlib.h>
+	<GL/glut.h>
+	"../../gestion_fichiers/gestion_fichiers.h"
+	<vector>
+	<iostream>
+	<fstream>
+	<string>
+	"..\..\chargeurs_images\Image.h"
+	"GL/glut.h"
+
+1335994250 h:\programmation\c++\passages\gestion_fichiers\gestion_fichiers.h
+	<iostream>
+	<fstream>
+
+1335384776 h:\programmation\c++\passages\chargeurs_images\image.h
+	<GL/glu.h>
+	<iostream>
+	<fstream>
+	<math.h>
+	"../gestion_fichiers/gestion_fichiers.h"
+	"Image_infos.h"
+	"Image_TIFF.h"
+	"Image_BMP.h"
+	"Image_JPEG.h"
+
+1250308678 c:\program files\codeblocks\mingw\include\math.h
+	<_mingw.h>
+
+1299582111 h:\programmation\c++\passages\chargeurs_images\image_infos.h
+
+1299582118 h:\programmation\c++\passages\chargeurs_images\image_tiff.h
+	"tifflib/tiffio.h"
+	"Image_infos.h"
+	<string.h>
+	<windows.h>
+	<stdio.h>
+	<stdlib.h>
+
+1143542138 c:\program files\codeblocks\mingw\include\tifflib\tiffio.h
+	"tiff.h"
+	"tiffvers.h"
+	<fcntl.h>
+	<io.h>
+	<windows.h>
+	<stdio.h>
+	<stdarg.h>
+
+1135690104 c:\program files\codeblocks\mingw\include\tifflib\tiff.h
+	"tiffconf.h"
+
+1143156698 c:\program files\codeblocks\mingw\include\tifflib\tiffconf.h
+
+1143132384 c:\program files\codeblocks\mingw\include\tifflib\tiffvers.h
+
+1250308676 c:\program files\codeblocks\mingw\include\fcntl.h
+	<_mingw.h>
+	<io.h>
+
+1250308676 c:\program files\codeblocks\mingw\include\io.h
+	<_mingw.h>
+	<sys/types.h>
+
+1303651567 h:\programmation\c++\passages\chargeurs_images\image_bmp.h
+	<stdio.h>
+	<stdlib.h>
+	<iostream>
+	<fstream>
+	"Image_infos.h"
+	"../gestion_fichiers/gestion_fichiers.h"
+
+1299583023 h:\programmation\c++\passages\chargeurs_images\image_jpeg.h
+	"jpeglib/jpeglib.h"
+	"Image_infos.h"
+	<string.h>
+	<windows.h>
+	<stdio.h>
+	<stdlib.h>
+
+1116164068 c:\program files\codeblocks\mingw\include\jpeglib\jpeglib.h
+	"jconfig.h"
+	"jmorecfg.h"
+	"jpegint.h"
+	"jerror.h"
+
+1116091464 c:\program files\codeblocks\mingw\include\jpeglib\jconfig.h
+	<windows.h>
+
+1116091060 c:\program files\codeblocks\mingw\include\jpeglib\jmorecfg.h
+
+1116150142 c:\program files\codeblocks\mingw\include\jpeglib\jerror.h
+
+1336512591 h:\programmation\c++\passages\dksmoteur3d\lwo\dksconvertionlwo2.h
+	"../Elements_Fondamentaux/dksVolume.h"
+	"dksChargeLWO2.h"
+
+1337371742 h:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dksvolume.h
+	"dksConteneur.h"
+	"dksOeil.h"
+	"dksSourceLumineuse.h"
+	"../Volumes/dksBoiteCollision.h"
+	"../../chargeurs_images/Image.h"
+	"../Rendu/dksShaders.h"
+	<math.h>
+	<vector>
+	<string>
+	"dksFace.h"
+	"dksTexture.h"
+	"dksSurface.h"
+	"../Rendu/Effets_Speciaux/dksEffetSpecial.h"
+	"debug_volume_affiche.h"
+	"dksVolume_init_mode_rendu.h"
+	"dksVolume_mode_rendu_immediat.h"
+	"dksVolume_mode_rendu_tableaux.h"
+	"dksVolume_mode_rendu_liste.h"
+
+1337811100 h:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dksconteneur.h
+	<math.h>
+	<vector>
+	"../Geometrie_Espace/dksRepere.h"
+	"../Geometrie_Espace/dksAxeRotation.h"
+	"../../Utiles/Matrice4x4.h"
+
+1340544048 h:\programmation\c++\passages\dksmoteur3d\geometrie_espace\dksrepere.h
+	"dksVecteur.h"
+	"dksVecteurUnitaire.h"
+	"vec3d.h"
+	"dksMatrice4.h"
+
+1340544097 h:\programmation\c++\passages\dksmoteur3d\geometrie_espace\dksvecteur.h
+	"math.h"
+	"../../dksMoteur2d/dksRendu.h"
+	<vector>
+
+1304272431 h:\programmation\c++\passages\dksmoteur3d\geometrie_espace\dksvecteurunitaire.h
+	"dksVecteur.h"
+
+1300276472 h:\programmation\c++\passages\dksmoteur3d\geometrie_espace\vec3d.h
+
+1300277171 h:\programmation\c++\passages\dksmoteur3d\geometrie_espace\dksmatrice4.h
+
+1337371731 h:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dksoeil.h
+	<math.h>
+	"dksConteneur.h"
+
+1320365767 h:\programmation\c++\passages\dksmoteur3d\volumes\dksboitecollision.h
+	"../dksAffichagesDebogue.h"
+	"../Geometrie_Espace/dksVecteur.h"
+	"../Geometrie_Espace/dksVecteurUnitaire.h"
+	"../Geometrie_Espace/dksRepere.h"
+	<vector>
+
+1303380984 h:\programmation\c++\passages\dksmoteur3d\dksaffichagesdebogue.h
+	<math.h>
+
+1335477714 h:\programmation\c++\passages\dksmoteur3d\rendu\dksshaders.h
+	"../../Utiles/Gestion_Shaders.h"
+	"../../Utiles/Bruit.h"
+	"shaders/Shader_Ondes.h"
+	"shaders/Shader_Ondes_Texture_Couleur.h"
+	"shaders/Shader_Couleur_Rugosite.h"
+	"shaders/Shader_Decallage_Sommets.h"
+	"shaders/Shader_Eclairage_Base.h"
+	"shaders/Shader_Floutage.h"
+	"shaders/Shader_Ombres.h"
+	"shaders/Shader_Reflexion_Cube.h"
+	"shaders/Shader_Reflexion_Cube_Ondes.h"
+	"shaders/Shader_Rugosite.h"
+	"shaders/Shader_Transition_Textures_Couleur.h"
+	"shaders/Shader_Transition_Textures_Couleur_Axe.h"
+	"shaders/Shader_Masque_2_Textures.h"
+	"shaders/Shader_Aplat_Brut.h"
+
+1315003649 h:\programmation\c++\passages\utiles\gestion_shaders.h
+
+1309210249 h:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dksface.h
+
+1328773012 h:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dkstexture.h
+
+1328740001 h:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dkssurface.h
+	"../Rendu/Effets_Speciaux/dksEffetSpecial.h"
+
+1335478617 h:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dksvolume_mode_rendu_immediat.h
+
+1329386671 h:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dksvolume_mode_rendu_tableaux.h
+
+1329295378 h:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dksvolume_mode_rendu_liste.h
+
+1337371753 h:\programmation\c++\passages\dksmoteur3d\dksmoteur3d.h
+	"Rendu/dksShaders.h"
+	"Geometrie_Espace/dksVecteur.h"
+	"Geometrie_Espace/dksVecteurUnitaire.h"
+	"Geometrie_Espace/dksRepere.h"
+	"Elements_Fondamentaux/dksConteneur.h"
+	"Elements_Fondamentaux/dksVolume.h"
+	"Volumes/dksCube.h"
+	"Elements_Fondamentaux/dksOeil.h"
+	"Elements_Fondamentaux/dksSourceLumineuse.h"
+	<GL/glut.h>
+	"dksMoteur3d_rendu_transparentes_immediat.h"
+	"dksMoteur3d_rendu_transparentes_tableaux.h"
+
+1308522088 h:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dkssourcelumineuse.h
+	"dksConteneur.h"
+	"dksOeil.h"
+	<math.h>
+	<vector>
+
+1337285617 h:\programmation\c++\passages\dksmoteur3d\geometrie_espace\dksaxerotation.h
+	<math.h>
+	"dksVecteurUnitaire.h"
+
+1329468071 h:\programmation\c++\passages\dksmoteur3d\volumes\dkscube.h
+
+1314407106 h:\programmation\c++\passages\scenes\scene_bureau.h
+	"Scene.h"
+
+1307723742 h:\programmation\c++\passages\utiles\texte.h
+
+1304202913 source:g:\c++\passages\main.cpp
+	<windows.h>
+	<stdio.h>
+	<iostream>
+	<string>
+	<algorithm>
+	<gl/glew.h>
+	<gl/glut.h>
+	"dksMoteur2d/dksEcran.h"
+	"dksMoteur3d/LWO/dksChargeLWO2.h"
+	"dksMoteur3d/LWO/dksConvertionLWO2.h"
+	"dksMoteur3d/dksMoteur3d.h"
+	"dksMoteur3d/Rendu/dksShaders.h"
+	"dksMoteur3d/Volumes/dksCube.h"
+	"dksMoteur3d/Geometrie_Espace/dksTrajectoire.h"
+	"scenes/Scene_Bureau.h"
+	"Utiles/Texte.h"
+	<stdlib.h>
+
+1302785061 g:\c++\passages\dksmoteur2d\dksecran.h
+	"windows.h"
+
+1304114281 g:\c++\passages\dksmoteur3d\lwo\dkschargelwo2.h
+	<windows.h>
+	<stdio.h>
+	<stdlib.h>
+	<GL/glut.h>
+	"../../gestion_fichiers/gestion_fichiers.h"
+	<vector>
+	<iostream>
+	<fstream>
+	<string>
+	"..\..\chargeurs_images\Image.h"
+	"GL/glut.h"
+
+1297813655 g:\c++\passages\gestion_fichiers\gestion_fichiers.h
+
+1303651559 g:\c++\passages\chargeurs_images\image.h
+	<GL/glu.h>
+	<iostream>
+	<fstream>
+	<math.h>
+	"../gestion_fichiers/gestion_fichiers.h"
+	"Image_infos.h"
+	"Image_TIFF.h"
+	"Image_BMP.h"
+	"Image_JPEG.h"
+
+1299578511 g:\c++\passages\chargeurs_images\image_infos.h
+
+1299578518 g:\c++\passages\chargeurs_images\image_tiff.h
+	"tifflib/tiffio.h"
+	"Image_infos.h"
+	<string.h>
+	<windows.h>
+	<stdio.h>
+	<stdlib.h>
+
+1303651567 g:\c++\passages\chargeurs_images\image_bmp.h
+	<stdio.h>
+	<stdlib.h>
+	<iostream>
+	<fstream>
+	"Image_infos.h"
+	"../gestion_fichiers/gestion_fichiers.h"
+
+1299579423 g:\c++\passages\chargeurs_images\image_jpeg.h
+	"jpeglib/jpeglib.h"
+	"Image_infos.h"
+	<string.h>
+	<windows.h>
+	<stdio.h>
+	<stdlib.h>
+
+1304037223 g:\c++\passages\dksmoteur3d\lwo\dksconvertionlwo2.h
+	"../Elements_Fondamentaux/dksVolume.h"
+	"dksChargeLWO2.h"
+
+1304194544 g:\c++\passages\dksmoteur3d\elements_fondamentaux\dksvolume.h
+	"dksConteneur.h"
+	"dksOeil.h"
+	"../Volumes/dksBoiteCollision.h"
+	"../../chargeurs_images/Image.h"
+	"../Rendu/dksShaders.h"
+	<math.h>
+	<vector>
+	<string>
+	"dksFace.h"
+	"dksTexture.h"
+	"dksSurface.h"
+	"dksVolume_mode_rendu_immediat.h"
+	"dksVolume_mode_rendu_tableaux.h"
+	"dksVolume_mode_rendu_liste.h"
+
+1304076969 g:\c++\passages\dksmoteur3d\elements_fondamentaux\dksconteneur.h
+	<math.h>
+	<vector>
+	"../Geometrie_Espace/dksRepere.h"
+
+1303906318 g:\c++\passages\dksmoteur3d\geometrie_espace\dksrepere.h
+	"dksVecteur.h"
+	"dksVecteurUnitaire.h"
+	"vec3d.h"
+	"dksMatrice4.h"
+
+1303291227 g:\c++\passages\dksmoteur3d\geometrie_espace\dksvecteur.h
+	"math.h"
+	<vector>
+
+1300273990 g:\c++\passages\dksmoteur3d\geometrie_espace\dksvecteurunitaire.h
+	"dksVecteur.h"
+
+1300272872 g:\c++\passages\dksmoteur3d\geometrie_espace\vec3d.h
+
+1300273571 g:\c++\passages\dksmoteur3d\geometrie_espace\dksmatrice4.h
+
+1301084861 g:\c++\passages\dksmoteur3d\elements_fondamentaux\dksoeil.h
+	<math.h>
+	"dksConteneur.h"
+
+1301052463 g:\c++\passages\dksmoteur3d\volumes\dksboitecollision.h
+	"../dksAffichagesDebogue.h"
+	"../Geometrie_Espace/dksVecteur.h"
+	"../Geometrie_Espace/dksVecteurUnitaire.h"
+	"../Geometrie_Espace/dksRepere.h"
+	<vector>
+
+1303380984 g:\c++\passages\dksmoteur3d\dksaffichagesdebogue.h
+	<math.h>
+
+1304193522 g:\c++\passages\dksmoteur3d\rendu\dksshaders.h
+	"../../Utiles/Gestion_Shaders.h"
+
+1303426145 g:\c++\passages\utiles\gestion_shaders.h
+
+1304032108 g:\c++\passages\dksmoteur3d\elements_fondamentaux\dksface.h
+
+1303639115 g:\c++\passages\dksmoteur3d\elements_fondamentaux\dkstexture.h
+
+1304092255 g:\c++\passages\dksmoteur3d\elements_fondamentaux\dkssurface.h
+
+1304193599 g:\c++\passages\dksmoteur3d\elements_fondamentaux\dksvolume_mode_rendu_immediat.h
+
+1304030013 g:\c++\passages\dksmoteur3d\elements_fondamentaux\dksvolume_mode_rendu_tableaux.h
+
+1304030334 g:\c++\passages\dksmoteur3d\elements_fondamentaux\dksvolume_mode_rendu_liste.h
+
+1304194646 g:\c++\passages\dksmoteur3d\dksmoteur3d.h
+	"Rendu/dksShaders.h"
+	"Geometrie_Espace/dksVecteur.h"
+	"Geometrie_Espace/dksVecteurUnitaire.h"
+	"Geometrie_Espace/dksRepere.h"
+	"Elements_Fondamentaux/dksConteneur.h"
+	"Elements_Fondamentaux/dksVolume.h"
+	"Elements_Fondamentaux/dksOeil.h"
+	"Elements_Fondamentaux/dksSourceLumineuse.h"
+	"Geometrie_Espace/dksAxeRotation.h"
+	<GL/glut.h>
+
+1303983152 g:\c++\passages\dksmoteur3d\elements_fondamentaux\dkssourcelumineuse.h
+	"dksConteneur.h"
+	"dksOeil.h"
+	<math.h>
+	<vector>
+
+1301050225 g:\c++\passages\dksmoteur3d\geometrie_espace\dksaxerotation.h
+	<math.h>
+
+1304092292 g:\c++\passages\dksmoteur3d\volumes\dkscube.h
+
+1304204571 g:\c++\passages\dksmoteur3d\geometrie_espace\dkstrajectoire.h
+	<vector>
+
+1304184704 g:\c++\passages\scenes\scene_bureau.h
+
+1304195656 g:\c++\passages\utiles\texte.h
+
+1312076187 h:\programmation\c++\passages\dksmoteur3d\geometrie_espace\dkstrajectoire.h
+	<vector>
+	"../../gestion_fichiers/gestion_fichiers.h"
+
+1314056803 h:\programmation\c++\passages\scenes\essaim.h
+	"../dksMoteur3d/Particules/dksParticules.h"
+	"../dksMoteur3d/Texte/dksTexteMap.h"
+	"Scene.h"
+
+1337371904 h:\programmation\c++\passages\dksmoteur3d\particules\dksparticules.h
+	"../Geometrie_Espace/dksVecteurUnitaire.h"
+	"../Elements_Fondamentaux/dksVolume.h"
+	"../Elements_Fondamentaux/dksOeil.h"
+	"../../Utiles/Bruit.h"
+	"../../gestion_fichiers/gestion_fichiers.h"
+
+1310825330 h:\programmation\c++\passages\utiles\bruit.h
+	<vector>
+	"Interpolations.h"
+
+1335997141 h:\programmation\c++\passages\dksmoteur3d\texte\dkstextemap.h
+	"../../chargeurs_images/Image.h"
+	"../../dksMoteur2d/dksEcran.h"
+	"../../dksMoteur3d/Elements_Fondamentaux/dksConteneur.h"
+	"../../gestion_fichiers/gestion_fichiers.h"
+
+1308235840 h:\programmation\c++\passages\utiles\matrice4x4.h
+
+1335824447 h:\programmation\c++\passages\scenes\scene_tunnel.h
+	"../Tunnel.h"
+	"../dksMoteur3d/Texte/dksTexteMap.h"
+	"../dksMoteur3d/Volumes/Annelide.h"
+	"../dksMoteur3d/Volumes/dksPlan.h"
+	"../dksMoteur3d/Volumes/VolumeFacesSeparees.h"
+	"../Utiles/Interpolations.h"
+	"Scene.h"
+	"Scene_LogoGP.h"
+	"../dksMoteur2d/dksEcran.h"
+	"../Utiles/Bruit.h"
+
+1329624864 h:\programmation\c++\passages\tunnel.h
+	"dksMoteur3d/Elements_Fondamentaux/dksConteneur.h"
+
+1337371886 h:\programmation\c++\passages\dksmoteur3d\volumes\annelide.h
+	"../Elements_Fondamentaux/dksVolume.h"
+
+1337523511 h:\programmation\c++\passages\utiles\interpolations.h
+	"Courbe_Bezier_Plan.h"
+	"../dksMoteur3d/Geometrie_Espace/dksRepere.h"
+	"../dksMoteur3d/Geometrie_Espace/dksAxeRotation.h"
+
+1305199452 h:\programmation\c++\passages\utiles\courbebezierplan.h
+	"vec2d.h"
+
+1300276441 h:\programmation\c++\passages\utiles\vec2d.h
+
+1306234287 h:\programmation\c++\passages\utiles\courbe_bezier_plan.h
+	"vec2d.h"
+
+1338849046 h:\programmation\c++\passages\scenes\scene_caduce.h
+	"Scene.h"
+	"../dksMoteur3d/Particules/dksParticulesVolumes.h"
+	"../dksMoteur3d/Volumes/Serpent.h"
+	"../dksMoteur3d/Particules/dksSprite3d.h"
+	"../dksMoteur3d/Particules/dksStarfield.h"
+
+1327846571 h:\programmation\c++\passages\dksmoteur3d\volumes\volumefacesseparees.h
+	"../Particules/dksParticules.h"
+
+1335707570 h:\programmation\c++\passages\scenes\scene.h
+	"../dksMoteur2d/dksPostRendu.h"
+	"../Utiles/Musique.h"
+
+1340576436 h:\programmation\c++\passages\scenes\scene_starfield.h
+	"Scene.h"
+	"../dksMoteur3d/Volumes/dksCube.h"
+	"../dksMoteur3d/Particules/dksStarfield.h"
+	"../dksMoteur3d/Particules/dksSprite3d.h"
+	"../dksMoteur3d/Particules/dksSprites.h"
+	"../dksMoteur3d/Particules/dksParticulesVolumes.h"
+	"../dksMoteur3d/Particules/dksAnneauElectrique.h"
+	"../dksMoteur3d/Particules/dksJetParticules.h"
+	"../chargeurs_images/Image.h"
+	"../dksMoteur3d/Articules/Papillon.h"
+	"../dksMoteur3d/Rendu/Effets_Speciaux/ES_TransitionTexturesCouleurAxe.h"
+
+1315522881 h:\programmation\c++\passages\dksmoteur3d\particules\dkssprite3d.h
+	"../../chargeurs_images/Image.h"
+
+1328525689 h:\programmation\c++\passages\dksmoteur3d\particules\dksstarfield.h
+	"dksParticules.h"
+	"../../chargeurs_images/Image.h"
+	"dksSprite3d.h"
+
+1314315890 h:\programmation\c++\passages\scenes\scene_test.h
+	"Scene.h"
+	"../dksMoteur3d/Particules/dksParticulesVolumes.h"
+
+1310515005 h:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\debug_volume_affiche.h
+
+1329989932 h:\programmation\c++\passages\dksmoteur3d\particules\dksparticulesvolumes.h
+	"dksParticules.h"
+	<vector>
+
+1309739804 h:\programmation\c++\passages\dksmoteur3d\rendu\dksfiltre.h
+
+1337371921 h:\programmation\c++\passages\dksmoteur3d\volumes\serpent.h
+	"../Elements_Fondamentaux/dksVolume.h"
+	"../LWO/dksChargeLWO2.h"
+	"../LWO/dksConvertionLWO2.h"
+
+1327103200 h:\programmation\c++\passages\utiles\musique.h
+	"bass/bass.h"
+	<windows.h>
+	<stdio.h>
+	<stdlib.h>
+
+1255437974 c:\program files\codeblocks\mingw\include\bass\bass.h
+	<wtypes.h>
+	<stdint.h>
+
+1335478580 h:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dksvolume_init_mode_rendu.h
+
+1335708274 h:\programmation\c++\passages\scenes\scene_logogp.h
+	"../Tunnel.h"
+	"../Utiles/Interpolations.h"
+	"Scene.h"
+	"../dksMoteur2d/dksEcran.h"
+
+1314309732 h:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dksrendu3d.h
+	"dksConteneur.h"
+	"dksOeil.h"
+
+1330557114 h:\programmation\c++\passages\dksmoteur2d\dkspostrendu.h
+	"dksEcran.h"
+	"dksRendu.h"
+	<vector>
+
+1328773823 source:e:\programmation\c++\passages\main.cpp
+	<windows.h>
+	<stdio.h>
+	<iostream>
+	<string>
+	<algorithm>
+	<gl/glew.h>
+	<gl/glut.h>
+	"dksMoteur2d/dksEcran.h"
+	"dksMoteur3d/LWO/dksChargeLWO2.h"
+	"dksMoteur3d/LWO/dksConvertionLWO2.h"
+	"dksMoteur3d/dksMoteur3d.h"
+	"dksMoteur3d/Rendu/dksShaders.h"
+	"dksMoteur3d/Volumes/dksCube.h"
+	"dksMoteur3d/Geometrie_Espace/dksTrajectoire.h"
+	"scenes/Scene_LogoGP.h"
+	"scenes/Scene_Tunnel.h"
+	"scenes/Scene_Caduce.h"
+	"scenes/Scene_Starfield.h"
+	"scenes/Scene_Arbre.h"
+	"scenes/Scene_Greetings.h"
+	"scenes/Scene_Jungler_Credits.h"
+	"scenes/Scene_Fin.h"
+	"Utiles/Texte.h"
+	"Utiles/Musique.h"
+	<stdlib.h>
+
+1328339349 e:\programmation\c++\passages\dksmoteur2d\dksecran.h
+	"windows.h"
+
+1328769710 e:\programmation\c++\passages\dksmoteur3d\lwo\dkschargelwo2.h
+	<windows.h>
+	<stdio.h>
+	<stdlib.h>
+	<GL/glut.h>
+	"../../gestion_fichiers/gestion_fichiers.h"
+	<vector>
+	<iostream>
+	<fstream>
+	<string>
+	"..\..\chargeurs_images\Image.h"
+	"GL/glut.h"
+
+1328441371 e:\programmation\c++\passages\gestion_fichiers\gestion_fichiers.h
+	<iostream>
+	<fstream>
+
+1317721799 e:\programmation\c++\passages\chargeurs_images\image.h
+	<GL/glu.h>
+	<iostream>
+	<fstream>
+	<math.h>
+	"../gestion_fichiers/gestion_fichiers.h"
+	"Image_infos.h"
+	"Image_TIFF.h"
+	"Image_BMP.h"
+	"Image_JPEG.h"
+
+1299578511 e:\programmation\c++\passages\chargeurs_images\image_infos.h
+
+1299578518 e:\programmation\c++\passages\chargeurs_images\image_tiff.h
+	"tifflib/tiffio.h"
+	"Image_infos.h"
+	<string.h>
+	<windows.h>
+	<stdio.h>
+	<stdlib.h>
+
+1303647967 e:\programmation\c++\passages\chargeurs_images\image_bmp.h
+	<stdio.h>
+	<stdlib.h>
+	<iostream>
+	<fstream>
+	"Image_infos.h"
+	"../gestion_fichiers/gestion_fichiers.h"
+
+1299579423 e:\programmation\c++\passages\chargeurs_images\image_jpeg.h
+	"jpeglib/jpeglib.h"
+	"Image_infos.h"
+	<string.h>
+	<windows.h>
+	<stdio.h>
+	<stdlib.h>
+
+1328768649 e:\programmation\c++\passages\dksmoteur3d\lwo\dksconvertionlwo2.h
+	"../Elements_Fondamentaux/dksVolume.h"
+	"dksChargeLWO2.h"
+
+1328776753 e:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dksvolume.h
+	"dksConteneur.h"
+	"dksOeil.h"
+	"dksSourceLumineuse.h"
+	"../Volumes/dksBoiteCollision.h"
+	"../../chargeurs_images/Image.h"
+	"../Rendu/dksShaders.h"
+	<math.h>
+	<vector>
+	<string>
+	"dksFace.h"
+	"dksTexture.h"
+	"dksSurface.h"
+	"../Rendu/Effets_Speciaux/dksEffetSpecial.h"
+	"debug_volume_affiche.h"
+	"dksVolume_init_mode_rendu.h"
+	"dksVolume_mode_rendu_immediat.h"
+	"dksVolume_mode_rendu_tableaux.h"
+	"dksVolume_mode_rendu_liste.h"
+
+1314309732 e:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dksrendu3d.h
+	"dksConteneur.h"
+	"dksOeil.h"
+
+1328133768 e:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dksconteneur.h
+	<math.h>
+	<vector>
+	"../Geometrie_Espace/dksRepere.h"
+	"../Geometrie_Espace/dksAxeRotation.h"
+	"../../Utiles/Matrice4x4.h"
+
+1328218809 e:\programmation\c++\passages\dksmoteur3d\geometrie_espace\dksrepere.h
+	"dksVecteur.h"
+	"dksVecteurUnitaire.h"
+	"vec3d.h"
+	"dksMatrice4.h"
+
+1327178475 e:\programmation\c++\passages\dksmoteur3d\geometrie_espace\dksvecteur.h
+	"math.h"
+	"../../dksMoteur2d/dksRendu.h"
+	<vector>
+
+1304268831 e:\programmation\c++\passages\dksmoteur3d\geometrie_espace\dksvecteurunitaire.h
+	"dksVecteur.h"
+
+1300269272 e:\programmation\c++\passages\dksmoteur3d\geometrie_espace\vec3d.h
+
+1300269971 e:\programmation\c++\passages\dksmoteur3d\geometrie_espace\dksmatrice4.h
+
+1306691234 e:\programmation\c++\passages\dksmoteur3d\geometrie_espace\dksaxerotation.h
+	<math.h>
+	"dksVecteurUnitaire.h"
+
+1308232240 e:\programmation\c++\passages\utiles\matrice4x4.h
+
+1328515999 e:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dksoeil.h
+	<math.h>
+	"dksConteneur.h"
+
+1308518488 e:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dkssourcelumineuse.h
+	"dksConteneur.h"
+	"dksOeil.h"
+	<math.h>
+	<vector>
+
+1320358567 e:\programmation\c++\passages\dksmoteur3d\volumes\dksboitecollision.h
+	"../dksAffichagesDebogue.h"
+	"../Geometrie_Espace/dksVecteur.h"
+	"../Geometrie_Espace/dksVecteurUnitaire.h"
+	"../Geometrie_Espace/dksRepere.h"
+	<vector>
+
+1303377384 e:\programmation\c++\passages\dksmoteur3d\dksaffichagesdebogue.h
+	<math.h>
+
+1328343950 e:\programmation\c++\passages\dksmoteur3d\rendu\dksshaders.h
+	"../../Utiles/Gestion_Shaders.h"
+	"../../Utiles/Bruit.h"
+	"shaders/Shader_Ondes.h"
+	"shaders/Shader_Couleur_Rugosite.h"
+	"shaders/Shader_Decallage_Sommets.h"
+	"shaders/Shader_Eclairage_Base.h"
+	"shaders/Shader_Floutage.h"
+	"shaders/Shader_Ombres.h"
+	"shaders/Shader_Reflexion_Cube.h"
+	"shaders/Shader_Reflexion_Cube_Ondes.h"
+	"shaders/Shader_Rugosite.h"
+	"shaders/Shader_Transition_Textures_Couleur.h"
+	"shaders/Shader_Transition_Textures_Couleur_Axe.h"
+	"shaders/Shader_Masque_2_Textures.h"
+
+1315000049 e:\programmation\c++\passages\utiles\gestion_shaders.h
+
+1310821730 e:\programmation\c++\passages\utiles\bruit.h
+	<vector>
+	"Interpolations.h"
+
+1327326085 e:\programmation\c++\passages\utiles\interpolations.h
+	"Courbe_Bezier_Plan.h"
+	"../dksMoteur3d/Geometrie_Espace/dksRepere.h"
+	"../dksMoteur3d/Geometrie_Espace/dksAxeRotation.h"
+
+1306230687 e:\programmation\c++\passages\utiles\courbe_bezier_plan.h
+	"vec2d.h"
+
+1300269241 e:\programmation\c++\passages\utiles\vec2d.h
+
+1309206649 e:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dksface.h
+
+1328769412 e:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dkstexture.h
+
+1328736401 e:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dkssurface.h
+	"../Rendu/Effets_Speciaux/dksEffetSpecial.h"
+
+1310511405 e:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\debug_volume_affiche.h
+
+1328597476 e:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dksvolume_init_mode_rendu.h
+
+1328017164 e:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dksvolume_mode_rendu_immediat.h
+
+1328017171 e:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dksvolume_mode_rendu_tableaux.h
+
+1328776784 e:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dksvolume_mode_rendu_liste.h
+
+1328216895 e:\programmation\c++\passages\dksmoteur3d\dksmoteur3d.h
+	"Rendu/dksShaders.h"
+	"Geometrie_Espace/dksVecteur.h"
+	"Geometrie_Espace/dksVecteurUnitaire.h"
+	"Geometrie_Espace/dksRepere.h"
+	"Elements_Fondamentaux/dksConteneur.h"
+	"Elements_Fondamentaux/dksVolume.h"
+	"Volumes/dksCube.h"
+	"Elements_Fondamentaux/dksOeil.h"
+	"Elements_Fondamentaux/dksSourceLumineuse.h"
+	<GL/glut.h>
+
+1328769476 e:\programmation\c++\passages\dksmoteur3d\volumes\dkscube.h
+
+1312072587 e:\programmation\c++\passages\dksmoteur3d\geometrie_espace\dkstrajectoire.h
+	<vector>
+	"../../gestion_fichiers/gestion_fichiers.h"
+
+1314407106 e:\programmation\c++\passages\scenes\scene_bureau.h
+	"Scene.h"
+
+1328139056 e:\programmation\c++\passages\scenes\scene.h
+	"../dksMoteur2d/dksPostRendu.h"
+	"../Utiles/Musique.h"
+
+1328343465 e:\programmation\c++\passages\dksmoteur2d\dkspostrendu.h
+	"dksEcran.h"
+	"dksRendu.h"
+	<vector>
+
+1314056803 e:\programmation\c++\passages\scenes\essaim.h
+	"../dksMoteur3d/Particules/dksParticules.h"
+	"../dksMoteur3d/Texte/dksTexteMap.h"
+	"Scene.h"
+
+1328466249 e:\programmation\c++\passages\dksmoteur3d\particules\dksparticules.h
+	"../Geometrie_Espace/dksVecteurUnitaire.h"
+	"../Elements_Fondamentaux/dksVolume.h"
+	"../Elements_Fondamentaux/dksOeil.h"
+	"../../Utiles/Bruit.h"
+	"../../gestion_fichiers/gestion_fichiers.h"
+
+1327179251 e:\programmation\c++\passages\dksmoteur3d\texte\dkstextemap.h
+	"../../chargeurs_images/Image.h"
+	"../../dksMoteur2d/dksEcran.h"
+	"../../dksMoteur3d/Elements_Fondamentaux/dksConteneur.h"
+
+1328139178 e:\programmation\c++\passages\scenes\scene_logogp.h
+	"../Tunnel.h"
+	"../Utiles/Interpolations.h"
+	"Scene.h"
+	"../dksMoteur2d/dksEcran.h"
+
+1327179449 e:\programmation\c++\passages\tunnel.h
+	"../dksMoteur3d/Elements_Fondamentaux/dksConteneur.h"
+
+1328139238 e:\programmation\c++\passages\scenes\scene_tunnel.h
+	"../Tunnel.h"
+	"../dksMoteur3d/Texte/dksTexteMap.h"
+	"../dksMoteur3d/Volumes/Annelide.h"
+	"../dksMoteur3d/Volumes/VolumeFacesSeparees.h"
+	"../Utiles/Interpolations.h"
+	"Scene.h"
+	"Scene_LogoGP.h"
+	"../dksMoteur2d/dksEcran.h"
+	"../Utiles/Bruit.h"
+
+1328769538 e:\programmation\c++\passages\dksmoteur3d\volumes\annelide.h
+	"../Elements_Fondamentaux/dksVolume.h"
+
+1327842971 e:\programmation\c++\passages\dksmoteur3d\volumes\volumefacesseparees.h
+	"../Particules/dksParticules.h"
+
+1328522605 e:\programmation\c++\passages\scenes\scene_caduce.h
+	"Scene.h"
+	"../dksMoteur3d/Particules/dksParticulesVolumes.h"
+	"../dksMoteur3d/Volumes/Serpent.h"
+	"../dksMoteur3d/Particules/dksSprite3d.h"
+	"../dksMoteur3d/Particules/dksStarfield.h"
+
+1328774211 e:\programmation\c++\passages\dksmoteur3d\particules\dksparticulesvolumes.h
+	"dksParticules.h"
+	<vector>
+
+1328418603 e:\programmation\c++\passages\dksmoteur3d\volumes\serpent.h
+	"../Elements_Fondamentaux/dksVolume.h"
+	"../LWO/dksChargeLWO2.h"
+	"../LWO/dksConvertionLWO2.h"
+
+1328778342 e:\programmation\c++\passages\scenes\scene_starfield.h
+	"Scene.h"
+	"../dksMoteur3d/Volumes/dksCube.h"
+	"../dksMoteur3d/Particules/dksStarfield.h"
+	"../dksMoteur3d/Particules/dksSprite3d.h"
+	"../dksMoteur3d/Particules/dksSprites.h"
+	"../dksMoteur3d/Particules/dksParticulesVolumes.h"
+	"../dksMoteur3d/Particules/dksAnneauElectrique.h"
+	"../dksMoteur3d/Particules/dksJetParticules.h"
+	"../chargeurs_images/Image.h"
+	"../dksMoteur3d/Rendu/Effets_Speciaux/ES_TransitionTexturesCouleurAxe.h"
+
+1328522089 e:\programmation\c++\passages\dksmoteur3d\particules\dksstarfield.h
+	"dksParticules.h"
+	"../../chargeurs_images/Image.h"
+	"dksSprite3d.h"
+
+1315519281 e:\programmation\c++\passages\dksmoteur3d\particules\dkssprite3d.h
+	"../../chargeurs_images/Image.h"
+
+1314315890 e:\programmation\c++\passages\scenes\scene_test.h
+	"Scene.h"
+	"../dksMoteur3d/Particules/dksParticulesVolumes.h"
+
+1307720142 e:\programmation\c++\passages\utiles\texte.h
+
+1327099600 e:\programmation\c++\passages\utiles\musique.h
+	"bass/bass.h"
+	<windows.h>
+	<stdio.h>
+	<stdlib.h>
+
+1327182970 h:\programmation\c++\passages\dksmoteur3d\particules\dkssprites.h
+	"dksParticules.h"
+	"dksSprite3d.h"
+
+1340540655 h:\programmation\c++\passages\scenes\scene_arbre.h
+	"Scene.h"
+	"../chargeurs_images/Image.h"
+	"../dksMoteur3d/Volumes/dksPlan.h"
+	"../dksMoteur3d/Volumes/dksSphere.h"
+	"../dksMoteur3d/Articules/Papillon.h"
+
+1335708708 h:\programmation\c++\passages\scenes\scene_greetings.h
+	"Scene.h"
+	"../dksMoteur3d/Texte/dksPolice3d.h"
+	"../dksMoteur3d/Texte/dksTexte3d.h"
+	"../Utiles/Bruit.h"
+
+1335708321 h:\programmation\c++\passages\scenes\scene_jungler_credits.h
+	"Scene.h"
+	"../dksMoteur3d/Volumes/dksDamier.h"
+	"../dksMoteur3d/Articules/dksJongleurVectorBalls.h"
+
+1335997357 h:\programmation\c++\passages\scenes\scene_fin.h
+	"Scene.h"
+	"../dksMoteur2d/dksAfficheImage.h"
+	"../dksMoteur3d/Texte/dksTexteMap.h"
+
+1335702831 h:\programmation\c++\passages\dksmoteur3d\volumes\dksplan.h
+	"../Elements_Fondamentaux/dksVolume.h"
+
+1329040208 h:\programmation\c++\passages\dksmoteur3d\particules\dksanneauelectrique.h
+	"dksParticules.h"
+
+1337371937 h:\programmation\c++\passages\dksmoteur3d\particules\dksjetparticules.h
+	"dksParticules.h"
+
+1329371480 h:\programmation\c++\passages\dksmoteur3d\volumes\dkssphere.h
+
+1327179370 e:\programmation\c++\passages\dksmoteur3d\particules\dkssprites.h
+	"dksParticules.h"
+	"dksSprite3d.h"
+
+1328777252 e:\programmation\c++\passages\dksmoteur3d\particules\dksanneauelectrique.h
+	"dksParticules.h"
+
+1328602242 e:\programmation\c++\passages\dksmoteur3d\particules\dksjetparticules.h
+	"dksParticules.h"
+
+1328139385 e:\programmation\c++\passages\scenes\scene_arbre.h
+	"Scene.h"
+	"../chargeurs_images/Image.h"
+	"../dksMoteur3d/Volumes/dksPlan.h"
+	"../dksMoteur3d/Volumes/dksSphere.h"
+
+1328769560 e:\programmation\c++\passages\dksmoteur3d\volumes\dksplan.h
+	"../Elements_Fondamentaux/dksVolume.h"
+
+1326748930 e:\programmation\c++\passages\dksmoteur3d\volumes\dkssphere.h
+
+1328139495 e:\programmation\c++\passages\scenes\scene_greetings.h
+	"Scene.h"
+	"../dksMoteur3d/Texte/dksPolice3d.h"
+	"../dksMoteur3d/Texte/dksTexte3d.h"
+
+1328139443 e:\programmation\c++\passages\scenes\scene_jungler_credits.h
+	"Scene.h"
+	"../dksMoteur3d/Volumes/dksDamier.h"
+	"../dksMoteur3d/Articules/dksJongleurVectorBalls.h"
+
+1328139550 e:\programmation\c++\passages\scenes\scene_fin.h
+	"Scene.h"
+	"../dksMoteur2d/dksAfficheImage.h"
+
+1320359136 e:\programmation\c++\passages\dksmoteur3d\texte\dkspolice3d.h
+
+1329524748 h:\programmation\c++\passages\dksmoteur3d\texte\dkspolice3d.h
+
+1329528401 h:\programmation\c++\passages\dksmoteur3d\texte\dkstexte3d.h
+	"../Particules/dksParticulesVolumes.h"
+	"dksPolice3d.h"
+
+1327179367 e:\programmation\c++\passages\dksmoteur3d\texte\dkstexte3d.h
+	"../Particules/dksParticulesVolumes.h"
+	"dksPolice3d.h"
+
+1328769575 e:\programmation\c++\passages\dksmoteur3d\volumes\dksdamier.h
+	"../Elements_Fondamentaux/dksVolume.h"
+
+1328773175 h:\programmation\c++\passages\dksmoteur3d\volumes\dksdamier.h
+	"../Elements_Fondamentaux/dksVolume.h"
+
+1327183065 h:\programmation\c++\passages\dksmoteur3d\articules\dkspersonnage.h
+	"../Elements_Fondamentaux/dksConteneur.h"
+	"../LWO/dksChargeLWO2.h"
+	"../LWO/dksConvertionLWO2.h"
+
+1326654600 h:\programmation\c++\passages\dksmoteur3d\articules\dksjongleur.h
+	"dksPersonnage.h"
+	"../../Utiles/Interpolations.h"
+
+1326651000 e:\programmation\c++\passages\dksmoteur3d\articules\dksjongleur.h
+	"dksPersonnage.h"
+	"../../Utiles/Interpolations.h"
+
+1327179465 e:\programmation\c++\passages\dksmoteur3d\articules\dkspersonnage.h
+	"../Elements_Fondamentaux/dksConteneur.h"
+	"../LWO/dksChargeLWO2.h"
+	"../LWO/dksConvertionLWO2.h"
+
+1326675018 h:\programmation\c++\passages\dksmoteur3d\articules\dksjongleurvectorballs.h
+	"dksPersonnage.h"
+	"dksJongleur.h"
+	"../Volumes/dksSphere.h"
+	"../../Utiles/OrganisationCouleurs.h"
+
+1326672332 h:\programmation\c++\passages\utiles\organisationcouleurs.h
+	<vector>
+
+1327010167 h:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_couleur_ondes.h
+	"dksShader.h"
+
+1328346275 h:\programmation\c++\passages\dksmoteur3d\rendu\shaders\dksshader.h
+	"../../../Utiles/Gestion_Shaders.h"
+
+1327099241 h:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_couleur_rugosite.h
+	"dksShader.h"
+
+1327099246 h:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_decallage_sommets.h
+	"dksShader.h"
+
+1327099251 h:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_eclairage_base.h
+	"dksShader.h"
+
+1327099257 h:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_floutage.h
+	"dksShader.h"
+
+1327099036 h:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_ombres.h
+	"dksShader.h"
+
+1327010292 h:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_reflexion_couleur_cube.h
+	"dksShader.h"
+
+1327010309 h:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_reflexion_couleur_cube_ondes.h
+	"dksShader.h"
+
+1327099278 h:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_rugosite.h
+	"dksShader.h"
+
+1327099282 h:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_transition_textures_couleur.h
+	"dksShader.h"
+
+1328605284 h:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_transition_textures_couleur_axe.h
+	"dksShader.h"
+
+1335475347 h:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_ondes.h
+	"dksShader.h"
+
+1327099273 h:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_reflexion_cube_ondes.h
+	"dksShader.h"
+
+1327099268 h:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_reflexion_cube.h
+	"dksShader.h"
+
+1335707996 h:\programmation\c++\passages\dksmoteur2d\dksrendu.h
+
+1303633281 h:\programmation\c++\dksmoteur3d\elements_fondamentaux\dksconteneur.h
+	<math.h>
+	<vector>
+	"../Geometrie_Espace/dksRepere.h"
+
+1308782394 h:\programmation\c++\dksmoteur3d\geometrie_espace\dksrepere.h
+	"dksVecteur.h"
+	"dksVecteurUnitaire.h"
+	"vec3d.h"
+	"dksMatrice4.h"
+
+1308694311 h:\programmation\c++\dksmoteur3d\geometrie_espace\dksvecteur.h
+	"math.h"
+	<vector>
+
+1304268831 h:\programmation\c++\dksmoteur3d\geometrie_espace\dksvecteurunitaire.h
+	"dksVecteur.h"
+
+1300269272 h:\programmation\c++\dksmoteur3d\geometrie_espace\vec3d.h
+
+1300269971 h:\programmation\c++\dksmoteur3d\geometrie_espace\dksmatrice4.h
+
+1335731961 h:\programmation\c++\passages\dksmoteur2d\dksafficheimage.h
+	"../chargeurs_images/Image.h"
+	"dksRendu.h"
+	"dksEcran.h"
+	"../dksMoteur3d/Elements_Fondamentaux/dksOeil.h"
+
+1328774073 e:\programmation\c++\passages\dksmoteur2d\dksrendu.h
+
+1327095662 e:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_ondes.h
+	"dksShader.h"
+
+1328342675 e:\programmation\c++\passages\dksmoteur3d\rendu\shaders\dksshader.h
+	"../../../Utiles/Gestion_Shaders.h"
+
+1327095641 e:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_couleur_rugosite.h
+	"dksShader.h"
+
+1327095646 e:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_decallage_sommets.h
+	"dksShader.h"
+
+1327095651 e:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_eclairage_base.h
+	"dksShader.h"
+
+1327095657 e:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_floutage.h
+	"dksShader.h"
+
+1327095436 e:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_ombres.h
+	"dksShader.h"
+
+1327095668 e:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_reflexion_cube.h
+	"dksShader.h"
+
+1327095673 e:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_reflexion_cube_ondes.h
+	"dksShader.h"
+
+1327095678 e:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_rugosite.h
+	"dksShader.h"
+
+1327095682 e:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_transition_textures_couleur.h
+	"dksShader.h"
+
+1328601684 e:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_transition_textures_couleur_axe.h
+	"dksShader.h"
+
+1303633281 e:\programmation\c++\dksmoteur3d\elements_fondamentaux\dksconteneur.h
+	<math.h>
+	<vector>
+	"../Geometrie_Espace/dksRepere.h"
+
+1308782394 e:\programmation\c++\dksmoteur3d\geometrie_espace\dksrepere.h
+	"dksVecteur.h"
+	"dksVecteurUnitaire.h"
+	"vec3d.h"
+	"dksMatrice4.h"
+
+1308694311 e:\programmation\c++\dksmoteur3d\geometrie_espace\dksvecteur.h
+	"math.h"
+	<vector>
+
+1304268831 e:\programmation\c++\dksmoteur3d\geometrie_espace\dksvecteurunitaire.h
+	"dksVecteur.h"
+
+1300269272 e:\programmation\c++\dksmoteur3d\geometrie_espace\vec3d.h
+
+1300269971 e:\programmation\c++\dksmoteur3d\geometrie_espace\dksmatrice4.h
+
+1326671418 e:\programmation\c++\passages\dksmoteur3d\articules\dksjongleurvectorballs.h
+	"dksPersonnage.h"
+	"dksJongleur.h"
+	"../Volumes/dksSphere.h"
+	"../../Utiles/OrganisationCouleurs.h"
+
+1326668732 e:\programmation\c++\passages\utiles\organisationcouleurs.h
+	<vector>
+
+1327327723 e:\programmation\c++\passages\dksmoteur2d\dksafficheimage.h
+	"../chargeurs_images/Image.h"
+	"dksRendu.h"
+	"dksEcran.h"
+	"../dksMoteur3d/Elements_Fondamentaux/dksOeil.h"
+
+1327842186 h:\programmation\c++\passages\dksmoteur3d\rendu\effets_speciaux\dkseffetspecial.h
+
+1328779427 h:\programmation\c++\passages\dksmoteur3d\rendu\effets_speciaux\es_transitiontexturescouleuraxe.h
+	"dksEffetSpecial.h"
+
+1327838586 e:\programmation\c++\passages\dksmoteur3d\rendu\effets_speciaux\dkseffetspecial.h
+
+1328775827 e:\programmation\c++\passages\dksmoteur3d\rendu\effets_speciaux\es_transitiontexturescouleuraxe.h
+	"dksEffetSpecial.h"
+
+1328344522 h:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_masque_2_textures.h
+	"dksShader.h"
+
+1328340922 e:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_masque_2_textures.h
+	"dksShader.h"
+
+1329295650 h:\programmation\c++\passages\dksmoteur3d\dksmoteur3d_rendu_transparentes_immediat.h
+
+1329295632 h:\programmation\c++\passages\dksmoteur3d\dksmoteur3d_rendu_transparentes_tableaux.h
+
+1330155214 h:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_aplat_brut.h
+	"dksShader.h"
+
+1335661247 source:i:\programmation\c++\passages\main.cpp
+	<windows.h>
+	<stdio.h>
+	<iostream>
+	<string>
+	<algorithm>
+	<gl/glew.h>
+	<gl/glut.h>
+	"dksMoteur2d/dksEcran.h"
+	"dksMoteur3d/LWO/dksChargeLWO2.h"
+	"dksMoteur3d/LWO/dksConvertionLWO2.h"
+	"dksMoteur3d/dksMoteur3d.h"
+	"dksMoteur3d/Rendu/dksShaders.h"
+	"dksMoteur3d/Volumes/dksCube.h"
+	"dksMoteur3d/Geometrie_Espace/dksTrajectoire.h"
+	"scenes/Scene_LogoGP.h"
+	"scenes/Scene_Tunnel.h"
+	"scenes/Scene_Caduce.h"
+	"scenes/Scene_Starfield.h"
+	"scenes/Scene_Arbre.h"
+	"scenes/Scene_Greetings.h"
+	"scenes/Scene_Jungler_Credits.h"
+	"scenes/Scene_Fin.h"
+	"Utiles/Texte.h"
+	"Utiles/Musique.h"
+	<stdlib.h>
+
+1330468586 i:\programmation\c++\passages\dksmoteur2d\dksecran.h
+	"windows.h"
+
+1328773310 i:\programmation\c++\passages\dksmoteur3d\lwo\dkschargelwo2.h
+	<windows.h>
+	<stdio.h>
+	<stdlib.h>
+	<GL/glut.h>
+	"../../gestion_fichiers/gestion_fichiers.h"
+	<vector>
+	<iostream>
+	<fstream>
+	<string>
+	"..\..\chargeurs_images\Image.h"
+	"GL/glut.h"
+
+1328444971 i:\programmation\c++\passages\gestion_fichiers\gestion_fichiers.h
+	<iostream>
+	<fstream>
+
+1335384776 i:\programmation\c++\passages\chargeurs_images\image.h
+	<GL/glu.h>
+	<iostream>
+	<fstream>
+	<math.h>
+	"../gestion_fichiers/gestion_fichiers.h"
+	"Image_infos.h"
+	"Image_TIFF.h"
+	"Image_BMP.h"
+	"Image_JPEG.h"
+
+1299582111 i:\programmation\c++\passages\chargeurs_images\image_infos.h
+
+1299582118 i:\programmation\c++\passages\chargeurs_images\image_tiff.h
+	"tifflib/tiffio.h"
+	"Image_infos.h"
+	<string.h>
+	<windows.h>
+	<stdio.h>
+	<stdlib.h>
+
+1303651567 i:\programmation\c++\passages\chargeurs_images\image_bmp.h
+	<stdio.h>
+	<stdlib.h>
+	<iostream>
+	<fstream>
+	"Image_infos.h"
+	"../gestion_fichiers/gestion_fichiers.h"
+
+1299583023 i:\programmation\c++\passages\chargeurs_images\image_jpeg.h
+	"jpeglib/jpeglib.h"
+	"Image_infos.h"
+	<string.h>
+	<windows.h>
+	<stdio.h>
+	<stdlib.h>
+
+1329122973 i:\programmation\c++\passages\dksmoteur3d\lwo\dksconvertionlwo2.h
+	"../Elements_Fondamentaux/dksVolume.h"
+	"dksChargeLWO2.h"
+
+1335385815 i:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dksvolume.h
+	"dksConteneur.h"
+	"dksOeil.h"
+	"dksSourceLumineuse.h"
+	"../Volumes/dksBoiteCollision.h"
+	"../../chargeurs_images/Image.h"
+	"../Rendu/dksShaders.h"
+	<math.h>
+	<vector>
+	<string>
+	"dksFace.h"
+	"dksTexture.h"
+	"dksSurface.h"
+	"../Rendu/Effets_Speciaux/dksEffetSpecial.h"
+	"debug_volume_affiche.h"
+	"dksVolume_init_mode_rendu.h"
+	"dksVolume_mode_rendu_immediat.h"
+	"dksVolume_mode_rendu_tableaux.h"
+	"dksVolume_mode_rendu_liste.h"
+
+1330559129 i:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dksconteneur.h
+	<math.h>
+	<vector>
+	"../Geometrie_Espace/dksRepere.h"
+	"../Geometrie_Espace/dksAxeRotation.h"
+	"../../Utiles/Matrice4x4.h"
+
+1330559140 i:\programmation\c++\passages\dksmoteur3d\geometrie_espace\dksrepere.h
+	"dksVecteur.h"
+	"dksVecteurUnitaire.h"
+	"vec3d.h"
+	"dksMatrice4.h"
+
+1327182075 i:\programmation\c++\passages\dksmoteur3d\geometrie_espace\dksvecteur.h
+	"math.h"
+	"../../dksMoteur2d/dksRendu.h"
+	<vector>
+
+1330154680 i:\programmation\c++\passages\dksmoteur2d\dksrendu.h
+
+1304272431 i:\programmation\c++\passages\dksmoteur3d\geometrie_espace\dksvecteurunitaire.h
+	"dksVecteur.h"
+
+1300276472 i:\programmation\c++\passages\dksmoteur3d\geometrie_espace\vec3d.h
+
+1300277171 i:\programmation\c++\passages\dksmoteur3d\geometrie_espace\dksmatrice4.h
+
+1306694834 i:\programmation\c++\passages\dksmoteur3d\geometrie_espace\dksaxerotation.h
+	<math.h>
+	"dksVecteurUnitaire.h"
+
+1308235840 i:\programmation\c++\passages\utiles\matrice4x4.h
+
+1329470306 i:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dksoeil.h
+	<math.h>
+	"dksConteneur.h"
+
+1308522088 i:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dkssourcelumineuse.h
+	"dksConteneur.h"
+	"dksOeil.h"
+	<math.h>
+	<vector>
+
+1320365767 i:\programmation\c++\passages\dksmoteur3d\volumes\dksboitecollision.h
+	"../dksAffichagesDebogue.h"
+	"../Geometrie_Espace/dksVecteur.h"
+	"../Geometrie_Espace/dksVecteurUnitaire.h"
+	"../Geometrie_Espace/dksRepere.h"
+	<vector>
+
+1303380984 i:\programmation\c++\passages\dksmoteur3d\dksaffichagesdebogue.h
+	<math.h>
+
+1335477714 i:\programmation\c++\passages\dksmoteur3d\rendu\dksshaders.h
+	"../../Utiles/Gestion_Shaders.h"
+	"../../Utiles/Bruit.h"
+	"shaders/Shader_Ondes.h"
+	"shaders/Shader_Ondes_Texture_Couleur.h"
+	"shaders/Shader_Couleur_Rugosite.h"
+	"shaders/Shader_Decallage_Sommets.h"
+	"shaders/Shader_Eclairage_Base.h"
+	"shaders/Shader_Floutage.h"
+	"shaders/Shader_Ombres.h"
+	"shaders/Shader_Reflexion_Cube.h"
+	"shaders/Shader_Reflexion_Cube_Ondes.h"
+	"shaders/Shader_Rugosite.h"
+	"shaders/Shader_Transition_Textures_Couleur.h"
+	"shaders/Shader_Transition_Textures_Couleur_Axe.h"
+	"shaders/Shader_Masque_2_Textures.h"
+	"shaders/Shader_Aplat_Brut.h"
+
+1315003649 i:\programmation\c++\passages\utiles\gestion_shaders.h
+
+1310825330 i:\programmation\c++\passages\utiles\bruit.h
+	<vector>
+	"Interpolations.h"
+
+1329037083 i:\programmation\c++\passages\utiles\interpolations.h
+	"Courbe_Bezier_Plan.h"
+	"../dksMoteur3d/Geometrie_Espace/dksRepere.h"
+	"../dksMoteur3d/Geometrie_Espace/dksAxeRotation.h"
+
+1306234287 i:\programmation\c++\passages\utiles\courbe_bezier_plan.h
+	"vec2d.h"
+
+1300276441 i:\programmation\c++\passages\utiles\vec2d.h
+
+1335475347 i:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_ondes.h
+	"dksShader.h"
+
+1328346275 i:\programmation\c++\passages\dksmoteur3d\rendu\shaders\dksshader.h
+	"../../../Utiles/Gestion_Shaders.h"
+
+1327099241 i:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_couleur_rugosite.h
+	"dksShader.h"
+
+1327099246 i:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_decallage_sommets.h
+	"dksShader.h"
+
+1327099251 i:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_eclairage_base.h
+	"dksShader.h"
+
+1327099257 i:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_floutage.h
+	"dksShader.h"
+
+1327099036 i:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_ombres.h
+	"dksShader.h"
+
+1327099268 i:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_reflexion_cube.h
+	"dksShader.h"
+
+1327099273 i:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_reflexion_cube_ondes.h
+	"dksShader.h"
+
+1327099278 i:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_rugosite.h
+	"dksShader.h"
+
+1327099282 i:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_transition_textures_couleur.h
+	"dksShader.h"
+
+1328605284 i:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_transition_textures_couleur_axe.h
+	"dksShader.h"
+
+1328344522 i:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_masque_2_textures.h
+	"dksShader.h"
+
+1330155214 i:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_aplat_brut.h
+	"dksShader.h"
+
+1309210249 i:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dksface.h
+
+1328773012 i:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dkstexture.h
+
+1328740001 i:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dkssurface.h
+	"../Rendu/Effets_Speciaux/dksEffetSpecial.h"
+
+1327842186 i:\programmation\c++\passages\dksmoteur3d\rendu\effets_speciaux\dkseffetspecial.h
+
+1310515005 i:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\debug_volume_affiche.h
+
+1335478580 i:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dksvolume_init_mode_rendu.h
+
+1335478617 i:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dksvolume_mode_rendu_immediat.h
+
+1329386671 i:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dksvolume_mode_rendu_tableaux.h
+
+1329295378 i:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dksvolume_mode_rendu_liste.h
+
+1329371273 i:\programmation\c++\passages\dksmoteur3d\dksmoteur3d.h
+	"Rendu/dksShaders.h"
+	"Geometrie_Espace/dksVecteur.h"
+	"Geometrie_Espace/dksVecteurUnitaire.h"
+	"Geometrie_Espace/dksRepere.h"
+	"Elements_Fondamentaux/dksConteneur.h"
+	"Elements_Fondamentaux/dksVolume.h"
+	"Volumes/dksCube.h"
+	"Elements_Fondamentaux/dksOeil.h"
+	"Elements_Fondamentaux/dksSourceLumineuse.h"
+	<GL/glut.h>
+	"dksMoteur3d_rendu_transparentes_immediat.h"
+	"dksMoteur3d_rendu_transparentes_tableaux.h"
+
+1329468071 i:\programmation\c++\passages\dksmoteur3d\volumes\dkscube.h
+
+1329295650 i:\programmation\c++\passages\dksmoteur3d\dksmoteur3d_rendu_transparentes_immediat.h
+
+1329295632 i:\programmation\c++\passages\dksmoteur3d\dksmoteur3d_rendu_transparentes_tableaux.h
+
+1312076187 i:\programmation\c++\passages\dksmoteur3d\geometrie_espace\dkstrajectoire.h
+	<vector>
+	"../../gestion_fichiers/gestion_fichiers.h"
+
+1328142778 i:\programmation\c++\passages\scenes\scene_logogp.h
+	"../Tunnel.h"
+	"../Utiles/Interpolations.h"
+	"Scene.h"
+	"../dksMoteur2d/dksEcran.h"
+
+1329624864 i:\programmation\c++\passages\tunnel.h
+	"dksMoteur3d/Elements_Fondamentaux/dksConteneur.h"
+
+1328142656 i:\programmation\c++\passages\scenes\scene.h
+	"../dksMoteur2d/dksPostRendu.h"
+	"../Utiles/Musique.h"
+
+1330557114 i:\programmation\c++\passages\dksmoteur2d\dkspostrendu.h
+	"dksEcran.h"
+	"dksRendu.h"
+	<vector>
+
+1327103200 i:\programmation\c++\passages\utiles\musique.h
+	"bass/bass.h"
+	<windows.h>
+	<stdio.h>
+	<stdlib.h>
+
+1329299713 i:\programmation\c++\passages\scenes\scene_tunnel.h
+	"../Tunnel.h"
+	"../dksMoteur3d/Texte/dksTexteMap.h"
+	"../dksMoteur3d/Volumes/Annelide.h"
+	"../dksMoteur3d/Volumes/VolumeFacesSeparees.h"
+	"../Utiles/Interpolations.h"
+	"Scene.h"
+	"Scene_LogoGP.h"
+	"../dksMoteur2d/dksEcran.h"
+	"../Utiles/Bruit.h"
+
+1327182851 i:\programmation\c++\passages\dksmoteur3d\texte\dkstextemap.h
+	"../../chargeurs_images/Image.h"
+	"../../dksMoteur2d/dksEcran.h"
+	"../../dksMoteur3d/Elements_Fondamentaux/dksConteneur.h"
+
+1329073318 i:\programmation\c++\passages\dksmoteur3d\volumes\annelide.h
+	"../Elements_Fondamentaux/dksVolume.h"
+
+1327846571 i:\programmation\c++\passages\dksmoteur3d\volumes\volumefacesseparees.h
+	"../Particules/dksParticules.h"
+
+1328469849 i:\programmation\c++\passages\dksmoteur3d\particules\dksparticules.h
+	"../Geometrie_Espace/dksVecteurUnitaire.h"
+	"../Elements_Fondamentaux/dksVolume.h"
+	"../Elements_Fondamentaux/dksOeil.h"
+	"../../Utiles/Bruit.h"
+	"../../gestion_fichiers/gestion_fichiers.h"
+
+1329810926 i:\programmation\c++\passages\scenes\scene_caduce.h
+	"Scene.h"
+	"../dksMoteur3d/Particules/dksParticulesVolumes.h"
+	"../dksMoteur3d/Volumes/Serpent.h"
+	"../dksMoteur3d/Particules/dksSprite3d.h"
+	"../dksMoteur3d/Particules/dksStarfield.h"
+
+1329989932 i:\programmation\c++\passages\dksmoteur3d\particules\dksparticulesvolumes.h
+	"dksParticules.h"
+	<vector>
+
+1328863693 i:\programmation\c++\passages\dksmoteur3d\volumes\serpent.h
+	"../Elements_Fondamentaux/dksVolume.h"
+	"../LWO/dksChargeLWO2.h"
+	"../LWO/dksConvertionLWO2.h"
+
+1315522881 i:\programmation\c++\passages\dksmoteur3d\particules\dkssprite3d.h
+	"../../chargeurs_images/Image.h"
+
+1328525689 i:\programmation\c++\passages\dksmoteur3d\particules\dksstarfield.h
+	"dksParticules.h"
+	"../../chargeurs_images/Image.h"
+	"dksSprite3d.h"
+
+1335658587 i:\programmation\c++\passages\scenes\scene_starfield.h
+	"Scene.h"
+	"../dksMoteur3d/Volumes/dksCube.h"
+	"../dksMoteur3d/Particules/dksStarfield.h"
+	"../dksMoteur3d/Particules/dksSprite3d.h"
+	"../dksMoteur3d/Particules/dksSprites.h"
+	"../dksMoteur3d/Particules/dksParticulesVolumes.h"
+	"../dksMoteur3d/Particules/dksAnneauElectrique.h"
+	"../dksMoteur3d/Particules/dksJetParticules.h"
+	"../chargeurs_images/Image.h"
+	"../dksMoteur3d/Rendu/Effets_Speciaux/ES_TransitionTexturesCouleurAxe.h"
+
+1327182970 i:\programmation\c++\passages\dksmoteur3d\particules\dkssprites.h
+	"dksParticules.h"
+	"dksSprite3d.h"
+
+1329040208 i:\programmation\c++\passages\dksmoteur3d\particules\dksanneauelectrique.h
+	"dksParticules.h"
+
+1329009104 i:\programmation\c++\passages\dksmoteur3d\particules\dksjetparticules.h
+	"dksParticules.h"
+
+1328779427 i:\programmation\c++\passages\dksmoteur3d\rendu\effets_speciaux\es_transitiontexturescouleuraxe.h
+	"dksEffetSpecial.h"
+
+1335658620 i:\programmation\c++\passages\scenes\scene_arbre.h
+	"Scene.h"
+	"../chargeurs_images/Image.h"
+	"../dksMoteur3d/Volumes/dksPlan.h"
+	"../dksMoteur3d/Volumes/dksSphere.h"
+	"../dksMoteur3d/Articules/dksInsecte.h"
+
+1335131394 i:\programmation\c++\passages\dksmoteur3d\volumes\dksplan.h
+	"../Elements_Fondamentaux/dksVolume.h"
+
+1329371480 i:\programmation\c++\passages\dksmoteur3d\volumes\dkssphere.h
+
+1335661523 i:\programmation\c++\passages\scenes\scene_greetings.h
+	"Scene.h"
+	"../dksMoteur3d/Texte/dksPolice3d.h"
+	"../dksMoteur3d/Texte/dksTexte3d.h"
+	"../Utiles/Bruit.h"
+
+1329524748 i:\programmation\c++\passages\dksmoteur3d\texte\dkspolice3d.h
+
+1329528401 i:\programmation\c++\passages\dksmoteur3d\texte\dkstexte3d.h
+	"../Particules/dksParticulesVolumes.h"
+	"dksPolice3d.h"
+
+1328143043 i:\programmation\c++\passages\scenes\scene_jungler_credits.h
+	"Scene.h"
+	"../dksMoteur3d/Volumes/dksDamier.h"
+	"../dksMoteur3d/Articules/dksJongleurVectorBalls.h"
+
+1328773175 i:\programmation\c++\passages\dksmoteur3d\volumes\dksdamier.h
+	"../Elements_Fondamentaux/dksVolume.h"
+
+1326675018 i:\programmation\c++\passages\dksmoteur3d\articules\dksjongleurvectorballs.h
+	"dksPersonnage.h"
+	"dksJongleur.h"
+	"../Volumes/dksSphere.h"
+	"../../Utiles/OrganisationCouleurs.h"
+
+1327183065 i:\programmation\c++\passages\dksmoteur3d\articules\dkspersonnage.h
+	"../Elements_Fondamentaux/dksConteneur.h"
+	"../LWO/dksChargeLWO2.h"
+	"../LWO/dksConvertionLWO2.h"
+
+1326654600 i:\programmation\c++\passages\dksmoteur3d\articules\dksjongleur.h
+	"dksPersonnage.h"
+	"../../Utiles/Interpolations.h"
+
+1326672332 i:\programmation\c++\passages\utiles\organisationcouleurs.h
+	<vector>
+
+1329124370 i:\programmation\c++\passages\scenes\scene_fin.h
+	"Scene.h"
+	"../dksMoteur2d/dksAfficheImage.h"
+
+1329125462 i:\programmation\c++\passages\dksmoteur2d\dksafficheimage.h
+	"../chargeurs_images/Image.h"
+	"dksRendu.h"
+	"dksEcran.h"
+	"../dksMoteur3d/Elements_Fondamentaux/dksOeil.h"
+
+1307723742 i:\programmation\c++\passages\utiles\texte.h
+
+1337523461 h:\programmation\c++\passages\dksmoteur3d\articules\dksinsecte.h
+	"../Elements_Fondamentaux/dksConteneur.h"
+	"../LWO/dksChargeLWO2.h"
+	"../LWO/dksConvertionLWO2.h"
+
+1335477612 h:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_ondes_texture_couleur.h
+	"dksShader.h"
+
+1335477612 i:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_ondes_texture_couleur.h
+	"dksShader.h"
+
+1332311678 i:\programmation\c++\passages\dksmoteur3d\articules\dksinsecte.h
+	"../Elements_Fondamentaux/dksConteneur.h"
+	"../LWO/dksChargeLWO2.h"
+	"../LWO/dksConvertionLWO2.h"
+
+1340546251 h:\programmation\c++\passages\dksmoteur3d\articules\papillon.h
+	"dksInsecte.h"
+	"../LWO/dksChargeLWO2.h"
+	"../LWO/dksConvertionLWO2.h"
+	"../../Utiles/Interpolations.h"
+	"../../Utiles/Bruit.h"
+
+1340541038 source:f:\programmation\c++\passages\main.cpp
+	<windows.h>
+	<stdio.h>
+	<iostream>
+	<string>
+	<algorithm>
+	<gl/glew.h>
+	<gl/glut.h>
+	"dksMoteur2d/dksEcran.h"
+	"dksMoteur3d/LWO/dksChargeLWO2.h"
+	"dksMoteur3d/LWO/dksConvertionLWO2.h"
+	"dksMoteur3d/dksMoteur3d.h"
+	"dksMoteur3d/Rendu/dksShaders.h"
+	"dksMoteur3d/Volumes/dksCube.h"
+	"dksMoteur3d/Geometrie_Espace/dksTrajectoire.h"
+	"scenes/Scene_LogoGP.h"
+	"scenes/Scene_Tunnel.h"
+	"scenes/Scene_Caduce.h"
+	"scenes/Scene_Starfield.h"
+	"scenes/Scene_Arbre.h"
+	"scenes/Scene_Greetings.h"
+	"scenes/Scene_Jungler_Credits.h"
+	"scenes/Scene_Fin.h"
+	"Utiles/Texte.h"
+	"Utiles/Musique.h"
+	<stdlib.h>
+
+1388616292 f:\programmation\c++\passages\dksmoteur2d\dksecran.h
+	"windows.h"
+
+1328773310 f:\programmation\c++\passages\dksmoteur3d\lwo\dkschargelwo2.h
+	<windows.h>
+	<stdio.h>
+	<stdlib.h>
+	<GL/glut.h>
+	"../../gestion_fichiers/gestion_fichiers.h"
+	<vector>
+	<iostream>
+	<fstream>
+	<string>
+	"..\..\chargeurs_images\Image.h"
+	"GL/glut.h"
+
+1335994250 f:\programmation\c++\passages\gestion_fichiers\gestion_fichiers.h
+	<iostream>
+	<fstream>
+
+1335384776 f:\programmation\c++\passages\chargeurs_images\image.h
+	<GL/glu.h>
+	<iostream>
+	<fstream>
+	<math.h>
+	"../gestion_fichiers/gestion_fichiers.h"
+	"Image_infos.h"
+	"Image_TIFF.h"
+	"Image_BMP.h"
+	"Image_JPEG.h"
+
+1299582111 f:\programmation\c++\passages\chargeurs_images\image_infos.h
+
+1299582118 f:\programmation\c++\passages\chargeurs_images\image_tiff.h
+	"tifflib/tiffio.h"
+	"Image_infos.h"
+	<string.h>
+	<windows.h>
+	<stdio.h>
+	<stdlib.h>
+
+1303651567 f:\programmation\c++\passages\chargeurs_images\image_bmp.h
+	<stdio.h>
+	<stdlib.h>
+	<iostream>
+	<fstream>
+	"Image_infos.h"
+	"../gestion_fichiers/gestion_fichiers.h"
+
+1299583023 f:\programmation\c++\passages\chargeurs_images\image_jpeg.h
+	"jpeglib/jpeglib.h"
+	"Image_infos.h"
+	<string.h>
+	<windows.h>
+	<stdio.h>
+	<stdlib.h>
+
+1336512591 f:\programmation\c++\passages\dksmoteur3d\lwo\dksconvertionlwo2.h
+	"../Elements_Fondamentaux/dksVolume.h"
+	"dksChargeLWO2.h"
+
+1337371742 f:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dksvolume.h
+	"dksConteneur.h"
+	"dksOeil.h"
+	"dksSourceLumineuse.h"
+	"../Volumes/dksBoiteCollision.h"
+	"../../chargeurs_images/Image.h"
+	"../Rendu/dksShaders.h"
+	<math.h>
+	<vector>
+	<string>
+	"dksFace.h"
+	"dksTexture.h"
+	"dksSurface.h"
+	"../Rendu/Effets_Speciaux/dksEffetSpecial.h"
+	"debug_volume_affiche.h"
+	"dksVolume_init_mode_rendu.h"
+	"dksVolume_mode_rendu_immediat.h"
+	"dksVolume_mode_rendu_tableaux.h"
+	"dksVolume_mode_rendu_liste.h"
+
+1337811100 f:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dksconteneur.h
+	<math.h>
+	<vector>
+	"../Geometrie_Espace/dksRepere.h"
+	"../Geometrie_Espace/dksAxeRotation.h"
+	"../../Utiles/Matrice4x4.h"
+
+1340544048 f:\programmation\c++\passages\dksmoteur3d\geometrie_espace\dksrepere.h
+	"dksVecteur.h"
+	"dksVecteurUnitaire.h"
+	"vec3d.h"
+	"dksMatrice4.h"
+
+1340544097 f:\programmation\c++\passages\dksmoteur3d\geometrie_espace\dksvecteur.h
+	"math.h"
+	"../../dksMoteur2d/dksRendu.h"
+	<vector>
+
+1335707996 f:\programmation\c++\passages\dksmoteur2d\dksrendu.h
+
+1304272431 f:\programmation\c++\passages\dksmoteur3d\geometrie_espace\dksvecteurunitaire.h
+	"dksVecteur.h"
+
+1300276472 f:\programmation\c++\passages\dksmoteur3d\geometrie_espace\vec3d.h
+
+1300277171 f:\programmation\c++\passages\dksmoteur3d\geometrie_espace\dksmatrice4.h
+
+1337285617 f:\programmation\c++\passages\dksmoteur3d\geometrie_espace\dksaxerotation.h
+	<math.h>
+	"dksVecteurUnitaire.h"
+
+1308235840 f:\programmation\c++\passages\utiles\matrice4x4.h
+
+1337371731 f:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dksoeil.h
+	<math.h>
+	"dksConteneur.h"
+
+1308522088 f:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dkssourcelumineuse.h
+	"dksConteneur.h"
+	"dksOeil.h"
+	<math.h>
+	<vector>
+
+1320365767 f:\programmation\c++\passages\dksmoteur3d\volumes\dksboitecollision.h
+	"../dksAffichagesDebogue.h"
+	"../Geometrie_Espace/dksVecteur.h"
+	"../Geometrie_Espace/dksVecteurUnitaire.h"
+	"../Geometrie_Espace/dksRepere.h"
+	<vector>
+
+1303380984 f:\programmation\c++\passages\dksmoteur3d\dksaffichagesdebogue.h
+	<math.h>
+
+1335477714 f:\programmation\c++\passages\dksmoteur3d\rendu\dksshaders.h
+	"../../Utiles/Gestion_Shaders.h"
+	"../../Utiles/Bruit.h"
+	"shaders/Shader_Ondes.h"
+	"shaders/Shader_Ondes_Texture_Couleur.h"
+	"shaders/Shader_Couleur_Rugosite.h"
+	"shaders/Shader_Decallage_Sommets.h"
+	"shaders/Shader_Eclairage_Base.h"
+	"shaders/Shader_Floutage.h"
+	"shaders/Shader_Ombres.h"
+	"shaders/Shader_Reflexion_Cube.h"
+	"shaders/Shader_Reflexion_Cube_Ondes.h"
+	"shaders/Shader_Rugosite.h"
+	"shaders/Shader_Transition_Textures_Couleur.h"
+	"shaders/Shader_Transition_Textures_Couleur_Axe.h"
+	"shaders/Shader_Masque_2_Textures.h"
+	"shaders/Shader_Aplat_Brut.h"
+
+1315003649 f:\programmation\c++\passages\utiles\gestion_shaders.h
+
+1310825330 f:\programmation\c++\passages\utiles\bruit.h
+	<vector>
+	"Interpolations.h"
+
+1337523511 f:\programmation\c++\passages\utiles\interpolations.h
+	"Courbe_Bezier_Plan.h"
+	"../dksMoteur3d/Geometrie_Espace/dksRepere.h"
+	"../dksMoteur3d/Geometrie_Espace/dksAxeRotation.h"
+
+1306234287 f:\programmation\c++\passages\utiles\courbe_bezier_plan.h
+	"vec2d.h"
+
+1300276441 f:\programmation\c++\passages\utiles\vec2d.h
+
+1335475347 f:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_ondes.h
+	"dksShader.h"
+
+1328346275 f:\programmation\c++\passages\dksmoteur3d\rendu\shaders\dksshader.h
+	"../../../Utiles/Gestion_Shaders.h"
+
+1335477612 f:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_ondes_texture_couleur.h
+	"dksShader.h"
+
+1327099241 f:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_couleur_rugosite.h
+	"dksShader.h"
+
+1327099246 f:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_decallage_sommets.h
+	"dksShader.h"
+
+1327099251 f:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_eclairage_base.h
+	"dksShader.h"
+
+1327099257 f:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_floutage.h
+	"dksShader.h"
+
+1327099036 f:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_ombres.h
+	"dksShader.h"
+
+1327099268 f:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_reflexion_cube.h
+	"dksShader.h"
+
+1327099273 f:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_reflexion_cube_ondes.h
+	"dksShader.h"
+
+1327099278 f:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_rugosite.h
+	"dksShader.h"
+
+1327099282 f:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_transition_textures_couleur.h
+	"dksShader.h"
+
+1328605284 f:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_transition_textures_couleur_axe.h
+	"dksShader.h"
+
+1328344522 f:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_masque_2_textures.h
+	"dksShader.h"
+
+1330155214 f:\programmation\c++\passages\dksmoteur3d\rendu\shaders\shader_aplat_brut.h
+	"dksShader.h"
+
+1309210249 f:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dksface.h
+
+1328773012 f:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dkstexture.h
+
+1328740001 f:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dkssurface.h
+	"../Rendu/Effets_Speciaux/dksEffetSpecial.h"
+
+1327842186 f:\programmation\c++\passages\dksmoteur3d\rendu\effets_speciaux\dkseffetspecial.h
+
+1310515005 f:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\debug_volume_affiche.h
+
+1335478580 f:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dksvolume_init_mode_rendu.h
+
+1335478617 f:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dksvolume_mode_rendu_immediat.h
+
+1329386671 f:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dksvolume_mode_rendu_tableaux.h
+
+1329295378 f:\programmation\c++\passages\dksmoteur3d\elements_fondamentaux\dksvolume_mode_rendu_liste.h
+
+1337371753 f:\programmation\c++\passages\dksmoteur3d\dksmoteur3d.h
+	"Rendu/dksShaders.h"
+	"Geometrie_Espace/dksVecteur.h"
+	"Geometrie_Espace/dksVecteurUnitaire.h"
+	"Geometrie_Espace/dksRepere.h"
+	"Elements_Fondamentaux/dksConteneur.h"
+	"Elements_Fondamentaux/dksVolume.h"
+	"Volumes/dksCube.h"
+	"Elements_Fondamentaux/dksOeil.h"
+	"Elements_Fondamentaux/dksSourceLumineuse.h"
+	<GL/glut.h>
+	"dksMoteur3d_rendu_transparentes_immediat.h"
+	"dksMoteur3d_rendu_transparentes_tableaux.h"
+
+1329468071 f:\programmation\c++\passages\dksmoteur3d\volumes\dkscube.h
+
+1329295650 f:\programmation\c++\passages\dksmoteur3d\dksmoteur3d_rendu_transparentes_immediat.h
+
+1329295632 f:\programmation\c++\passages\dksmoteur3d\dksmoteur3d_rendu_transparentes_tableaux.h
+
+1390515171 f:\programmation\c++\passages\dksmoteur3d\geometrie_espace\dkstrajectoire.h
+	<vector>
+	"../../gestion_fichiers/gestion_fichiers.h"
+
+1335708274 f:\programmation\c++\passages\scenes\scene_logogp.h
+	"../Tunnel.h"
+	"../Utiles/Interpolations.h"
+	"Scene.h"
+	"../dksMoteur2d/dksEcran.h"
+
+1329624864 f:\programmation\c++\passages\tunnel.h
+	"dksMoteur3d/Elements_Fondamentaux/dksConteneur.h"
+
+1335707570 f:\programmation\c++\passages\scenes\scene.h
+	"../dksMoteur2d/dksPostRendu.h"
+	"../Utiles/Musique.h"
+
+1330557114 f:\programmation\c++\passages\dksmoteur2d\dkspostrendu.h
+	"dksEcran.h"
+	"dksRendu.h"
+	<vector>
+
+1327103200 f:\programmation\c++\passages\utiles\musique.h
+	"bass/bass.h"
+	<windows.h>
+	<stdio.h>
+	<stdlib.h>
+
+1335824447 f:\programmation\c++\passages\scenes\scene_tunnel.h
+	"../Tunnel.h"
+	"../dksMoteur3d/Texte/dksTexteMap.h"
+	"../dksMoteur3d/Volumes/Annelide.h"
+	"../dksMoteur3d/Volumes/dksPlan.h"
+	"../dksMoteur3d/Volumes/VolumeFacesSeparees.h"
+	"../Utiles/Interpolations.h"
+	"Scene.h"
+	"Scene_LogoGP.h"
+	"../dksMoteur2d/dksEcran.h"
+	"../Utiles/Bruit.h"
+
+1335997141 f:\programmation\c++\passages\dksmoteur3d\texte\dkstextemap.h
+	"../../chargeurs_images/Image.h"
+	"../../dksMoteur2d/dksEcran.h"
+	"../../dksMoteur3d/Elements_Fondamentaux/dksConteneur.h"
+	"../../gestion_fichiers/gestion_fichiers.h"
+
+1337371886 f:\programmation\c++\passages\dksmoteur3d\volumes\annelide.h
+	"../Elements_Fondamentaux/dksVolume.h"
+
+1335702831 f:\programmation\c++\passages\dksmoteur3d\volumes\dksplan.h
+	"../Elements_Fondamentaux/dksVolume.h"
+
+1327846571 f:\programmation\c++\passages\dksmoteur3d\volumes\volumefacesseparees.h
+	"../Particules/dksParticules.h"
+
+1337371904 f:\programmation\c++\passages\dksmoteur3d\particules\dksparticules.h
+	"../Geometrie_Espace/dksVecteurUnitaire.h"
+	"../Elements_Fondamentaux/dksVolume.h"
+	"../Elements_Fondamentaux/dksOeil.h"
+	"../../Utiles/Bruit.h"
+	"../../gestion_fichiers/gestion_fichiers.h"
+
+1338849046 f:\programmation\c++\passages\scenes\scene_caduce.h
+	"Scene.h"
+	"../dksMoteur3d/Particules/dksParticulesVolumes.h"
+	"../dksMoteur3d/Volumes/Serpent.h"
+	"../dksMoteur3d/Particules/dksSprite3d.h"
+	"../dksMoteur3d/Particules/dksStarfield.h"
+
+1329989932 f:\programmation\c++\passages\dksmoteur3d\particules\dksparticulesvolumes.h
+	"dksParticules.h"
+	<vector>
+
+1337371921 f:\programmation\c++\passages\dksmoteur3d\volumes\serpent.h
+	"../Elements_Fondamentaux/dksVolume.h"
+	"../LWO/dksChargeLWO2.h"
+	"../LWO/dksConvertionLWO2.h"
+
+1315522881 f:\programmation\c++\passages\dksmoteur3d\particules\dkssprite3d.h
+	"../../chargeurs_images/Image.h"
+
+1328525689 f:\programmation\c++\passages\dksmoteur3d\particules\dksstarfield.h
+	"dksParticules.h"
+	"../../chargeurs_images/Image.h"
+	"dksSprite3d.h"
+
+1340576436 f:\programmation\c++\passages\scenes\scene_starfield.h
+	"Scene.h"
+	"../dksMoteur3d/Volumes/dksCube.h"
+	"../dksMoteur3d/Particules/dksStarfield.h"
+	"../dksMoteur3d/Particules/dksSprite3d.h"
+	"../dksMoteur3d/Particules/dksSprites.h"
+	"../dksMoteur3d/Particules/dksParticulesVolumes.h"
+	"../dksMoteur3d/Particules/dksAnneauElectrique.h"
+	"../dksMoteur3d/Particules/dksJetParticules.h"
+	"../chargeurs_images/Image.h"
+	"../dksMoteur3d/Articules/Papillon.h"
+	"../dksMoteur3d/Rendu/Effets_Speciaux/ES_TransitionTexturesCouleurAxe.h"
+
+1327182970 f:\programmation\c++\passages\dksmoteur3d\particules\dkssprites.h
+	"dksParticules.h"
+	"dksSprite3d.h"
+
+1329040208 f:\programmation\c++\passages\dksmoteur3d\particules\dksanneauelectrique.h
+	"dksParticules.h"
+
+1337371937 f:\programmation\c++\passages\dksmoteur3d\particules\dksjetparticules.h
+	"dksParticules.h"
+
+1340546251 f:\programmation\c++\passages\dksmoteur3d\articules\papillon.h
+	"dksInsecte.h"
+	"../LWO/dksChargeLWO2.h"
+	"../LWO/dksConvertionLWO2.h"
+	"../../Utiles/Interpolations.h"
+	"../../Utiles/Bruit.h"
+
+1337523461 f:\programmation\c++\passages\dksmoteur3d\articules\dksinsecte.h
+	"../Elements_Fondamentaux/dksConteneur.h"
+	"../LWO/dksChargeLWO2.h"
+	"../LWO/dksConvertionLWO2.h"
+
+1328779427 f:\programmation\c++\passages\dksmoteur3d\rendu\effets_speciaux\es_transitiontexturescouleuraxe.h
+	"dksEffetSpecial.h"
+
+1340540655 f:\programmation\c++\passages\scenes\scene_arbre.h
+	"Scene.h"
+	"../chargeurs_images/Image.h"
+	"../dksMoteur3d/Volumes/dksPlan.h"
+	"../dksMoteur3d/Volumes/dksSphere.h"
+	"../dksMoteur3d/Articules/Papillon.h"
+
+1329371480 f:\programmation\c++\passages\dksmoteur3d\volumes\dkssphere.h
+
+1335708708 f:\programmation\c++\passages\scenes\scene_greetings.h
+	"Scene.h"
+	"../dksMoteur3d/Texte/dksPolice3d.h"
+	"../dksMoteur3d/Texte/dksTexte3d.h"
+	"../Utiles/Bruit.h"
+
+1329524748 f:\programmation\c++\passages\dksmoteur3d\texte\dkspolice3d.h
+
+1329528401 f:\programmation\c++\passages\dksmoteur3d\texte\dkstexte3d.h
+	"../Particules/dksParticulesVolumes.h"
+	"dksPolice3d.h"
+
+1335708321 f:\programmation\c++\passages\scenes\scene_jungler_credits.h
+	"Scene.h"
+	"../dksMoteur3d/Volumes/dksDamier.h"
+	"../dksMoteur3d/Articules/dksJongleurVectorBalls.h"
+
+1328773175 f:\programmation\c++\passages\dksmoteur3d\volumes\dksdamier.h
+	"../Elements_Fondamentaux/dksVolume.h"
+
+1326675018 f:\programmation\c++\passages\dksmoteur3d\articules\dksjongleurvectorballs.h
+	"dksPersonnage.h"
+	"dksJongleur.h"
+	"../Volumes/dksSphere.h"
+	"../../Utiles/OrganisationCouleurs.h"
+
+1327183065 f:\programmation\c++\passages\dksmoteur3d\articules\dkspersonnage.h
+	"../Elements_Fondamentaux/dksConteneur.h"
+	"../LWO/dksChargeLWO2.h"
+	"../LWO/dksConvertionLWO2.h"
+
+1326654600 f:\programmation\c++\passages\dksmoteur3d\articules\dksjongleur.h
+	"dksPersonnage.h"
+	"../../Utiles/Interpolations.h"
+
+1326672332 f:\programmation\c++\passages\utiles\organisationcouleurs.h
+	<vector>
+
+1335997357 f:\programmation\c++\passages\scenes\scene_fin.h
+	"Scene.h"
+	"../dksMoteur2d/dksAfficheImage.h"
+	"../dksMoteur3d/Texte/dksTexteMap.h"
+
+1335731961 f:\programmation\c++\passages\dksmoteur2d\dksafficheimage.h
+	"../chargeurs_images/Image.h"
+	"dksRendu.h"
+	"dksEcran.h"
+	"../dksMoteur3d/Elements_Fondamentaux/dksOeil.h"
+
+1307723742 f:\programmation\c++\passages\utiles\texte.h
+

@@ -1,0 +1,24 @@
+
+/*
+*		
+*		Réflexion du cube d'arrière plan - Calcul des fragments
+*
+*/
+
+uniform samplerCube cube_arriere_plan;
+uniform float niveau_reflexion;
+
+varying vec4 couleur;
+varying vec3 couleur_speculaire;
+
+varying vec3 vecteur_reflet;
+
+
+void main( void )
+{
+	gl_FragColor=clamp(
+						(1.-niveau_reflexion)*(couleur+vec4(couleur_speculaire,0.))
+						+niveau_reflexion*texture(cube_arriere_plan,vecteur_reflet),
+						0.,1.);
+}
+	

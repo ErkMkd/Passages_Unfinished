@@ -1,0 +1,23 @@
+//======================================================================
+//
+//		Shader de post-rendu.
+//		Superpose deux textures avec un masque
+//		Si le texel de la texture 1 est de la couleur du masque,
+//		alors c'est le texel de la texture 2 qui est affiché
+//
+//======================================================================
+
+varying vec2 coordonnees_texture_1;
+varying vec2 coordonnees_texture_2;
+
+varying vec4 couleur;
+
+void main( void )
+{
+	//Données de l'observateur:
+    gl_Position =  gl_ModelViewProjectionMatrix * gl_Vertex;
+	couleur		=	gl_Color;
+	
+	coordonnees_texture_1     = gl_MultiTexCoord0.xy;
+	coordonnees_texture_2     = gl_MultiTexCoord1.xy;
+}

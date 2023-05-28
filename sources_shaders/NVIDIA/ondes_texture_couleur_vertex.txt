@@ -1,0 +1,59 @@
+//======================================================================
+//				Ondes aqueuses avec éclairage - Vertex Shader
+//======================================================================
+
+
+
+
+uniform int drapeaux_sources;	//Les bits d'activation des sources lumineuses
+//uniform	vec3	centre_gravite_face;
+uniform float vitesse_ondes;
+uniform float echelle_texture_bruit_ondes;
+uniform float position_temps;
+uniform vec3 tangente;
+uniform vec3 binormale;
+
+varying vec3 tangente_sommet;
+varying vec3 binormale_sommet;
+varying vec2 position_sommet_2d;
+varying vec2 texture_bruit_coord;
+varying vec2 texture_couleur_coord;
+
+varying vec3 direction_sommet_oeil;
+varying vec3 directions_sources[4];
+varying float distances_sources[4];
+varying vec3 normale_face;
+
+
+void main( void )
+{
+	gl_Position 			=  gl_ModelViewProjectionMatrix * gl_Vertex;
+	
+	//Position du sommet dans le plan de la face:
+	tangente_sommet			= tangente;
+	binormale_sommet		= binormale;
+	vec3 position_sommet	= gl_Vertex.xyz;//-centre_gravite_face;
+	position_sommet_2d.x 	= dot(position_sommet,tangente);
+	position_sommet_2d.y 	= dot(position_sommet,binormale);
+	
+	//Coordonnées de la texture de bruit:
+	float pas_texture=(vitesse_ondes*position_temps);
+	texture_bruit_coord			=	(position_sommet_2d+vec2(-pas_texture,-pas_texture))/echelle_texture_bruit_ondes;
+	//texture_bruit_coord			=	(position_sommet_2d+vec2(pas_texture,0.))/echelle_texture_bruit_ondes;
+	texture_couleur_coord     		= gl_MultiTexCoord0.xy;
+	
+	//Données de l'observateur:
+	position_sommet 	= (gl_ModelViewMatrix * gl_Vertex).xyz;
+    normale_face 			= gl_NormalMatrix * gl_Normal;
+	direction_sommet_oeil 	= -position_sommet;
+	
+	// Calcul des sources:		
+			
+	for(int n=0;n<4;n++)
+	{
+		if ( !(drapeaux_sources & (1<<n)) ) continue;
+		vec3 position_source 		= (gl_LightSource[n].position).xyz;
+		directions_sources[n] 		= position_source-position_sommet;
+		distances_sources[n] 		= length(directions_sources[n]);
+	}
+}
