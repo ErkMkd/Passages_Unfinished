@@ -474,8 +474,8 @@ class Interpolation_Parametre_2f: public Interpolations
     void determine_parametres(float p_t0,float* p_depart,float* p_fin,float p_duree,uint8_t p_type=INTERPOLATION_INCONNUE,Courbe_Bezier_Plan* p_courbe=NULL)
     {
         t0=p_t0;
-        valeur_depart={p_depart[0],p_depart[1]};
-        valeur_fin={p_fin[0],p_fin[1]};
+        affecte(valeur_depart,p_depart[0],p_depart[1]);
+        affecte(valeur_fin,p_fin[0],p_fin[1]);
         duree=p_duree;
         if(p_type!=INTERPOLATION_INCONNUE) type_interpolation=p_type;
         drapeau_terminee=false;
@@ -539,8 +539,8 @@ class Interpolation_Parametre_2d: public Interpolations
     void determine_parametres(double p_t0,double* p_depart,double* p_fin,double p_duree,uint8_t p_type,Courbe_Bezier_Plan* p_courbe=NULL)
     {
         t0=p_t0;
-        valeur_depart={p_depart[0],p_depart[1]};
-        valeur_fin={p_fin[0],p_fin[1]};
+        affecte(valeur_depart,p_depart[0],p_depart[1]);
+        affecte(valeur_fin,p_fin[0],p_fin[1]);
         duree=p_duree;
         type_interpolation=p_type;
         drapeau_terminee=false;
@@ -608,8 +608,8 @@ class Interpolation_Parametre_3f: public Interpolations
     void determine_parametres(float p_t0,float* p_depart,float* p_fin,float p_duree,uint8_t p_type,Courbe_Bezier_Plan* p_courbe=NULL)
     {
         t0=p_t0;
-        valeur_depart={p_depart[0],p_depart[1],p_depart[2]};
-        valeur_fin={p_fin[0],p_fin[1],p_fin[2]};;
+        affecte(valeur_depart,p_depart[0],p_depart[1],p_depart[2]);
+        affecte(valeur_fin,p_fin[0],p_fin[1],p_fin[2]);;
         duree=p_duree;
         type_interpolation=p_type;
         drapeau_terminee=false;
@@ -673,8 +673,8 @@ class Interpolation_Parametre_3d: public Interpolations
     void determine_parametres(double p_t0,double* p_depart,double* p_fin,double p_duree,uint8_t p_type,Courbe_Bezier_Plan* p_courbe=NULL)
     {
         t0=p_t0;
-        valeur_depart={p_depart[0],p_depart[1],p_depart[2]};
-        valeur_fin={p_fin[0],p_fin[1],p_fin[2]};;
+        affecte(valeur_depart,p_depart[0],p_depart[1],p_depart[2]);
+        affecte(valeur_fin,p_fin[0],p_fin[1],p_fin[2]);;
         duree=p_duree;
         type_interpolation=p_type;
         drapeau_terminee=false;

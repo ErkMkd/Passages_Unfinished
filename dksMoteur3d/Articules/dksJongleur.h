@@ -282,19 +282,19 @@ class dksJongleur:public dksPersonnage
 
             //Courbe d'accélération des lancés:
             courbe_lance=new Courbe_Bezier_Plan(0.,0., 0.5,0., .75,1.-0.5, 1.,1.);
-            tableau_courbes_lances={courbe_lance,NULL};
+            affecte(tableau_courbes_lances,courbe_lance,nullptr);
             //Courbe d'accélération des réceptions:
             courbe_reception=new Courbe_Bezier_Plan(0.,0., 0.25,0.5, 0.5,1., 1.,1.);
-            tableau_courbes_receptions={courbe_reception,NULL};
+            affecte(tableau_courbes_receptions,courbe_reception,nullptr);
 
             //Creation lancé main droite:
 
-            valeurs_lance_poignets={-20,0.2,-35,0.2};
-            valeurs_lance_coudes={-50,0.2,-80,0.2};
-            valeurs_lance_epaules_a={-10,0.2,5,0.2};
-            valeurs_lance_epaules_e={5.,0.2,0.,0.2};
-            valeurs_lance_epaules_r={-30,0.2,-35,0.2};
-            types_lance={INTERPOLATION_BEZIER,INTERPOLATION_COSINUS};
+            affecte(valeurs_lance_poignets,-20,0.2,-35,0.2);
+            affecte(valeurs_lance_coudes,-50,0.2,-80,0.2);
+            affecte(valeurs_lance_epaules_a,-10,0.2,5,0.2);
+            affecte(valeurs_lance_epaules_e,5.,0.2,0.,0.2);
+            affecte(valeurs_lance_epaules_r,-30,0.2,-35,0.2);
+            affecte(types_lance,INTERPOLATION_BEZIER,INTERPOLATION_COSINUS);
 
             lance_poignet_droit=new Suite_Interpolations(-1,valeurs_lance_poignets,types_lance,2,false,tableau_courbes_lances);
             lance_coude_droit=new Suite_Interpolations(-1,valeurs_lance_coudes,types_lance,2,false,tableau_courbes_lances);
@@ -323,12 +323,12 @@ class dksJongleur:public dksPersonnage
 
             //Creation positionnement réception main droite:
 
-            valeurs_pos_reception_poignets={-35,0.2,-35,0.2};
-            valeurs_pos_reception_coudes={-80,0.2,-60,0.2};
-            valeurs_pos_reception_epaules_a={5,0.2,5,0.2};
-            valeurs_pos_reception_epaules_e={0.,0.2,5.,0.2};
-            valeurs_pos_reception_epaules_r={-35,0.2,15,0.2};
-            types_pos_reception={INTERPOLATION_LINEAIRE,INTERPOLATION_LINEAIRE};
+            affecte(valeurs_pos_reception_poignets,-35,0.2,-35,0.2);
+            affecte(valeurs_pos_reception_coudes,-80,0.2,-60,0.2);
+            affecte(valeurs_pos_reception_epaules_a,5,0.2,5,0.2);
+            affecte(valeurs_pos_reception_epaules_e,0.,0.2,5.,0.2);
+            affecte(valeurs_pos_reception_epaules_r,-35,0.2,15,0.2);
+            affecte(types_pos_reception,INTERPOLATION_LINEAIRE,INTERPOLATION_LINEAIRE);
 
             pos_reception_poignet_droit=new Suite_Interpolations(-1,valeurs_pos_reception_poignets,types_pos_reception,2,false);
             pos_reception_coude_droit=new Suite_Interpolations(-1,valeurs_pos_reception_coudes,types_pos_reception,2,false);
@@ -357,12 +357,12 @@ class dksJongleur:public dksPersonnage
 
             //Creation réception main droite:
 
-            valeurs_reception_poignets={-35,0.2,-55,0.2};
-            valeurs_reception_coudes={-60,0.2,-20,0.2};
-            valeurs_reception_epaules_a={5,0.2,0,0.2};
-            valeurs_reception_epaules_e={5.,0.2,-5.,0.2};
-            valeurs_reception_epaules_r={15.,0.2,15.,0.2};
-            types_reception={INTERPOLATION_BEZIER,INTERPOLATION_COSINUS};
+            affecte(valeurs_reception_poignets,-35,0.2,-55,0.2);
+            affecte(valeurs_reception_coudes,-60,0.2,-20,0.2);
+            affecte(valeurs_reception_epaules_a,5,0.2,0,0.2);
+            affecte(valeurs_reception_epaules_e,5.,0.2,-5.,0.2);
+            affecte(valeurs_reception_epaules_r,15.,0.2,15.,0.2);
+            affecte(types_reception,INTERPOLATION_BEZIER,INTERPOLATION_COSINUS);
 
             reception_poignet_droit=new Suite_Interpolations(-1,valeurs_reception_poignets,types_reception,2,false,tableau_courbes_receptions);
             reception_coude_droit=new Suite_Interpolations(-1,valeurs_reception_coudes,types_reception,2,false,tableau_courbes_receptions);
@@ -391,12 +391,12 @@ class dksJongleur:public dksPersonnage
 
             //Creation positionnement lancé main droite:
 
-            valeurs_pos_lance_poignets={-55,0.2,-20,0.2};
-            valeurs_pos_lance_coudes={-20,0.2,-50,0.2};
-            valeurs_pos_lance_epaules_a={0.,0.2,-10.,0.2};
-            valeurs_pos_lance_epaules_e={-5.,0.2,5.,0.2};
-            valeurs_pos_lance_epaules_r={15.,0.2,-30.,0.2};
-            types_pos_lance={INTERPOLATION_COSINUS,INTERPOLATION_COSINUS};
+            affecte(valeurs_pos_lance_poignets,-55,0.2,-20,0.2);
+            affecte(valeurs_pos_lance_coudes,-20,0.2,-50,0.2);
+            affecte(valeurs_pos_lance_epaules_a,0.,0.2,-10.,0.2);
+            affecte(valeurs_pos_lance_epaules_e,-5.,0.2,5.,0.2);
+            affecte(valeurs_pos_lance_epaules_r,15.,0.2,-30.,0.2);
+            affecte(types_pos_lance,INTERPOLATION_COSINUS,INTERPOLATION_COSINUS);
 
             pos_lance_poignet_droit=new Suite_Interpolations(-1,valeurs_pos_lance_poignets,types_pos_lance,2,false);
             pos_lance_coude_droit=new Suite_Interpolations(-1,valeurs_pos_lance_coudes,types_pos_lance,2,false);
@@ -424,11 +424,11 @@ class dksJongleur:public dksPersonnage
             drapeau_pos_lance_main_gauche=false;
 
             //Création flexion des jambes:
-            valeurs_flexion_hanches={0.,0.2,-15,0.2};
-            valeurs_abduction_hanches={8.,0.2,9.,0.25};
-            valeurs_flexion_genoux={0.,0.2,30,0.2};
-            valeurs_flexion_chevilles={0.,0.2,-15,0.2};
-            types_flexion_jambes={INTERPOLATION_COSINUS,INTERPOLATION_COSINUS};
+            affecte(valeurs_flexion_hanches,0.,0.2,-15,0.2);
+            affecte(valeurs_abduction_hanches,8.,0.2,9.,0.25);
+            affecte(valeurs_flexion_genoux,0.,0.2,30,0.2);
+            affecte(valeurs_flexion_chevilles,0.,0.2,-15,0.2);
+            affecte(types_flexion_jambes,INTERPOLATION_COSINUS,INTERPOLATION_COSINUS);
 
             hauteur_pieds=0.;
 
@@ -641,7 +641,7 @@ class dksJongleur:public dksPersonnage
             {
                 case JONGLEUR_SITESWAP_3:
                     taille_sequence=3*JONGLEUR_NBR_PHASES/2 *2; //Multiplication par deux des mouvements assymétriques
-                        sequence={  JONGLEUR_PHASE_LANCE,1,3,JONGLEUR_PHASE_RECEPTION,0,0,
+                        affecte(sequence,  JONGLEUR_PHASE_LANCE,1,3,JONGLEUR_PHASE_RECEPTION,0,0,
                                     JONGLEUR_PHASE_POS_RECEPTION,0,0,JONGLEUR_PHASE_POS_LANCE,0,0,
 
                                     JONGLEUR_PHASE_RECEPTION,0,0,JONGLEUR_PHASE_LANCE,2,3,
@@ -658,7 +658,7 @@ class dksJongleur:public dksPersonnage
 
                                     JONGLEUR_PHASE_RECEPTION,0,0,JONGLEUR_PHASE_LANCE,3,3,
                                     JONGLEUR_PHASE_POS_LANCE,0,0,JONGLEUR_PHASE_POS_RECEPTION,0,0
-                                };
+                                );
                     //----- Initialise les balles:
                     nbr_balles=3;
                     balles[0].phase_id=BALLE_JONGLAGE_MAIN_DROITE;
@@ -668,7 +668,7 @@ class dksJongleur:public dksPersonnage
 
                 case JONGLEUR_SITESWAP_5:
                     taille_sequence=5*JONGLEUR_NBR_PHASES/2 *2; //Multiplication par deux des mouvements assymétriques
-                        sequence={
+                        affecte(sequence,
                                     JONGLEUR_PHASE_LANCE,1,5,JONGLEUR_PHASE_RECEPTION,0,0,
                                     JONGLEUR_PHASE_POS_RECEPTION,0,0,JONGLEUR_PHASE_POS_LANCE,0,0,
 
@@ -700,7 +700,7 @@ class dksJongleur:public dksPersonnage
                                     JONGLEUR_PHASE_RECEPTION,0,0,JONGLEUR_PHASE_LANCE,5,5,
                                     JONGLEUR_PHASE_POS_LANCE,0,0,JONGLEUR_PHASE_POS_RECEPTION,0,0
 
-                                };
+                                );
                         //----- Initialise les balles:
                         nbr_balles=5;
                         balles[0].phase_id=BALLE_JONGLAGE_MAIN_DROITE;
@@ -712,7 +712,7 @@ class dksJongleur:public dksPersonnage
 
                     case JONGLEUR_SITESWAP_9:
                         taille_sequence=9*JONGLEUR_NBR_PHASES/2 *2; //Multiplication par deux des mouvements assymétriques
-                        sequence={
+                        affecte(sequence,
                                     JONGLEUR_PHASE_LANCE,1,9,JONGLEUR_PHASE_RECEPTION,0,0,
                                     JONGLEUR_PHASE_POS_RECEPTION,0,0,JONGLEUR_PHASE_POS_LANCE,0,0,
 
@@ -767,7 +767,7 @@ class dksJongleur:public dksPersonnage
                                     JONGLEUR_PHASE_RECEPTION,0,0,JONGLEUR_PHASE_LANCE,9,9,
                                     JONGLEUR_PHASE_POS_LANCE,0,0,JONGLEUR_PHASE_POS_RECEPTION,0,0
 
-                                };
+                                );
                     //----- Initialise les balles:
                     nbr_balles=9;
                     balles[0].phase_id=BALLE_JONGLAGE_MAIN_DROITE;
@@ -783,7 +783,7 @@ class dksJongleur:public dksPersonnage
 
                 case JONGLEUR_SITESWAP_75300:
                     taille_sequence=5*JONGLEUR_NBR_PHASES/2 *2; //Multiplication par deux des mouvements assymétriques
-                        sequence={
+                        affecte(sequence,
                                     JONGLEUR_PHASE_LANCE,1,7,JONGLEUR_PHASE_RECEPTION,0,0,
                                     JONGLEUR_PHASE_POS_RECEPTION,0,0,JONGLEUR_PHASE_POS_LANCE,0,0,
 
@@ -814,7 +814,7 @@ class dksJongleur:public dksPersonnage
                                     JONGLEUR_PHASE_RECEPTION,0,0,JONGLEUR_PHASE_LANCE,0,0,
                                     JONGLEUR_PHASE_POS_LANCE,0,0,JONGLEUR_PHASE_POS_RECEPTION,0,0
 
-                                };
+                                );
                     //----- Initialise les balles:
                     nbr_balles=3;
                     balles[0].phase_id=BALLE_JONGLAGE_MAIN_DROITE;
@@ -1056,8 +1056,8 @@ class dksJongleur:public dksPersonnage
 
             maj_squelette();
 
-            depart_balle_droite={squelette[PERSONNAGE_MAIN_DROITE*3],squelette[PERSONNAGE_MAIN_DROITE*3+1],squelette[PERSONNAGE_MAIN_DROITE*3+2]};
-            depart_balle_gauche={-squelette[PERSONNAGE_MAIN_DROITE*3],squelette[PERSONNAGE_MAIN_DROITE*3+1],squelette[PERSONNAGE_MAIN_DROITE*3+2]};
+            affecte(depart_balle_droite,squelette[PERSONNAGE_MAIN_DROITE*3],squelette[PERSONNAGE_MAIN_DROITE*3+1],squelette[PERSONNAGE_MAIN_DROITE*3+2]);
+            affecte(depart_balle_gauche,-squelette[PERSONNAGE_MAIN_DROITE*3],squelette[PERSONNAGE_MAIN_DROITE*3+1],squelette[PERSONNAGE_MAIN_DROITE*3+2]);
 
             angle_Pda=valeurs_reception_poignets[0];
             angle_Cd=valeurs_reception_coudes[0];
@@ -1067,8 +1067,8 @@ class dksJongleur:public dksPersonnage
 
             maj_squelette();
 
-            arrivee_balle_droite={squelette[PERSONNAGE_MAIN_DROITE*3],squelette[PERSONNAGE_MAIN_DROITE*3+1],squelette[PERSONNAGE_MAIN_DROITE*3+2]};
-            arrivee_balle_gauche={-squelette[PERSONNAGE_MAIN_DROITE*3],squelette[PERSONNAGE_MAIN_DROITE*3+1],squelette[PERSONNAGE_MAIN_DROITE*3+2]};
+            affecte(arrivee_balle_droite,squelette[PERSONNAGE_MAIN_DROITE*3],squelette[PERSONNAGE_MAIN_DROITE*3+1],squelette[PERSONNAGE_MAIN_DROITE*3+2]);
+            affecte(arrivee_balle_gauche,-squelette[PERSONNAGE_MAIN_DROITE*3],squelette[PERSONNAGE_MAIN_DROITE*3+1],squelette[PERSONNAGE_MAIN_DROITE*3+2]);
 
 
             maj_squelette();
@@ -1097,7 +1097,7 @@ class dksJongleur:public dksPersonnage
                         }
                         else
                         {
-                            balle->position={squelette[PERSONNAGE_MAIN_DROITE*3],squelette[PERSONNAGE_MAIN_DROITE*3+1],squelette[PERSONNAGE_MAIN_DROITE*3+2]};
+                            affecte(balle->position,squelette[PERSONNAGE_MAIN_DROITE*3],squelette[PERSONNAGE_MAIN_DROITE*3+1],squelette[PERSONNAGE_MAIN_DROITE*3+2]);
                         }
                     break;
                     case BALLE_JONGLAGE_VOL_DROITE_GAUCHE:
@@ -1105,7 +1105,7 @@ class dksJongleur:public dksPersonnage
                         if(t-balle->t_depart_vol >= t_vol_balle)
                         {
                             balle->phase_id=BALLE_JONGLAGE_MAIN_GAUCHE;
-                            balle->position={squelette[PERSONNAGE_MAIN_GAUCHE*3],squelette[PERSONNAGE_MAIN_GAUCHE*3+1],squelette[PERSONNAGE_MAIN_GAUCHE*3+2]};
+                            affecte(balle->position,squelette[PERSONNAGE_MAIN_GAUCHE*3],squelette[PERSONNAGE_MAIN_GAUCHE*3+1],squelette[PERSONNAGE_MAIN_GAUCHE*3+2]);
                         }
                         else
                         {
@@ -1136,7 +1136,7 @@ class dksJongleur:public dksPersonnage
                         }
                         else
                         {
-                            balle->position={squelette[PERSONNAGE_MAIN_GAUCHE*3],squelette[PERSONNAGE_MAIN_GAUCHE*3+1],squelette[PERSONNAGE_MAIN_GAUCHE*3+2]};
+                            affecte(balle->position,squelette[PERSONNAGE_MAIN_GAUCHE*3],squelette[PERSONNAGE_MAIN_GAUCHE*3+1],squelette[PERSONNAGE_MAIN_GAUCHE*3+2]);
                         }
                     break;
                     case BALLE_JONGLAGE_VOL_GAUCHE_DROITE:
@@ -1144,7 +1144,7 @@ class dksJongleur:public dksPersonnage
                         if(t-balle->t_depart_vol >= t_vol_balle)
                         {
                             balle->phase_id=BALLE_JONGLAGE_MAIN_DROITE;
-                            balle->position={squelette[PERSONNAGE_MAIN_DROITE*3],squelette[PERSONNAGE_MAIN_DROITE*3+1],squelette[PERSONNAGE_MAIN_DROITE*3+2]};
+                            affecte(balle->position,squelette[PERSONNAGE_MAIN_DROITE*3],squelette[PERSONNAGE_MAIN_DROITE*3+1],squelette[PERSONNAGE_MAIN_DROITE*3+2]);
                         }
                         else
                         {

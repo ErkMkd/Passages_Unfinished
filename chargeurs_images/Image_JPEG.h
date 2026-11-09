@@ -1,13 +1,14 @@
 #ifndef IMAGE_JPEG_H_INCLUDED
 #define IMAGE_JPEG_H_INCLUDED
 
-#include "jpeglib/jpeglib.h"
+#include <stdio.h>
+#include <jpeglib.h>
 #include "Image_infos.h"
 
 #include <string.h>
 #include <windows.h>
-#include <stdio.h>
 #include <stdlib.h>
+#include <vector>
 
 using namespace std;
 
@@ -80,7 +81,7 @@ class Image_JPEG
         }
 
         //Création d'un tableau de pointeurs sur les lignes de l'image:
-        JSAMPLE* tableau_scanlines[parametres->hauteur];
+        std::vector<JSAMPLE*> tableau_scanlines(parametres->hauteur);
 
         for (uint32_t i=0;i<parametres->hauteur;i++)
         {

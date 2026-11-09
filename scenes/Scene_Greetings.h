@@ -162,8 +162,8 @@ class Scene_Greetings : public Scene
             police_groupes=new dksPolice3d(lettres,GREETS_NBR_LETTRES,1.,.15);
             police_groupes->determine_mode_rendu(DKSVOLUME_MODE_TABLEAUX);
 
-            noms_groupes={"Onslaught","Mahoney","Hack N Trade","Judas","Up Rough","TRSI","Nostalgia","Booze Design","Offence","Triad","Nuance","Wrath Designs",
-                            "Hokuto Force","Vision","Noice","Panda Design"};
+            affecte(noms_groupes,"Onslaught","Mahoney","Hack N Trade","Judas","Up Rough","TRSI","Nostalgia","Booze Design","Offence","Triad","Nuance","Wrath Designs",
+                            "Hokuto Force","Vision","Noice","Panda Design");
 
             #define POSITION_GROUPS_Y 6.
             #define POSITION_GROUPS_Z -2.
@@ -303,7 +303,7 @@ class Scene_Greetings : public Scene
             conteneur_mvt_balls_1=new dksConteneur("conteneur_mouvement_balls_1",0.,POSITION_GROUPS_Y,POSITION_GROUPS_Z);
             conteneur_mvt_balls_2=new dksConteneur("conteneur_mouvement_balls_2",0.,4.,0.);
             conteneur_mvt_balls_1->ajoute_enfant(conteneur_mvt_balls_2);
-            vitesse_centre_gravite_balls_RTL={35./180.*M_PI*1.,43./180.*M_PI*1.,-57./180*M_PI*1.};
+            affecte(vitesse_centre_gravite_balls_RTL,35./180.*M_PI*1.,43./180.*M_PI*1.,-57./180*M_PI*1.);
 
         //----------------- Création des éléments de la scène:
         //Yeux:
@@ -311,7 +311,7 @@ class Scene_Greetings : public Scene
             oeil_courant=oeil_1;
             conteneur_oeil_1=new dksConteneur("conteneur_travelling",0.,0.,0.);
             conteneur_oeil_1->ajoute_enfant(oeil_1);
-            axes={0.999978,-0.00327286,-0.0056919,0.00213878,0.981993,-0.188901,0.00620767,0.188884,0.981979};
+            affecte(axes,0.999978,-0.00327286,-0.0056919,0.00213878,0.981993,-0.188901,0.00620767,0.188884,0.981979);
             oeil_1->determine_axes(axes);
 
         //Création des sources:

@@ -549,8 +549,8 @@ class Papillon: public dksInsecte
         {
             if(phase_pattes==DKSPAPILLON_PHASE_PATTES_REPOS)
             {
-                femurs_angles_depart={pattes_angle_repos_Fa,pattes_angle_repos_Fr};
-                femurs_angles_fin={pattes_angle_vol_Fa,pattes_angle_vol_Fr};
+                affecte(femurs_angles_depart,pattes_angle_repos_Fa,pattes_angle_repos_Fr);
+                affecte(femurs_angles_fin,pattes_angle_vol_Fa,pattes_angle_vol_Fr);
                 interpolation_pattes_femurs->determine_parametres(-1.,femurs_angles_depart,femurs_angles_fin,pattes_duree_envol);
                 interpolation_pattes_tibias->determine_parametres(-1.,pattes_angle_repos_Ta,pattes_angle_vol_Ta,pattes_duree_envol);
                 phase_pattes=DKSPAPILLON_PHASE_PATTES_ENVOL;
@@ -574,8 +574,8 @@ class Papillon: public dksInsecte
             }
             else if(phase_pattes==DKSPAPILLON_PHASE_PATTES_RETOUR_REPOS)
             {
-                femurs_angles_depart={pattes[0].angle_Fa,pattes[0].angle_Fr};
-                femurs_angles_fin={pattes_angle_vol_Fa,pattes_angle_vol_Fr};
+                affecte(femurs_angles_depart,pattes[0].angle_Fa,pattes[0].angle_Fr);
+                affecte(femurs_angles_fin,pattes_angle_vol_Fa,pattes_angle_vol_Fr);
                 interpolation_pattes_femurs->determine_parametres(-1.,femurs_angles_depart,femurs_angles_fin,pattes_duree_envol);
                 interpolation_pattes_tibias->determine_parametres(-1.,pattes[0].angle_Ta,pattes_angle_vol_Ta,pattes_duree_envol);
                 phase_pattes=DKSPAPILLON_PHASE_PATTES_ENVOL;
@@ -588,16 +588,16 @@ class Papillon: public dksInsecte
             if(phase_pattes==DKSPAPILLON_PHASE_PATTES_REPOS) return;
             else if(phase_pattes==DKSPAPILLON_PHASE_PATTES_ENVOL)
             {
-                femurs_angles_depart={pattes[0].angle_Fa,pattes[0].angle_Fr};
-                femurs_angles_fin={pattes_angle_repos_Fa,pattes_angle_repos_Fr};
+                affecte(femurs_angles_depart,pattes[0].angle_Fa,pattes[0].angle_Fr);
+                affecte(femurs_angles_fin,pattes_angle_repos_Fa,pattes_angle_repos_Fr);
                 interpolation_pattes_femurs->determine_parametres(-1.,femurs_angles_depart,femurs_angles_fin,pattes_duree_retour_repos);
                 interpolation_pattes_tibias->determine_parametres(-1.,pattes[0].angle_Ta,pattes_angle_repos_Ta,pattes_duree_retour_repos);
                 phase_pattes=DKSPAPILLON_PHASE_PATTES_RETOUR_REPOS;
             }
             else if(phase_pattes==DKSPAPILLON_PHASE_PATTES_VOL)
             {
-                femurs_angles_depart={pattes[0].angle_Fa,pattes[0].angle_Fr};
-                femurs_angles_fin={pattes_angle_repos_Fa,pattes_angle_repos_Fr};
+                affecte(femurs_angles_depart,pattes[0].angle_Fa,pattes[0].angle_Fr);
+                affecte(femurs_angles_fin,pattes_angle_repos_Fa,pattes_angle_repos_Fr);
                 interpolation_pattes_femurs->determine_parametres(-1.,femurs_angles_depart,femurs_angles_fin,pattes_duree_retour_repos);
                 interpolation_pattes_tibias->determine_parametres(-1.,pattes[0].angle_Ta,pattes_angle_repos_Ta,pattes_duree_retour_repos);
                 phase_pattes=DKSPAPILLON_PHASE_PATTES_RETOUR_REPOS;
@@ -656,8 +656,8 @@ class Papillon: public dksInsecte
         double* point1_b=&squelette[3*INSECTE_ANTENNE_DROITE];
         double* point2_b=&squelette[3*INSECTE_ANTENNE_FLAGELLE_DROITE];
 
-        axe1={point2_a[0]-point1_a[0],point2_a[1]-point1_a[1],point2_a[2]-point1_a[2]};
-        axe2={point2_b[0]-point1_b[0],point2_b[1]-point1_b[1],point2_b[2]-point1_b[2]};
+        affecte(axe1,point2_a[0]-point1_a[0],point2_a[1]-point1_a[1],point2_a[2]-point1_a[2]);
+        affecte(axe2,point2_b[0]-point1_b[0],point2_b[1]-point1_b[1],point2_b[2]-point1_b[2]);
         axe_volume.calcul_rotation_entre_deux_vecteurs(axe1,axe2);
 
         antenne_droite->raz_axes();
@@ -669,8 +669,8 @@ class Papillon: public dksInsecte
         point1_b=&squelette[3*INSECTE_ANTENNE_GAUCHE];
         point2_b=&squelette[3*INSECTE_ANTENNE_FLAGELLE_GAUCHE];
 
-        axe1={point2_a[0]-point1_a[0],point2_a[1]-point1_a[1],point2_a[2]-point1_a[2]};
-        axe2={point2_b[0]-point1_b[0],point2_b[1]-point1_b[1],point2_b[2]-point1_b[2]};
+        affecte(axe1,point2_a[0]-point1_a[0],point2_a[1]-point1_a[1],point2_a[2]-point1_a[2]);
+        affecte(axe2,point2_b[0]-point1_b[0],point2_b[1]-point1_b[1],point2_b[2]-point1_b[2]);
         axe_volume.calcul_rotation_entre_deux_vecteurs(axe1,axe2);
 
         antenne_gauche->raz_axes();
@@ -682,8 +682,8 @@ class Papillon: public dksInsecte
         point1_b=&squelette[3*INSECTE_AILE_AVANT_DROITE];
         point2_b=&squelette[3*INSECTE_BOUT_AILE_AVANT_DROITE];
 
-        axe1={point2_a[0]-point1_a[0],point2_a[1]-point1_a[1],point2_a[2]-point1_a[2]};
-        axe2={point2_b[0]-point1_b[0],point2_b[1]-point1_b[1],point2_b[2]-point1_b[2]};
+        affecte(axe1,point2_a[0]-point1_a[0],point2_a[1]-point1_a[1],point2_a[2]-point1_a[2]);
+        affecte(axe2,point2_b[0]-point1_b[0],point2_b[1]-point1_b[1],point2_b[2]-point1_b[2]);
         axe_volume.calcul_rotation_entre_deux_vecteurs(axe1,axe2);
 
         aile_avant_droite->raz_axes();
@@ -695,8 +695,8 @@ class Papillon: public dksInsecte
         point1_b=&squelette[3*INSECTE_AILE_AVANT_GAUCHE];
         point2_b=&squelette[3*INSECTE_BOUT_AILE_AVANT_GAUCHE];
 
-        axe1={point2_a[0]-point1_a[0],point2_a[1]-point1_a[1],point2_a[2]-point1_a[2]};
-        axe2={point2_b[0]-point1_b[0],point2_b[1]-point1_b[1],point2_b[2]-point1_b[2]};
+        affecte(axe1,point2_a[0]-point1_a[0],point2_a[1]-point1_a[1],point2_a[2]-point1_a[2]);
+        affecte(axe2,point2_b[0]-point1_b[0],point2_b[1]-point1_b[1],point2_b[2]-point1_b[2]);
         axe_volume.calcul_rotation_entre_deux_vecteurs(axe1,axe2);
 
         aile_avant_gauche->raz_axes();
@@ -708,8 +708,8 @@ class Papillon: public dksInsecte
         point1_b=&squelette[3*INSECTE_AILE_ARRIERE_DROITE];
         point2_b=&squelette[3*INSECTE_BOUT_AILE_ARRIERE_DROITE];
 
-        axe1={point2_a[0]-point1_a[0],point2_a[1]-point1_a[1],point2_a[2]-point1_a[2]};
-        axe2={point2_b[0]-point1_b[0],point2_b[1]-point1_b[1],point2_b[2]-point1_b[2]};
+        affecte(axe1,point2_a[0]-point1_a[0],point2_a[1]-point1_a[1],point2_a[2]-point1_a[2]);
+        affecte(axe2,point2_b[0]-point1_b[0],point2_b[1]-point1_b[1],point2_b[2]-point1_b[2]);
         axe_volume.calcul_rotation_entre_deux_vecteurs(axe1,axe2);
 
         aile_arriere_droite->raz_axes();
@@ -721,8 +721,8 @@ class Papillon: public dksInsecte
         point1_b=&squelette[3*INSECTE_AILE_ARRIERE_GAUCHE];
         point2_b=&squelette[3*INSECTE_BOUT_AILE_ARRIERE_GAUCHE];
 
-        axe1={point2_a[0]-point1_a[0],point2_a[1]-point1_a[1],point2_a[2]-point1_a[2]};
-        axe2={point2_b[0]-point1_b[0],point2_b[1]-point1_b[1],point2_b[2]-point1_b[2]};
+        affecte(axe1,point2_a[0]-point1_a[0],point2_a[1]-point1_a[1],point2_a[2]-point1_a[2]);
+        affecte(axe2,point2_b[0]-point1_b[0],point2_b[1]-point1_b[1],point2_b[2]-point1_b[2]);
         axe_volume.calcul_rotation_entre_deux_vecteurs(axe1,axe2);
 
         aile_arriere_gauche->raz_axes();
@@ -746,8 +746,8 @@ class Papillon: public dksInsecte
         double* point1_b=&squelette[3*patte->squelette->id_tarse];
         double* point2_b=&squelette[3*patte->squelette->id_contact];
 
-        axe1={point2_a[0]-point1_a[0],point2_a[1]-point1_a[1],point2_a[2]-point1_a[2]};
-        axe2={point2_b[0]-point1_b[0],point2_b[1]-point1_b[1],point2_b[2]-point1_b[2]};
+        affecte(axe1,point2_a[0]-point1_a[0],point2_a[1]-point1_a[1],point2_a[2]-point1_a[2]);
+        affecte(axe2,point2_b[0]-point1_b[0],point2_b[1]-point1_b[1],point2_b[2]-point1_b[2]);
         axe_volume.calcul_rotation_entre_deux_vecteurs(axe1,axe2);
 
         patte->tarse->rotation(axe_volume.angle,&axe_volume);
@@ -758,8 +758,8 @@ class Papillon: public dksInsecte
         point1_b=&squelette[3*patte->squelette->id_tibia];
         point2_b=&squelette[3*patte->squelette->id_tarse];
 
-        axe1={point2_a[0]-point1_a[0],point2_a[1]-point1_a[1],point2_a[2]-point1_a[2]};
-        axe2={point2_b[0]-point1_b[0],point2_b[1]-point1_b[1],point2_b[2]-point1_b[2]};
+        affecte(axe1,point2_a[0]-point1_a[0],point2_a[1]-point1_a[1],point2_a[2]-point1_a[2]);
+        affecte(axe2,point2_b[0]-point1_b[0],point2_b[1]-point1_b[1],point2_b[2]-point1_b[2]);
         axe_volume.calcul_rotation_entre_deux_vecteurs(axe1,axe2);
 
         patte->tibia->rotation(axe_volume.angle,&axe_volume);
@@ -770,8 +770,8 @@ class Papillon: public dksInsecte
         point1_b=&squelette[3*patte->squelette->id_femur];
         point2_b=&squelette[3*patte->squelette->id_tibia];
 
-        axe1={point2_a[0]-point1_a[0],point2_a[1]-point1_a[1],point2_a[2]-point1_a[2]};
-        axe2={point2_b[0]-point1_b[0],point2_b[1]-point1_b[1],point2_b[2]-point1_b[2]};
+        affecte(axe1,point2_a[0]-point1_a[0],point2_a[1]-point1_a[1],point2_a[2]-point1_a[2]);
+        affecte(axe2,point2_b[0]-point1_b[0],point2_b[1]-point1_b[1],point2_b[2]-point1_b[2]);
         axe_volume.calcul_rotation_entre_deux_vecteurs(axe1,axe2);
 
         patte->femur->rotation(axe_volume.angle,&axe_volume);

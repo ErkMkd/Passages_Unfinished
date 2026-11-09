@@ -127,7 +127,7 @@ class dksStarfield : public dksParticules
         //-----------------------------------------------------------
         void determine_centre_precedent(double *cp)
         {
-            centre_prec={cp[0],cp[1],cp[2]};
+            affecte(centre_prec,cp[0],cp[1],cp[2]);
         }
 
         void renvoie_centre_precedent(double* cp)
@@ -147,22 +147,22 @@ class dksStarfield : public dksParticules
             double n,px,py,pz,distance;
             if (!drapeau_initialisation)
             {
-                centre_prec={cx,cy,cz};
+                affecte(centre_prec,cx,cy,cz);
                 drapeau_initialisation=true;
             }
 
             //Calcul le vecteur de déplacement:
-            orientation_deplacement=  {
+            affecte(orientation_deplacement,
                                         cx-centre_prec[0],
                                         cy-centre_prec[1],
                                         cz-centre_prec[2]
-                                    };
+                                    );
 
             n=sqrt( orientation_deplacement[0]*orientation_deplacement[0]
                     +orientation_deplacement[1]*orientation_deplacement[1]
                     +orientation_deplacement[2]*orientation_deplacement[2] );
 
-            centre_prec={cx,cy,cz};
+            affecte(centre_prec,cx,cy,cz);
 
             //repositionne les points qui débordent si le déplacement n'est pas nul:
             if (n==0) return;

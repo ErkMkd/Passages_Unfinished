@@ -160,7 +160,7 @@ class Scene_Jungler_Credits : public Scene
         //Création des sources:
             source_1=new dksSourceLumineuse("Source_1",-9.06262, 29.3366, -15.7745);
             source_1->determine_attenuation(1.,0.005,0.);
-            axes={0.867633,0.0304161,-0.496274,0.376909,0.610733,0.69638,0.324272,-0.791252,0.518428};
+            affecte(axes,0.867633,0.0304161,-0.496274,0.376909,0.610733,0.69638,0.324272,-0.791252,0.518428);
             source_1->determine_axes(axes);
 
             source_2=new dksSourceLumineuse("Source_2",-50.,-50.,10.);

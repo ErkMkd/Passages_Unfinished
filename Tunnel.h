@@ -58,8 +58,8 @@ class Tunnel : public dksConteneur
     {
         nbrVolumesSection=p_nbrVolumesSection;
         bibliotheque_volumes_sections=p_bibliotheque_volumes;
-        position_vecteur_generateur={0.,0.,0.};
-        orientation_vecteur_generateur={0.,0.,1.};
+        affecte(position_vecteur_generateur,0.,0.,0.);
+        affecte(orientation_vecteur_generateur,0.,0.,1.);
         vitesse_vecteur_generateur=40;
         mode_deplacement_vecteur_generateur=TUNNEL_MODE_PERLIN;
         determine_trajectoire_vecteur_generateur(p_trajectoire);
@@ -104,9 +104,9 @@ class Tunnel : public dksConteneur
         //valeurs_bruit_x={0.350281,0.895935,0.378082,0.509888,0.0624084,0.909851,0.852417,0.0788879,0.765991,0.221344};
         //valeurs_bruit_y={0.822815 , 0.746582 , 0.210388,0.415009,0.762939,0.639282,0.569672,0.595978,0.847198,0.439423};
         //valeurs_bruit_z={0.174103 , 0.858917 , 0.940063, 0.00418091,0.670929,0.750952,0.883575,0.17041,0.479645,0.385223};
-        valeurs_bruit_x={0.5,0.895935,0.378082,0.509888,0.0624084,0.909851,0.852417,0.0788879,0.765991,0.221344};
-        valeurs_bruit_y={0.5 , 0.746582 , 0.210388,0.415009,0.762939,0.639282,0.569672,0.595978,0.847198,0.439423};
-        valeurs_bruit_z={1. , 0.858917 , 0.940063, 0.00418091,0.670929,0.750952,0.883575,0.17041,0.479645,0.385223};
+        affecte(valeurs_bruit_x,0.5,0.895935,0.378082,0.509888,0.0624084,0.909851,0.852417,0.0788879,0.765991,0.221344);
+        affecte(valeurs_bruit_y,0.5 , 0.746582 , 0.210388,0.415009,0.762939,0.639282,0.569672,0.595978,0.847198,0.439423);
+        affecte(valeurs_bruit_z,1. , 0.858917 , 0.940063, 0.00418091,0.670929,0.750952,0.883575,0.17041,0.479645,0.385223);
     }
 
     //Oriente le vecteur générateur selon la première valeur de la suite aléatoire fixe

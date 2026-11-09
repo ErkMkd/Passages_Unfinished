@@ -108,7 +108,7 @@ class dksPostRendu
         saturation_horizontale_flou=2.;
         saturation_verticale_flou=2.;
 
-        couleur_masque={0.,0.,0.};
+        affecte(couleur_masque,0.,0.,0.);
     }
 
     ~dksPostRendu()

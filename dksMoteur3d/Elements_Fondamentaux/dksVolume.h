@@ -250,9 +250,9 @@ class dksVolume :public dksConteneur
 		    drapeau_debug=false;
 		    taille_points_sommets=3.;
 		    //std::cout<<"------- Création du volume: "<<p_nom<<std::endl;
-            noir={0.,0.,0.,1.};
-            couleur_sommets={1.,1.,1.};
-            couleur_aretes={1.,1.,1.};
+            affecte(noir,0.,0.,0.,1.);
+            affecte(couleur_sommets,1.,1.,1.);
+            affecte(couleur_aretes,1.,1.,1.);
 
             //--------- Initialise les variables par défaut:
             classe = DKSCONTENEUR_CLASSE_VOLUME;
@@ -1282,7 +1282,7 @@ class dksVolume :public dksConteneur
             liaison_faces* lien;
             dksFace* face;
 
-            bool sommets_limitrophes[nbrSommets];
+            vector<bool> sommets_limitrophes(nbrSommets);
 
             for(i=0;i<nbrSurfaces;i++)
             {
@@ -1329,7 +1329,7 @@ class dksVolume :public dksConteneur
                     {
                         //D'abord on calcul la normale moyenne des faces DE LA SURFACE adjentes au sommet
                         lien=&liaisons_sommets_faces[j];
-                        nrm={0.,0.,0.};
+                        affecte(nrm,0.,0.,0.);
                         faces_exterieures.clear();
                         cptr=0.;
                         for (k=0;k<lien->indices_faces.size();k++)
@@ -1356,7 +1356,7 @@ class dksVolume :public dksConteneur
                         nrm[2]/=cptr;
                         //Test le seuil d'adoucissement avec les faces adjacentes au sommet, extérieures à la surface:
                         cptr=1.;
-                        nrm_ext={nrm[0],nrm[1],nrm[2]}; //Pour que le seuil d'adoucissement soit toujours comparé à la normale de la surface.
+                        affecte(nrm_ext,nrm[0],nrm[1],nrm[2]); //Pour que le seuil d'adoucissement soit toujours comparé à la normale de la surface.
                         for(k=0;k<faces_exterieures.size();k++)
                         {
                             face=faces_exterieures[k];
@@ -2612,7 +2612,7 @@ public:
                 //Récupère les composantes de la matrice de projection de la source des ombres qui vont servir à convertir
                 //les valeurs du Zbuffer en coordonnées spatiales:
                 Matrice4x4* matrice_projection_source=source_des_ombres->renvoie_matrice_projection();
-                composantes_convertion= { float(matrice_projection_source->matrice[14]) , float(matrice_projection_source->matrice[10]) }; ///Invertion de l'ordre...(little endian)
+                affecte(composantes_convertion, float(matrice_projection_source->matrice[14]) , float(matrice_projection_source->matrice[10]) ); ///Invertion de l'ordre...(little endian)
             }
 
             if ( (!drapeau_projete_ombres) || (!drapeau_tempon_profondeur) ) return;

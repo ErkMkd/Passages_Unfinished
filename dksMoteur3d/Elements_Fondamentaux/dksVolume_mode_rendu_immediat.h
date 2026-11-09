@@ -988,7 +988,7 @@
         void rendu_transparente_immediat_aplat(dksFace* face)
         {
             uint16_t k;
-            uint32_t* at;
+            uint32_t* at=face->aretes;
             GLdouble* sommet;
 
             GLboolean eclairage_mem=glIsEnabled(GL_LIGHTING);

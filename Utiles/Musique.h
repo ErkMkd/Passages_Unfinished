@@ -1,7 +1,7 @@
 #ifndef MUSIQUE_H_INCLUDED
 #define MUSIQUE_H_INCLUDED
 
-#include "bass/bass.h"
+#include <bass.h>
 #include <windows.h>
 #include <stdio.h>
 #include <stdlib.h>

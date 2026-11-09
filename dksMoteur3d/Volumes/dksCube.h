@@ -41,8 +41,8 @@ class dksCube : public dksVolume
 
                     sens_polygones=GL_CCW;
 
-                    surfaces_cube={NULL,NULL,NULL,NULL,NULL,NULL};
-                    faces_cube={NULL,NULL,NULL,NULL,NULL,NULL};
+                    affecte(surfaces_cube,nullptr,nullptr,nullptr,nullptr,nullptr,nullptr);
+                    affecte(faces_cube,nullptr,nullptr,nullptr,nullptr,nullptr,nullptr);
                     texture_avant=NULL;
                     texture_arriere=NULL;
                     texture_droite=NULL;
@@ -50,7 +50,7 @@ class dksCube : public dksVolume
                     texture_haut=NULL;
                     texture_bas=NULL;
 
-                    sommets_cube={
+                    affecte(sommets_cube,
                                 -.5*tx,.5*ty,.5*tz,
                                 -.5*tx,-.5*ty,.5*tz,
                                 .5*tx,-.5*ty,.5*tz,
@@ -59,9 +59,9 @@ class dksCube : public dksVolume
                                 .5*tx,-.5*ty,-.5*tz,
                                 -.5*tx,-.5*ty,-.5*tz,
                                 -.5*tx,.5*ty,-.5*tz
-                                };
+                                );
 
-                    aretes_faces_cube={{2,3,0,1},{5,4,3,2},{6,7,4,5},{1,0,7,6},{3,4,7,0},{5,2,1,6}}; ///Ne pas changer l'ordre des sommets, à cause des UV d'arrière-plan
+                    affecte(aretes_faces_cube,{{2,3,0,1},{5,4,3,2},{6,7,4,5},{1,0,7,6},{3,4,7,0},{5,2,1,6}}); ///Ne pas changer l'ordre des sommets, à cause des UV d'arrière-plan
 
                     determine_sommets(sommets_cube,8);
 

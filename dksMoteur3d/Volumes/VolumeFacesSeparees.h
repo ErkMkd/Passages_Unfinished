@@ -35,7 +35,7 @@ class Particule_Face_Separee :public Element_particule
         Particule_Face_Separee(uint32_t p_index,dksFace* p_face):Element_particule(p_index)
         {
             niveau_eclairage=0.;
-            deplacement_centre_gravite={0.,0.,0.};
+            affecte(deplacement_centre_gravite,0.,0.,0.);
             tanguage=0.;
             lacet=0.;
             roulis=0.;
@@ -289,7 +289,7 @@ class VolumeFacesSeparees : public dksParticules
         for (uint32_t i=0;i<nbrPoints;i++)
         {
             Particule_Face_Separee* particule=(Particule_Face_Separee*)particules[i];
-            particule->deplacement_centre_gravite={dx,dy,dz};
+            affecte(particule->deplacement_centre_gravite,dx,dy,dz);
         }
     }
 
@@ -306,7 +306,7 @@ class VolumeFacesSeparees : public dksParticules
             float dy=float(rand())/32768.*(ymax-ymin)+ymin;
             float dz=float(rand())/32768.*(zmax-zmin)+zmin;
 
-            particule->deplacement_centre_gravite={dx,dy,dz};
+            affecte(particule->deplacement_centre_gravite,dx,dy,dz);
         }
     }
 

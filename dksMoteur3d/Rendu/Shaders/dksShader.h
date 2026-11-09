@@ -84,7 +84,7 @@ class dksShader: public Gestion_Shaders
 
             if(drapeau_vertex)
             {
-                tableau_sources={source_vertex};
+                affecte(tableau_sources,source_vertex);
                 glShaderSource(vertex_id,1,tableau_sources,NULL);
             }
             if(drapeau_fragment)

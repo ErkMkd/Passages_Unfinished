@@ -1,7 +1,7 @@
 #ifndef IMAGE_TIFF_H_INCLUDED
 #define IMAGE_TIFF_H_INCLUDED
 
-#include "tifflib/tiffio.h"
+#include <tiffio.h>
 #include "Image_infos.h"
 
 #include <string.h>

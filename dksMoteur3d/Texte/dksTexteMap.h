@@ -82,7 +82,7 @@ class dksTextMap : public dksConteneur
         texte=NULL;
         couleur=0xffffff;
         alpha=1.;
-        couleur_fond={0.,0.,0.};
+        affecte(couleur_fond,0.,0.,0.);
         type_grossissement=GL_LINEAR;
         type_diminution=GL_LINEAR;
         nbr_lignes=0;
@@ -131,9 +131,9 @@ class dksTextMap : public dksConteneur
         uint16_t x,y;
 
         //Coordonnées du quadrilatère:
-        rectangle={0,0.,0., 1.,0.,0., 1.,1.,0., 0.,1.,0.};
+        affecte(rectangle,0,0.,0., 1.,0.,0., 1.,1.,0., 0.,1.,0.);
 
-        normale={0.,0.,1.};
+        affecte(normale,0.,0.,1.);
 
         //Coordonnées de texture:
         for(y=0;y<16;y++)

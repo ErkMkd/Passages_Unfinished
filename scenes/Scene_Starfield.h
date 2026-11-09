@@ -338,7 +338,7 @@ class Scene_Starfield : public Scene
                     dksSurface* passage=surface_passage->renvoie_surface_nom("passage");
                     passage->mode_rendu=DKSSURFACE_RENDU_APLAT;
                     passage->determine_couleur_diffusion(0x00ffff,1.);
-                    post_rendu->couleur_masque={0.,1.,1.};
+                    affecte(post_rendu->couleur_masque,0.,1.,1.);
                     surface_passage->determine_mode_rendu(DKSVOLUME_MODE_LISTE);
                 }
 
@@ -688,7 +688,7 @@ class Scene_Starfield : public Scene
             double axes[9]={-0.832831,-0.126711,0.538829, -0.0346283,0.983466,0.177749, -0.552443,0.129376,-0.823449};
             copie_vaisseau->determine_axes(axes);
             copie_vaisseau->determine_position(-25.3366,6.38337,8.32157);
-            axes={-0.821585,0.00387746,0.570072,0.0223068,0.99943,0.0253507,-0.569649,0.0335442,-0.821203};
+            affecte(axes,-0.821585,0.00387746,0.570072,0.0223068,0.99943,0.0253507,-0.569649,0.0335442,-0.821203);
             oeil_arbre->determine_axes(axes);
             //Papillon:
             papillon=new Papillon("Papy","LWO2/papillon.lwo",NULL,-1.37773, 8.84183, -6.80747);
@@ -1277,8 +1277,8 @@ class Scene_Starfield : public Scene
                 float position[3];
                 double position_0[3],position_1[3];
                 trajectoire_poursuite_vaisseau.renvoie_position(0.,position);
-                position_0={0.,0.,0.};  ///A initialiser au vol
-                position_1={double(position[0]),double(position[1]),double(position[2])};
+                affecte(position_0,0.,0.,0.);  ///A initialiser au vol
+                affecte(position_1,double(position[0]),double(position[1]),double(position[2]));
                 interpolations_positions[POSITIONNE_OEIL] =new Interpolation_Parametre_3d
                                                             (-1.,position_0,position_1,
                                                              interpolations_parametres[LUMINOSITE_REACTEUR]->duree,
@@ -1422,7 +1422,7 @@ class Scene_Starfield : public Scene
                 dksRepere::translation_axe(&points_anneau[3*i],mon_anneau->repere_absolu,point);
                 etincelles->determine_direction_jet(float(point[0]),float(point[1]),float(point[2]));
                 dksRepere::translation_point(&points_anneau[3*i],mon_anneau->repere_absolu,point);
-                etincelles->position_jet={float(point[0]),float(point[1]),float(point[2])};
+                affecte(etincelles->position_jet,float(point[0]),float(point[1]),float(point[2]));
                 etincelles->ejection_particules(5);
             }
         }
@@ -1564,7 +1564,7 @@ class Scene_Starfield : public Scene
                 if (!etapes[DEMARRAGE_VAISSEAU])
                 {
                     etapes[DEMARRAGE_VAISSEAU]=true;
-                    interpolations_positions[POSITIONNE_OEIL]->valeur_depart={oeil_conteneur->x,oeil_conteneur->y,oeil_conteneur->z};
+                    affecte(interpolations_positions[POSITIONNE_OEIL]->valeur_depart,oeil_conteneur->x,oeil_conteneur->y,oeil_conteneur->z);
                 }
                 //************Ajouter un tremblement de l'oeil
                 interpolations_positions[POSITIONNE_OEIL]->renvoie_valeur_parametre(position_temps,position_d);

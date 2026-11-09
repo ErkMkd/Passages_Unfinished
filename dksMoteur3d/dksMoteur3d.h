@@ -406,6 +406,7 @@ class dksMoteur3d : public dksConteneur
             nbrVolumes+=nombre;
             creation_table_tri_volumes();
             initialise_table_faces_transparentes();
+            return true;
         }
 
         bool ajoute_source_lumineuse(dksSourceLumineuse* source, dksConteneur* parent=NULL)

@@ -381,7 +381,7 @@ class Scene_Caduce: public Scene
                 double axes[9];
                 source_soleil->determine_intensite(0.);
 
-                axes={-0.964869,0,0.262733,0.00217545,0.999966,0.00798921,-0.262724,0.0082801,-0.964836};
+                affecte(axes,-0.964869,0,0.262733,0.00217545,0.999966,0.00798921,-0.262724,0.0082801,-0.964836);
                 repere_arrivee_serpent.determine_axes(axes);
 
                 //---------- Trajectoires de caméra:
@@ -438,7 +438,7 @@ class Scene_Caduce: public Scene
                     return;
                 }
                 float point_copie[3];
-                point_copie={float(mon_serpent->x),float(mon_serpent->y),float(mon_serpent->z)};
+                affecte(point_copie,float(mon_serpent->x),float(mon_serpent->y),float(mon_serpent->z));
 
                 trajectoire_deplacement_serpent.determine_point(0,&point_copie[0]);
 
@@ -495,7 +495,7 @@ class Scene_Caduce: public Scene
                 surface_masque=mon_serpent->renvoie_surface_nom("gueule");
                 surface_masque->determine_couleur_diffusion(0x00ff00,1.);
 
-                post_rendu->couleur_masque={0.,1.,0.};
+                affecte(post_rendu->couleur_masque,0.,1.,0.);
 
                 #if EDITEUR_ACTIF
                 initialise_editeur();
@@ -620,12 +620,12 @@ class Scene_Caduce: public Scene
             point_vise_0[0]=oeil_1->direction_regard->x*distance_point_vise+oeil_1->repere_absolu->x;
             point_vise_0[1]=oeil_1->direction_regard->y*distance_point_vise+oeil_1->repere_absolu->y;
             point_vise_0[2]=oeil_1->direction_regard->z*distance_point_vise+oeil_1->repere_absolu->z;
-            point_vise_1={-389.963/e,2614.03/e,-80.1843/e};
+            affecte(point_vise_1,-389.963/e,2614.03/e,-80.1843/e);
             interpolations_positions[POINT_VISE_SERPENT_1]=new Interpolation_Parametre_3d(-1.,point_vise_0,point_vise_1,3.,INTERPOLATION_COSINUS);
-            point_vise_0={-0.3,18.1,-1.1}; //Centre des serpents
+            affecte(point_vise_0,-0.3,18.1,-1.1); //Centre des serpents
             source_soleil->determine_point_vise(point_vise_0);
             interpolations_positions[POINT_VISE_CENTRE_SERPENTS]=new Interpolation_Parametre_3d(-1.,point_vise_1,point_vise_0,3.,INTERPOLATION_COSINUS);
-            point_vise_1={29.5438, 16.842, 29.8626}; //Point de visée du regard de la vue d'ensemble
+            affecte(point_vise_1,29.5438, 16.842, 29.8626); //Point de visée du regard de la vue d'ensemble
             interpolations_positions[POINT_VISE_SCENE]=new Interpolation_Parametre_3d(-1.,point_vise_0,point_vise_1,10.,INTERPOLATION_COSINUS);
 
             interpolations_parametres[CAMERA_POS_TRAJECTOIRE_02]=new Interpolation_Parametre(-1.,0,1.,15.,INTERPOLATION_COSINUS);

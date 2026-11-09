@@ -29,7 +29,7 @@ class Element_particule
     {
         point=index;
         masse=1.;
-        vitesse={0.,0.,0.};
+        affecte(vitesse,0.,0.,0.);
         perturbation_x=NULL;
         perturbation_y=NULL;
         perturbation_z=NULL;

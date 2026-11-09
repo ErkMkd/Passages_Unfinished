@@ -130,24 +130,24 @@ class dksSourceLumineuse :public dksOeil
 
         void maj_openGl_intensite()
         {
-            couleur_ambience={
+            affecte(couleur_ambience,
                                 couleur_ambience_base[0]*intensite,
                                 couleur_ambience_base[1]*intensite,
                                 couleur_ambience_base[2]*intensite,
                                 couleur_ambience_base[3]
-                            };
-            couleur_diffusion={
+                            );
+            affecte(couleur_diffusion,
                                 couleur_diffusion_base[0]*intensite,
                                 couleur_diffusion_base[1]*intensite,
                                 couleur_diffusion_base[2]*intensite,
                                 couleur_diffusion_base[3]
-                            };
-            couleur_speculaire={
+                            );
+            affecte(couleur_speculaire,
                                 couleur_speculaire_base[0]*intensite,
                                 couleur_speculaire_base[1]*intensite,
                                 couleur_speculaire_base[2]*intensite,
                                 couleur_speculaire_base[3]
-                            };
+                            );
             maj_openGl_couleur();
         }
 

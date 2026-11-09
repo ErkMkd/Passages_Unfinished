@@ -59,8 +59,8 @@ class dksAfficheImage :public dksRendu
                     erreur=DKSAFFICHEIMAGE_ERREUR_IMAGE;
                     return;
                 }
-            couleur_fond={0.,0.,0.};
-            couleur_teinte={1.,1.,1.};
+            affecte(couleur_fond,0.,0.,0.);
+            affecte(couleur_teinte,1.,1.,1.);
             recouvrement_s=GL_CLAMP_TO_BORDER;
             recouvrement_t=GL_CLAMP_TO_BORDER;
             type_grossissement=GL_LINEAR;

@@ -102,7 +102,7 @@ class Annelide :public dksVolume
                     rayon_max=p_rayon_max;
                     longueur=p_longueur;
                     tables_aretes=NULL;
-                    surfaces_annelide={NULL,NULL,NULL,NULL};
+                    affecte(surfaces_annelide,nullptr,nullptr,nullptr,nullptr);
                     drapeau_triangles=p_triangles;
                     colonne=NULL;
                     colonne_fixe=NULL;
@@ -840,12 +840,12 @@ class Annelide :public dksVolume
 
         //Calcul les points de la colonne vertébrale:
 
-        pA={colonne[0],colonne[1]};
+        affecte(pA,colonne[0],colonne[1]);
 
         for (i=0;i<nbrSections+1;i++)
         {
             j=(i+1)*3;
-            pB={colonne[j],colonne[j+1]};
+            affecte(pB,colonne[j],colonne[j+1]);
             ABx=pB[0]-pA[0];
             ABy=pB[1]-pA[1];
             n=ABx*ABx+ABy*ABy;
@@ -862,7 +862,7 @@ class Annelide :public dksVolume
                 //colonne[j]=pA[0];
                 //dcolonne[j+1]=pA[1];
             //}
-            pA={colonne[j],colonne[j+1]};
+            affecte(pA,colonne[j],colonne[j+1]);
         }
 
 

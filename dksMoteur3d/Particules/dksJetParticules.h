@@ -26,7 +26,7 @@ class Particule_Jet : public Element_particule
     Particule_Jet(uint32_t p_index):Element_particule(p_index)
     {
         taille=3.;
-        couleur={1.,1.,1.,1.};
+        affecte(couleur,1.,1.,1.,1.);
         nbrEtapesCouleurs=0;
     }
 
@@ -93,7 +93,7 @@ class dksJetParticules : public dksParticules
         compteur_creation_particules=0.;
         debit=10.;
         determine_direction_jet(1.,1.,0.);
-        position_jet={0.,0.,0.};
+        affecte(position_jet,0.,0.,0.);
 
     }
 
@@ -134,7 +134,7 @@ class dksJetParticules : public dksParticules
             particule->nbrEtapesCouleurs=nbrEtapes;
             for (j=0;j<nbrEtapes;j++)
             {
-                particule->etapes_couleurs[j]={p_couleurs[j*3],p_couleurs[j*3+1],p_couleurs[j*3+2]};
+                affecte(particule->etapes_couleurs[j],p_couleurs[j*3],p_couleurs[j*3+1],p_couleurs[j*3+2]);
             }
         }
     }
@@ -144,7 +144,7 @@ class dksJetParticules : public dksParticules
     {
         float n=sqrtf(dx*dx+dy*dy+dz*dz);
         dx/=n;dy/=n;dz/=n;
-        direction_jet={dx,dy,dz};
+        affecte(direction_jet,dx,dy,dz);
         float tx,tz;
         //Calcul binormale:
         tx=dz;
@@ -154,19 +154,19 @@ class dksJetParticules : public dksParticules
 
         if (n<1e-5)
         {
-            binormale_jet={-1.,0.,0.};
-            normale_jet={0.,1.,0.};
+            affecte(binormale_jet,-1.,0.,0.);
+            affecte(normale_jet,0.,1.,0.);
         }
 
         else
         {
-            binormale_jet={tx/n,0.,tz/n};
+            affecte(binormale_jet,tx/n,0.,tz/n);
             //Calcul Normale:
-            normale_jet={
+            affecte(normale_jet,
                             binormale_jet[2]*dy,
                             binormale_jet[0]*dz-binormale_jet[2]*dx,
                             -binormale_jet[0]*dy
-                        };
+                        );
         }
 
     }

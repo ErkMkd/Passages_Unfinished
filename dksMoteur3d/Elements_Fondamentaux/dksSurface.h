@@ -258,10 +258,10 @@ class dksSurface
             }
 
             //Couleurs:
-            couleur_ambiance={1.,1.,1.};
-            couleur_diffusion={0.8,0.8,0.8};
-            couleur_speculaire={1.,1.,1.};
-            couleur_luminescence={1.,1.,1.};
+            affecte(couleur_ambiance,1.,1.,1.);
+            affecte(couleur_diffusion,0.8,0.8,0.8);
+            affecte(couleur_speculaire,1.,1.,1.);
+            affecte(couleur_luminescence,1.,1.,1.);
 
             //Paramètres de base:
             ambiance=1.;

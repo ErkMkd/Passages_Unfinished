@@ -19,11 +19,13 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
-#include <gl/glew.h>
-#include <gl/glut.h>
+#include <GL/glew.h>
+#include <GL/glut.h>
 
 using namespace std;
 
+#include "Utiles/Tableaux.h"
+#include "Utiles/Rapport_Assertions.h"
 #include "dksMoteur2d/dksEcran.h"
 #include "dksMoteur3d/LWO/dksChargeLWO2.h"
 #include "dksMoteur3d/LWO/dksConvertionLWO2.h"
@@ -46,6 +48,24 @@ using namespace std;
 #include <stdlib.h>
 
 
+//============ Portables à deux cartes graphiques: demande la carte dédiée (NVIDIA Optimus, AMD PowerXpress)
+extern "C"
+{
+    __declspec(dllexport) DWORD NvOptimusEnablement=1;
+    __declspec(dllexport) int AmdPowerXpressRequestHighPerformance=1;
+}
+
+//============ Console en UTF-8, et répertoire courant sur les données de la démo (textures, modèles, shaders...).
+//             Doit précéder les variables statiques ci-dessous, dont certaines chargent des fichiers.
+static bool environnement_initialise=[]()
+{
+    SetConsoleOutputCP(CP_UTF8);
+    Rapport_Assertions::installe();
+    #ifdef PASSAGES_DONNEES
+    if (GetFileAttributesA("sources_shaders")==INVALID_FILE_ATTRIBUTES) SetCurrentDirectoryA(PASSAGES_DONNEES);
+    #endif
+    return true;
+}();
 
 //============ Initialise les variables statiques:
 uint32_t dksSourceLumineuse::allocation_lumieres_openGl=0x0;
@@ -615,15 +635,11 @@ int main(int argc, char *argv[])
     }
     cout<<"Version GLEW: "<<glewGetString(GLEW_VERSION)<<endl;
 
-    //------------------ Test la carte graphique:
-    uint8_t id_fabriquant;
-    if (strcmp((char*)glGetString(GL_VENDOR),"NVIDIA Corporation")==0) id_fabriquant=DKSSHADERS_FABRIQUANT_NVIDIA;
-    else if (strcmp((char*)glGetString(GL_VENDOR),"ATI Technologies Inc.")==0) id_fabriquant=DKSSHADERS_FABRIQUANT_ATI;
-    else
-    {
-        MessageBox(0,"Incompatible graphic card!\nFor the moment, only NVIDIA and ATI cards are 100% supported...","Genesis ¤ Project - Passages",MB_OK | MB_ICONEXCLAMATION);
-        exit(0);
-    }
+    //------------------ Carte graphique:
+    cout<<"Carte graphique: "<<glGetString(GL_RENDERER)<<" - "<<glGetString(GL_VENDOR)<<endl;
+    cout<<"Version OpenGL: "<<glGetString(GL_VERSION)<<endl;
+    //Le jeu de shaders NVIDIA est le seul complet: il est utilisé quelle que soit la carte.
+    uint8_t id_fabriquant=DKSSHADERS_FABRIQUANT_NVIDIA;
     //------------ Vérifiacation de l'implémentation d'OpenGL:
     glGetIntegerv(GL_MAX_TEXTURE_UNITS,&dksRendu::nbr_unites_textures_max);
     cout<<"Nombre max d'unités de texture: "<<dksRendu::nbr_unites_textures_max<<endl;

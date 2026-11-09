@@ -35,7 +35,7 @@ class dksSphere : public dksVolume
 
                     sens_polygones=GL_CW;
 
-                    surfaces_sphere={NULL,NULL};
+                    affecte(surfaces_sphere,nullptr,nullptr);
                     faces_sphere=NULL;
                     aretes_faces_sphere=NULL;
                     sommets_sphere=NULL;

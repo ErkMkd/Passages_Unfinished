@@ -201,7 +201,7 @@ class Serpent : public dksVolume
         nbrCotes=12;
         longueur_premier_segment=   longueur_corps / ( nbrSegments - (1.-facteur_extrusion) * (nbrSegments+1.) / 2. );
 
-        indices_cou={234,235,236,237,238,239,240,241,242,243,244,245};  //La section de raccord à la tête
+        affecte(indices_cou,234,235,236,237,238,239,240,241,242,243,244,245);  //La section de raccord à la tête
         decallage_sommets_corps=tete_modele->nbrSommets;
         corps_nbrSommets=nbrSegments*nbrCotes;
         tete_corps_nbrSommets=tete_modele->nbrSommets+corps_nbrSommets;
@@ -572,7 +572,7 @@ class Serpent : public dksVolume
         //Alignement à la trajectoire:
         trajectoire->renvoie_tangente(pt/longueur_trajectoire,position);
         double nouvel_axez[3]={double(position[0]),double(position[1]),double(position[2])};
-        if (direction){nouvel_axez={-nouvel_axez[0],-nouvel_axez[1],-nouvel_axez[2]};}
+        if (direction){affecte(nouvel_axez,-nouvel_axez[0],-nouvel_axez[1],-nouvel_axez[2]);}
         initialisation_repere_orthonorme(NULL,NULL,nouvel_axez);
         if(direction)pt+=distance_tete_lien_colonne; else pt-=distance_tete_lien_colonne;
 
@@ -603,19 +603,19 @@ class Serpent : public dksVolume
         position[2]*=f;
         machoire->determine_position(position);
 
-        position={dents->x,dents->y,dents->z};
+        affecte(position,dents->x,dents->y,dents->z);
         position[0]*=f;
         position[1]*=f;
         position[2]*=f;
         dents->determine_position(position);
 
-        position={oeil_droit->x,oeil_droit->y,oeil_droit->z};
+        affecte(position,oeil_droit->x,oeil_droit->y,oeil_droit->z);
         position[0]*=f;
         position[1]*=f;
         position[2]*=f;
         oeil_droit->determine_position(position);
 
-        position={oeil_gauche->x,oeil_gauche->y,oeil_gauche->z};
+        affecte(position,oeil_gauche->x,oeil_gauche->y,oeil_gauche->z);
         position[0]*=f;
         position[1]*=f;
         position[2]*=f;
@@ -685,7 +685,7 @@ class Serpent : public dksVolume
 
         //Point d'attache dans le repère du parent:
         dksRepere::translation_point(lien_tete_colonne,this,colonne_vertebrale);
-        pA={colonne_vertebrale[0],colonne_vertebrale[1],colonne_vertebrale[2]};
+        affecte(pA,colonne_vertebrale[0],colonne_vertebrale[1],colonne_vertebrale[2]);
         tangentes_colonne[0]=this->axe_x->x;
         tangentes_colonne[1]=this->axe_x->y;
         tangentes_colonne[2]=this->axe_x->z;
@@ -700,7 +700,7 @@ class Serpent : public dksVolume
         for (i=0;i<nbrSegments;i++)
         {
             j=(i+1)*3;
-            pB={colonne_vertebrale[j],colonne_vertebrale[j+1],colonne_vertebrale[j+2]};
+            affecte(pB,colonne_vertebrale[j],colonne_vertebrale[j+1],colonne_vertebrale[j+2]);
             ABx=pB[0]-pA[0];
             ABy=pB[1]-pA[1];
             ABz=pB[2]-pA[2];
@@ -714,7 +714,7 @@ class Serpent : public dksVolume
             colonne_vertebrale[j+1]=ABy+pA[1];
             colonne_vertebrale[j+2]=ABz+pA[2];
 
-            pA={colonne_vertebrale[j],colonne_vertebrale[j+1],colonne_vertebrale[j+2]};
+            affecte(pA,colonne_vertebrale[j],colonne_vertebrale[j+1],colonne_vertebrale[j+2]);
         }
 
         //--------- Calcule les repères des sections:

@@ -181,7 +181,7 @@ class dksEcran
         //Détermine la couleur des bords hors-champ des textures de rendu.
         void determine_couleur_bords(float r,float v,float b)
         {
-            couleur_bords={r,v,b};
+            affecte(couleur_bords,r,v,b);
             for(uint32_t i=0;i<sizeof(textures)/sizeof(GLuint);i++)
             {
                 glBindTexture(GL_TEXTURE_2D,textures[i]);
@@ -199,7 +199,7 @@ class dksEcran
             glGenRenderbuffers(sizeof(render_buffers)/sizeof(GLuint),render_buffers);
             glGenTextures(sizeof(textures)/sizeof(GLuint),textures);
 
-            couleur_bords={0.,0.,0.};
+            affecte(couleur_bords,0.,0.,0.);
 
             //----------------- Création des tempons de rendu de la même résolution que l'écran:
             //------------------Ecran 1:

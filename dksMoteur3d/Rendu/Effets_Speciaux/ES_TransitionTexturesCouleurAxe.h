@@ -125,8 +125,9 @@ class ES_TransitionTexturesCouleurAxe : public dksEffetSpecial
         uint32_t* at;
         dksFace* face;
 
-        dksTexture* texture_depart=surface->textures_couleur[surface->indice_texture_depart];
-        dksTexture* texture_destination=surface->textures_couleur[surface->indice_texture_destination];
+        //Indice -1: pas de texture (drapeaux_textures est alors à 0 pour cette texture)
+        dksTexture* texture_depart=surface->indice_texture_depart>=0 ? surface->textures_couleur[surface->indice_texture_depart] : NULL;
+        dksTexture* texture_destination=surface->indice_texture_destination>=0 ? surface->textures_couleur[surface->indice_texture_destination] : NULL;
 
         //----------- Rendu en aplats:
 
@@ -197,8 +198,9 @@ class ES_TransitionTexturesCouleurAxe : public dksEffetSpecial
         uint32_t* at=face->aretes;
         GLdouble* sommet;
         GLdouble* nml;
-        dksTexture* texture_depart=surface->textures_couleur[surface->indice_texture_depart];
-        dksTexture* texture_destination=surface->textures_couleur[surface->indice_texture_destination];
+        //Indice -1: pas de texture (drapeaux_textures est alors à 0 pour cette texture)
+        dksTexture* texture_depart=surface->indice_texture_depart>=0 ? surface->textures_couleur[surface->indice_texture_depart] : NULL;
+        dksTexture* texture_destination=surface->indice_texture_destination>=0 ? surface->textures_couleur[surface->indice_texture_destination] : NULL;
 
         //------------------- Face en aplats:
         if(!surface->drapeau_adoucissement)

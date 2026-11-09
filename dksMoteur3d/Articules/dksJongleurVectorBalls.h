@@ -113,37 +113,37 @@ class dksJongleurVectorBalls: public dksJongleur
 
             //Valeurs par défaut:
 
-            rayons_vectorBalls_pieds={0.09/2.,0.11/2.};
-            rayons_vectorBalls_jambes_anterieures={0.17/2.,0.13/2.};
-            rayons_vectorBalls_jambes={0.13/2.,0.17/2.};
+            affecte(rayons_vectorBalls_pieds,0.09/2.,0.11/2.);
+            affecte(rayons_vectorBalls_jambes_anterieures,0.17/2.,0.13/2.);
+            affecte(rayons_vectorBalls_jambes,0.13/2.,0.17/2.);
             rayons_vectorBalls_hanches=0.18/2.;
-            rayons_vectorBalls_abdomen={0.30/2.,0.30/2.};
-            rayons_vectorBalls_thorax={0.25/2.,0.45/2.};
-            rayons_vectorBalls_cou={0.10/2.,0.85/2.};
+            affecte(rayons_vectorBalls_abdomen,0.30/2.,0.30/2.);
+            affecte(rayons_vectorBalls_thorax,0.25/2.,0.45/2.);
+            affecte(rayons_vectorBalls_cou,0.10/2.,0.85/2.);
             rayons_vectorBalls_epaules=0.15/2.;
-            rayons_vectorBalls_bras={0.10/2.,0.14/2.};
-            rayons_vectorBalls_avant_bras={0.08/2.,0.095/2.};
-            rayons_vectorBalls_mains={0.07/2.,0.06/2.};
+            affecte(rayons_vectorBalls_bras,0.10/2.,0.14/2.);
+            affecte(rayons_vectorBalls_avant_bras,0.08/2.,0.095/2.);
+            affecte(rayons_vectorBalls_mains,0.07/2.,0.06/2.);
             rayon_vectorBall_tete=0.22/2.;
             rayon_vectorBall_oeil_droit=0.03/2.;
             rayon_vectorBall_oeil_gauche=0.03/2.;
 
-            couleur_pieds={{1.,1.,0.2},{1.,0.25,0.25}};
-            couleur_jambes_anterieures={{1.,0.25,0.25},{0.25,1.,1.}};
-            couleur_jambes={{0.25,1.,1.},{1.,0.5,0.15}};
-            couleur_hanches={1.,0.6,0.20};
-            couleur_abdomen={{1.,0.65,0.45},{1.,0.7,0.7}};
-            couleur_thorax={{1.,0.7,0.5},{1.,0.5,0.7}};
-            couleur_cou={{1.,0.25,0.25},{1.,0.1,1.}};
-            couleur_epaules={1.,0.25,1.};
-            couleur_bras={{1.,1.,0.1},{1.,0.35,1.}};
-            couleur_avant_bras={{.25,1.,0.25},{1.,1.,0.2}};
-            couleur_mains={{0.25,1.,0.25},{1.,1.,0.1}};
-            couleur_tete={1.,.5,0.5};
-            couleur_oeil_droit={0.25,0.5,1.};
-            couleur_oeil_gauche={0.25,0.5,1.};
+            affecte(couleur_pieds,{{1.,1.,0.2},{1.,0.25,0.25}});
+            affecte(couleur_jambes_anterieures,{{1.,0.25,0.25},{0.25,1.,1.}});
+            affecte(couleur_jambes,{{0.25,1.,1.},{1.,0.5,0.15}});
+            affecte(couleur_hanches,1.,0.6,0.20);
+            affecte(couleur_abdomen,{{1.,0.65,0.45},{1.,0.7,0.7}});
+            affecte(couleur_thorax,{{1.,0.7,0.5},{1.,0.5,0.7}});
+            affecte(couleur_cou,{{1.,0.25,0.25},{1.,0.1,1.}});
+            affecte(couleur_epaules,1.,0.25,1.);
+            affecte(couleur_bras,{{1.,1.,0.1},{1.,0.35,1.}});
+            affecte(couleur_avant_bras,{{.25,1.,0.25},{1.,1.,0.2}});
+            affecte(couleur_mains,{{0.25,1.,0.25},{1.,1.,0.1}});
+            affecte(couleur_tete,1.,.5,0.5);
+            affecte(couleur_oeil_droit,0.25,0.5,1.);
+            affecte(couleur_oeil_gauche,0.25,0.5,1.);
 
-            couleurs_balles={
+            affecte(couleurs_balles,{
                                 {1.,1.,1.},
                                 {0.,1.,0.},
                                 {0.,0.,1.},
@@ -153,7 +153,7 @@ class dksJongleurVectorBalls: public dksJongleur
                                 {1.,0.,0.},
                                 {1.,.5,0.},
                                 {0.5,1.,0.}
-                            };
+                            });
 
 
             if(vectorBalls!=NULL && nbrVectorBalls>0)

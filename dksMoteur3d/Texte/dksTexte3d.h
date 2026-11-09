@@ -42,8 +42,8 @@ class dksTexte3d : public dksParticulesVolumes
         texte=NULL;
         if (!determine_texte(p_texte)) return;
         espace=double(police->renvoie_facteur_taille());
-        vecteur_curseur={-1.,0.,0.};
-        depart_curseur={0.,0.,0.};
+        affecte(vecteur_curseur,-1.,0.,0.);
+        affecte(depart_curseur,0.,0.,0.);
         determine_centrage(true);
 
     }
@@ -86,14 +86,14 @@ class dksTexte3d : public dksParticulesVolumes
     {
         drapeau_centrage=d;
         if(d)calcul_centrage();
-        else depart_curseur={0.,0.,0.};
+        else affecte(depart_curseur,0.,0.,0.);
 
     }
 
     private:
     void calcul_centrage()
     {
-        curseur={0.,0.,0.};
+        affecte(curseur,0.,0.,0.);
         double pas;
 
         for (uint32_t i=0;i<nbrPoints;i++)
@@ -123,7 +123,7 @@ class dksTexte3d : public dksParticulesVolumes
             }
         }
 
-        depart_curseur={-curseur[0]/2.,-curseur[1]/2.,-curseur[2]/2.};
+        affecte(depart_curseur,-curseur[0]/2.,-curseur[1]/2.,-curseur[2]/2.);
     }
 
     //-------------------------------
@@ -132,7 +132,7 @@ class dksTexte3d : public dksParticulesVolumes
     public:
     void determine_position_curseur(double px,double py, double pz)
     {
-        depart_curseur={px,py,pz};
+        affecte(depart_curseur,px,py,pz);
     }
 
 
@@ -170,7 +170,7 @@ class dksTexte3d : public dksParticulesVolumes
     {
         if(!drapeau_affiche) return;
         uint32_t i;
-        curseur={depart_curseur[0],depart_curseur[1],depart_curseur[2]};
+        affecte(curseur,depart_curseur[0],depart_curseur[1],depart_curseur[2]);
         double pas;
         for (i=0;i<nbrPoints;i++)
         {
