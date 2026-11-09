@@ -196,11 +196,12 @@ class dksVolume :public dksConteneur
         GLfloat noir[4];
 
         //Gestion des listes OpenGl:
-        //Les liste d'openGl ne peuvent être utilisées que si les matrices d'OpenGl sont activées (voir dksMoteur3d.h)
-
-        GLuint  liste_id;                           //L'identifiant de la liste OpenGl pour ce volume.
-        GLuint  liste_surfaces_luminescentes_id;    //L'identifiant de la liste OpenGl pour le rendu des surfaces luminecentes de ce volume.
-        GLuint  liste_profondeur_id;                //L'identifiant de la liste OpenGl pour le rendu des profondeur (sert pour les ombres portées)
+        //Les listes d'affichage d'OpenGl n'existent pas dans le profil Core: ces drapeaux indiquent quelles
+        //"listes" ont été générées, rendues directement en mode immédiat (voir dksVolume_mode_rendu_liste.h).
+        bool    liste_generee;                      //La liste du volume.
+        bool    liste_avec_transparentes;           //La liste du volume contient aussi les surfaces transparentes (mode DKSVOLUME_MODE_LISTE).
+        bool    liste_luminescences_generee;        //La liste des surfaces luminecentes.
+        bool    liste_profondeur_generee;           //La liste des profondeurs (sert pour les ombres portées).
 
         uint32_t duree_rendu;
 
@@ -295,9 +296,10 @@ class dksVolume :public dksConteneur
 		    epsilon=1e-7;
 
 		    mode_rendu=DKSVOLUME_MODE_TABLEAUX;
-		    liste_id=0;
-		    liste_surfaces_luminescentes_id=0;
-		    liste_profondeur_id=0;
+		    liste_generee=false;
+		    liste_avec_transparentes=false;
+		    liste_luminescences_generee=false;
+		    liste_profondeur_generee=false;
 
             sens_polygones=GL_CCW;
 
@@ -354,9 +356,10 @@ class dksVolume :public dksConteneur
             nbrFaces=0;
             surfaces=NULL;
             nbrSurfaces=0;
-            liste_id=0;
-		    liste_surfaces_luminescentes_id=0;
-		    liste_profondeur_id=0;
+            liste_generee=false;
+		    liste_avec_transparentes=false;
+		    liste_luminescences_generee=false;
+		    liste_profondeur_generee=false;
 
 		    glGetIntegerv(GL_MAX_VERTEX_ATTRIBS,&nbr_attributs_sommets_max);
 

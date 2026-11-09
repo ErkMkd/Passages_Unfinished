@@ -1,15 +1,27 @@
 //---------------------------------------------------------
-//          Rendus pour le stockage dans la liste OpenGl:
+//          Rendus des modes "liste"
+//
+//  Les listes d'affichage d'OpenGl n'existent pas dans le profil Core.
+//  Ces modes rendent directement, en mode immédiat, ce que contenaient
+//  les listes. Comme avant, une "liste" n'est rendue que si elle a été
+//  générée (drapeaux liste_xxx_generee).
 //---------------------------------------------------------
+        void rendu_liste_affichage()
+        {
+            if (!liste_generee) return;
+            rendu_opaques_mode_immediat();
+            if (liste_avec_transparentes) rendu_transparentes_mode_immediat_sans_tri();
+        }
+
         void rendu_mode_liste()
         {
-            glCallList(liste_id);
+            rendu_liste_affichage();
         }
 
         void rendu_mode_liste_opaques_immediat_transparentes(dksOeil* oeil)
         {
             //Surfaces opaques:
-            glCallList(liste_id);
+            rendu_liste_affichage();
             //Surfaces transparentes:
             if (drapeau_rendu_faces_transparentes) rendu_transparentes_mode_immediat(oeil);
         }
@@ -17,23 +29,23 @@
         void rendu_mode_liste_opaques_tableaux_transparentes(dksOeil* oeil)
         {
             //Surfaces opaques:
-            glCallList(liste_id);
+            rendu_liste_affichage();
             //Surfaces transparentes:
             if (drapeau_rendu_faces_transparentes) rendu_transparentes_mode_tableaux(oeil);
         }
 
         void rendu_surfaces_luminescentes_liste()
         {
-            if (glIsList(liste_surfaces_luminescentes_id)) glCallList(liste_surfaces_luminescentes_id);
+            if (liste_luminescences_generee) rendu_surfaces_luminescentes_immediat();
         }
 
         void rendu_profondeur_liste()
         {
-            if (glIsList(liste_profondeur_id)) glCallList(liste_profondeur_id);
+            if (liste_profondeur_generee) rendu_profondeur_immediat();
         }
 
         //===========================================================================
-        //      Gestion des listes d'affichage du volume
+        //      Gestion des "listes" du volume
         //===========================================================================
 
         //------------------------------
@@ -49,13 +61,11 @@
 
         void maj_liste_luminescences()
         {
-            if (glIsList(liste_surfaces_luminescentes_id)) glDeleteLists(liste_surfaces_luminescentes_id,1);
             genere_liste_surfaces_luminescentes();
         }
 
         void maj_liste_profondeurs()
         {
-            if (glIsList(liste_profondeur_id)) glDeleteLists(liste_profondeur_id,1);
             genere_liste_profondeur();
         }
 
@@ -67,25 +77,24 @@
                 ||mode_rendu==DKSVOLUME_MODE_LISTE_OPAQUES_TABLEAUX_TRANSPARENTES
                 )
                 {
-                    if(glIsList(liste_id)) glDeleteLists(liste_id,1);
                     genere_liste_affichage();
                 }
 
         }
 
-        //Génère ou met à jour la liste d'affichage des surfaces luminescentes:
+        //Génère la liste des surfaces luminescentes si elle n'existe pas:
         ///Appeler maj_liste_xxx si besoin.
         void determine_liste_luminescences(bool d)
         {
-            if(d && (!glIsList(liste_surfaces_luminescentes_id)))genere_liste_surfaces_luminescentes();
+            if(d && !liste_luminescences_generee) genere_liste_surfaces_luminescentes();
             drapeau_liste_luminescences=d;
         }
 
-        //Génère ou met à jour la liste d'affichage des profondeurs:
+        //Génère la liste des profondeurs si elle n'existe pas:
         ///Appeler maj_liste_xxx si besoin.
         void determine_liste_profondeurs(bool d)
         {
-            if(d && (!glIsList(liste_profondeur_id)))genere_liste_profondeur();
+            if(d && !liste_profondeur_generee) genere_liste_profondeur();
             drapeau_liste_profondeurs=d;
         }
 
@@ -98,17 +107,15 @@
             return drapeau_liste_profondeurs;
         }
 
-        //------- Supprime les listes d'affichage OpenGl:
+        //------- Supprime les listes:
 
     protected:
         void supprime_listes()
         {
-            if (glIsList(liste_id)) glDeleteLists(liste_id,1);
-            if (glIsList(liste_surfaces_luminescentes_id)) glDeleteLists(liste_surfaces_luminescentes_id,1);
-            if (glIsList(liste_profondeur_id)) glDeleteLists(liste_profondeur_id,1);
-            liste_id=0;
-            liste_surfaces_luminescentes_id=0;
-            liste_profondeur_id=0;
+            liste_generee=false;
+            liste_avec_transparentes=false;
+            liste_luminescences_generee=false;
+            liste_profondeur_generee=false;
         }
 
         void genere_listes()
@@ -130,36 +137,27 @@
         }
 
         //--------------------------------------
-        //  Liste d'affichage normale du volume
+        //  Liste normale du volume
         //--------------------------------------
 
         void genere_liste_affichage()
         {
-            liste_id=glGenLists(1);
-            glNewList(liste_id,GL_COMPILE);
-            rendu_opaques_mode_immediat();
-            if (mode_rendu==DKSVOLUME_MODE_LISTE) rendu_transparentes_mode_immediat_sans_tri();
-            glEndList();
+            liste_generee=true;
+            liste_avec_transparentes= mode_rendu==DKSVOLUME_MODE_LISTE;
         }
 
         //---------------------------------------------------
-        //  Liste d'affichage des surfaces luminescentes
+        //  Liste des surfaces luminescentes
         //---------------------------------------------------
         void genere_liste_surfaces_luminescentes()
         {
-           liste_surfaces_luminescentes_id=glGenLists(1);
-            glNewList(liste_surfaces_luminescentes_id,GL_COMPILE);
-                rendu_surfaces_luminescentes_immediat();
-            glEndList();
+            liste_luminescences_generee=true;
         }
 
         //-------------------------------------------
-        //  Liste d'affichage des profondeurs
+        //  Liste des profondeurs
         //-------------------------------------------
         void genere_liste_profondeur()
         {
-            liste_profondeur_id=glGenLists(1);
-            glNewList(liste_profondeur_id,GL_COMPILE);
-                rendu_profondeur_immediat();
-            glEndList();
+            liste_profondeur_generee=true;
         }
