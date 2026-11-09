@@ -1,7 +1,7 @@
 
 /*
 
-            Scène avec starfield, nébuleuses (nuages volumiques?), planètes et vaisseau spatial
+            ScÃ¨ne avec starfield, nÃ©buleuses (nuages volumiques?), planÃ¨tes et vaisseau spatial
 
 */
 
@@ -103,9 +103,9 @@ class Scene_Starfield : public Scene
         dksVolume* cadres[NOMBRE_PORTES];
 
         dksVolume* battants[NOMBRE_PORTES];
-        dksVolume* the_cadre; //Le cadre de la porte du passage à la scène suivante
-        dksVolume* the_battant; //Le battant de la porte du passage à la scène suivante
-        dksVolume* surface_passage; //La surface servatn de cache à l'affichage de la scène suivante
+        dksVolume* the_cadre; //Le cadre de la porte du passage Ã  la scÃ¨ne suivante
+        dksVolume* the_battant; //Le battant de la porte du passage Ã  la scÃ¨ne suivante
+        dksVolume* surface_passage; //La surface servatn de cache Ã  l'affichage de la scÃ¨ne suivante
         Element_PostRendu* element_rendu_surface_passage;
         Particule_Volume* the_porte_particule; //La particule de la porte de passage
 
@@ -115,7 +115,7 @@ class Scene_Starfield : public Scene
         dksTrajectoire trajectoire_vaisseau;
         dksTrajectoire trajectoire_poursuite_vaisseau;
 
-        //======================== Scène de transition avec la scène suivante:
+        //======================== ScÃ¨ne de transition avec la scÃ¨ne suivante:
         dksMoteur3d* scene_transition;
         dksCube* cube_arriere_plan_scene_arbre;
         dksOeil* oeil_arbre;
@@ -130,11 +130,11 @@ class Scene_Starfield : public Scene
 
         //----------------------------------------------
 
-        //============ Données d'animation
+        //============ DonnÃ©es d'animation
 
         double pos_anneau;      //Varie entre 0 et 1
 
-        //Interpolations de paramètre simple:
+        //Interpolations de paramÃ¨tre simple:
         enum    {
                     OUVERTURE_PORTE,
                     TRAJECTOIRE_OEIL_1,
@@ -158,7 +158,7 @@ class Scene_Starfield : public Scene
                 };
         Interpolation_Parametre_3d* interpolations_positions[1];
 
-        //============= Données de l'éditeur:
+        //============= DonnÃ©es de l'Ã©diteur:
 
         dksCube* mon_cube;
 
@@ -254,7 +254,7 @@ class Scene_Starfield : public Scene
             volumes_lwo2=NULL;
             volumes_convertis=NULL;
 
-            ouverture_camera=60.; ///!!! remis à jour par initialise_t0
+            ouverture_camera=60.; ///!!! remis Ã  jour par initialise_t0
 
             scene_caduce=p_scene_caduce;
 
@@ -297,7 +297,7 @@ class Scene_Starfield : public Scene
                 if (portes_dks[i]==NULL || portes_dks[i]->erreur!=DKSCONVERTIONLWO2_OK) { erreur=SCENE_ERREUR_INIT; return; }
             }
 
-            //Création des occurences des portes:
+            //CrÃ©ation des occurences des portes:
             #define INDICE_PORTE_PASSAGE 4
             echelle_portes=50.;
             for(i=0;i<NOMBRE_PORTES;i++)
@@ -307,11 +307,11 @@ class Scene_Starfield : public Scene
                 double pivot[3];
                 double pivot_cadre[3];
 
-                //La porte de passage à la scène suivante:
+                //La porte de passage Ã  la scÃ¨ne suivante:
                 if(i==INDICE_PORTE_PASSAGE)
                 {
                     indice_porte=4;
-                    vol=portes_dks[indice_porte]->renvoie_volume_nom("cadre"); // On copie quand même pour pas compliquer les inits
+                    vol=portes_dks[indice_porte]->renvoie_volume_nom("cadre"); // On copie quand mÃªme pour pas compliquer les inits
                     cadres[i]=new dksVolume(*vol);
                     vol=portes_dks[indice_porte]->renvoie_volume_nom("porte");
                     battants[i]=new dksVolume(*vol);
@@ -331,7 +331,7 @@ class Scene_Starfield : public Scene
                     pivot[2]=-echelle_portes*(pivot_cadre[2]-pivot[2]);
                     //cout<<pivot[0]<<" "<<pivot[1]<<" "<<pivot[2]<<endl;
                     surface_passage->determine_position(pivot);
-                    //cadres[i]->ajoute_enfant(surface_passage); ///Effectué APRES la création de la scène...
+                    //cadres[i]->ajoute_enfant(surface_passage); ///EffectuÃ© APRES la crÃ©ation de la scÃ¨ne...
 
                     //Couleur du masque:
                     surface_passage->determine_affecte_par_brouillard(false);
@@ -380,7 +380,7 @@ class Scene_Starfield : public Scene
             }
 
             //battants[0]->drapeau_debug=true;
-            //Création du champ de particules pour la répartition des portes:
+            //CrÃ©ation du champ de particules pour la rÃ©partition des portes:
             particules_portes=new dksParticulesVolumes("Particules_portes",0.,0.,0.,cadres,NOMBRE_PORTES);
 
             //particules_portes->random_points(-500,500,-500,500.,0,1500.);
@@ -405,7 +405,7 @@ class Scene_Starfield : public Scene
                 cout<<"************* ERREUR LORS DU CHARGEMENT DES VITESSES DE ROTATIONS DES PORTES !!!! ***********************"<<endl;
             }
 
-            //Initialisation de la porte de passage à la scène suivante:
+            //Initialisation de la porte de passage Ã  la scÃ¨ne suivante:
             particules_portes->determine_vitesse_rotation_particule(INDICE_PORTE_PASSAGE,0.,0.,0.);
             the_porte_particule=(Particule_Volume*)particules_portes->renvoie_particule(INDICE_PORTE_PASSAGE);
             the_porte_particule->lacet+=M_PI;
@@ -421,20 +421,20 @@ class Scene_Starfield : public Scene
 
                 //mes_particules->determine_vitesses_rotations(0.,0.,M_PI/180.*2.);
 
-            //---------- Création des éléments:
+            //---------- CrÃ©ation des Ã©lÃ©ments:
 
-            //Création du starfield:
+            //CrÃ©ation du starfield:
 
             le_starfield=new dksStarfield("Champ_etoiles",0.,0.,0.,2000,1000.,30.,scene_caduce->etoile_1);
             le_starfield->drapeau_destruction_image=false;
 
-            //Création des sprites:
+            //CrÃ©ation des sprites:
             mon_sprite=new dksSprite3d("test_sprite","textures/starfield/nebuleuse_02.tif",.02);
             sprites=new dksSprites("Sprites_de_la_scene",0.,0.,0.,1);
             sprites->determine_sprite(0,mon_sprite);
             sprites->determine_point(0,0.,3.,100.);
 
-            //Création des sources:
+            //CrÃ©ation des sources:
             source_1=new dksSourceLumineuse("Source_1",100.,100.,-10.);
             source_1->determine_attenuation(1.,0.,0.);
 
@@ -482,13 +482,13 @@ class Scene_Starfield : public Scene
             etincelles->random_intervalles_perlin(0.1,1.);
 
 
-            //--------------- Arrière plan:
+            //--------------- ArriÃ¨re plan:
             cube_arriere_plan=scene_caduce->cube_arriere_plan_starfield;
 
             //--------------- Initialisation du vaisseau:
             le_vaisseau=volumes_convertis->renvoie_volume_index(0);
 
-                if(!creation_scene_transition()) return;    ///On crée ici la scène de transition, avant les inits du vaisseau
+                if(!creation_scene_transition()) return;    ///On crÃ©e ici la scÃ¨ne de transition, avant les inits du vaisseau
 
             if(!initialise_vaisseau())return;
             #define FACTEUR_ECHELLE_TRANSITION_STARFIELD_ARBRE 0.1
@@ -511,7 +511,7 @@ class Scene_Starfield : public Scene
             volumes[6]=surface_passage;
             volumes[7]=mon_cube;
 
-            //oeil de débugage:
+            //oeil de dÃ©bugage:
             oeil_debug=new dksOeil("Oeil_debug",0.,0.,0.);
             yeux[2]=oeil_debug;
             oeil_debug->masse=10.;
@@ -529,7 +529,7 @@ class Scene_Starfield : public Scene
             mon_ver->determine_position(0.,0.,-2000.+le_vaisseau->boite_collision->zmax);
 
 
-            //Création de la scene:
+            //CrÃ©ation de la scene:
             scene=new dksMoteur3d("Starfield",ecran,
                             conteneurs,1,
                             volumes,7,
@@ -631,7 +631,7 @@ class Scene_Starfield : public Scene
             if(transition_ver!=NULL)delete transition_ver;
             if(transition_vaisseau!=NULL)delete transition_vaisseau;
 
-            //if(courbe_trajectoire_oeil_01!=NULL)delete courbe_trajectoire_oeil_01; //La trajectoire est créée à la construction...
+            //if(courbe_trajectoire_oeil_01!=NULL)delete courbe_trajectoire_oeil_01; //La trajectoire est crÃ©Ã©e Ã  la construction...
             //if(trajectoire_vaisseau!=NULL)delete trajectoire_vaisseau;
 
             if(mon_cube!=NULL)delete mon_cube;
@@ -654,7 +654,7 @@ class Scene_Starfield : public Scene
         }
 
         //-----------------------------------------------------------------------
-        //      Création de la scène de transition:
+        //      CrÃ©ation de la scÃ¨ne de transition:
         //-----------------------------------------------------------------------
         bool creation_scene_transition()
         {
@@ -695,7 +695,7 @@ class Scene_Starfield : public Scene
 
             if(papillon==NULL || papillon->erreur!=PAPILLON_OK)
             {
-                cout<<"ERREUR Lors de la création du papillon "<<endl;
+                cout<<"ERREUR Lors de la crÃ©ation du papillon "<<endl;
                 erreur=SCENE_ERREUR_INIT;
                 return false;
             }
@@ -716,7 +716,7 @@ class Scene_Starfield : public Scene
                             oeil_arbre);
             if(scene_transition==NULL || scene_transition->erreur!=DKSM3D_OK)
             {
-                cout<<"ERREUR lors de la création de la scène de transition entre le starfield et l'arbre"<<endl;
+                cout<<"ERREUR lors de la crÃ©ation de la scÃ¨ne de transition entre le starfield et l'arbre"<<endl;
                 return false;
             }
 
@@ -827,7 +827,7 @@ class Scene_Starfield : public Scene
             if (!mon_ver->initialise_textures())
             {
                 erreur=SCENE_ERREUR_INIT;
-                cout<<"ERREUR lors de l'initialisation du ver - échec de l'init des textures"<<endl;
+                cout<<"ERREUR lors de l'initialisation du ver - Ã©chec de l'init des textures"<<endl;
                 return false;
             }
 
@@ -851,7 +851,7 @@ class Scene_Starfield : public Scene
 
         //------------------------------------------------------
         //  Change les indices pour les surfaces du ver
-        //  Ca allège un peu le code
+        //  Ca allÃ¨ge un peu le code
         //------------------------------------------------------
         void initialise_ver_fils_transparent()
         {
@@ -866,14 +866,14 @@ class Scene_Starfield : public Scene
 
         //--------------------------------------------------------------------------
         //      Initialisations du vaisseau:
-        //      Les textures transparentes des surfaces sont générées
+        //      Les textures transparentes des surfaces sont gÃ©nÃ©rÃ©es
         //--------------------------------------------------------------------------
         bool initialise_vaisseau()
         {
             //le_vaisseau->determine_mode_rendu(DKSVOLUME_MODE_IMMEDIAT);
             double e=(mon_ver->boite_collision->zmax-mon_ver->boite_collision->zmin)/(le_vaisseau->boite_collision->zmax-le_vaisseau->boite_collision->zmin);
             le_vaisseau->determine_echelle_geometrique(e);
-            le_vaisseau->determine_mode_rendu(DKSVOLUME_MODE_IMMEDIAT); ///Semble être plus rapide que le mode TABLEAUX (arrays) ??????
+            le_vaisseau->determine_mode_rendu(DKSVOLUME_MODE_IMMEDIAT); ///Semble Ãªtre plus rapide que le mode TABLEAUX (arrays) ??????
 
             surfaces_vaisseau[VAISSEAU_carlingue_epaisseur_ailes]=le_vaisseau->renvoie_surface_nom("carlingue_epaisseur_ailes");
             surfaces_vaisseau[VAISSEAU_dessous_petites_ailes]=le_vaisseau->renvoie_surface_nom("dessous_petites_ailes");
@@ -1018,7 +1018,7 @@ class Scene_Starfield : public Scene
 
         //------------------------------------------------------
         //  Change les indices pour les surfaces du vaisseau
-        //  Ca allège un peu le code
+        //  Ca allÃ¨ge un peu le code
         //------------------------------------------------------
 
         void initialise_vaisseau_transparent_fils()
@@ -1136,7 +1136,7 @@ class Scene_Starfield : public Scene
             glDepthMask(GL_TRUE);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-            //------------------------------------- Affiche la scène principale:
+            //------------------------------------- Affiche la scÃ¨ne principale:
             if(!etapes[TRANSITION])
             {
                 //-------------- Scene starfield:
@@ -1144,14 +1144,14 @@ class Scene_Starfield : public Scene
 
                     if(particules_portes->drapeau_affiche) particules_portes->maj_volumes();
 
-                    //-----------Avant la mise à jour de la scène:
+                    //-----------Avant la mise Ã  jour de la scÃ¨ne:
                     if (mon_anneau->drapeau_affiche)anneau_longe_repere_axeZ(mon_ver,-20.,0.,4.,4.,pos_anneau);
 
-                    //Mise à jour de la scène (calculs des repères absolus pour ce rendu:
+                    //Mise Ã  jour de la scÃ¨ne (calculs des repÃ¨res absolus pour ce rendu:
                     scene->maj(t);
                     oeil_conteneur->maj_visee();
 
-                    //-----------Après la mise à jour de la scène:
+                    //-----------AprÃ¨s la mise Ã  jour de la scÃ¨ne:
                     if (mon_anneau->drapeau_affiche)
                     {
                         mon_anneau->genere_eclairs();
@@ -1162,7 +1162,7 @@ class Scene_Starfield : public Scene
                     if(le_starfield->drapeau_affiche) le_starfield->maj_champ_etoiles_base(oeil_1->repere_absolu->x,oeil_1->repere_absolu->y,oeil_1->repere_absolu->z);
 
 
-                    //------- Affichage scène starfield:
+                    //------- Affichage scÃ¨ne starfield:
                     if(surface_passage->drapeau_affiche)
                     {
                         //post_rendu->affiche_flou_256(oeil_courant,DKSECRAN_TEMPON_ECRAN_2,DKSECRAN_TEMPON_ECRAN_1);
@@ -1207,7 +1207,7 @@ class Scene_Starfield : public Scene
                     scene->desactive();
 
 
-                    //-------------- Scène de transition:
+                    //-------------- ScÃ¨ne de transition:
                     if(surface_passage->drapeau_affiche)
                     {
                         scene_transition->active();
@@ -1224,11 +1224,11 @@ class Scene_Starfield : public Scene
                         post_rendu->affiche_tempon_ecran_2(oeil_arbre);
                         scene_transition->desactive();
 
-                        //-------------- Masquage des deux scènes:
+                        //-------------- Masquage des deux scÃ¨nes:
                         post_rendu->masque_2_tempons(TX_ECRAN_1,TX_ECRAN_2);
                     }
             }
-            //------------------------------ Affiche uniquement la scène de transition:
+            //------------------------------ Affiche uniquement la scÃ¨ne de transition:
             else
             {
                 scene_transition->active();
@@ -1251,7 +1251,7 @@ class Scene_Starfield : public Scene
         //========================================================================================================================================
         //========================================================================================================================================
         //----------------------------------------------------------------------------
-        //                  Initialise les données d'animation
+        //                  Initialise les donnÃ©es d'animation
         //----------------------------------------------------------------------------
         void initialise_animations()
         {
@@ -1272,7 +1272,7 @@ class Scene_Starfield : public Scene
                 interpolations_parametres[TRAJECTOIRE_POURSUITE_VAISSEAU]=new Interpolation_Parametre(-1.,0.,1.,62.,INTERPOLATION_BEZIER,courbe_trajectoire_poursuite_vaisseau);
 
                 interpolations_parametres[TRAJECTOIRE_OEIL_1]=scene_caduce->position_trajectoire_oeil_1_starfield;
-                    //interpolations_parametres[TRAJECTOIRE_OEIL_1]->duree=2.; ///Retirer après développement
+                    //interpolations_parametres[TRAJECTOIRE_OEIL_1]->duree=2.; ///Retirer aprÃ¨s dÃ©veloppement
 
                 float position[3];
                 double position_0[3],position_1[3];
@@ -1304,7 +1304,7 @@ class Scene_Starfield : public Scene
 
         public:
         //----------------------------------------------------------------------------
-        //                  Etat de la scène au départ de l'animation
+        //                  Etat de la scÃ¨ne au dÃ©part de l'animation
         //----------------------------------------------------------------------------
         virtual void initialise_t0(double t0)
         {
@@ -1369,9 +1369,9 @@ class Scene_Starfield : public Scene
             transition_vaisseau->niveau=pos_anneau;
             le_vaisseau->drapeau_affiche=false;
 
-                //particules_portes->maj_volumes();///Le temps de l'édition !!!!!!!!!!!!!!!!!!
+                //particules_portes->maj_volumes();///Le temps de l'Ã©dition !!!!!!!!!!!!!!!!!!
 
-            //------ A supprimer après développement:
+            //------ A supprimer aprÃ¨s dÃ©veloppement:
             /*
             the_battant->determine_RTL(0.,0.,-75./180.*M_PI);
             determine_affiche_portes(true);
@@ -1409,8 +1409,8 @@ class Scene_Starfield : public Scene
         //          Interactions entre les objets
         //========================================================
 
-        //---------- Génère les étincelles dues à l'anneau électrique:
-        /// Appeler après la mise à jour de la scène, pour pouvoir travailler avec les repères absolus
+        //---------- GÃ©nÃ¨re les Ã©tincelles dues Ã  l'anneau Ã©lectrique:
+        /// Appeler aprÃ¨s la mise Ã  jour de la scÃ¨ne, pour pouvoir travailler avec les repÃ¨res absolus
         void genere_etincelles_anneau()
         {
             uint32_t i,nbr;
@@ -1427,8 +1427,8 @@ class Scene_Starfield : public Scene
             }
         }
 
-        //-------- L'anneau électrique longe l'axe Z d'un repère:
-        //  pos varie entre 0 et 1 et représente la position entre zmin et zmax
+        //-------- L'anneau Ã©lectrique longe l'axe Z d'un repÃ¨re:
+        //  pos varie entre 0 et 1 et reprÃ©sente la position entre zmin et zmax
         void anneau_longe_repere_axeZ(dksRepere* repere, double zmin,double zmax, float rayon_max,double saturation_rayon, double pos)
         {
             if (pos<0. || pos>1.) return;
@@ -1465,7 +1465,7 @@ class Scene_Starfield : public Scene
             #endif
 
 
-            float decal_temps=-2; //-13 lors du développement
+            float decal_temps=-2; //-13 lors du dÃ©veloppement
 
 
             if (position_temps_scene<15.+decal_temps)   //15
@@ -1549,11 +1549,11 @@ class Scene_Starfield : public Scene
                 if (!etapes[ARRET_OEIL])
                 {
                     etapes[ARRET_OEIL]=true;
-                    initialise_vaisseau_rendu_vol();    //Désactiver le shader de transition, en activer d'autres...
+                    initialise_vaisseau_rendu_vol();    //DÃ©sactiver le shader de transition, en activer d'autres...
                     //le_vaisseau->determine_liste_luminescences(true);
                 }
 
-                /// A MODIFIER !!! => Interpolation de la position actuelle de l'oeil à la position de départ de sa trajectoire
+                /// A MODIFIER !!! => Interpolation de la position actuelle de l'oeil Ã  la position de dÃ©part de sa trajectoire
                 float facteur=interpolations_parametres[FACTEUR_VITESSE_ROTATION_OEIL_1]->renvoie_valeur_parametre(position_temps);
                 oeil_conteneur->deplace(DROITE,facteur*vitesse_rotation_oeil_transformation*delta_t);
 
@@ -1711,7 +1711,7 @@ class Scene_Starfield : public Scene
         //======================================================================================================================================
 
         //============================================================================
-        //                     Initialisations de l'éditeur
+        //                     Initialisations de l'Ã©diteur
         //============================================================================
 
 
@@ -1763,7 +1763,7 @@ class Scene_Starfield : public Scene
             //conteneurs_selectionnables.push_back(mon_anneau);
             //conteneurs_selectionnables.push_back(mon_ver);
 
-            // Pour pouvoir éditer les portes:
+            // Pour pouvoir Ã©diter les portes:
             /*
             for(uint16_t i=0;i<NOMBRE_PORTES;i++)
             {
@@ -1778,7 +1778,7 @@ class Scene_Starfield : public Scene
         }
 
         //===================================================
-        //          Affiche les éléments édités
+        //          Affiche les Ã©lÃ©ments Ã©ditÃ©s
         //===================================================
         void affiche_trajectoire()
         {
@@ -1882,22 +1882,22 @@ class Scene_Starfield : public Scene
             switch (key)
             {
                  case 101:
-                //flèche haut
+                //flÃ¨che haut
                 conteneur_selectionne->deplace(AVANT,vitesse_deplacement);
                 cout<<conteneur_selectionne->x<<" "<<conteneur_selectionne->y<<" "<<conteneur_selectionne->z<<endl;
                 break;
                 case 100:
-                    //flèche gauche
+                    //flÃ¨che gauche
                     conteneur_selectionne->deplace(GAUCHE,vitesse_deplacement);
                     cout<<conteneur_selectionne->x<<" "<<conteneur_selectionne->y<<" "<<conteneur_selectionne->z<<endl;
                     break;
                 case 103:
-                    //flèche bas
+                    //flÃ¨che bas
                     conteneur_selectionne->deplace(ARRIERE,vitesse_deplacement);
                     cout<<conteneur_selectionne->x<<" "<<conteneur_selectionne->y<<" "<<conteneur_selectionne->z<<endl;
                     break;
                 case 102:
-                    //flèche droite
+                    //flÃ¨che droite
                     conteneur_selectionne->deplace(DROITE,vitesse_deplacement);
                     cout<<conteneur_selectionne->x<<" "<<conteneur_selectionne->y<<" "<<conteneur_selectionne->z<<endl;
                     break;
@@ -1916,13 +1916,13 @@ class Scene_Starfield : public Scene
 
                 //Touches F..
                 case 1: //F1 : Sauve la trajectoire
-                    if (ma_trajectoire.sauve_trajectoire(fichier_trajectoire)) cout<<"Trajectoire "<<fichier_trajectoire<<" sauvée avec succès!"<<endl;
+                    if (ma_trajectoire.sauve_trajectoire(fichier_trajectoire)) cout<<"Trajectoire "<<fichier_trajectoire<<" sauvÃ©e avec succÃ¨s!"<<endl;
                     break;
 
                 case 2: //F2 : Charge la trajectoire
                     if (ma_trajectoire.charge_trajectoire(fichier_trajectoire))
                     {
-                        cout<<"Trajectoire "<<fichier_trajectoire<<" chargée avec succès!"<<endl;
+                        cout<<"Trajectoire "<<fichier_trajectoire<<" chargÃ©e avec succÃ¨s!"<<endl;
                         point_actuel=0;
                     }
 
@@ -1930,12 +1930,12 @@ class Scene_Starfield : public Scene
                     /*
                     if(particules_portes->sauve_points("particules/portes.crd"))
                     {
-                       cout<<"Coordonnees "<<"particules/portes.crd"<<" sauvées avec succès!"<<endl;
+                       cout<<"Coordonnees "<<"particules/portes.crd"<<" sauvÃ©es avec succÃ¨s!"<<endl;
                     }
                     */
                     break;
 
-                // flèche retour
+                // flÃ¨che retour
                 case 106:
                     for (uint32_t i=0;i<conteneurs_selectionnables.size();i++)
                     {
@@ -1943,7 +1943,7 @@ class Scene_Starfield : public Scene
                         {
                             if (i==conteneurs_selectionnables.size()-1) conteneur_selectionne=conteneurs_selectionnables[0];
                             else conteneur_selectionne=conteneurs_selectionnables[i+1];
-                            cout<<"Conteneur sélectionné: "<<conteneur_selectionne->nom<<endl;
+                            cout<<"Conteneur sÃ©lectionnÃ©: "<<conteneur_selectionne->nom<<endl;
                             if(strcmp(conteneur_selectionne->nom,"cadre")==0) affiche_numero_porte();
                             break;
                         }
@@ -1958,7 +1958,7 @@ class Scene_Starfield : public Scene
                         {
                             if (i==0) conteneur_selectionne=conteneurs_selectionnables[nbr-1];
                             else conteneur_selectionne=conteneurs_selectionnables[i-1];
-                            cout<<"Conteneur sélectionné: "<<conteneur_selectionne->nom<<endl;
+                            cout<<"Conteneur sÃ©lectionnÃ©: "<<conteneur_selectionne->nom<<endl;
                             if(strcmp(conteneur_selectionne->nom,"cadre")==0) affiche_numero_porte();
                             break;
                         }
@@ -2045,7 +2045,7 @@ class Scene_Starfield : public Scene
                        conteneur_selectionne=conteneur_mem;
                        conteneur_mem=NULL;
                     }
-                    cout<<"Conteneur sélectionné: "<<conteneur_selectionne->nom<<endl;
+                    cout<<"Conteneur sÃ©lectionnÃ©: "<<conteneur_selectionne->nom<<endl;
                     break;
                 case '+':
                     vitesse_deplacement+=0.25; cout<<"Deplacement: "<<vitesse_deplacement<<endl;
@@ -2071,15 +2071,15 @@ class Scene_Starfield : public Scene
 
 
                 //---------- Edition des trajectoire:
-                case 13: //ENTREE - Ajoute un point à l'emplacement du conteneur sélectionné
+                case 13: //ENTREE - Ajoute un point Ã  l'emplacement du conteneur sÃ©lectionnÃ©
                     ma_trajectoire.ajoute_point(conteneur_selectionne->x,conteneur_selectionne->y,conteneur_selectionne->z);
                     point_actuel=ma_trajectoire.renvoie_nombre_points()-1;
                     break;
-                case 8: //SUPPR - Supprime le point sélectionné
+                case 8: //SUPPR - Supprime le point sÃ©lectionnÃ©
                     ma_trajectoire.supprime_point(point_actuel);
                     if (point_actuel>=ma_trajectoire.renvoie_nombre_points())point_actuel=ma_trajectoire.renvoie_nombre_points()-1;
                     break;
-                    // Déplacement du point sélectionné:
+                    // DÃ©placement du point sÃ©lectionnÃ©:
                 case 'q':
                     ma_trajectoire.deplace_point(point_actuel,-vitesse_deplacement,0.,0.);
                     ma_trajectoire.affiche_position_point(point_actuel);
@@ -2104,27 +2104,27 @@ class Scene_Starfield : public Scene
                     ma_trajectoire.deplace_point(point_actuel,0.,0.,vitesse_deplacement);
                     ma_trajectoire.affiche_position_point(point_actuel);
                     break;
-                    //Déplacement du conteneur sélectionné le long de la trajectoire:
+                    //DÃ©placement du conteneur sÃ©lectionnÃ© le long de la trajectoire:
                 case '&':
                     position_trajectoire-=pas_position_trajectoire;
                     cout<<"Position trajectoire t="<<position_trajectoire;
                     trajectoire_vaisseau.renvoie_position(position_trajectoire,coordonnees_trajectoire);
                     conteneur_selectionne->determine_position(coordonnees_trajectoire);
-                    cout<<" Coordonnées X:"<<coordonnees_trajectoire[0]<<" Y:"<<coordonnees_trajectoire[1]<<" Z:"<<coordonnees_trajectoire[2]<<endl;
+                    cout<<" CoordonnÃ©es X:"<<coordonnees_trajectoire[0]<<" Y:"<<coordonnees_trajectoire[1]<<" Z:"<<coordonnees_trajectoire[2]<<endl;
                     break;
-                case 233: //'é'
+                case 233: //'Ã©'
                     position_trajectoire+=pas_position_trajectoire;
                     cout<<"Position trajectoire t="<<position_trajectoire;
                     trajectoire_vaisseau.renvoie_position(position_trajectoire,coordonnees_trajectoire);
                     conteneur_selectionne->determine_position(coordonnees_trajectoire);
-                    cout<<" Coordonnées X:"<<coordonnees_trajectoire[0]<<" Y:"<<coordonnees_trajectoire[1]<<" Z:"<<coordonnees_trajectoire[2]<<endl;
+                    cout<<" CoordonnÃ©es X:"<<coordonnees_trajectoire[0]<<" Y:"<<coordonnees_trajectoire[1]<<" Z:"<<coordonnees_trajectoire[2]<<endl;
                     break;
                 case 'r':
-                    cout<<"Repère relatif: "<<conteneur_selectionne->axe_x->x<<","<<conteneur_selectionne->axe_x->y<<","<<conteneur_selectionne->axe_x->z<<","
+                    cout<<"RepÃ¨re relatif: "<<conteneur_selectionne->axe_x->x<<","<<conteneur_selectionne->axe_x->y<<","<<conteneur_selectionne->axe_x->z<<","
                                             <<conteneur_selectionne->axe_y->x<<","<<conteneur_selectionne->axe_y->y<<","<<conteneur_selectionne->axe_y->z<<","
                                             <<conteneur_selectionne->axe_z->x<<","<<conteneur_selectionne->axe_z->y<<","<<conteneur_selectionne->axe_z->z<<endl;
 
-                    cout<<"Repère absolu: "<<rep->axe_x->x<<","<<rep->axe_x->y<<","<<rep->axe_x->z<<","
+                    cout<<"RepÃ¨re absolu: "<<rep->axe_x->x<<","<<rep->axe_x->y<<","<<rep->axe_x->z<<","
                                             <<rep->axe_y->x<<","<<rep->axe_y->y<<","<<rep->axe_y->z<<","
                                             <<rep->axe_z->x<<","<<rep->axe_z->y<<","<<rep->axe_z->z<<endl;
                     break;

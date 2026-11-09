@@ -14,7 +14,7 @@ class Shader_Eclairage_Base: public dksShader
     //======================================
     Shader_Eclairage_Base(char* p_nom,char* p_source_vertex,char* p_source_fragment):dksShader(p_nom,p_source_vertex,p_source_fragment)
     {
-        //--------- Création des liens avec les variables type "uniform":
+        //--------- CrÃ©ation des liens avec les variables type "uniform":
         if(erreur==DKSSHADER_OK)
         {
             drapeaux_sources=glGetUniformLocation(programme_id,"drapeaux_sources");

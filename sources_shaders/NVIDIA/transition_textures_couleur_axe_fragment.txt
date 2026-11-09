@@ -2,7 +2,7 @@
 //				Transition entre deux textures de couleur,
 //				le long de l'axe Z du volume
 //				Fragment shader
-//				La transparence est gérée en tout ou rien
+//				La transparence est gÃ©rÃ©e en tout ou rien
 //======================================================================
 
 uniform sampler2D texture_depart;
@@ -17,7 +17,7 @@ varying vec2 coordonnees_texture_destination;
 varying float position_axe;	//La position du fragement le long de l'axe, varie entre 0 et 1
 
 varying vec4 couleur;
-varying vec3 couleur_speculaire; //Spérarée pour apparaître par dessus les textures
+varying vec3 couleur_speculaire; //SpÃ©rarÃ©e pour apparaÃ®tre par dessus les textures
 
 void main( void )
 {

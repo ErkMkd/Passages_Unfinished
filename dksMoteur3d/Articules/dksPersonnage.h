@@ -3,7 +3,7 @@
 
 /*
     Squelette de base d'un personnage humanoide
-    Le centre du personnage est par défaut situé au niveau des talons
+    Le centre du personnage est par dÃ©faut situÃ© au niveau des talons
 */
 
 #include "../Elements_Fondamentaux/dksConteneur.h"
@@ -44,8 +44,8 @@
 #define PERSONNAGE_PLANTE_DROITE 20
 #define PERSONNAGE_PLANTE_GAUCHE 1
 //=================================================================================================================================
-//                          Définition de la classe
-//          Pour faciliter les animations, les angles sont en degrés.
+//                          DÃ©finition de la classe
+//          Pour faciliter les animations, les angles sont en degrÃ©s.
 //=================================================================================================================================
 class dksPersonnage:public dksConteneur
 {
@@ -69,9 +69,9 @@ class dksPersonnage:public dksConteneur
 
 
     public:
-        //Coordonnées des articulations et points stratégiques
-        double squelette_base[3*PERSONNAGE_NBRPOINTS];    //Les points à l'état de repos
-        double squelette[3*PERSONNAGE_NBRPOINTS];         //Les points articulés
+        //CoordonnÃ©es des articulations et points stratÃ©giques
+        double squelette_base[3*PERSONNAGE_NBRPOINTS];    //Les points Ã  l'Ã©tat de repos
+        double squelette[3*PERSONNAGE_NBRPOINTS];         //Les points articulÃ©s
 
         float angle_Pda; //Angles de rotations des poignets
         float angle_Pde;
@@ -84,7 +84,7 @@ class dksPersonnage:public dksConteneur
         float angle_Cd; //Angles de rotation des coudes
         float angle_Cg;
 
-        float angle_Eda; //Angles de rotation des épaules (abduction,extension)
+        float angle_Eda; //Angles de rotation des Ã©paules (abduction,extension)
         float angle_Ede;
         float angle_Edr;
         float angle_Ega;
@@ -102,7 +102,7 @@ class dksPersonnage:public dksConteneur
         float angle_Hga;
         float angle_Hge;
 
-        float angle_Ta; //Angles de rotation de la tête (abduction, extension, rotation)
+        float angle_Ta; //Angles de rotation de la tÃªte (abduction, extension, rotation)
         float angle_Te;
         float angle_Tr;
 
@@ -114,7 +114,7 @@ class dksPersonnage:public dksConteneur
         float angle_He;
         float angle_Hr;
 
-        float angle_Aa; //Angles de rotation de l'abdomen (vertèbres lombaires)
+        float angle_Aa; //Angles de rotation de l'abdomen (vertÃ¨bres lombaires)
         float angle_Ae;
         float angle_Ar;
 
@@ -134,7 +134,7 @@ class dksPersonnage:public dksConteneur
             angle_Pga=0.;
             angle_Pda=0.;
 
-            //------------- Chargement du volume de définition des points:
+            //------------- Chargement du volume de dÃ©finition des points:
 
             //char nom_fichier[]={"LWO2/snake.lwo"};
 
@@ -143,7 +143,7 @@ class dksPersonnage:public dksConteneur
             volumes_lwo2=new dksChargeLWO2(nom_fichier);
             if (volumes_lwo2==NULL || volumes_lwo2->erreur!=DKSCHARGELWO2_OK)
             {
-                cout<<"ERREUR dans dksPersonnage::dksPersonnage() - Impossible de charger le volume de définition des points - "<<nom_fichier<<endl;
+                cout<<"ERREUR dans dksPersonnage::dksPersonnage() - Impossible de charger le volume de dÃ©finition des points - "<<nom_fichier<<endl;
                 erreur=DKSPERSONNAGE_ERREUR_CHARGEMENT_VOLUME;
                 return;
             }
@@ -151,13 +151,13 @@ class dksPersonnage:public dksConteneur
             volumes_convertis=new dksConvertionLWO2(volumes_lwo2);
             if (volumes_convertis==NULL || volumes_convertis->erreur!=DKSCONVERTIONLWO2_OK)
             {
-                cout<<"ERREUR dans dksPersonnage::dksPersonnage() - Impossible de convertir le volume de définition des points - "<<nom_fichier<<endl;
+                cout<<"ERREUR dans dksPersonnage::dksPersonnage() - Impossible de convertir le volume de dÃ©finition des points - "<<nom_fichier<<endl;
                 erreur=DKSPERSONNAGE_ERREUR_CONVERTION_VOLUME;
                 delete volumes_lwo2;
                 return;
             }
 
-            //------------ Mémorisation des points:
+            //------------ MÃ©morisation des points:
             double* points=volumes_convertis->renvoie_volume_index(0)->renvoie_sommets();
 
             for(i=0;i<PERSONNAGE_NBRPOINTS;i++)
@@ -169,7 +169,7 @@ class dksPersonnage:public dksConteneur
 
             raz_squelette();
 
-            //------- Supprime les données LWO2:
+            //------- Supprime les donnÃ©es LWO2:
             delete volumes_convertis;
             delete volumes_lwo2;
         }
@@ -184,7 +184,7 @@ class dksPersonnage:public dksConteneur
         }
 
     //================================================
-    //      Paramétrage
+    //      ParamÃ©trage
     //================================================
     virtual void determine_echelle_geometrique(double p_echelle)
     {
@@ -369,7 +369,7 @@ class dksPersonnage:public dksConteneur
                 rotation_abduction_extension_gauche(PERSONNAGE_PLANTE_GAUCHE,squelette);
 
 
-                //Rotation tête:
+                //Rotation tÃªte:
                 cos_a=cosf(angle_Ta*RADIANS);
                 sin_a=sinf(angle_Ta*RADIANS);
                 cos_e=cosf(angle_Te*RADIANS);
@@ -426,7 +426,7 @@ class dksPersonnage:public dksConteneur
                 rotation_abduction_extension_rotation_centrale(PERSONNAGE_OEIL_DROIT,squelette);
                 rotation_abduction_extension_rotation_centrale(PERSONNAGE_OEIL_GAUCHE,squelette);
 
-                //Rotation Abdomen (vertèbres lombaires):
+                //Rotation Abdomen (vertÃ¨bres lombaires):
                 cos_a=cosf(angle_Aa*RADIANS);
                 sin_a=sinf(angle_Aa*RADIANS);
                 cos_e=cosf(angle_Ae*RADIANS);
@@ -573,7 +573,7 @@ class dksPersonnage:public dksConteneur
         }
 
     //===============================================
-    //      Réinitialisation du squelette
+    //      RÃ©initialisation du squelette
     //===============================================
     public:
         void raz_squelette()
@@ -596,7 +596,7 @@ class dksPersonnage:public dksConteneur
             angle_Cd=0.; //Angles de rotation des coudes
             angle_Cg=0.;
 
-            angle_Eda=0.; //Angles de rotation des épaules (abduction,extension)
+            angle_Eda=0.; //Angles de rotation des Ã©paules (abduction,extension)
             angle_Ede=0.;
             angle_Ega=0.;
             angle_Ege=0.;
@@ -612,7 +612,7 @@ class dksPersonnage:public dksConteneur
             angle_Hga=0.;
             angle_Hge=0.;
 
-            angle_Ta=0.; //Angles de rotation de la tête (abduction, extension, rotation)
+            angle_Ta=0.; //Angles de rotation de la tÃªte (abduction, extension, rotation)
             angle_Te=0.;
             angle_Tr=0.;
 
@@ -624,7 +624,7 @@ class dksPersonnage:public dksConteneur
             angle_He=0.;
             angle_Hr=0.;
 
-            angle_Aa=0.; //Angles de rotation de l'abdomen (vertèbres lombaires)
+            angle_Aa=0.; //Angles de rotation de l'abdomen (vertÃ¨bres lombaires)
             angle_Ae=0.;
             angle_Ar=0.;
         }
@@ -650,7 +650,7 @@ class dksPersonnage:public dksConteneur
             glDisable(GL_LIGHTING);
 
             glColor3f(1.,1.,1.);
-            //Colonne vertébrale:
+            //Colonne vertÃ©brale:
             glBegin(GL_LINE_STRIP);
             glVertex3dv(&squelette[3*PERSONNAGE_ARTICULATION_TETE]);
             glVertex3dv(&squelette[3*PERSONNAGE_ARTICULATION_COU]);

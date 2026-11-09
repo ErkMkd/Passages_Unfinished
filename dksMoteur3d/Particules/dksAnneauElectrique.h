@@ -3,8 +3,8 @@
 
 /*
 
-            Génère un anneau électrique
-            des points sont générés au hazard dans un tore, puis reliés entre eux par des lignes.
+            GÃ©nÃ¨re un anneau Ã©lectrique
+            des points sont gÃ©nÃ©rÃ©s au hazard dans un tore, puis reliÃ©s entre eux par des lignes.
 
 */
 
@@ -37,7 +37,7 @@ class dksAnneauElectrique : public dksParticules
                     double px=0.,double py=0.,double pz=0.,
                     uint32_t p_nbrPoints=0,
                     float p_rayon_section=1.,
-                    float p_rayon_central=5.,   //Rayon du cercle central à l'épaisseur de la section
+                    float p_rayon_central=5.,   //Rayon du cercle central Ã  l'Ã©paisseur de la section
                     dksVecteurUnitaire* axe1 = NULL, dksVecteurUnitaire* axe2 = NULL, dksVecteurUnitaire* axe3 = NULL)
                     :dksParticules(p_nom,px,py,pz,p_nbrPoints,axe1,axe2,axe3)
     {
@@ -61,7 +61,7 @@ class dksAnneauElectrique : public dksParticules
     }
 
     //===============================================
-    //      Génère les éclairs
+    //      GÃ©nÃ¨re les Ã©clairs
     //===============================================
     void genere_eclairs()
     {

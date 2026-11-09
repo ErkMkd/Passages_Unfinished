@@ -2,7 +2,7 @@
 //  Fonctions de rendu du volume par l'usage des tableaux de sommets.
 //  Il y a une petite restriction au niveau des adoucissement des surface:
 //      L'angle limite d'adoucissement n'est fonctionnel qu'aux bordures de
-//      la surface. Les faces à l'intérieur de la surface sont toujours
+//      la surface. Les faces Ã  l'intÃ©rieur de la surface sont toujours
 //      adoucies, quelque soit la limite de cet angle.
 //=======================================================================
 
@@ -34,7 +34,7 @@
 
                 //else //if (mode_remplissage==DKSVOLUME_REMPLISSAGE_COULEUR)
                 //{
-                    //------------------- Surface en aplat brut (pas d'éclairage)
+                    //------------------- Surface en aplat brut (pas d'Ã©clairage)
                     if(surface->mode_rendu==DKSSURFACE_RENDU_APLAT)
                     {
                         GLboolean eclairage_mem=glIsEnabled(GL_LIGHTING);
@@ -57,7 +57,7 @@
                         }
                     }
 
-                    //------------------- Surface en éclairage de Gouraud;
+                    //------------------- Surface en Ã©clairage de Gouraud;
                     else
                     {
                         for(j=0;j<surface->nbr_faces;j++)
@@ -75,7 +75,7 @@
 
         //----------------------------------------------------------------
         //  Rendu des surfaces transparentes en utilisant les tableaux
-        /// Fonction appelée seulement si le volume doit rendre ses
+        /// Fonction appelÃ©e seulement si le volume doit rendre ses
         /// faces transprentes en interne (drapeau_rendu_face_transprentes=true)
         //----------------------------------------------------------------
 
@@ -96,7 +96,7 @@
                 for (i=0;i<nbrFaces_transparentes;i++)
                 {
                     face=indices_faces_transparentes[i].face;
-                    //Au besoin, définir le matériau:
+                    //Au besoin, dÃ©finir le matÃ©riau:
                     if(face->surface!=surface_courante)
                     {
                         surface_courante=face->surface;
@@ -147,7 +147,7 @@
                 //{
                     initialise_materiau_luminescent(surface);
 
-                    //========================= Rendu à plat sans texture:
+                    //========================= Rendu Ã  plat sans texture:
 
                     for (j=0;j<surface->nbr_faces;j++)
                     {
@@ -184,7 +184,7 @@
                 //{
                     initialise_materiau_profondeur(surface);
 
-                    //========================= Rendu à plat sans texture:
+                    //========================= Rendu Ã  plat sans texture:
 
                     for (j=0;j<surface->nbr_faces;j++)
                     {

@@ -23,7 +23,7 @@ class Shader_Transition_Textures_Couleur_Axe: public dksShader
         {
             if(erreur==DKSSHADER_OK)
             {
-                //--------- Création des liens avec les variables type "uniform":
+                //--------- CrÃ©ation des liens avec les variables type "uniform":
                 drapeaux_sources=glGetUniformLocation(programme_id,"drapeaux_sources");
                 texture_depart=glGetUniformLocation(programme_id,"texture_depart");
                 texture_destination=glGetUniformLocation(programme_id,"texture_destination");

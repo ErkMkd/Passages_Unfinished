@@ -1,5 +1,5 @@
 //-------------------------------------------------------------------------
-//          Rendu des faces transparentes de la scène en mode immédiat
+//          Rendu des faces transparentes de la scÃ¨ne en mode immÃ©diat
 //-------------------------------------------------------------------------
     void rendu_faces_transparentes_immediat()
     {
@@ -13,7 +13,7 @@
         {
             dksFace*face=faces_transparentes_triables[indice_face_transparente].face;
             //cout<<faces_transparentes_triables[indice_face_transparente].distance<<endl;
-            //Au besoin, définir le matériau:
+            //Au besoin, dÃ©finir le matÃ©riau:
 
             if(face->surface!=surface_courante)
             {
@@ -29,7 +29,7 @@
                         glPushMatrix();
                         glMultMatrixd(volume_courant->matrice.matrice);
                     }
-                    //Si le volume a changé et qu'il est en mode de rendu par tableaux, on retourne à la boucle principale
+                    //Si le volume a changÃ© et qu'il est en mode de rendu par tableaux, on retourne Ã  la boucle principale
                     else return;
                 }
                 surface_courante=face->surface;
@@ -132,20 +132,20 @@
                 }
             }
 
-            //======================================Rendu avec texture de rugosité:
+            //======================================Rendu avec texture de rugositÃ©:
             else if (surface_courante->mode_rendu==DKSSURFACE_RENDU_RUGOSITE)
             {
-                /// A ajouter si besoin, mais l'usage des tableaux est plus indiqué
+                /// A ajouter si besoin, mais l'usage des tableaux est plus indiquÃ©
             }
 
 
-            //======================================Rendu avec texture de rugosité et texture de couleur:
+            //======================================Rendu avec texture de rugositÃ© et texture de couleur:
             else if (surface_courante->mode_rendu==DKSSURFACE_RENDU_RUGOSITE_TEXTURE_COULEUR)
             {
-                /// A ajouter si besoin, mais l'usage des tableaux est plus indiqué
+                /// A ajouter si besoin, mais l'usage des tableaux est plus indiquÃ©
             }
 
-            //========================== Effet spécial:
+            //========================== Effet spÃ©cial:
             else if(surface_courante->mode_rendu==DKSSURFACE_RENDU_EFFET_SPECIAL)
             {
                 surface_courante->effet_special->rendu_transparente_immediat(face);

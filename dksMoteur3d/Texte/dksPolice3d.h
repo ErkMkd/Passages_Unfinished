@@ -3,8 +3,8 @@
 
 /*
 
-        Classe utilisée par dksTexte3d - stockage et gestion des caractères matérialisés par des volumes
-        La table des caractère doit respecter l'ordre des codes ascii, moins 33 (premier caractère "!"=33)
+        Classe utilisÃ©e par dksTexte3d - stockage et gestion des caractÃ¨res matÃ©rialisÃ©s par des volumes
+        La table des caractÃ¨re doit respecter l'ordre des codes ascii, moins 33 (premier caractÃ¨re "!"=33)
 
 */
 
@@ -18,15 +18,15 @@ class dksPolice3d
 {
     private:
 
-    dksVolume** caracteres;     //Mettre le pointeur à NULL où les caractères ne sont pas définis.
+    dksVolume** caracteres;     //Mettre le pointeur Ã  NULL oÃ¹ les caractÃ¨res ne sont pas dÃ©finis.
     uint16_t    nbrCaracteres;
 
-    float facteur_taille;       //Ces facteurs agissent sur les sommets des caractères
+    float facteur_taille;       //Ces facteurs agissent sur les sommets des caractÃ¨res
     float facteur_epaisseur;
 
     public:
-    float espace_lettres;   //L'espace à ajouter entre chaque lettre
-    double centrage_lettres[3*128]; //Les coordonnées de décallage pour le positionnement correct des lettres
+    float espace_lettres;   //L'espace Ã  ajouter entre chaque lettre
+    double centrage_lettres[3*128]; //Les coordonnÃ©es de dÃ©callage pour le positionnement correct des lettres
     uint16_t erreur;
     //=====================================================
     //              Constructeur
@@ -92,7 +92,7 @@ class dksPolice3d
         espace_lettres*=t;
     }
 
-    //La valeur en entrée est en proportion d'une échelle 1.
+    //La valeur en entrÃ©e est en proportion d'une Ã©chelle 1.
     void determine_espace_lettres(float p_espace)
     {
         espace_lettres=p_espace*facteur_taille;
@@ -109,7 +109,7 @@ class dksPolice3d
     }
 
     //======================================
-    //      Gestion des caractères
+    //      Gestion des caractÃ¨res
     //======================================
     uint16_t renvoie_id_caractere(char code_ascii)
     {

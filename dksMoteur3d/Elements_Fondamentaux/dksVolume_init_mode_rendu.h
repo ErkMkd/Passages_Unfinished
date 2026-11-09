@@ -22,7 +22,7 @@
             init_rendus[DKSSURFACE_RENDU_PHONG]=&dksVolume::init_rendu_phong;
             init_rendus[DKSSURFACE_RENDU_PHONG_OMBRES]=&dksVolume::init_rendu_phong_ombres;
 
-            //Effets spéciaux:
+            //Effets spÃ©ciaux:
             init_rendus[DKSSURFACE_RENDU_EFFET_SPECIAL]=&dksVolume::init_rendu_effet_special;
 
 
@@ -36,7 +36,7 @@
 //=============================================================================
 
     //-----------------------------------------------------------------------------------------
-    //      Rendu des effets spéciaux propres aux surfaces (priorité sur les autres rendus)
+    //      Rendu des effets spÃ©ciaux propres aux surfaces (prioritÃ© sur les autres rendus)
     //-----------------------------------------------------------------------------------------
     virtual void init_rendu_effet_special()
     {
@@ -53,16 +53,16 @@
     }
 
     //--------------------------------------------------------------------------------
-    //      Rendu en aplat, sans éclairage, avec la couleur de diffusion de la surface
+    //      Rendu en aplat, sans Ã©clairage, avec la couleur de diffusion de la surface
     //--------------------------------------------------------------------------------
     virtual void init_rendu_aplat()
     {
         glUseProgram(dksShaders::bibliotheque->aplat_brut->programme_id);
-        glDisableClientState(GL_NORMAL_ARRAY); //Au cas où on est en mode TABLEAU
+        glDisableClientState(GL_NORMAL_ARRAY); //Au cas oÃ¹ on est en mode TABLEAU
     }
 
     //--------------------------------------------------------------------------------
-    //      Rendu avec éclairage phong
+    //      Rendu avec Ã©clairage phong
     //--------------------------------------------------------------------------------
     void init_rendu_phong()
     {
@@ -98,7 +98,7 @@
     }
 
     //---------------------------------------------
-    //      Rendu avec une texture de rugosité
+    //      Rendu avec une texture de rugositÃ©
     //---------------------------------------------
     void init_rendu_rugosite()
     {
@@ -130,7 +130,7 @@
     }
 
     //---------------------------------------------------------------------
-    //      Rendu avec une texture de rugosité et une texture de couleur
+    //      Rendu avec une texture de rugositÃ© et une texture de couleur
     //---------------------------------------------------------------------
     void init_rendu_rugosite_texture_couleur()
     {
@@ -146,7 +146,7 @@
         glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,texture->type_grossissement);
         glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,texture->type_diminution);
         glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,texture->type_enveloppe);
-        //Initialise la texture de rugosité:
+        //Initialise la texture de rugositÃ©:
         texture=surface_courante->textures_rugosite[0];
         glActiveTexture(GL_TEXTURE1);
         glEnable(GL_TEXTURE_2D);
@@ -164,7 +164,7 @@
             glClientActiveTexture(GL_TEXTURE0);
             glTexCoordPointer(2,GL_FLOAT,0,texture->coordonnees_UV_tableau);
             glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-            //Texture de rugosité:
+            //Texture de rugositÃ©:
             glClientActiveTexture(GL_TEXTURE1);
             glTexCoordPointer(2,GL_FLOAT,0,texture->coordonnees_UV_tableau);
             glEnableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -180,7 +180,7 @@
     }
 
     //--------------------------------------------------------------------------------
-    //      Rendu avec réflexion du cube d'arrière plan, sans texture sur la surface
+    //      Rendu avec rÃ©flexion du cube d'arriÃ¨re plan, sans texture sur la surface
     //--------------------------------------------------------------------------------
     void init_rendu_reflexion_cube()
     {
@@ -196,7 +196,7 @@
 
 
     //-----------------------------------------------------------------------------------------------
-    //      Rendu avec les ombres portées sur les surfaces sans texture.
+    //      Rendu avec les ombres portÃ©es sur les surfaces sans texture.
     //-----------------------------------------------------------------------------------------------
     void init_rendu_ombres()
     {
@@ -216,7 +216,7 @@
     }
 
     //-----------------------------------------------------------------------------------------------
-    //      Rendu avec les ombres portées avec éclairage en phong sur les surfaces sans texture.
+    //      Rendu avec les ombres portÃ©es avec Ã©clairage en phong sur les surfaces sans texture.
     //-----------------------------------------------------------------------------------------------
     void init_rendu_phong_ombres()
     {
@@ -293,7 +293,7 @@
     }
 
     //-----------------------------------------------------------------------------------------------
-    //      Rendu avec réflexion et ondes aqueuses sur les surfaces sans textures.
+    //      Rendu avec rÃ©flexion et ondes aqueuses sur les surfaces sans textures.
     //-----------------------------------------------------------------------------------------------
     void init_rendu_ondes_reflexion_cube()
     {
@@ -330,7 +330,7 @@
         dksTexture* texture_dest;
         dksTexture* texture_trans;
 
-        //Texture départ:
+        //Texture dÃ©part:
         texture_depart=surface_courante->textures_couleur[surface_courante->indice_texture_depart];
         glActiveTexture(GL_TEXTURE0);
         glEnable(GL_TEXTURE_2D);

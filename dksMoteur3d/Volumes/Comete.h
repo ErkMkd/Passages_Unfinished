@@ -3,21 +3,21 @@
 
 /*
 *
-*   Seul le volume situé au calque 0 du fichier lwo2 est pris en compte.
+*   Seul le volume situÃ© au calque 0 du fichier lwo2 est pris en compte.
 *
-*   Les jets sont placés sur les faces appartenants à une surface nommée "jets"
-*   Ils sont centrés et les rayons des surfaces de projection sont calculés selon les aires des faces.
+*   Les jets sont placÃ©s sur les faces appartenants Ã  une surface nommÃ©e "jets"
+*   Ils sont centrÃ©s et les rayons des surfaces de projection sont calculÃ©s selon les aires des faces.
 *
-*   Les paramètres ajustables pour les jets:
+*   Les paramÃ¨tres ajustables pour les jets:
 *           -Puissance
 *           -Ouverture
 *           -Tailles des particules
-*           -Durées de vie des particules
+*           -DurÃ©es de vie des particules
 *
 */
 
 //===================================================================================================
-//                                 Classe de base de la comète
+//                                 Classe de base de la comÃ¨te
 //===================================================================================================
 
 //Codes d'erreurs:
@@ -64,14 +64,14 @@ class Comete :public Conteneur
             if (!charge_noyau(fichier_lwo_noyau,chemin_textures))
             {
                 erreur=COMETE_NOYAU;
-                cout<<"ERREUR dans la comète "<<nom<<" - Impossible de charger le noyau"<<endl;
+                cout<<"ERREUR dans la comÃ¨te "<<nom<<" - Impossible de charger le noyau"<<endl;
                 return;
             }
-            //Création des jets:
+            //CrÃ©ation des jets:
             if (!creation_jets())
             {
                 erreur=COMETE_JETS;
-                cout<<"ERREUR dans la comète "<<nom<<" - Impossible de créer les jeysers"<<endl;
+                cout<<"ERREUR dans la comÃ¨te "<<nom<<" - Impossible de crÃ©er les jeysers"<<endl;
                 return;
             }
 
@@ -89,12 +89,12 @@ class Comete :public Conteneur
 
             if (noyau!=NULL) delete noyau;
             if(noyau_lwo!=NULL) delete noyau_lwo;
-            //!! Les surfaces ne sont pas effacées.
-            //Elles doivent être purgées en aval par Convertion_LWO2_Volume::libere_memoire()
+            //!! Les surfaces ne sont pas effacÃ©es.
+            //Elles doivent Ãªtre purgÃ©es en aval par Convertion_LWO2_Volume::libere_memoire()
         }
 
         //===================================================================
-        //              Initialisations de la comète
+        //              Initialisations de la comÃ¨te
         //===================================================================
 
         //-------------------------
@@ -118,7 +118,7 @@ class Comete :public Conteneur
         }
 
         //-------------------------
-        //  Génère les jets
+        //  GÃ©nÃ¨re les jets
         //-------------------------
         bool creation_jets()
         {
@@ -168,7 +168,7 @@ class Comete :public Conteneur
         }
 
         //--------------------------------
-        //  Ajoute la comète à une scène
+        //  Ajoute la comÃ¨te Ã  une scÃ¨ne
         //--------------------------------
         void ajoute_dans_scene(Moteur3d* scene)
         {
@@ -182,7 +182,7 @@ class Comete :public Conteneur
 
 
         //============================================================================
-        //                              Gestion des éléments
+        //                              Gestion des Ã©lÃ©ments
         //============================================================================
 
 

@@ -58,7 +58,7 @@ class Scene_LogoGP: public Scene
     float position_trajectoire_camera;
     float position_trajectoire_camera_visee;
 
-    //============= Données de l'éditeur:
+    //============= DonnÃ©es de l'Ã©diteur:
 
         double vitesse_rotation;
         double vitesse_deplacement;
@@ -94,7 +94,7 @@ class Scene_LogoGP: public Scene
         for (i=0;i<sizeof(etapes)/sizeof(bool);i++) etapes[i]=false;
         for (i=0;i<sizeof(interpolations_parametres)/sizeof(Interpolation_Parametre*);i++) interpolations_parametres[i]=NULL;
 
-        //======Création des volumes LWO2:
+        //======CrÃ©ation des volumes LWO2:
 
         //Les volumes d'affichage du logo:
         logo_lwo2=new dksChargeLWO2("Logo_debut/logo_2048.lwo","Logo_debut/");
@@ -129,7 +129,7 @@ class Scene_LogoGP: public Scene
         le_tunnel=new Tunnel(sections_tunnel_converties->renvoie_volumes_convertis(),sections_tunnel_converties->renvoie_nbrVolumes(),
                                 50,25.);
 
-        //====== Création de la scène 3d:
+        //====== CrÃ©ation de la scÃ¨ne 3d:
 
 
         cube_test=new dksCube("cube_test",0.,0.,200.,10.,10.,10.,0xa0a0ff);
@@ -152,7 +152,7 @@ class Scene_LogoGP: public Scene
             return;
         }
 
-        //======== Préparation des animations:
+        //======== PrÃ©paration des animations:
 
         initialise_animations();
         initialise_listes_affichage();
@@ -190,7 +190,7 @@ class Scene_LogoGP: public Scene
 
 
     //----------------------------------------------------------------------------
-    //                Active la scène
+    //                Active la scÃ¨ne
     //----------------------------------------------------------------------------
     virtual void active()
     {
@@ -205,7 +205,7 @@ class Scene_LogoGP: public Scene
     }
 
     //----------------------------------------------------------------------------
-    //                 Mise à jour de la fenêtre, si on est pas en plein ecran
+    //                 Mise Ã  jour de la fenÃªtre, si on est pas en plein ecran
     //----------------------------------------------------------------------------
     virtual void maj_dimensions_fenetre()
     {
@@ -243,7 +243,7 @@ class Scene_LogoGP: public Scene
     //========================================================================================================================================
     public:
     //----------------------------------------------------------------------------
-    //                  Etat de la scène au départ de l'animation
+    //                  Etat de la scÃ¨ne au dÃ©part de l'animation
     //----------------------------------------------------------------------------
     virtual void initialise_t0(double t0)
     {
@@ -301,7 +301,7 @@ class Scene_LogoGP: public Scene
 
     //======================================================
     //               Attente du retour du faisceau
-    //              Déclenchements des animations
+    //              DÃ©clenchements des animations
     //=======================================================
     public:
     virtual void attente_retour_faisceau()
@@ -357,7 +357,7 @@ class Scene_LogoGP: public Scene
 
     //========================================================================================================================================
     //===============================================================================================================================
-    //                                      Gestion de l'éditeur
+    //                                      Gestion de l'Ã©diteur
     //=====================================================================================================================================
     //=========================================================================================================================================
 
@@ -387,7 +387,7 @@ class Scene_LogoGP: public Scene
         }
 
         //===================================================
-        //          Affiche la trajectoire éditée
+        //          Affiche la trajectoire Ã©ditÃ©e
         //===================================================
         void affiche_trajectoire(dksTrajectoire* trajectoire)
         {
@@ -417,22 +417,22 @@ class Scene_LogoGP: public Scene
             switch (key)
             {
                  case 101:
-                //flèche haut
+                //flÃ¨che haut
                 conteneur_selectionne->deplace(AVANT,vitesse_deplacement);
                 cout<<conteneur_selectionne->x<<" "<<conteneur_selectionne->y<<" "<<conteneur_selectionne->z<<endl;
                 break;
                 case 100:
-                    //flèche gauche
+                    //flÃ¨che gauche
                     conteneur_selectionne->deplace(GAUCHE,vitesse_deplacement);
                     cout<<conteneur_selectionne->x<<" "<<conteneur_selectionne->y<<" "<<conteneur_selectionne->z<<endl;
                     break;
                 case 103:
-                    //flèche bas
+                    //flÃ¨che bas
                     conteneur_selectionne->deplace(ARRIERE,vitesse_deplacement);
                     cout<<conteneur_selectionne->x<<" "<<conteneur_selectionne->y<<" "<<conteneur_selectionne->z<<endl;
                     break;
                 case 102:
-                    //flèche droite
+                    //flÃ¨che droite
                     conteneur_selectionne->deplace(DROITE,vitesse_deplacement);
                     cout<<conteneur_selectionne->x<<" "<<conteneur_selectionne->y<<" "<<conteneur_selectionne->z<<endl;
                     break;
@@ -452,14 +452,14 @@ class Scene_LogoGP: public Scene
                 //Touches F..
                 case 1:
                     if (ma_trajectoire.renvoie_longueur_totale()>0.)
-                    {if (ma_trajectoire.sauve_trajectoire(fichier_trajectoire)) cout<<"Trajectoire "<<fichier_trajectoire<<" sauvée avec succès!"<<endl;}
-                    else cout<<"Sauvegarde impossible-pas de trajectoire en mémoire!"<<endl;
+                    {if (ma_trajectoire.sauve_trajectoire(fichier_trajectoire)) cout<<"Trajectoire "<<fichier_trajectoire<<" sauvÃ©e avec succÃ¨s!"<<endl;}
+                    else cout<<"Sauvegarde impossible-pas de trajectoire en mÃ©moire!"<<endl;
                     break;
 
                 case 2:
                     if (ma_trajectoire.charge_trajectoire(fichier_trajectoire))
                     {
-                        cout<<"Trajectoire "<<fichier_trajectoire<<" chargée avec succès!"<<endl;
+                        cout<<"Trajectoire "<<fichier_trajectoire<<" chargÃ©e avec succÃ¨s!"<<endl;
                         ma_trajectoire.determine_point(1,0.,716.493,32.);
                         point_actuel=0;
                     }
@@ -540,7 +540,7 @@ class Scene_LogoGP: public Scene
                         {
                             if (i==conteneurs_selectionnables.size()-1) conteneur_selectionne=conteneurs_selectionnables[0];
                             else conteneur_selectionne=conteneurs_selectionnables[i+1];
-                            cout<<"Conteneur sélectionné: "<<conteneur_selectionne->nom<<endl;
+                            cout<<"Conteneur sÃ©lectionnÃ©: "<<conteneur_selectionne->nom<<endl;
                             break;
                         }
                     }
@@ -604,31 +604,31 @@ class Scene_LogoGP: public Scene
                     ma_trajectoire.affiche_position_point(point_actuel);
                     break;
 
-                //............ Déplacement sur la trajectoire:
+                //............ DÃ©placement sur la trajectoire:
                 case '&':
                     position_trajectoire-=pas_position_trajectoire;
                     cout<<"Position trajectoire t="<<position_trajectoire;
                     ma_trajectoire.renvoie_position(position_trajectoire,coordonnees_trajectoire);
                     conteneur_selectionne->determine_position(coordonnees_trajectoire);
-                    cout<<" Coordonnées X:"<<coordonnees_trajectoire[0]<<" Y:"<<coordonnees_trajectoire[1]<<" Z:"<<coordonnees_trajectoire[2]<<endl;
+                    cout<<" CoordonnÃ©es X:"<<coordonnees_trajectoire[0]<<" Y:"<<coordonnees_trajectoire[1]<<" Z:"<<coordonnees_trajectoire[2]<<endl;
 
 
                     break;
-                case 233:// é
+                case 233:// Ã©
                     position_trajectoire+=pas_position_trajectoire;
                     cout<<"Position trajectoire t="<<position_trajectoire;
                     ma_trajectoire.renvoie_position(position_trajectoire,coordonnees_trajectoire);
                     conteneur_selectionne->determine_position(coordonnees_trajectoire);
-                    cout<<" Coordonnées X:"<<coordonnees_trajectoire[0]<<" Y:"<<coordonnees_trajectoire[1]<<" Z:"<<coordonnees_trajectoire[2]<<endl;
+                    cout<<" CoordonnÃ©es X:"<<coordonnees_trajectoire[0]<<" Y:"<<coordonnees_trajectoire[1]<<" Z:"<<coordonnees_trajectoire[2]<<endl;
                     break;
 
-                //............... Affiche les coordonnées:
+                //............... Affiche les coordonnÃ©es:
                 case 'r':
-                    cout<<"Repère relatif: "<<conteneur_selectionne->axe_x->x<<","<<conteneur_selectionne->axe_x->y<<","<<conteneur_selectionne->axe_x->z<<","
+                    cout<<"RepÃ¨re relatif: "<<conteneur_selectionne->axe_x->x<<","<<conteneur_selectionne->axe_x->y<<","<<conteneur_selectionne->axe_x->z<<","
                                             <<conteneur_selectionne->axe_y->x<<","<<conteneur_selectionne->axe_y->y<<","<<conteneur_selectionne->axe_y->z<<","
                                             <<conteneur_selectionne->axe_z->x<<","<<conteneur_selectionne->axe_z->y<<","<<conteneur_selectionne->axe_z->z<<endl;
 
-                    cout<<"Repère absolu: "<<rep->axe_x->x<<","<<rep->axe_x->y<<","<<rep->axe_x->z<<","
+                    cout<<"RepÃ¨re absolu: "<<rep->axe_x->x<<","<<rep->axe_x->y<<","<<rep->axe_x->z<<","
                                             <<rep->axe_y->x<<","<<rep->axe_y->y<<","<<rep->axe_y->z<<","
                                             <<rep->axe_z->x<<","<<rep->axe_z->y<<","<<rep->axe_z->z<<endl;
                     break;

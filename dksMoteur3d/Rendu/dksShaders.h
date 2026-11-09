@@ -27,7 +27,7 @@
 #include "shaders/Shader_Masque_2_Textures.h"
 #include "shaders/Shader_Aplat_Brut.h"
 
-//------------- Compatibilité:
+//------------- CompatibilitÃ©:
 #define DKSSHADERS_FABRIQUANT_ATI 1
 #define DKSSHADERS_FABRIQUANT_NVIDIA 2
 
@@ -119,14 +119,14 @@ class dksInitialiseShaders: public Gestion_Shaders
                 return;
             }
 
-            //Création des shaders:
+            //CrÃ©ation des shaders:
             if(!creation_shaders())
             {
                 erreur=DKSSHADERS_ERREUR_SHADER;
                 return;
             }
 
-            //Création des textures utilisées par les shaders:
+            //CrÃ©ation des textures utilisÃ©es par les shaders:
             if(!creation_textures()) return;
         }
     //=================================================================
@@ -155,7 +155,7 @@ class dksInitialiseShaders: public Gestion_Shaders
         }
 
     //========================================================================
-    //          Création des shaders:
+    //          CrÃ©ation des shaders:
     //========================================================================
     private:
         bool creation_shaders()
@@ -169,7 +169,7 @@ class dksInitialiseShaders: public Gestion_Shaders
             eclairage_phong=new Shader_Eclairage_Base("eclairage_phong",renvoie_nom_fichier("eclairage_phong_vertex.txt"),renvoie_nom_fichier("eclairage_phong_fragment.txt"));
             if(eclairage_phong->erreur!=DKSSHADER_OK) return false;
 
-            rugosite=new Shader_Rugosite("rugosité",renvoie_nom_fichier("rugosite_vertex.txt"),renvoie_nom_fichier("rugosite_fragment.txt"));
+            rugosite=new Shader_Rugosite("rugositÃ©",renvoie_nom_fichier("rugosite_vertex.txt"),renvoie_nom_fichier("rugosite_fragment.txt"));
             if(rugosite->erreur!=DKSSHADER_OK) return false;
 
             couleur_rugosite=new Shader_Couleur_Rugosite("rugosite_couleur",renvoie_nom_fichier("rugosite_couleur_vertex.txt"),renvoie_nom_fichier("rugosite_couleur_fragment.txt"));
@@ -214,7 +214,7 @@ class dksInitialiseShaders: public Gestion_Shaders
         }
 
     //=========================================================================
-    //      Concaténation du chemin des sources avec les noms des fichiers
+    //      ConcatÃ©nation du chemin des sources avec les noms des fichiers
     //=========================================================================
         char* renvoie_nom_fichier(char* nom_source)
         {
@@ -227,14 +227,14 @@ class dksInitialiseShaders: public Gestion_Shaders
             return nom_fichier;
         }
     //================================================================================
-    //          Création des textures:
+    //          CrÃ©ation des textures:
     //================================================================================
         bool creation_textures()
         {
-            //---------- Génère la texture de bruit:
+            //---------- GÃ©nÃ¨re la texture de bruit:
             if (!Bruit::genere_bruit_de_Perlin_2D_8bits(4,4,DKSSHADERS_TAILLE_TEXTURE_BRUIT,DKSSHADERS_TAILLE_TEXTURE_BRUIT,12,0.75,texture_bruit))
             {
-                cout<<"ERREUR dans dksShaders::creation_textures() - Impossible de créer la texture de bruit"<<endl;
+                cout<<"ERREUR dans dksShaders::creation_textures() - Impossible de crÃ©er la texture de bruit"<<endl;
                 erreur=DKSSHADERS_ERREUR_TEXTURES;
                 return false;
             }
@@ -245,7 +245,7 @@ class dksInitialiseShaders: public Gestion_Shaders
             glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
             glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
             glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
-            glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);    //Il semble que ce paramètre active la texture.....
+            glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);    //Il semble que ce paramÃ¨tre active la texture.....
             glTexImage2D(GL_TEXTURE_2D,0,GL_LUMINANCE,DKSSHADERS_TAILLE_TEXTURE_BRUIT,DKSSHADERS_TAILLE_TEXTURE_BRUIT,0,GL_LUMINANCE,GL_UNSIGNED_BYTE,texture_bruit);
 
             //glTexEnvf(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);

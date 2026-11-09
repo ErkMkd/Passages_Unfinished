@@ -2,30 +2,30 @@
 #define VOLUMEFACESSEPAREES_H_INCLUDED
 
 /*
-        SÈpare les faces d'un volume et les gËre comme des particules
-        Les faces sont individualisÈes via un vertex-shader.
-        Les paramËtres envoyÈs au shader sont:
-        -DÈcallage de la face,
+        S√©pare les faces d'un volume et les g√®re comme des particules
+        Les faces sont individualis√©es via un vertex-shader.
+        Les param√®tres envoy√©s au shader sont:
+        -D√©callage de la face,
         -Orientation de la face,
-        -Niveau d'Èclairement, pour l'adaptation au rendu des auras.
+        -Niveau d'√©clairement, pour l'adaptation au rendu des auras.
 */
 
 
 #include "../Particules/dksParticules.h"
 
 //--------------------------------------------------
-//          ParamËtres spÈcifiques des particules
+//          Param√®tres sp√©cifiques des particules
 //--------------------------------------------------
 class Particule_Face_Separee :public Element_particule
 {
     public:
-    //ParamËtres envoyÈs au vertex-shader:
+    //Param√®tres envoy√©s au vertex-shader:
     float niveau_eclairage;    //Sert lors du rendu des faces luminescentes - Pour pouvoir jouer avec la taille de l'aura.
-    float deplacement_centre_gravite[3];   //Le dÈplacement du centre de gravitÈ d'origine de la face, dans le repËre TNB.
+    float deplacement_centre_gravite[3];   //Le d√©placement du centre de gravit√© d'origine de la face, dans le rep√®re TNB.
     Interpolation_Parametre_3f* interpolation_deplacement;
     Interpolation_Parametre* interpolation_niveau_eclairage;
 
-    //L'orientation de la face peut se faire via les angles TLR, ou par rotation quelconque  de son repËre TNB
+    //L'orientation de la face peut se faire via les angles TLR, ou par rotation quelconque  de son rep√®re TNB
     float tanguage;
     float lacet;
     float roulis;
@@ -95,9 +95,9 @@ class VolumeFacesSeparees : public dksParticules
     }
 
     //---------------------------------------------------------
-    //          CrÈation des paramËtres des particules
-    //      Fonction appelÈe par determine_nombre_de_points
-    ///     Les faces du volume doivent avoir ÈtÈ initialisÈes
+    //          Cr√©ation des param√®tres des particules
+    //      Fonction appel√©e par determine_nombre_de_points
+    ///     Les faces du volume doivent avoir √©t√© initialis√©es
     //---------------------------------------------------------
     virtual void creation_particules()
     {
@@ -124,7 +124,7 @@ class VolumeFacesSeparees : public dksParticules
         double* p_sommets=(double*)malloc(p_nbrSommets*sizeof(double)*3);
         if (p_sommets==NULL)
         {
-            cout<<"Erreur dans VolumeFacesSeparee.copie_sommets() - MÈmoire insuffisante"<<endl;
+            cout<<"Erreur dans VolumeFacesSeparee.copie_sommets() - M√©moire insuffisante"<<endl;
             erreur=DKSVOLUME_ERREUR_MEMOIRE;
             return false;
         }
@@ -152,7 +152,7 @@ class VolumeFacesSeparees : public dksParticules
         if (p_faces==NULL)
         {
             erreur=DKSVOLUME_ERREUR_MEMOIRE;
-            cout<<"Erreur dans VolumeFacesSeparees.copie_faces() - MÈmoire insuffisante"<<endl;
+            cout<<"Erreur dans VolumeFacesSeparees.copie_faces() - M√©moire insuffisante"<<endl;
             return false;
         }
 
@@ -183,7 +183,7 @@ class VolumeFacesSeparees : public dksParticules
         if (p_surfaces==NULL)
         {
             erreur=DKSVOLUME_ERREUR_MEMOIRE;
-            cout<<"Erreur dans VolumeFacesSeparees.copie_surfaces() - MÈmoire insuffisante"<<endl;
+            cout<<"Erreur dans VolumeFacesSeparees.copie_surfaces() - M√©moire insuffisante"<<endl;
             return false;
         }
         //Copiage:
@@ -229,7 +229,7 @@ class VolumeFacesSeparees : public dksParticules
     //===============================================================================================================================
     private:
     //---------------------------------------------------
-    //  Calcul les vecteurs de dÈplacement des faces
+    //  Calcul les vecteurs de d√©placement des faces
     //---------------------------------------------------
     void maj_faces()
     {
@@ -253,7 +253,7 @@ class VolumeFacesSeparees : public dksParticules
         }
     }
 
-    //--------- Anime les faces dans la fourchette spÈcifiÈe:
+    //--------- Anime les faces dans la fourchette sp√©cifi√©e:
     void interpolation_positions_fourchette_faces(float t,uint32_t index_depart, uint32_t index_fin)
     {
         index_fin++;
@@ -265,8 +265,8 @@ class VolumeFacesSeparees : public dksParticules
         }
     }
 
-    //--------- Anime les faces dans la fourchette spÈcifiÈe:
-    // Lorsque l'interpolation de position est terminÈe, l'animation du clignotement est jouÈe.
+    //--------- Anime les faces dans la fourchette sp√©cifi√©e:
+    // Lorsque l'interpolation de position est termin√©e, l'animation du clignotement est jou√©e.
     void interpolation_positions_clignottement_fourchette_faces(float t,uint32_t index_depart, uint32_t index_fin)
     {
         index_fin++;
@@ -282,7 +282,7 @@ class VolumeFacesSeparees : public dksParticules
 
 
     //-----------------------------------------------------------
-    //  DÈtermine le dÈplacement des faces dans leurs repËres TNB
+    //  D√©termine le d√©placement des faces dans leurs rep√®res TNB
     //-----------------------------------------------------------
     void determine_deplacements_faces(float dx,float dy,float dz)
     {
@@ -294,7 +294,7 @@ class VolumeFacesSeparees : public dksParticules
     }
 
     //--------------------------------------------------------------------------------
-    //  DÈtermine des dÈplacements alÈatoires des faces dans leurs repËres TNB
+    //  D√©termine des d√©placements al√©atoires des faces dans leurs rep√®res TNB
     //--------------------------------------------------------------------------------
     void random_deplacements_faces(float xmin,float xmax,float ymin, float ymax, float zmin, float zmax)
     {
@@ -343,7 +343,7 @@ class VolumeFacesSeparees : public dksParticules
 
 
             //Gestion de l'affichage double-face:
-            //Attention, les normales ne sont pas recalculÈes selon l'orientation de la face par rapport ‡ l'oeil.
+            //Attention, les normales ne sont pas recalcul√©es selon l'orientation de la face par rapport √† l'oeil.
 
             if(surface->double_face)
             {
@@ -353,7 +353,7 @@ class VolumeFacesSeparees : public dksParticules
             }
             else
             {
-                glEnable(GL_CULL_FACE); //Active la distinction face avant/face arriËre des polygones pour le rendu.
+                glEnable(GL_CULL_FACE); //Active la distinction face avant/face arri√®re des polygones pour le rendu.
                 face_materiaux=GL_FRONT;
                 //glLightModeli(GL_LIGHT_MODEL_TWO_SIDE,GL_FALSE);
             }
@@ -361,18 +361,18 @@ class VolumeFacesSeparees : public dksParticules
             //glColorMask(GL_TRUE,GL_TRUE,GL_TRUE,GL_TRUE);
         }
 
-        //Surface opaque (sert juste ‡ masquer les surfaces lumineuses)
+        //Surface opaque (sert juste √† masquer les surfaces lumineuses)
         else
         {
             if(surface->double_face) glDisable(GL_CULL_FACE);
-            else glEnable(GL_CULL_FACE); //Active la distinction face avant/face arriËre des polygones pour le rendu.
+            else glEnable(GL_CULL_FACE); //Active la distinction face avant/face arri√®re des polygones pour le rendu.
             glColor4fv(noir);
             //glColorMask(GL_FALSE,GL_FALSE,GL_FALSE,GL_FALSE);
         }
 
 
         //Gestion des tableaux:
-        //glDisableClientState(GL_NORMAL_ARRAY); //DÈj‡ dÈsactivÈ par rendu_surfaces_luminescentes()
+        //glDisableClientState(GL_NORMAL_ARRAY); //D√©j√† d√©sactiv√© par rendu_surfaces_luminescentes()
 
         //Gestion des textures et shaders:
         desactive_textures();
@@ -474,7 +474,7 @@ class VolumeFacesSeparees : public dksParticules
                 //{
                     initialise_materiau_luminescent(surface_courante);
 
-                    //========================= Rendu ‡ plat sans texture:
+                    //========================= Rendu √† plat sans texture:
 
                     for (j=0;j<surface_courante->nbr_faces;j++)
                     {

@@ -27,19 +27,19 @@
 
 #define IMAGEID2_(a,b) (((a)<<8)|(b))
 #define IMAGEFORMAT_BMP   IMAGEID2_('B','M')    //Format BMP
-#define IMAGEFORMAT_MM    IMAGEID2_('M','M')    //Les octets des images TIFF se présentent dans l'ordre
-#define IMAGEFORMAT_II    IMAGEID2_('I','I')    //Les octets des images TIFF nécessitent un retournement.
-#define IMAGEFORMAT_PNG   0x89504e0d0a1a0a      //Les fichier PNG commencent toujours par cette série
+#define IMAGEFORMAT_MM    IMAGEID2_('M','M')    //Les octets des images TIFF se prÃ©sentent dans l'ordre
+#define IMAGEFORMAT_II    IMAGEID2_('I','I')    //Les octets des images TIFF nÃ©cessitent un retournement.
+#define IMAGEFORMAT_PNG   0x89504e0d0a1a0a      //Les fichier PNG commencent toujours par cette sÃ©rie
 #define IMAGEFORMAT_JPEG_SOI  0xffd8      //Les fichier JPEG commencent toujours par ce marqueur
 
 //============== Facteurs pour les convertions de formats:
 
-//Lors de la convertion en niveaux de gris, les composantes n'étants pas perçues avec la même intensité, un facteur leur est attribué.
+//Lors de la convertion en niveaux de gris, les composantes n'Ã©tants pas perÃ§ues avec la mÃªme intensitÃ©, un facteur leur est attribuÃ©.
 #define IMAGE_FACTEUR_GRIS_R 0.11
 #define IMAGE_FACTEUR_GRIS_V 0.59
 #define IMAGE_FACTEUR_GRIS_B 0.3
 
-//============ Drapeaux de libération de la mémoire:
+//============ Drapeaux de libÃ©ration de la mÃ©moire:
 #define IMAGE_LIBERE_RIEN 0x0
 #define IMAGE_LIBERE_BITMAP 0x1
 
@@ -55,8 +55,8 @@ using namespace std;
 class Image: public Fichiers
 {
     public:
-        GLuint texture_id; //L'identitifant texture utilisé par openGl - Généré par genere_texture_openGL()
-        GLuint buffer_id;   //L'identifiant du tempon de pixels - Généré par genere_buffer_openGl()
+        GLuint texture_id; //L'identitifant texture utilisÃ© par openGl - GÃ©nÃ©rÃ© par genere_texture_openGL()
+        GLuint buffer_id;   //L'identifiant du tempon de pixels - GÃ©nÃ©rÃ© par genere_buffer_openGl()
         GLenum  format_pixels; //GL_RGB ou GL_RGBA
         GLenum  type_pixels;    //GL_BYTE,GL_UNSIGNED_INT, etc...
 
@@ -64,11 +64,11 @@ class Image: public Fichiers
         uint32_t hauteur;
         uint16_t erreur;
         char* nom_image;  //Le nom du fichier d'origine
-        uint8_t* image;    //Les données décompressées
+        uint8_t* image;    //Les donnÃ©es dÃ©compressÃ©es
         uint16_t bits_par_pixel;
         uint16_t octets_par_pixel;
         uint32_t nbr_couleurs;
-        uint32_t palette[256];  //Dans le cas d'une image aux couleurs indexées.
+        uint32_t palette[256];  //Dans le cas d'une image aux couleurs indexÃ©es.
 
     private:
         ifstream    fichier_flux;
@@ -132,7 +132,7 @@ public:
     }
 
     //===========================================================
-    //          Constructeur à partir d'un tempon
+    //          Constructeur Ã  partir d'un tempon
     //===========================================================
     Image(char* p_nom_image,uint8_t* p_image,uint32_t p_largeur,uint32_t p_hauteur, GLenum p_format_pixels, GLenum p_type_pixels, uint16_t p_bits_par_pixels,uint16_t p_octets_par_pixels)
     {
@@ -170,7 +170,7 @@ public:
         largeur=image_originale.largeur;
         hauteur=image_originale.hauteur;
         erreur=IMAGE_OK;
-        nom_image=image_originale.nom_image; //Peut-être modifier le nom?
+        nom_image=image_originale.nom_image; //Peut-Ãªtre modifier le nom?
         bits_par_pixel=image_originale.bits_par_pixel;
         octets_par_pixel=image_originale.octets_par_pixel;
         nbr_couleurs=image_originale.nbr_couleurs;
@@ -185,7 +185,7 @@ public:
 
         if (image==NULL)
         {
-            cout<<"ERREUR dans Image::Image(Image&) - Mémoire insuffisante pour copier l'image ' "<<nom_image<<" '"<<endl;
+            cout<<"ERREUR dans Image::Image(Image&) - MÃ©moire insuffisante pour copier l'image ' "<<nom_image<<" '"<<endl;
             erreur=IMAGE_ERREUR_MEMOIRE;
             return;
         }
@@ -210,7 +210,7 @@ public:
     }
 
     //--------------------------------------------------------------
-    //          Test le fichier pour déterminer le format de l'image
+    //          Test le fichier pour dÃ©terminer le format de l'image
     //--------------------------------------------------------------
 private:
     bool test_format()
@@ -271,10 +271,10 @@ private:
 
         fichier_flux.seekg(0,ios::beg);
 
-        uint16_t TIFF_ordre_octets;   //"MM" ou "II", selon le cas, détermine l'ordre d'apparition des octets.
+        uint16_t TIFF_ordre_octets;   //"MM" ou "II", selon le cas, dÃ©termine l'ordre d'apparition des octets.
         uint16_t TIFF_nombre_42;
         fichier_flux.read((char*)&TIFF_ordre_octets,2);
-        fichier_flux.read((char*)&TIFF_nombre_42,2);     //Le numéro "42" apparait dans tout les fichier TIFF.
+        fichier_flux.read((char*)&TIFF_nombre_42,2);     //Le numÃ©ro "42" apparait dans tout les fichier TIFF.
 
         if ((TIFF_ordre_octets==IMAGEFORMAT_II)||(TIFF_ordre_octets==IMAGEFORMAT_MM))
         {
@@ -314,7 +314,7 @@ private:
     }
 
     //--------------------------------------------------------------
-    //          Charge les données au format BMP
+    //          Charge les donnÃ©es au format BMP
     //--------------------------------------------------------------
     bool charge_BMP()
     {
@@ -336,7 +336,7 @@ private:
     }
 
     //--------------------------------------------------------------
-    //          Charge les données au format PNG
+    //          Charge les donnÃ©es au format PNG
     //--------------------------------------------------------------
     bool charge_PNG()
     {
@@ -346,7 +346,7 @@ private:
     }
 
     //--------------------------------------------------------------
-    //          Charge les données au format TIFF
+    //          Charge les donnÃ©es au format TIFF
     //--------------------------------------------------------------
     bool charge_TIFF()
     {
@@ -367,7 +367,7 @@ private:
     }
 
     //--------------------------------------------------------------
-    //          Charge les données au format JPEG
+    //          Charge les donnÃ©es au format JPEG
     //--------------------------------------------------------------
     bool charge_JPEG()
     {
@@ -400,7 +400,7 @@ private:
                 type_pixels=GL_UNSIGNED_BYTE;
                 break; //!! format_pixels A CHANGER SELON L'USAGE DE L'IMAGE
             case 15:
-                cout<<"Attention: Format 15 bits/pixels - Compatibilité douteuse..."<<endl;
+                cout<<"Attention: Format 15 bits/pixels - CompatibilitÃ© douteuse..."<<endl;
                 format_pixels=GL_RGB16;
                 type_pixels=GL_UNSIGNED_BYTE;
                 break;
@@ -417,7 +417,7 @@ private:
                 type_pixels=GL_UNSIGNED_BYTE;
                 break;
             default:
-                cout<<"Erreur dans Image.initialise_format_OpenGl() - Format d'image non supporté par OpenGL - ' "<<nom_image<<" '"<<endl;
+                cout<<"Erreur dans Image.initialise_format_OpenGl() - Format d'image non supportÃ© par OpenGL - ' "<<nom_image<<" '"<<endl;
                 erreur=IMAGE_ERREUR_FORMAT;
                 break;
         }
@@ -433,7 +433,7 @@ public:
     {
 
         #if IMAGE_DEBUG
-            cout<<"Génère une texture pour OpenGl : ' "<<nom_image<<" '"<<endl;;
+            cout<<"GÃ©nÃ¨re une texture pour OpenGl : ' "<<nom_image<<" '"<<endl;;
         #endif
 
         if (glIsTexture(texture_id)) return true;
@@ -441,7 +441,7 @@ public:
         glGenTextures(1,&texture_id); //Allocation de l'identifiants de texture
         if (texture_id==0)
         {
-            cout<<endl<<"Erreur dans Image.genere_texture_openGl() - Impossible de créer la texture "<<nom_image<<endl;
+            cout<<endl<<"Erreur dans Image.genere_texture_openGl() - Impossible de crÃ©er la texture "<<nom_image<<endl;
             erreur=IMAGE_ERREUR_TEXTURE;
             return false;
         }
@@ -449,16 +449,16 @@ public:
             cout<<" - Identifiant:"<<texture_id<<endl;
         #endif
 
-        glBindTexture(GL_TEXTURE_2D,texture_id); //Sélection de la texture courante
+        glBindTexture(GL_TEXTURE_2D,texture_id); //SÃ©lection de la texture courante
 
-        glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,recouvrement_s);          //valeur: la valeur du paramètre.
-        glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,recouvrement_t); //Mode de débordement vertical de la texture 2d
+        glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,recouvrement_s);          //valeur: la valeur du paramÃ¨tre.
+        glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,recouvrement_t); //Mode de dÃ©bordement vertical de la texture 2d
 
-        glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,type_grossisement); //Mode d'étirement de la texture
-        glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,type_diminution); //Mode de rétrécissement de la texture
+        glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,type_grossisement); //Mode d'Ã©tirement de la texture
+        glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,type_diminution); //Mode de rÃ©trÃ©cissement de la texture
 
-        //Génère les textures en "mipmaping", c'est à dire qu'en fonction de la taille de la texture
-        //à l'écran, des bitmaps de différentes tailles sont utilisés. Cela peut optimiser l'affichage.
+        //GÃ©nÃ¨re les textures en "mipmaping", c'est Ã  dire qu'en fonction de la taille de la texture
+        //Ã  l'Ã©cran, des bitmaps de diffÃ©rentes tailles sont utilisÃ©s. Cela peut optimiser l'affichage.
         if (drapeau_mipmap)
         {
             gluBuild2DMipmaps(GL_TEXTURE_2D,
@@ -467,16 +467,16 @@ public:
                             format_pixels,type_pixels,
                             image);
         }
-        //Pas de texture de tailles différentes.
+        //Pas de texture de tailles diffÃ©rentes.
         else
         {
             glTexImage2D(GL_TEXTURE_2D, //Type de  texture
-                        0,      //Niveau de détails de la texture
+                        0,      //Niveau de dÃ©tails de la texture
                         GL_RGBA,      //Format de la texture: 1:R, 2:RA, 3:RVB, 4:RVBA
                         largeur,hauteur, //largeur et hauteur de la texture en pixels
-                        0,      //Largeur du bord. l et h sont incrémentées de 2x cette valeur
+                        0,      //Largeur du bord. l et h sont incrÃ©mentÃ©es de 2x cette valeur
                         format_pixels, //Format des pixels
-                        type_pixels, //Type des données
+                        type_pixels, //Type des donnÃ©es
                         image);
         }
 
@@ -485,33 +485,33 @@ public:
 
     //=======================================================================================
     //                  Genere un objet buffer pour OpenGl:
-    //  Sert pour le déplacement de blocs de pixels.
+    //  Sert pour le dÃ©placement de blocs de pixels.
     //=======================================================================================
     bool genere_buffer_openGl()
     {
 
         #if IMAGE_DEBUG
-            cout<<"Génère un objet Buffer pour OpenGl : ' "<<nom_image<<" '"<<endl;
+            cout<<"GÃ©nÃ¨re un objet Buffer pour OpenGl : ' "<<nom_image<<" '"<<endl;
         #endif
 
-        //Création de l'objet:
+        //CrÃ©ation de l'objet:
         if (glIsBuffer(buffer_id)) return true;
 
         glGenBuffers(1,&buffer_id);
         if (buffer_id==0)
         {
-            cout<<"Erreur dans Image.genere_buffer_openGl() - Impossible de créer l'objet buffer "<<nom_image<<endl;
+            cout<<"Erreur dans Image.genere_buffer_openGl() - Impossible de crÃ©er l'objet buffer "<<nom_image<<endl;
             erreur=IMAGE_ERREUR_BUFFER;
             return false;
         }
 
-        //Réserve la mémoire:
-        //Création du type de buffer:
+        //RÃ©serve la mÃ©moire:
+        //CrÃ©ation du type de buffer:
         glBindBuffer(GL_PIXEL_UNPACK_BUFFER,buffer_id);
         glBufferData(GL_PIXEL_UNPACK_BUFFER,octets_par_pixel*largeur*hauteur,image,GL_STATIC_DRAW);
         if(erreur_openGl("Erreur dans Image::genere_buffer_openGL() : ")) return false;
 
-        //Désactive l'usage du buffer de pixels:
+        //DÃ©sactive l'usage du buffer de pixels:
         glBindBuffer(GL_PIXEL_UNPACK_BUFFER,0);
 
         return true;
@@ -722,7 +722,7 @@ private:
 public:
 //------------------------------------
 //  Redimensionne l'image
-/// ATTENTION - Il faut que la fenêtre OpenGl soit ouverte.
+/// ATTENTION - Il faut que la fenÃªtre OpenGl soit ouverte.
 //------------------------------------
 
     bool redimensionne(int32_t nl, int32_t nh)
@@ -731,7 +731,7 @@ public:
         uint8_t* nouveau_tempon=(uint8_t*)malloc(nl*nh*octets_par_pixel);
         if (nouveau_tempon==NULL)
         {
-            cout<<"Erreur dans Image.redimensionne() - Mémoire insuffisante"<<endl;
+            cout<<"Erreur dans Image.redimensionne() - MÃ©moire insuffisante"<<endl;
             erreur=IMAGE_ERREUR_MEMOIRE;
             return false;
         }
@@ -769,7 +769,7 @@ public:
         uint8_t* nouveau_tempon=(uint8_t*)malloc(largeur*hauteur*4);
         if (nouveau_tempon==NULL)
         {
-            cout<<"Erreur dans Image.format_pixels_RVBA() - Mémoire insuffisante"<<endl;
+            cout<<"Erreur dans Image.format_pixels_RVBA() - MÃ©moire insuffisante"<<endl;
             erreur=IMAGE_ERREUR_MEMOIRE;
             return false;
         }
@@ -831,7 +831,7 @@ public:
         if (nouveau_tempon==NULL)
         if (nouveau_tempon==NULL)
         {
-            cout<<"Erreur dans Image.format_pixels_RVB() - Mémoire insuffisante"<<endl;
+            cout<<"Erreur dans Image.format_pixels_RVB() - MÃ©moire insuffisante"<<endl;
             erreur=IMAGE_ERREUR_MEMOIRE;
             return false;
         }
@@ -927,7 +927,7 @@ public:
     }
 
 //------------------------------------------------------
-//      Converti l'image en couche d'intensité
+//      Converti l'image en couche d'intensitÃ©
 //------------------------------------------------------
     bool format_pixels_INTENSITY()
     {
@@ -954,7 +954,7 @@ private:
         uint8_t* nouveau_tempon=(uint8_t*) malloc(largeur*hauteur);
         if (nouveau_tempon==NULL)
         {
-            cout<<"Erreur dans Image.convertion_8bits() - Mémoire insuffisante"<<endl;
+            cout<<"Erreur dans Image.convertion_8bits() - MÃ©moire insuffisante"<<endl;
             erreur=IMAGE_ERREUR_MEMOIRE;
             return false;
         }
@@ -1017,11 +1017,11 @@ private:
 
 
 //=====================================================================
-//          Filtres (contraste, luminosité, saturation...)
+//          Filtres (contraste, luminositÃ©, saturation...)
 //=====================================================================
 public:
     //-----------------------------------------
-    //  Réglage du contraste.
+    //  RÃ©glage du contraste.
     //  la valeur est comprise entre -1 et 1.
     //-----------------------------------------
     void determine_contraste(float contraste)
@@ -1048,7 +1048,7 @@ public:
      }
 
     //-----------------------------------------
-    //  Réglage de la luminosité.
+    //  RÃ©glage de la luminositÃ©.
     //  la valeur est comprise entre -1 et 1.
     //-----------------------------------------
     void determine_luminosite(float luminosite)
@@ -1074,7 +1074,7 @@ public:
     }
 
     //-----------------------------------------
-    //  Réglage de la saturation.
+    //  RÃ©glage de la saturation.
     //  la valeur est comprise entre -1 et 1.
     //-----------------------------------------
     void determine_saturation(float saturation)
@@ -1114,7 +1114,7 @@ public:
     }
 
     //-----------------------------------------
-    //  Décallage de teinte
+    //  DÃ©callage de teinte
     //  la valeur est comprise entre 0 et 1.
     //-----------------------------------------
     void determine_decallage_teinte(float angle)
@@ -1153,8 +1153,8 @@ public:
     }
 
     //-----------------------------------------
-    //  Négatif
-    /// La couche alpha est également affectée !
+    //  NÃ©gatif
+    /// La couche alpha est Ã©galement affectÃ©e !
     //-----------------------------------------
     void negatif()
     {
@@ -1169,8 +1169,8 @@ public:
     }
 
     //---------------------------------------------------------------------
-    //  Convertion en texture de normales, pour la rugosité des textures
-    //  L'amplitude est le facteur de pente entre deux niveauw consécutifs.
+    //  Convertion en texture de normales, pour la rugositÃ© des textures
+    //  L'amplitude est le facteur de pente entre deux niveauw consÃ©cutifs.
     //---------------------------------------------------------------------
     bool convertion_texture_normales(float amplitude)
     {
@@ -1180,7 +1180,7 @@ public:
         if (octets_par_pixel>1) determine_saturation(-1.);
         if (!format_pixels_RVB()) return false;
 
-        //Tempon de travail, représentant les niveaux des pixels:
+        //Tempon de travail, reprÃ©sentant les niveaux des pixels:
         float* tempon=(float*)malloc(largeur*hauteur*sizeof(float));
         for(i=0;i<largeur*hauteur;i++) tempon[i]=(float)image[3*i]/255.;
 
@@ -1283,12 +1283,12 @@ public:
     }
 
     //===============================================================================
-    //  Equivalant de texture2D() - Renvoie un texel en fonction des coordonnées
+    //  Equivalant de texture2D() - Renvoie un texel en fonction des coordonnÃ©es
     //  x et y compris entre 0 et 1
     //===============================================================================
     float renvoie_texel_8(float x, float y)
     {
-        uint8_t p0,p1,p2,p3;    //Les 4 pixels de la zone pointée
+        uint8_t p0,p1,p2,p3;    //Les 4 pixels de la zone pointÃ©e
         float int1,int2,int3;   //Variables d'interpolations
 
 
@@ -1300,7 +1300,7 @@ public:
         y-=yi;
         if(y<0.)y+=1.;
 
-        //Mise à l'échelle:
+        //Mise Ã  l'Ã©chelle:
         x*=largeur;
         y*=hauteur;
         xi=x;

@@ -2,11 +2,11 @@
 #define DKSPERSONNAGEVECTORBALLS_H_INCLUDED
 
 /*
-    Personnage constitué de vectorBalls
+    Personnage constituÃ© de vectorBalls
 */
 
 //=================================================================================================================================
-//                          Définition de la classe
+//                          DÃ©finition de la classe
 //=================================================================================================================================
 class dksPersonnageVectorBalls:dksConteneur
 {

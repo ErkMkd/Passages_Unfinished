@@ -22,7 +22,7 @@ class  dksAxeRotation :public dksVecteurUnitaire
 		}
 
 
-        //Calcul l'angle et l'axe de rotation entre deux vecteurs de même origine
+        //Calcul l'angle et l'axe de rotation entre deux vecteurs de mÃªme origine
         void calcul_rotation_entre_deux_vecteurs(double* axe1, double* axe2)
         {
             double a1x,a1y,a1z;
@@ -49,8 +49,8 @@ class  dksAxeRotation :public dksVecteurUnitaire
                 angle=acos(cosA);
             }
         }
-		//Calcul l'axe de rotation résultant entre deux repères.
-		//Simple addition des produits vectoriels de deux des axes des repères.
+		//Calcul l'axe de rotation rÃ©sultant entre deux repÃ¨res.
+		//Simple addition des produits vectoriels de deux des axes des repÃ¨res.
 		void calcul_rotation_entre_deux_reperes(dksRepere* rep1, dksRepere* rep2)
 		{
 		    //Calcul l'axe de rotation de l'axe X:
@@ -95,7 +95,7 @@ class  dksAxeRotation :public dksVecteurUnitaire
 			//double cosZ = vect1->x*vect2->x+vect1->y*vect2->y+vect1->z*vect2->z;
 			double sinZ = sqrt(axe3_x * axe3_x + axe3_y * axe3_y + axe3_z * axe3_z);
 
-            //Calcul l'axe rotation du repère:
+            //Calcul l'axe rotation du repÃ¨re:
 			double dx = axe1_x + axe2_x + axe3_x;
 			double dy = axe1_y + axe2_y + axe3_y;
 			double dz = axe1_z + axe2_z + axe3_z;
@@ -131,7 +131,7 @@ class  dksAxeRotation :public dksVecteurUnitaire
 
 			x = dx / n;
 			y = dy / n;
-			z = dz / n;         /// Quand n devient <1, il peut y avoir une imprécision dans l'axe.
+			z = dz / n;         /// Quand n devient <1, il peut y avoir une imprÃ©cision dans l'axe.
 
 			//Calcul de l'angle:
 
@@ -145,7 +145,7 @@ class  dksAxeRotation :public dksVecteurUnitaire
 			double proj_y = y * prod_scal;
 			double proj_z = z * prod_scal;
 
-            //Les deux vecteurs sont projetés sur le plan de normale x,y,z:
+            //Les deux vecteurs sont projetÃ©s sur le plan de normale x,y,z:
 
 			axe1_x = vect1->x - proj_x;
 			axe1_y = vect1->y - proj_y;
@@ -171,13 +171,13 @@ class  dksAxeRotation :public dksVecteurUnitaire
 		}
 
 		//Rotation d'une table de points autour de l'axe:
-		//La table de résultats peut être la même que la table d'entrée.
+		//La table de rÃ©sultats peut Ãªtre la mÃªme que la table d'entrÃ©e.
 		void rotation_points(vector<double>* points, vector<double>* points_resultat, uint32_t nbrPoints = 0xffffffff)
 		{
 			/*
 			formule d'Olinde Rodrigues :
 			V = cos(phi)*U + (1-cos(phi))*((U.N)*N) + sin(phi)[N^U]
-			La formule ci-dessus donne l'expression vectorielle du transformé V  d'un vecteur U  quelconque, dans la rotation phi,N d'angle phi, et d'axe N unitaire
+			La formule ci-dessus donne l'expression vectorielle du transformÃ© V  d'un vecteur U  quelconque, dans la rotation phi,N d'angle phi, et d'axe N unitaire
 			*/
 
 			uint32_t nb;
@@ -219,7 +219,7 @@ class  dksAxeRotation :public dksVecteurUnitaire
 
 		virtual void toString()
 		{
-			cout<< "dksAxeRotation -> direction: "<< x <<" "<< y<<" "<< z<< ", angle°: "<< angle*180/M_PI << ", position: ";
+			cout<< "dksAxeRotation -> direction: "<< x <<" "<< y<<" "<< z<< ", angleÂ°: "<< angle*180/M_PI << ", position: ";
             position.toString();
 		}
 

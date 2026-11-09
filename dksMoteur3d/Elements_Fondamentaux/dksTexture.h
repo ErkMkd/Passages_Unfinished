@@ -4,9 +4,9 @@
 //----------------------------------
 // Classe de gestion des textures
 //
-//  Une même texture peut servir à plusieurs surfaces.
-///  Le tableau des coordonnées UV en entrée est recopié.
-///  Le programme appelant peut donc le supprimer après construction de la texture.
+//  Une mÃªme texture peut servir Ã  plusieurs surfaces.
+///  Le tableau des coordonnÃ©es UV en entrÃ©e est recopiÃ©.
+///  Le programme appelant peut donc le supprimer aprÃ¨s construction de la texture.
 //
 //
 //----------------------------------
@@ -30,7 +30,7 @@
 #define DKSTEXTURE_OK 0
 #define DKSTEXTURE_ERREUR_MEMOIRE 1
 
-//La structure de définition des sommets UV, lors de la création du volume
+//La structure de dÃ©finition des sommets UV, lors de la crÃ©ation du volume
 class dksSommetUV
 {
     public:
@@ -48,31 +48,31 @@ class dksTexture
 
     char nom[DKS_TAILLE_NOMS];
     uint16_t erreur;
-    uint8_t canal;   //Couleur, diffusion, réflexion...
-    uint8_t type_projection; //UV, plan ou réflection de l'environnement
-    float luminescence; //Sert dans les cas de transition d'une texture à une autre.
+    uint8_t canal;   //Couleur, diffusion, rÃ©flexion...
+    uint8_t type_projection; //UV, plan ou rÃ©flection de l'environnement
+    float luminescence; //Sert dans les cas de transition d'une texture Ã  une autre.
 
-    //Paramètres de rendu:
+    //ParamÃ¨tres de rendu:
     GLint type_enveloppe;   //GL_MODULATE, GL_REPLACE, GL_DECAL, GL_BLEND, GL_ADD, GL_COMBINE
     GLint recouvrement_s;   //GL_CLAMP, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_BORDER, GL_REPEAT, GL_MIRRORED_REPEAT
     GLint recouvrement_t;
     GLint type_grossissement;    //GL_LINEAR, GL_NEAREST
     GLint type_diminution;
 
-    //Paramètres pour les coordonnées générées (autres que UV)
+    //ParamÃ¨tres pour les coordonnÃ©es gÃ©nÃ©rÃ©es (autres que UV)
     GLenum mode_projection; //GL_OBJECT_LINEAR, GL_EYE_LINEAR, GL_SPHERE_MAP, GL_REFLECTION_MAP ou GL_NORMAL_MAP
     GLenum reference_projection; //GL_OBJECT_PLANE ou GL_EYE_PLANE
     GLfloat axe_projection[4];
 
-    //Paramètres pour les coordonnées UV:
+    //ParamÃ¨tres pour les coordonnÃ©es UV:
     uint32_t nbrSommets;
-    vector<dksSommetUV> coordonnees_UV;    //Coordonnées définies par l'utilisateur
-    GLfloat* coordonnees_UV_tableau;    //Tableau initialisé par le constructeur du volume. !!! Non dupliqué par le constructeur de copie.
+    vector<dksSommetUV> coordonnees_UV;    //CoordonnÃ©es dÃ©finies par l'utilisateur
+    GLfloat* coordonnees_UV_tableau;    //Tableau initialisÃ© par le constructeur du volume. !!! Non dupliquÃ© par le constructeur de copie.
 
     Image* image;
 
-    //Tables pour les textures de rugosité:
-    //Ces tables sont créées par le volume.
+    //Tables pour les textures de rugositÃ©:
+    //Ces tables sont crÃ©Ã©es par le volume.
     GLdouble* tangentes_faces;
     GLdouble* binormales_faces;
     GLdouble* tangentes_sommets;
@@ -112,7 +112,7 @@ class dksTexture
 
         //Gestion du nom:
         determine_nom(p_nom);
-        //Par défaut, la texture est définie par des coordonnées UV:
+        //Par dÃ©faut, la texture est dÃ©finie par des coordonnÃ©es UV:
         type_enveloppe=GL_MODULATE;
         type_projection=DKSTEXTURE_PROJECTION_UV;
         mode_projection=GL_OBJECT_LINEAR;
@@ -136,8 +136,8 @@ class dksTexture
     }
 
     //------------------Constructeur de copie:
-    //Les données initialisées par le volume ne sont
-    // pas dupliquées. Elles doivent être à nouveau initialisées par le
+    //Les donnÃ©es initialisÃ©es par le volume ne sont
+    // pas dupliquÃ©es. Elles doivent Ãªtre Ã  nouveau initialisÃ©es par le
     // le volume utilisateur.
 
     dksTexture(dksTexture& texture_originale)
@@ -154,7 +154,7 @@ class dksTexture
         binormales_faces=NULL;
         faces=NULL;
         nbrFaces=0;
-        determine_nom(texture_originale.nom);      ///Le nom est dupliqué sans modification !!!
+        determine_nom(texture_originale.nom);      ///Le nom est dupliquÃ© sans modification !!!
 
         type_enveloppe=texture_originale.type_enveloppe;
         type_projection=texture_originale.type_projection;
@@ -182,7 +182,7 @@ class dksTexture
 
     //==================================================
     //                  Destructeur
-    ///       L'image n'est pas supprimée.
+    ///       L'image n'est pas supprimÃ©e.
     //==================================================
     ~dksTexture()
     {
@@ -236,7 +236,7 @@ class dksTexture
         }
     }
 
-    //Détermine les coordonnées UV:
+    //DÃ©termine les coordonnÃ©es UV:
     void determine_UV(float* uvs, uint32_t* indices, uint16_t p_nbrSommets)
     {
         uint16_t i;

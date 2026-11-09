@@ -19,7 +19,7 @@ class Shader_Reflexion_Cube: public dksShader
     {
         if(erreur==DKSSHADER_OK)
         {
-            //--------- Création des liens avec les variables type "uniform":
+            //--------- CrÃ©ation des liens avec les variables type "uniform":
 
             matrice_volume=glGetUniformLocation(programme_id,"matrice_volume");
             texture=glGetUniformLocation(programme_id,"cube_arriere_plan");

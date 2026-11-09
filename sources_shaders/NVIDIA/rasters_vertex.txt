@@ -1,5 +1,5 @@
 //======================================================================
-//				Ondes aqueuses avec éclairage - Vertex Shader
+//				Ondes aqueuses avec Ã©clairage - Vertex Shader
 //======================================================================
 
 
@@ -27,7 +27,7 @@ void main( void )
 	position_sommet_2d.x 	= dot(position_sommet,tangente);
 	position_sommet_2d.y 	= dot(position_sommet,binormale);
 	
-	//Données de l'observateur:
+	//DonnÃ©es de l'observateur:
 	position_sommet 	= (gl_ModelViewMatrix * gl_Vertex).xyz;
     normale_face 			= gl_NormalMatrix * gl_Normal;
 	direction_sommet_oeil 	= -position_sommet;

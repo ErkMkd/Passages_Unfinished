@@ -15,7 +15,7 @@ using namespace std;
 
 //*************************************************************************
 //          Chargement d'une image au format TIFF
-//          Les images TIFF peuvent être stockées sous forme de bandes.
+//          Les images TIFF peuvent Ãªtre stockÃ©es sous forme de bandes.
 //*************************************************************************
 
 class Image_TIFF
@@ -29,7 +29,7 @@ class Image_TIFF
         uint32_t bits_par_composante;
         uint32_t taille_bande;  //Nombre d'octet par bande
         uint32_t nbr_bandes;    //Nombre de bandes constituants l'image
-        uint32_t taille_image;  //Nombre d'octets occupés en mémoire
+        uint32_t taille_image;  //Nombre d'octets occupÃ©s en mÃ©moire
         uint32_t composantes_par_pixel;
         Image_infos* parametres=new Image_infos();
 
@@ -42,7 +42,7 @@ class Image_TIFF
             return NULL;
         }
 
-        //----Données de l'image:
+        //----DonnÃ©es de l'image:
         TIFFGetField(fichier_tiff, TIFFTAG_IMAGEWIDTH, &parametres->largeur);
         TIFFGetField(fichier_tiff, TIFFTAG_IMAGELENGTH, &parametres->hauteur);
         TIFFGetField(fichier_tiff, TIFFTAG_BITSPERSAMPLE, &bits_par_composante);
@@ -52,19 +52,19 @@ class Image_TIFF
         nbr_bandes=TIFFNumberOfStrips(fichier_tiff);
         taille_image=taille_bande*nbr_bandes;
 
-        //---- Allocation de la mémoire:
+        //---- Allocation de la mÃ©moire:
 
         parametres->image = (uint8_t*) malloc(taille_image);
 
         if (parametres->image == NULL)
         {
-            cout<<"Erreur dans Image_TIFF::charge() - Mémoire insuffisante: ' "<<nom_fichier<<" '"<<endl;
+            cout<<"Erreur dans Image_TIFF::charge() - MÃ©moire insuffisante: ' "<<nom_fichier<<" '"<<endl;
             delete parametres;
             return NULL;
         }
 
-        //---- Lecture des données:
-        uint32_t pos=0; //Curseur dans les données de l'image
+        //---- Lecture des donnÃ©es:
+        uint32_t pos=0; //Curseur dans les donnÃ©es de l'image
         uint32_t bande_cptr;
         int32_t octets_lus;
 
@@ -72,7 +72,7 @@ class Image_TIFF
         {
             if ((octets_lus=TIFFReadEncodedStrip(fichier_tiff,bande_cptr,parametres->image+pos,taille_bande))==-1)
             {
-                cout<<"Image_TIFF::charge() - Erreur dans le décodage de l'image: ' "<<nom_fichier<<" '"<<endl;
+                cout<<"Image_TIFF::charge() - Erreur dans le dÃ©codage de l'image: ' "<<nom_fichier<<" '"<<endl;
                 free(parametres->image);
                 delete parametres;
                 return NULL;
@@ -84,7 +84,7 @@ class Image_TIFF
         TIFFClose(fichier_tiff);
         fichier_tiff=NULL;
 
-        //---- Affiche les données:
+        //---- Affiche les donnÃ©es:
         if (DEBUG_IMAGE_TIFF)
         {
             cout<<" Dimensions: "<<parametres->largeur<<" * "<<parametres->hauteur<<endl;

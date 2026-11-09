@@ -1,5 +1,5 @@
 //-------------------------------------------------------------------------
-//          Rendu des faces transparentes de la scène en mode tableaux
+//          Rendu des faces transparentes de la scÃ¨ne en mode tableaux
 //-------------------------------------------------------------------------
 
         void rendu_faces_transparentes_tableaux()
@@ -13,7 +13,7 @@
             {
                 dksFace*face=faces_transparentes_triables[indice_face_transparente].face;
 
-                //Au besoin, définir le matériau:
+                //Au besoin, dÃ©finir le matÃ©riau:
                 if(face->surface!=surface_courante)
                 {
                     //Si le volume change:
@@ -28,7 +28,7 @@
                             glPushMatrix();
                             glMultMatrixd(volume_courant->matrice.matrice);
                         }
-                        //Si le volume a changé et qu'il est en mode de rendu immédiat, on retourne à la boucle principale
+                        //Si le volume a changÃ© et qu'il est en mode de rendu immÃ©diat, on retourne Ã  la boucle principale
                         else return;
                     }
                     surface_courante=face->surface;

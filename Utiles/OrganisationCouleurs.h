@@ -65,7 +65,7 @@ class OrganisationCouleurs
         }
 
         //---------------------------------------------
-        //      Fonctions de dégradés
+        //      Fonctions de dÃ©gradÃ©s
         //---------------------------------------------
 
         static uint32_t renvoie_couleur_interpolee_3f_uint32(float etapes[2][3],float t)
@@ -99,7 +99,7 @@ class OrganisationCouleurs
         }
 
         //-----------------------------------
-        //      Génère un dégradé
+        //      GÃ©nÃ¨re un dÃ©gradÃ©
         //-----------------------------------
         void genere_degrade(uint8_t indice_depart, uint32_t couleur_depart, uint8_t indice_fin, uint32_t couleur_fin)
         {

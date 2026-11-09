@@ -4,19 +4,19 @@
 
 #include "Elements_Fondamentaux/Oeil.h"
 
-//============== Codes d'erreur à récupérer dans .erreur:
+//============== Codes d'erreur Ã  rÃ©cupÃ©rer dans .erreur:
 
 #define CAMERA_POURSUITE_OK 0
 #define CAMERA_POURSUITE_MEMOIRE 1
 
-//======== Structure de mémorisation d'une position instantannée:
+//======== Structure de mÃ©morisation d'une position instantannÃ©e:
 typedef struct
 {
-    double temps;       //Le pointeur de temps de la mémorisation
+    double temps;       //Le pointeur de temps de la mÃ©morisation
     double x;           //Position
     double y;
     double z;
-    double axe_x_x;     //Repère
+    double axe_x_x;     //RepÃ¨re
     double axe_x_y;
     double axe_x_z;
     double axe_y_x;
@@ -27,9 +27,9 @@ typedef struct
     double axe_z_z;
 }position_instannee;
 
-//================ Définition de la classe:
-//  La caméra de poursuite fonctionne un peu comme un enfant de la cible,
-//  à ceci près qu'elle se déplace avec un décallage dans le temps par rapport au conteneur ciblé.
+//================ DÃ©finition de la classe:
+//  La camÃ©ra de poursuite fonctionne un peu comme un enfant de la cible,
+//  Ã  ceci prÃ¨s qu'elle se dÃ©place avec un dÃ©callage dans le temps par rapport au conteneur ciblÃ©.
 //
 
 class Camera_Poursuite :public Oeil
@@ -37,16 +37,16 @@ class Camera_Poursuite :public Oeil
     public:
         unsigned short erreur;
         Conteneur* conteneur_cible;
-        Vecteur* position;         //Position par rapport à la cible
+        Vecteur* position;         //Position par rapport Ã  la cible
 
         unsigned int nbrPositions;
         unsigned int position_actuelle;
-        position_instannee* table_positions; //La table où sont stockées les positions de la cible. Sert pour le décallage temporel.
-                                // 4 doubles par instantanné: 0=Temps, 1=X, 2=Y, 3=Z
+        position_instannee* table_positions; //La table oÃ¹ sont stockÃ©es les positions de la cible. Sert pour le dÃ©callage temporel.
+                                // 4 doubles par instantannÃ©: 0=Temps, 1=X, 2=Y, 3=Z
 
         double duree_decallage; //En secondes
 
-        bool vue_dessus;    //true si la caméra est une vue de dessus de la cible
+        bool vue_dessus;    //true si la camÃ©ra est une vue de dessus de la cible
 
         //==============================================================
         //                          CONSTRUCTEUR
@@ -66,7 +66,7 @@ class Camera_Poursuite :public Oeil
             position=new Vecteur(p_pos_x,p_pos_y,p_pos_z);
             if (position==NULL)
             {
-                printf("Camera_Poursuite() - Impossible de créer le vecteur position\n");
+                printf("Camera_Poursuite() - Impossible de crÃ©er le vecteur position\n");
                 erreur=CAMERA_POURSUITE_MEMOIRE;
                 return;
             }

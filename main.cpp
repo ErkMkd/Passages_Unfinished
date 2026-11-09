@@ -106,7 +106,7 @@ static bool erreur_openGl(char* message)
     }
 
 //****************************************************
-//              Redimensionnement de la fenêtre
+//              Redimensionnement de la fenÃªtre
 //****************************************************
 
 
@@ -167,7 +167,7 @@ void ralenti()
 //=================================================================================================================================================
 //------------------------------------------------------------------------------
 //                  Affichage principal
-//          Gestion de l'enchainement des scènes
+//          Gestion de l'enchainement des scÃ¨nes
 //------------------------------------------------------------------------------
 //=================================================================================================================================================
 static void affichage_principal(void)
@@ -193,7 +193,7 @@ static void affichage_principal(void)
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    //Pour sauter des scènes:
+    //Pour sauter des scÃ¨nes:
 
     scene_logoGp->drapeau_scene_terminee=true;
     scene_tunnel->drapeau_scene_terminee=true;
@@ -240,7 +240,7 @@ static void affichage_principal(void)
     }
 
     //--------------------------------------------------------
-    //     Caducée
+    //     CaducÃ©e
     //--------------------------------------------------------
 
     else if (!scene_caduce->drapeau_scene_terminee)
@@ -310,7 +310,7 @@ static void affichage_principal(void)
     }
 
     //--------------------------------------------------------
-    //     Jongleur et crédits
+    //     Jongleur et crÃ©dits
     //--------------------------------------------------------
     else if (!scene_credits->drapeau_scene_terminee)
     {
@@ -328,7 +328,7 @@ static void affichage_principal(void)
     }
 
     //--------------------------------------------------------
-    //    Générique de fin
+    //    GÃ©nÃ©rique de fin
     //--------------------------------------------------------
     else if (!scene_fin->drapeau_scene_terminee)
     {
@@ -372,7 +372,7 @@ static void affichage_principal(void)
 
 
 //---------------------------
-//Pour éviter les oscillations du compteur:
+//Pour Ã©viter les oscillations du compteur:
 //---------------------------
 
 static void rafraichi_affiche_fps(int num)
@@ -385,7 +385,7 @@ static void rafraichi_affiche_fps(int num)
 //                      Fin du programme
 //=================================================
 
-//Le temps des inits de fin, les fonctions de rafraîchissement sont désactivées:
+//Le temps des inits de fin, les fonctions de rafraÃ®chissement sont dÃ©sactivÃ©es:
 static void fin_redimensionne_fenetre(int width, int height){}
 static void fin_affichage_principal(void){}
 static void fin_attente_retour_faisceau(void){glutPostRedisplay();}
@@ -426,7 +426,7 @@ static void fin_du_programme()
     if (drapeau_erreur)
     {
         cout<<"OOPS - ERROR - Debugging needed!"<<endl;
-        MessageBox(0,"ERROR !!- GURU MEDITATION\nPlease send me a screen shot of the console or copy/paste console messages for debugging...","Genesis ¤ Project - Passages",MB_OK | MB_ICONEXCLAMATION);
+        MessageBox(0,"ERROR !!- GURU MEDITATION\nPlease send me a screen shot of the console or copy/paste console messages for debugging...","Genesis Â¤ Project - Passages",MB_OK | MB_ICONEXCLAMATION);
     }
 
     else cout<<"Demo correctly destructed - Bye bye sweet darling!..."<<endl;
@@ -559,7 +559,7 @@ void mouvement_souris(int x, int y)
     scene_actuelle->mouvement_souris(x,y);
 }
 
-//--------- Commandes hors éditeur:
+//--------- Commandes hors Ã©diteur:
 void quitte_demo(unsigned char key, int x, int y)
 {
     switch(key)
@@ -581,7 +581,7 @@ int main(int argc, char *argv[])
     la_musique=NULL;
     musique_fin=NULL;
     atexit(fin_du_programme);
-    //--------------- Initialise l'écran:
+    //--------------- Initialise l'Ã©cran:
     uint32_t le=640;
     mon_ecran=new dksEcran(640,384,PLEIN_ECRAN);
     //mon_ecran=new dksEcran(800,600,true);
@@ -590,7 +590,7 @@ int main(int argc, char *argv[])
     glutInitWindowSize(mon_ecran->resolution_x,mon_ecran->resolution_y);
     glutInitWindowPosition(10,10);
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
-    glutCreateWindow("Genesis ¤ Project - Passages");
+    glutCreateWindow("Genesis Â¤ Project - Passages");
     glutReshapeFunc(redimensionne_fenetre);
     glutDisplayFunc(affichage_principal);
     glutIdleFunc(attente_retour_faisceau);
@@ -621,14 +621,14 @@ int main(int argc, char *argv[])
     else if (strcmp((char*)glGetString(GL_VENDOR),"ATI Technologies Inc.")==0) id_fabriquant=DKSSHADERS_FABRIQUANT_ATI;
     else
     {
-        MessageBox(0,"Incompatible graphic card!\nFor the moment, only NVIDIA and ATI cards are 100% supported...","Genesis ¤ Project - Passages",MB_OK | MB_ICONEXCLAMATION);
+        MessageBox(0,"Incompatible graphic card!\nFor the moment, only NVIDIA and ATI cards are 100% supported...","Genesis Â¤ Project - Passages",MB_OK | MB_ICONEXCLAMATION);
         exit(0);
     }
-    //------------ Vérifiacation de l'implémentation d'OpenGL:
+    //------------ VÃ©rifiacation de l'implÃ©mentation d'OpenGL:
     glGetIntegerv(GL_MAX_TEXTURE_UNITS,&dksRendu::nbr_unites_textures_max);
-    cout<<"Nombre max d'unités de texture: "<<dksRendu::nbr_unites_textures_max<<endl;
+    cout<<"Nombre max d'unitÃ©s de texture: "<<dksRendu::nbr_unites_textures_max<<endl;
 
-    //------------ Création des variables statiques qui nécessitent les initialisation précédentes:
+    //------------ CrÃ©ation des variables statiques qui nÃ©cessitent les initialisation prÃ©cÃ©dentes:
      dksShaders::bibliotheque= new dksInitialiseShaders(id_fabriquant);
      if (dksShaders::bibliotheque->erreur!=DKSSHADERS_OK)
      {
@@ -637,7 +637,7 @@ int main(int argc, char *argv[])
      }
 
 
-    //------------ Initialise les données:
+    //------------ Initialise les donnÃ©es:
     initialisations();
 
     //------------ Initialise les timers:

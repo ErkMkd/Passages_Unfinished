@@ -1,7 +1,7 @@
 /*
 
 		Compatible ATI - 1 source lumineuse
-		Rugosité sans texture de couleur
+		RugositÃ© sans texture de couleur
 
 */
 
@@ -21,7 +21,7 @@ void main( void )
 	vec3 position_sommet = (gl_ModelViewMatrix * gl_Vertex).xyz;
     coordonnees_texture_rugosite    = gl_MultiTexCoord0.st;
    
-   //--------- Calcul de l'éclairage:
+   //--------- Calcul de l'Ã©clairage:
    
     vec3 normale = 			gl_NormalMatrix * gl_Normal;
     vec3 tangente_sommet = 	gl_NormalMatrix * tangente;
@@ -37,7 +37,7 @@ void main( void )
 			vec3 reflet_source 	= direction_source-angle_source_normale*normale*2.; //A SUPPRIMER
    
 
-   //------------- Directions de la source et de l'oeil, dans le repère du sommet:(axeX=Tangente,axeY=Binormale, axeZ=Normale):
+   //------------- Directions de la source et de l'oeil, dans le repÃ¨re du sommet:(axeX=Tangente,axeY=Binormale, axeZ=Normale):
    
    direction_oeil_sommet.x=dot(direction_oeil,tangente_sommet);
    direction_oeil_sommet.y=dot(direction_oeil,binormale_sommet);

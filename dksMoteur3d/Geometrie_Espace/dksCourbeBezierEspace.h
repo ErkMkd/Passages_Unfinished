@@ -31,7 +31,7 @@ class dksCourbeBezierEspace
 
         double facteur; //Facteur multiplucateur des tangentes.
 
-        //Tempons pour les translations de repères:
+        //Tempons pour les translations de repÃ¨res:
         vec3d P0;
         vec3d P1;
         vec3d P2;
@@ -155,7 +155,7 @@ class dksCourbeBezierEspace
             tangenteB_z = (P2_z - P3_z) * facteur + P3_z;
         }
 
-        //Redéfini le point P0, en gardant les coordonnées relatives du point P1 (tangente)
+        //RedÃ©fini le point P0, en gardant les coordonnÃ©es relatives du point P1 (tangente)
         void determine_A0(vec3d* A0)
         {
             P1_x = P1_x - P0_x + A0->x;
@@ -169,7 +169,7 @@ class dksCourbeBezierEspace
             P0_z = A0->z;
         }
 
-        //Redéfini le point P3, en gardant les coordonnées relatives du point P2 (tangente)
+        //RedÃ©fini le point P3, en gardant les coordonnÃ©es relatives du point P2 (tangente)
         void determine_B0(vec3d* B0)
         {
             P2_x = P2_x - P3_x + B0->x;
@@ -234,7 +234,7 @@ class dksCourbeBezierEspace
             res->z = P0_z * t13 + 3 * tangenteA_z * t * t12 + 3 * tangenteB_z * t2 * t1 + P3_z * t3;
         }
 
-        //Translate la courbe par un repère, et renvoie le résultat dans "courbe_translatee":
+        //Translate la courbe par un repÃ¨re, et renvoie le rÃ©sultat dans "courbe_translatee":
         void translation(dksRepere* repere, dksCourbeBezierEspace* courbe_translatee)
         {
             double ax_x = repere->axe_x->x * repere->echelle_x;
@@ -271,7 +271,7 @@ class dksCourbeBezierEspace
             courbe_translatee->determine_P3(&P3);
         }
 
-        //Détermine la position relative de la courbe à un repère à partir d'une position absolue
+        //DÃ©termine la position relative de la courbe Ã  un repÃ¨re Ã  partir d'une position absolue
         //Renvoie la position dans courbe_relative
         void determine_coordonnees_relatives(dksRepere* repere,dksCourbeBezierEspace* courbe_relative)
         {
@@ -312,7 +312,7 @@ class dksCourbeBezierEspace
 
         void toString()
         {
-            cout<<"---- Courbe de Bézier spatiale:"<<endl;
+            cout<<"---- Courbe de BÃ©zier spatiale:"<<endl;
             cout<<"P0: "<< P0_x <<" "<< P0_y<< " " << P0_z<<endl
             <<"P1: "<<P1_x <<" " << P1_y << " " << P1_z<<endl
             <<"P2: "<< P2_x <<" " << P2_y << " " << P2_z<<endl

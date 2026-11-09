@@ -3,10 +3,10 @@
 
 #define NBRSECTIONSMAX 1000
 
-//Les mode de déplacement du vecteur générateur:
-#define TUNNEL_MODE_PERLIN      1   //La direction est générée par un bruit de Perlin
-#define TUNNEL_MODE_TRAJECTOIRE 2   //Le déplacement se fait le long d'une trajectoire.
-#define TUNNEL_MODE_LINEAIRE 3   //Le déplacement se fait en ligne droite.
+//Les mode de dÃ©placement du vecteur gÃ©nÃ©rateur:
+#define TUNNEL_MODE_PERLIN      1   //La direction est gÃ©nÃ©rÃ©e par un bruit de Perlin
+#define TUNNEL_MODE_TRAJECTOIRE 2   //Le dÃ©placement se fait le long d'une trajectoire.
+#define TUNNEL_MODE_LINEAIRE 3   //Le dÃ©placement se fait en ligne droite.
 
 #include "dksMoteur3d/Elements_Fondamentaux/dksConteneur.h"
 
@@ -15,31 +15,31 @@ class Tunnel : public dksConteneur
   public:
 
     uint32_t nbrSections;
-    float vitesse_vecteur_generateur;  //en unités d'espace par seconde
+    float vitesse_vecteur_generateur;  //en unitÃ©s d'espace par seconde
     Bruit bruit_vecteur_generateur_x;
     Bruit bruit_vecteur_generateur_y;
     Bruit bruit_vecteur_generateur_z;
 
-    double valeurs_bruit_x[20]; //Valeurs aléatoires pour la trajectoire du tunnel, suite fixe
+    double valeurs_bruit_x[20]; //Valeurs alÃ©atoires pour la trajectoire du tunnel, suite fixe
     double valeurs_bruit_y[20];
     double valeurs_bruit_z[20];
 
     float perturbation_x;       //L'amplitude des perturbations
-    float perturbation_y;       //Plus elle est grande, moins les virages seront serrés
+    float perturbation_y;       //Plus elle est grande, moins les virages seront serrÃ©s
     float perturbation_z;
     float distance_sections;    //Distance entre deux sections.
-    float distance_vecteur_generateur;  //distance entre la dernière section et le vecteur générateur
-    float position_intervalle;  //Position du vecteur générateur dans l'intervalle entre deux sections
+    float distance_vecteur_generateur;  //distance entre la derniÃ¨re section et le vecteur gÃ©nÃ©rateur
+    float position_intervalle;  //Position du vecteur gÃ©nÃ©rateur dans l'intervalle entre deux sections
     float position_vecteur_generateur[3];
     float orientation_vecteur_generateur[3];
-    dksTrajectoire* trajectoire_vecteur_generateur;  //La trajectoire suivie par le vecteur générateur en mode TRAJECTOIRE
-    float position_vecteur_sur_trajectoire; //La position du vecteur générateur sur la trajectoire ci-dessus (varie entre 0 et 1)
+    dksTrajectoire* trajectoire_vecteur_generateur;  //La trajectoire suivie par le vecteur gÃ©nÃ©rateur en mode TRAJECTOIRE
+    float position_vecteur_sur_trajectoire; //La position du vecteur gÃ©nÃ©rateur sur la trajectoire ci-dessus (varie entre 0 et 1)
     uint8_t mode_deplacement_vecteur_generateur;
     float axe_rotation_alignement_trajectoire[3];   //Sert si il y a besoin d'aligner des volumes avec la trajectoire.
     float angle_alignement_trajectoire;
 
-    float nbrVolumesSection;    //Le nombre d'éléments dans la bibliothèque
-    dksVolume** bibliotheque_volumes_sections;    //Bibliothèque de sections
+    float nbrVolumesSection;    //Le nombre d'Ã©lÃ©ments dans la bibliothÃ¨que
+    dksVolume** bibliotheque_volumes_sections;    //BibliothÃ¨que de sections
 
     float positions_sections[3*NBRSECTIONSMAX];
     float rotations_sections[4*NBRSECTIONSMAX];
@@ -97,7 +97,7 @@ class Tunnel : public dksConteneur
     }
 
     //==============================================
-    //          Initialise la trajectoire générée
+    //          Initialise la trajectoire gÃ©nÃ©rÃ©e
     //==============================================
     void initialise_suites_aleatoires_fixes()
     {
@@ -109,7 +109,7 @@ class Tunnel : public dksConteneur
         valeurs_bruit_z={1. , 0.858917 , 0.940063, 0.00418091,0.670929,0.750952,0.883575,0.17041,0.479645,0.385223};
     }
 
-    //Oriente le vecteur générateur selon la première valeur de la suite aléatoire fixe
+    //Oriente le vecteur gÃ©nÃ©rateur selon la premiÃ¨re valeur de la suite alÃ©atoire fixe
     void initialise_orientation_vecteur_generateur_suites_aleatoires_fixes()
     {
         orientation_vecteur_generateur[0]=valeurs_bruit_x[0]*2.-1.;
@@ -151,10 +151,10 @@ class Tunnel : public dksConteneur
 
         float delta_t=t-t_prec;
 
-        //Déplacement du vecteur générateur:
+        //DÃ©placement du vecteur gÃ©nÃ©rateur:
         maj_vecteur_generateur(t,delta_t);
 
-        //Génère les sections:
+        //GÃ©nÃ¨re les sections:
         maj_sections(t);
 
         t_prec=t;
@@ -249,7 +249,7 @@ class Tunnel : public dksConteneur
 
 
     //----------------------------------------
-    //  Mise à jour du vecteur générateur
+    //  Mise Ã  jour du vecteur gÃ©nÃ©rateur
     //----------------------------------------
 
     void maj_vecteur_generateur(double t,double delta_t)
@@ -271,7 +271,7 @@ class Tunnel : public dksConteneur
                     +orientation_vecteur_generateur[1]*orientation_vecteur_generateur[1]
                     +orientation_vecteur_generateur[2]*orientation_vecteur_generateur[2]);
 
-            orientation_vecteur_generateur[0]/=n;   //Normalise l'orientation du vecteur générateur
+            orientation_vecteur_generateur[0]/=n;   //Normalise l'orientation du vecteur gÃ©nÃ©rateur
             orientation_vecteur_generateur[1]/=n;
             orientation_vecteur_generateur[2]/=n;
 
@@ -306,7 +306,7 @@ class Tunnel : public dksConteneur
                     +orientation_vecteur_generateur[1]*orientation_vecteur_generateur[1]
                     +orientation_vecteur_generateur[2]*orientation_vecteur_generateur[2]);
 
-            orientation_vecteur_generateur[0]/=n;   //Normalise l'orientation du vecteur générateur
+            orientation_vecteur_generateur[0]/=n;   //Normalise l'orientation du vecteur gÃ©nÃ©rateur
             orientation_vecteur_generateur[1]/=n;
             orientation_vecteur_generateur[2]/=n;
 
@@ -324,7 +324,7 @@ class Tunnel : public dksConteneur
 
     //-------------------------------------------------------
     // Positionne un conteneur dans le tunnel:
-    // La coordonnées logitudinale p varie entre 0 et 1
+    // La coordonnÃ©es logitudinale p varie entre 0 et 1
     //-------------------------------------------------------
     void positionne_conteneur(dksConteneur* cont,float p=0.5)
     {
@@ -333,15 +333,15 @@ class Tunnel : public dksConteneur
         double tangented[3];
         p+=position_intervalle/float(nbrSections);
         float position_intervalle_section=float(nbrSections)*p;
-        uint32_t indice_section=position_intervalle_section; //Indice de la section où se trouve le conteneur.
+        uint32_t indice_section=position_intervalle_section; //Indice de la section oÃ¹ se trouve le conteneur.
         position_intervalle_section-=indice_section;        //Position du conteneur dans l'intervalle
         float position_intervalle_conteneur=position_intervalle+(1.-position_intervalle_section);
 
         trajectoire_sections.renvoie_position_intervalle(indice_section,position_intervalle_section,position);
 
         cont->determine_position(position);
-        //Calcul de la tangente à la trajectoire:
-        uint32_t pv=indice_section+2; //Intervalle en avant qui sert à déterminer la tangente
+        //Calcul de la tangente Ã  la trajectoire:
+        uint32_t pv=indice_section+2; //Intervalle en avant qui sert Ã  dÃ©terminer la tangente
 
         trajectoire_sections.renvoie_position_intervalle(pv,position_intervalle_section,tangente);
 
@@ -360,7 +360,7 @@ class Tunnel : public dksConteneur
 
     //---------------------------------------
     //      Ajoute des sections
-    //  en entrée: le nombre de sections à ajouter
+    //  en entrÃ©e: le nombre de sections Ã  ajouter
     //---------------------------------------
 
     void ajoute_sections(uint32_t nbr)
@@ -392,7 +392,7 @@ class Tunnel : public dksConteneur
 
     //--------------------------------------------------------------
     //      Initialise la position et l'orientation d'une section
-    //      par rapport au vecteur générateur et à la position
+    //      par rapport au vecteur gÃ©nÃ©rateur et Ã  la position
     //      de la section dans le tunnel
     //--------------------------------------------------------------
     void initialise_section(uint32_t i)
@@ -417,7 +417,7 @@ class Tunnel : public dksConteneur
             calcul_orientation_section(i);
         }
 
-        //Interpolation entre la section précédente et le vecteur générateur:
+        //Interpolation entre la section prÃ©cÃ©dente et le vecteur gÃ©nÃ©rateur:
         else
         {
             float px=positions_sections[(i+1)*3];
@@ -435,8 +435,8 @@ class Tunnel : public dksConteneur
             positions_sections[i*3+1]=py+dy*distance_sections;
             positions_sections[i*3+2]=pz+dz*distance_sections;
 
-            //Orientation calquée sur la section précédente:
-            ///Voir si une interpolation d'orientation est nécessaire!
+            //Orientation calquÃ©e sur la section prÃ©cÃ©dente:
+            ///Voir si une interpolation d'orientation est nÃ©cessaire!
             rotations_sections[i*4]=rotations_sections[(i+1)*4];
             rotations_sections[i*4+1]=rotations_sections[(i+1)*4+1];
             rotations_sections[i*4+2]=rotations_sections[(i+1)*4+2];
@@ -447,7 +447,7 @@ class Tunnel : public dksConteneur
     }
 
     //=============================================================================
-    //          Calcul l'angle de rotation, par rapport au vecteur générateur:
+    //          Calcul l'angle de rotation, par rapport au vecteur gÃ©nÃ©rateur:
     //=============================================================================
     void calcul_orientation_section(uint16_t i)
     {
@@ -481,12 +481,12 @@ class Tunnel : public dksConteneur
             }
     }
     //=============================================================================================================
-    //                         Transistions entre les modes de génération du déplacement du vecteur générateur
+    //                         Transistions entre les modes de gÃ©nÃ©ration du dÃ©placement du vecteur gÃ©nÃ©rateur
     //=============================================================================================================
 
     //-------------------------------------------------------------------------------------------
-    //  pour éviter un saut, le premier point de la trajectoire est positionné sur le vecteur,
-    //  et tout les autres points sont repositionné relativements à ce premier point.
+    //  pour Ã©viter un saut, le premier point de la trajectoire est positionnÃ© sur le vecteur,
+    //  et tout les autres points sont repositionnÃ© relativements Ã  ce premier point.
     //-------------------------------------------------------------------------------------------
 
     void basculement_perlin_trajectoire()
@@ -500,13 +500,13 @@ class Tunnel : public dksConteneur
 
     }
 
-    //repositionne et aligne la trajectoire à la position et l'orientation actuelle du vecteur générateur:
+    //repositionne et aligne la trajectoire Ã  la position et l'orientation actuelle du vecteur gÃ©nÃ©rateur:
     void reset_trajectoire_vecteur_generateur()
     {
         //Orientation de la trajectoire:
         float tangente_lien[3];
         trajectoire_vecteur_generateur->renvoie_tangente(0.,tangente_lien);
-        //Calcul l'axe de rotation entre l'orientation du vecteur générateur et la tangente au point de départ de la trajectoire:
+        //Calcul l'axe de rotation entre l'orientation du vecteur gÃ©nÃ©rateur et la tangente au point de dÃ©part de la trajectoire:
         axe_rotation_alignement_trajectoire[0]=orientation_vecteur_generateur[1]*tangente_lien[2]-orientation_vecteur_generateur[2]*tangente_lien[1];
         axe_rotation_alignement_trajectoire[1]=orientation_vecteur_generateur[2]*tangente_lien[0]-orientation_vecteur_generateur[0]*tangente_lien[2];
         axe_rotation_alignement_trajectoire[2]=orientation_vecteur_generateur[0]*tangente_lien[1]-orientation_vecteur_generateur[1]*tangente_lien[0];
@@ -522,7 +522,7 @@ class Tunnel : public dksConteneur
         //Calcul l'angle:
         angle_alignement_trajectoire=-acosf(orientation_vecteur_generateur[0]*tangente_lien[0]+orientation_vecteur_generateur[1]*tangente_lien[1]+orientation_vecteur_generateur[2]*tangente_lien[2]);
         trajectoire_vecteur_generateur->rotation_trajectoire(angle_alignement_trajectoire,axe_rotation_alignement_trajectoire);
-        //Enfin, positionnne le départ de la trajectoire sur la position actuelle du vecteur générateur.
+        //Enfin, positionnne le dÃ©part de la trajectoire sur la position actuelle du vecteur gÃ©nÃ©rateur.
         trajectoire_vecteur_generateur->positionne_trajectoire_point_0(position_vecteur_generateur[0],position_vecteur_generateur[1],position_vecteur_generateur[2]);
         position_vecteur_sur_trajectoire=0.;
     }
@@ -530,7 +530,7 @@ class Tunnel : public dksConteneur
 
 
     //============================================================
-    //                          Paramétrages
+    //                          ParamÃ©trages
     //============================================================
     void determine_lissage_trajectoire(float lissage)
     {

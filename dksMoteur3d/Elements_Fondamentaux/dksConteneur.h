@@ -25,7 +25,7 @@
 #define HAUT_ABSOLU 6
 #define BAS_ABSOLU 7
 
-//Codes d'erreurs à récupérer dans .erreur:
+//Codes d'erreurs Ã  rÃ©cupÃ©rer dans .erreur:
 
 #define DKSCONTENEUR_OK 0
 #define DKSCONTENEUR_ERREUR_MEMOIRE 1
@@ -36,7 +36,7 @@
 
 class dksConteneur :public dksRepere
 {
-		//Noms des classes héritées:
+		//Noms des classes hÃ©ritÃ©es:
     public:
 
         uint16_t erreur; //Code d'erreur.
@@ -44,20 +44,20 @@ class dksConteneur :public dksRepere
 		char* classe;
 		uint16_t classe_id;
 
-        dksRepere* repere_absolu; //Le repère dans l'espace absolu
-        Matrice4x4 matrice;    //La matrice correspondant au repère absolu.
+        dksRepere* repere_absolu; //Le repÃ¨re dans l'espace absolu
+        Matrice4x4 matrice;    //La matrice correspondant au repÃ¨re absolu.
 
 		dksConteneur* parent; //Le parent du conteneur
 		vector<dksConteneur*> enfants; //Tableau des enfants
 
-        bool a_change;	//Si les coordonnées du conteneur ont été modifiées lors de la gestion des mouvement.
-                        //Cette variable est remise à false après la propagation de la hiérarchie.
-		bool a_change_par_propagation;	//Si les coordonnées du conteneur ont été modifiées suite à une propagation hiérarchique.
-                                        //Cette variable n'a à être remise à false que par les objets qui s'en servent (volumes,sources lumineuses)
+        bool a_change;	//Si les coordonnÃ©es du conteneur ont Ã©tÃ© modifiÃ©es lors de la gestion des mouvement.
+                        //Cette variable est remise Ã  false aprÃ¨s la propagation de la hiÃ©rarchie.
+		bool a_change_par_propagation;	//Si les coordonnÃ©es du conteneur ont Ã©tÃ© modifiÃ©es suite Ã  une propagation hiÃ©rarchique.
+                                        //Cette variable n'a Ã  Ãªtre remise Ã  false que par les objets qui s'en servent (volumes,sources lumineuses)
 
 
-		// gestion de la contrainte à une trajectoire
-        bool contrainte_trajectoire; // aligne l'axe_z à la tangente de la trajectoire
+		// gestion de la contrainte Ã  une trajectoire
+        bool contrainte_trajectoire; // aligne l'axe_z Ã  la tangente de la trajectoire
 		dksVecteurUnitaire* axe;  //Sert pour le calcul de la contrainte de trajectoire
 
 		//Gestion de l'inertie
@@ -71,8 +71,8 @@ class dksConteneur :public dksRepere
 		double angle_rotation_instantanne;
 		double angle_restant;
 
-        dksRepere repere_t0;   //Les données cinétiques à l'intant t0.
-        dksRepere repere_parent_ti;   //Le repère du parent à un instant compris entre t0 et t1.
+        dksRepere repere_t0;   //Les donnÃ©es cinÃ©tiques Ã  l'intant t0.
+        dksRepere repere_parent_ti;   //Le repÃ¨re du parent Ã  un instant compris entre t0 et t1.
         dksVecteur propulsion_t0;
         dksVecteur propulsion_angulaire_t0;
         double angle_restant_t0;
@@ -82,9 +82,9 @@ class dksConteneur :public dksRepere
 
         //Gestion des calculs temporels:
         //double position_temps;
-		//double delta_t;         //Intervalle avec le temps précédent (envoyé par le moteur)
+		//double delta_t;         //Intervalle avec le temps prÃ©cÃ©dent (envoyÃ© par le moteur)
 		//double t0;
-		double interpolation;   //Le facteur d'interpolation linéaire de la cinétique dans l'intant t.
+		double interpolation;   //Le facteur d'interpolation linÃ©aire de la cinÃ©tique dans l'intant t.
 
 		double masse;
 		double valeur_propulsion_horizontale;   //Valeurs absolues des propulsions
@@ -98,19 +98,19 @@ class dksConteneur :public dksRepere
 
         double distance_poursuite_min;  //Gestion de la poursuite d'un point
         double inertie_poursuite;
-        double inertie_contrainte_roulis_rotation;  //L'amplitude de la contrainte du roulis à la rotation de l'axe Z
+        double inertie_contrainte_roulis_rotation;  //L'amplitude de la contrainte du roulis Ã  la rotation de l'axe Z
 
     protected:
-		// intermédiaires de calculs
+		// intermÃ©diaires de calculs
 		dksVecteurUnitaire* axe_vertical;
 		dksVecteurUnitaire* vecteur;
 		dksVecteurUnitaire* vecteur_bis;
 		dksAxeRotation axe_rotation_matrice;    //Sert pour le calcul des matrices
 
 		bool drapeau_contrainte_verticale;
-		bool drapeau_contrainte_roulis_rotation;    //L'angle de roulis est calculé en fonction de l'angle de rotation de l'axe Z
+		bool drapeau_contrainte_roulis_rotation;    //L'angle de roulis est calculÃ© en fonction de l'angle de rotation de l'axe Z
                                                     //Attention ! Il faut d'abord activer la contrainte verticale pour que la contrainte de roulis fonctionne !
-		dksRepere repere_reference; ///Repère fixe d'axes X(1,0,0) Y(0,1,0) Z(0,0,1)
+		dksRepere repere_reference; ///RepÃ¨re fixe d'axes X(1,0,0) Y(0,1,0) Z(0,0,1)
 
     public:
         //****************************************
@@ -210,7 +210,7 @@ class dksConteneur :public dksRepere
 
 
         //===================================================================================================================
-		//======================================== Fonctions de gestion de la hiérarchie : =================================
+		//======================================== Fonctions de gestion de la hiÃ©rarchie : =================================
         //===================================================================================================================
         uint32_t renvoie_nbr_enfants()
         {
@@ -222,7 +222,7 @@ class dksConteneur :public dksRepere
             enfants.clear();
         }
 
-		//Réception des enfants d'un autre conteneur:
+		//RÃ©ception des enfants d'un autre conteneur:
 		bool accueil_enfants(dksConteneur* contSource)
 		{
 		    uint32_t nbrEnfants=contSource->renvoie_nbr_enfants();
@@ -239,8 +239,8 @@ class dksConteneur :public dksRepere
 			return true;
 		}
 
-		//Réception des enfants d'un autre conteneur:
-		//Les coordonnées absolues sont conservées. Cela perme de changer de parent sans saut de repère apparant.
+		//RÃ©ception des enfants d'un autre conteneur:
+		//Les coordonnÃ©es absolues sont conservÃ©es. Cela perme de changer de parent sans saut de repÃ¨re apparant.
 		bool accueil_enfants_absolus(dksConteneur* contSource)
 		{
 		    uint32_t nbrEnfants=contSource->renvoie_nbr_enfants();
@@ -260,8 +260,8 @@ class dksConteneur :public dksRepere
 		}
 
 		//Ajoute un enfant.
-		//Test si l'enfant appartient déjà à la liste des enfants.
-		//L'enfant est supprimé de la liste de son ancien parent.
+		//Test si l'enfant appartient dÃ©jÃ  Ã  la liste des enfants.
+		//L'enfant est supprimÃ© de la liste de son ancien parent.
 		bool ajoute_enfant(dksConteneur* enfant)
 		{
 			for (uint32_t i = 0; i < enfants.size(); i++)
@@ -278,8 +278,8 @@ class dksConteneur :public dksRepere
 		}
 
 		//Supprime un enfant.
-		//! Le parent de l'enfant est mis à null. !
-		// La fonction qui appelle cette méthode doit se dépêcher d'attribuer un nouveau parent.
+		//! Le parent de l'enfant est mis Ã  null. !
+		// La fonction qui appelle cette mÃ©thode doit se dÃ©pÃªcher d'attribuer un nouveau parent.
 		bool supprime_enfant(dksConteneur* enfant)
 		{
 		    vector<dksConteneur*>::iterator iterateur_enfant=enfants.begin();
@@ -299,10 +299,10 @@ class dksConteneur :public dksRepere
 		}
 
 		//Supprime un enfant.
-		//L'enfant garde l'échelle et le repère absolus hérité de son ancien parent.
-		//!!!!! Le parent de l'enfant est mis à null. !!!!!!!!
-		// La fonction qui appelle cette méthode doit se dépêcher d'attribuer un nouveau parent.
-		//Renvoie false si l'enfant n'appartient pas à la liste des enfants,ou si une erreur s'est produite.
+		//L'enfant garde l'Ã©chelle et le repÃ¨re absolus hÃ©ritÃ© de son ancien parent.
+		//!!!!! Le parent de l'enfant est mis Ã  null. !!!!!!!!
+		// La fonction qui appelle cette mÃ©thode doit se dÃ©pÃªcher d'attribuer un nouveau parent.
+		//Renvoie false si l'enfant n'appartient pas Ã  la liste des enfants,ou si une erreur s'est produite.
 		bool supprime_enfant_absolu(dksConteneur* enfant)
 		{
 		    vector<dksConteneur*>::iterator iterateur_enfant=enfants.begin();
@@ -324,11 +324,11 @@ class dksConteneur :public dksRepere
 
 		}
 
-		//Ajoute un enfant sans changer son repère absolu.
-		//Renvoie false si l'enfant appartient déjà à la liste des enfants ou si une erreur s'est produite.
+		//Ajoute un enfant sans changer son repÃ¨re absolu.
+		//Renvoie false si l'enfant appartient dÃ©jÃ  Ã  la liste des enfants ou si une erreur s'est produite.
 		//IMPORTANT POUR LES CHANGEMENTS DYNAMIQUES DE HIERARCHIE:
-		//Le conteneur n'a pas besoin d'être affecté à un parent car les calculs
-		//S'effectuent avec le repère absolu. Il faut juste que le conteneur soit situé dans
+		//Le conteneur n'a pas besoin d'Ãªtre affectÃ© Ã  un parent car les calculs
+		//S'effectuent avec le repÃ¨re absolu. Il faut juste que le conteneur soit situÃ© dans
 		//l'espace absolu.
 		bool ajoute_enfant_absolu(dksConteneur* enfant)
 		{
@@ -347,15 +347,15 @@ class dksConteneur :public dksRepere
 
 
     private:
-		//Détermine le repère relatif du conteneur par rapport à un autre conteneur, qui n'est pas encore son parent.
-		//Cette méthode sert pour changer de parent sans changer de position absolue
+		//DÃ©termine le repÃ¨re relatif du conteneur par rapport Ã  un autre conteneur, qui n'est pas encore son parent.
+		//Cette mÃ©thode sert pour changer de parent sans changer de position absolue
 		void determine_repere_relatif(dksConteneur* cont)
 		{
 			dksRepere::determine_repere_relatif(repere_absolu, cont->repere_absolu, this);
 			a_ete_deplace();
 		}
     public:
-		//Calcul une position relative au même niveau hiérarchique que le conteneur par rapport à une position absolue.
+		//Calcul une position relative au mÃªme niveau hiÃ©rarchique que le conteneur par rapport Ã  une position absolue.
 		//Cette fonction sert notamment pour calculer une nouvelle position du conteneur avant d'effectivement changer
 		//sa position.
 		void calcul_position_relative(dksVecteur* position_absolue, dksVecteur* position_relative)
@@ -365,7 +365,7 @@ class dksConteneur :public dksRepere
 
 
 
-        //Initialise le repère absolu avant la propagation de la hiérarchie:
+        //Initialise le repÃ¨re absolu avant la propagation de la hiÃ©rarchie:
         void initialisation_repere(dksRepere* referent=NULL)
 		{
 		    if (referent==NULL)
@@ -408,7 +408,7 @@ class dksConteneur :public dksRepere
 			{ enfants[i]->initialisation_repere(repere_absolu); }
 		}
 
-        //-------------------- Transforme les repères des enfants:
+        //-------------------- Transforme les repÃ¨res des enfants:
 
 		void propagation_hierarchie()
 		{
@@ -496,8 +496,8 @@ class dksConteneur :public dksRepere
 		}
 
         //----------------------------------------------------
-        //      Calcul le repère absolu d'un conteneur, et propage
-        //      la hiérarchie aux enfants
+        //      Calcul le repÃ¨re absolu d'un conteneur, et propage
+        //      la hiÃ©rarchie aux enfants
         //----------------------------------------------------
         void calcul_repere_absolu()
         {
@@ -511,7 +511,7 @@ class dksConteneur :public dksRepere
             propagation_hierarchie();
         }
 
-        //--------- Mise à jour de la fonction de mise à l'échelle du repère:
+        //--------- Mise Ã  jour de la fonction de mise Ã  l'Ã©chelle du repÃ¨re:
 
 		virtual void determine_echelle_repere(double ex, double ey, double ez)
 		{
@@ -520,9 +520,9 @@ class dksConteneur :public dksRepere
 		}
 
 		//-------------------------------------------------------------------------------------------------
-		//      Calcul la matrice de transformation correspondant au repère absolu
-		//      Si le repère de référence est NULL, le repère (1,0,0)(0,1,0)(0,0,1) est utilisé
-		/// La matrice courante d'OpenGl doit être la vue du modèle (MODELVIEW). La fonction affecte cette matrice.
+		//      Calcul la matrice de transformation correspondant au repÃ¨re absolu
+		//      Si le repÃ¨re de rÃ©fÃ©rence est NULL, le repÃ¨re (1,0,0)(0,1,0)(0,0,1) est utilisÃ©
+		/// La matrice courante d'OpenGl doit Ãªtre la vue du modÃ¨le (MODELVIEW). La fonction affecte cette matrice.
 		//-------------------------------------------------------------------------------------------------
         void calcul_matrice(dksRepere* repere_espace=NULL)
         {
@@ -538,9 +538,9 @@ class dksConteneur :public dksRepere
         }
 
         //-------------------------------------------------------------------------------------------------
-		//      Calcul la matrice de transformation correspondant au repère relatif
-		//      Cette fonction sert pour les volumes qui ne sont pas répertoriés dans la table de la scène (caractères des textes 3d)...
-		/// La matrice courante d'OpenGl doit être la vue du modèle (MODELVIEW). La fonction affecte cette matrice.
+		//      Calcul la matrice de transformation correspondant au repÃ¨re relatif
+		//      Cette fonction sert pour les volumes qui ne sont pas rÃ©pertoriÃ©s dans la table de la scÃ¨ne (caractÃ¨res des textes 3d)...
+		/// La matrice courante d'OpenGl doit Ãªtre la vue du modÃ¨le (MODELVIEW). La fonction affecte cette matrice.
 		//-------------------------------------------------------------------------------------------------
         void calcul_matrice_relative(dksRepere* repere_parent=NULL)
         {
@@ -595,7 +595,7 @@ class dksConteneur :public dksRepere
 		    rotation(angle,axe->x,axe->y,axe->z);
 		}
 
-		//Rotation avec maintien de la verticalité (axe_x toujours horizontal)
+		//Rotation avec maintien de la verticalitÃ© (axe_x toujours horizontal)
 		virtual void rotation_contrainte_verticale(double angle,double rx,double ry,double rz)
 		{
 		    double axe_z_prec_x=axe_z->x;
@@ -656,7 +656,7 @@ class dksConteneur :public dksRepere
 
 		virtual void determine_position(double px, double py, double pz)
 		{
-			//Alignement à la trajectoire:
+			//Alignement Ã  la trajectoire:
 			if (contrainte_trajectoire) alignement_tangente_trajectoire(px,py,pz);
 
 			x = px; y = py; z = pz;
@@ -690,7 +690,7 @@ class dksConteneur :public dksRepere
 		//==========================================================================================================================
 
 
-		// les valeurs sont des angles par rapport à la direction actuelle.
+		// les valeurs sont des angles par rapport Ã  la direction actuelle.
 		void vise(double angle, uint8_t axe)
 		{
 
@@ -724,7 +724,7 @@ class dksConteneur :public dksRepere
 		}
 
 
-        //Aligne l'axe Z au sens du déplacement
+        //Aligne l'axe Z au sens du dÃ©placement
 		virtual void alignement_tangente_trajectoire(double px,double py,double pz)
 		{
 			double tangente_x = px - x;
@@ -750,7 +750,7 @@ class dksConteneur :public dksRepere
 				if ( !((norme<DKSCONTENEUR_EPSILON) && (norme>-DKSCONTENEUR_EPSILON)) )
 				{
 					double angle = asin(sinus);
-					if (cosinus < 0) angle = M_PI - angle; //Tenir compte des angles > 90°
+					if (cosinus < 0) angle = M_PI - angle; //Tenir compte des angles > 90Â°
 
 					axe->x /= sinus;
 					axe->y /= sinus;
@@ -766,10 +766,10 @@ class dksConteneur :public dksRepere
 			}
 		}
 
-		//Déplacement selon les axes du repère:
+		//DÃ©placement selon les axes du repÃ¨re:
 		virtual void deplace(uint8_t dir,double quantite=0.2)
 		{
-			//Dans le cas d'un déplacement sans inertie:
+			//Dans le cas d'un dÃ©placement sans inertie:
 
             a_ete_deplace();
 
@@ -815,7 +815,7 @@ class dksConteneur :public dksRepere
                     break;
                 }
             }
-            //Déplacement avec inertie:
+            //DÃ©placement avec inertie:
             else
             {
                 determine_propulsion(dir);
@@ -885,7 +885,7 @@ class dksConteneur :public dksRepere
 		}
 
         //----------------------------------------------------
-		//Mouvements propres du conteneur, à overrider:
+		//Mouvements propres du conteneur, Ã  overrider:
         //----------------------------------------------------
 		virtual void applique_mouvements()
 		{
@@ -924,8 +924,8 @@ class dksConteneur :public dksRepere
 
 
         //------------------------------------------------------------------------------
-        //      Mise à jour du repère absolu et de la matrice.
-        /// A n'utiliser que lorsque le conteneur n'est pas un élément d'une scène.
+        //      Mise Ã  jour du repÃ¨re absolu et de la matrice.
+        /// A n'utiliser que lorsque le conteneur n'est pas un Ã©lÃ©ment d'une scÃ¨ne.
         //------------------------------------------------------------------------------
         virtual void maj(double t)
         {
@@ -943,10 +943,10 @@ class dksConteneur :public dksRepere
         }
 
         //===============================================================================
-		//              Gestion de la cinétique
+		//              Gestion de la cinÃ©tique
         //===============================================================================
 
-        //-------- Calcul des mouvements instantanés:
+        //-------- Calcul des mouvements instantanÃ©s:
 		void rafraichi_cinetique()
 		{
             memorise_cinetique_t0();
@@ -957,13 +957,13 @@ class dksConteneur :public dksRepere
 			rafraichi_rotation();
 		}
 
-        //-------- Détermine le coefficient de frottements:
+        //-------- DÃ©termine le coefficient de frottements:
 		void determine_coefficient_frottement(double vlim,double valeur_propulsion)
 		{
 			coefficient_frottement = valeur_propulsion / vlim;
 		}
 
-        //-------- Détermine la propulsion, selon les axes du repère:
+        //-------- DÃ©termine la propulsion, selon les axes du repÃ¨re:
 		void determine_propulsion(uint8_t dir)
 		{
 		    contrainte_direction_propulsion=true;
@@ -1056,8 +1056,8 @@ class dksConteneur :public dksRepere
 			propulsion_angulaire->z = 0.;
 		}
 
-        //Mémorise le repère avant l'application du mouvement:
-        //Sert surtout lors de la visée
+        //MÃ©morise le repÃ¨re avant l'application du mouvement:
+        //Sert surtout lors de la visÃ©e
 		void memorise_cinetique_t0()
 		{
 		    repere_t0.x=x;
@@ -1095,13 +1095,13 @@ class dksConteneur :public dksRepere
 
 
 
-		//Calcul la vitesse instantannée.
+		//Calcul la vitesse instantannÃ©e.
     protected:
 		void rafraichi_vitesse()
 		{
 		    if (vitesse->est_nul() && propulsion->est_nul() && propulsion_verticale == 0) return;
 
-            //Aligne la propulsion à la direction relative au conteneur:
+            //Aligne la propulsion Ã  la direction relative au conteneur:
 			if (contrainte_direction_propulsion && !propulsion->est_nul() && direction_propulsion!=NULL)
 			{
 			    propulsion->produit_vecteur_reel(direction_propulsion,valeur_propulsion_lineaire_courante);
@@ -1117,7 +1117,7 @@ class dksConteneur :public dksRepere
 		}
 
 
-        //Calcul la position instantannée:
+        //Calcul la position instantannÃ©e:
 		void rafraichi_position()
 		{
             x = repere_t0.x + vitesse->x * delta_t * interpolation;
@@ -1132,7 +1132,7 @@ class dksConteneur :public dksRepere
             repere_temp->z = repere_t0.z + vitesse->z * delta_t * p_interpolation;
 		}
 
-		//Calcul la vitesse instantannée.
+		//Calcul la vitesse instantannÃ©e.
 		void rafraichi_vitesse_circulaire()
 		{
 		    if (vitesse_circulaire->est_nul() && propulsion_angulaire->est_nul()) return;
@@ -1147,7 +1147,7 @@ class dksConteneur :public dksRepere
 			//trace(vitesse_circulaire);
 		}
 
-        //Calcul la rotation à l'instant t0+(t1-t0)*interpolation:
+        //Calcul la rotation Ã  l'instant t0+(t1-t0)*interpolation:
 
 		void rafraichi_rotation()
 		{
@@ -1163,7 +1163,7 @@ class dksConteneur :public dksRepere
 			repere_temp->axe_y->determine(repere_t0.axe_y->x,repere_t0.axe_y->y,repere_t0.axe_y->z);
 			repere_temp->axe_z->determine(repere_t0.axe_z->x,repere_t0.axe_z->y,repere_t0.axe_z->z);
 
-			//Distance d'application de la force pour l'instant on considère que la force s'applique à 1 m du centre de gravité.
+			//Distance d'application de la force pour l'instant on considÃ¨re que la force s'applique Ã  1 m du centre de gravitÃ©.
 			double rayon = 1.;
 			double norme=vitesse_circulaire->norme();
 
@@ -1188,7 +1188,7 @@ class dksConteneur :public dksRepere
 			axe_y->determine(repere_t0.axe_y->x,repere_t0.axe_y->y,repere_t0.axe_y->z);
 			axe_z->determine(repere_t0.axe_z->x,repere_t0.axe_z->y,repere_t0.axe_z->z);
 
-			//Distance d'application de la force pour l'instant on considère que la force s'applique à 1 m du centre de gravité.
+			//Distance d'application de la force pour l'instant on considÃ¨re que la force s'applique Ã  1 m du centre de gravitÃ©.
 			double rayon = 1.;
 			double norme=vitesse_circulaire->norme();
 
@@ -1242,9 +1242,9 @@ class dksConteneur :public dksRepere
 		//              Calculs pour la gestion des collisions - EN TRAVAUX -
 		//***********************************************************************
 
-		//Renvoie le repere du conteneur à l'instant t0+(t1-t0)*p_interpolation:
-		//Il faut appeler cette fonction après rafraichi_cinetique()
-		//Cette fonction sert au moteur physique pour déterminer une date de collision.
+		//Renvoie le repere du conteneur Ã  l'instant t0+(t1-t0)*p_interpolation:
+		//Il faut appeler cette fonction aprÃ¨s rafraichi_cinetique()
+		//Cette fonction sert au moteur physique pour dÃ©terminer une date de collision.
 public:
         /*
 		void renvoie_repere_interpole(double p_interpolation, dksRepere* repere_interpole)
@@ -1261,7 +1261,7 @@ public:
 		}
 
 
-        //Dans le cas d'une collision, permet de calculer le repère à un instant compris entre t0 et t1.
+        //Dans le cas d'une collision, permet de calculer le repÃ¨re Ã  un instant compris entre t0 et t1.
 		//Rafraichi directement le repere du conteneur:
 		void determine_interpolation_instantannee(double p_interpolation)
 		{
@@ -1270,7 +1270,7 @@ public:
             rafraichi_rotation();
 		}
 
-        //Rafraichi un repère tempon:
+        //Rafraichi un repÃ¨re tempon:
 		void determine_interpolation_instantannee(double p_interpolation,dksRepere* repere_temp)
 		{
             rafraichi_position(repere_temp,p_interpolation);
@@ -1279,7 +1279,7 @@ public:
 		*/
 
 		//======================================================================================================
-		//              Affichages pour l'édition et le debugage
+		//              Affichages pour l'Ã©dition et le debugage
 		//======================================================================================================
 		public:
 		void affiche_position()

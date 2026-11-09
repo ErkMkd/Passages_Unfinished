@@ -31,7 +31,7 @@ class Scene_Tunnel: public Scene
 
     dksCube* cube_arriere_plan;
     Image* textures_arriere_plan[6];
-    Image* textures_arriere_plan_transition[6]; //Les textures de l'arrière plan de la scène suivante
+    Image* textures_arriere_plan_transition[6]; //Les textures de l'arriÃ¨re plan de la scÃ¨ne suivante
     #define TAILLE_TEXTURE_TRANSITION 128
     uint8_t texture_transition_arriere_plan[TAILLE_TEXTURE_TRANSITION*TAILLE_TEXTURE_TRANSITION];
     Image* image_transition_arriere_plan;
@@ -125,7 +125,7 @@ class Scene_Tunnel: public Scene
     float position[3];
     float tangente[3];
 
-    //==== Paramètres de l'éditeur:
+    //==== ParamÃ¨tres de l'Ã©diteur:
     double pas_deplacement;
     double pas_rotation;
     uint8_t mode_deplacement_tunnel;
@@ -167,7 +167,7 @@ class Scene_Tunnel: public Scene
 
         scene_logoGp=p_scene_logoGp;
 
-        //======Création des volumes LWO2:
+        //======CrÃ©ation des volumes LWO2:
 
         //Sections du tunnel:
         /*
@@ -186,7 +186,7 @@ class Scene_Tunnel: public Scene
         }
         */
 
-        //Coordonnées de la trajectoire du caducée et des volumes de transition:
+        //CoordonnÃ©es de la trajectoire du caducÃ©e et des volumes de transition:
         trajectoire_caducee_lwo2=new dksChargeLWO2("LWO2/trajectoire_caducee.lwo");
         if (trajectoire_caducee_lwo2==NULL || trajectoire_caducee_lwo2->erreur!=DKSCHARGELWO2_OK)
         {
@@ -200,19 +200,19 @@ class Scene_Tunnel: public Scene
             erreur=SCENE_ERREUR_INIT;
             return;
         }
-        //========= Trajectoire de la caméra:
+        //========= Trajectoire de la camÃ©ra:
 
         char fichier_trajectoire[64]={"trajectoires/camera_caducee_01.traj"};
         if (!trajectoire_camera_caducee_01.charge_trajectoire(fichier_trajectoire))
         {
-            cout<<"ERREUR - Trajectoire "<<fichier_trajectoire<<" impossible à charger"<<endl;
+            cout<<"ERREUR - Trajectoire "<<fichier_trajectoire<<" impossible Ã  charger"<<endl;
         }
         trajectoire_camera_caducee_01.determine_echelle_trajectoire(echelle_caducee);
         trajectoire_camera_caducee_01.determine_drapeau_longueurs(true);
 
                                     cout<<"LONGUEUR TRAJECTOIRE ------------- > "<<trajectoire_camera_caducee_01.renvoie_longueur_totale()<<endl;
 
-        //======== Initialise de l'arrière plan
+        //======== Initialise de l'arriÃ¨re plan
         textures_arriere_plan[0]=new Image("textures/tunnel/ocean_1024.tif");
         textures_arriere_plan[0]->determine_luminosite(-0.5);
         cube_arriere_plan=new dksCube("Cube_arriere_plan_tunnel",0.,0.,0.,10.,10.,10.,0xffffffff);
@@ -234,7 +234,7 @@ class Scene_Tunnel: public Scene
 
         if (!Bruit::genere_bruit_de_Perlin_2D_8bits(4,4,TAILLE_TEXTURE_TRANSITION,TAILLE_TEXTURE_TRANSITION,12,0.75,texture_transition_arriere_plan))
         {
-            cout<<"ERREUR dans Scene_Tunnel() - Impossible de créer la texture de transition"<<endl;
+            cout<<"ERREUR dans Scene_Tunnel() - Impossible de crÃ©er la texture de transition"<<endl;
             erreur=SCENE_ERREUR_INIT;
             return;
         }
@@ -260,7 +260,7 @@ class Scene_Tunnel: public Scene
 
         cube_arriere_plan->determine_mode_rendu(DKSVOLUME_MODE_TABLEAUX);
 
-        //======== Initialise les éléments de la scène:
+        //======== Initialise les Ã©lÃ©ments de la scÃ¨ne:
 
         source_1=new dksSourceLumineuse("Source_1",100.,100.,10.);
         source_2=new dksSourceLumineuse("Source_2",-100.,-100.,10.);
@@ -364,7 +364,7 @@ class Scene_Tunnel: public Scene
         dksVolume* traj=trajectoire_caducee_convertie->renvoie_volume_index(0);
 
         traj->determine_echelle_geometrique(echelle_caducee);
-        trajectoire_caducee.determine_drapeau_longueurs(false);    //Pour éviter des calculs inutiles
+        trajectoire_caducee.determine_drapeau_longueurs(false);    //Pour Ã©viter des calculs inutiles
         trajectoire_caducee.determine_points(traj->renvoie_sommets(),traj->nbrSommets);
         trajectoire_caducee.tri_points(DKSTRAJECTOIRE_AXE_Y,true);
         trajectoire_caducee.determine_drapeau_longueurs(true);
@@ -377,7 +377,7 @@ class Scene_Tunnel: public Scene
                                 &trajectoire_caducee);
                                 */
 
-        //========== initialisation de la transition avec le caducée:
+        //========== initialisation de la transition avec le caducÃ©e:
         transition_caducee=trajectoire_caducee_convertie->renvoie_volume_index(1);
         transition_caducee->determine_echelle_geometrique(echelle_caducee);
         transition_caducee_particules=new VolumeFacesSeparees("transition_volume",transition_caducee);
@@ -390,7 +390,7 @@ class Scene_Tunnel: public Scene
         transition_caducee_corps_2->determine_mode_rendu(DKSVOLUME_MODE_IMMEDIAT);
 
 
-        //========== Création de la scène:
+        //========== CrÃ©ation de la scÃ¨ne:
         conteneurs[0]=conteneur_tunnel;
         conteneurs[1]=conteneur_texte_1;
         conteneurs[2]=conteneur_texte_2;
@@ -421,7 +421,7 @@ class Scene_Tunnel: public Scene
 
 
 
-        //======== Préparation des animations:
+        //======== PrÃ©paration des animations:
         //initialise_t0();
         initialise_animations();
         initialise_listes_affichage();
@@ -479,7 +479,7 @@ class Scene_Tunnel: public Scene
 
 
     //----------------------------------------------------------------------------
-    //                Active la scène
+    //                Active la scÃ¨ne
     //----------------------------------------------------------------------------
     virtual void active()
     {
@@ -494,7 +494,7 @@ class Scene_Tunnel: public Scene
     }
 
     //----------------------------------------------------------------------------
-    //                 Mise à jour de la fenêtre, si on est pas en plein ecran
+    //                 Mise Ã  jour de la fenÃªtre, si on est pas en plein ecran
     //----------------------------------------------------------------------------
     virtual void maj_dimensions_fenetre()
         {
@@ -541,7 +541,7 @@ class Scene_Tunnel: public Scene
     //========================================================================================================================================
     public:
     //----------------------------------------------------------------------------
-    //                  Etat de la scène au départ de l'animation
+    //                  Etat de la scÃ¨ne au dÃ©part de l'animation
     //----------------------------------------------------------------------------
     virtual void initialise_t0(double t0)
     {
@@ -647,7 +647,7 @@ class Scene_Tunnel: public Scene
 
     }
 
-    //Pour le branchement avec la scène suivante:
+    //Pour le branchement avec la scÃ¨ne suivante:
     public:
     Interpolation_Parametre* renvoie_interpolation_camera_pos_trajectoire_01()
     {
@@ -656,15 +656,15 @@ class Scene_Tunnel: public Scene
 
     //======================================================
     //               Attente du retour du faisceau
-    //              Déclenchements des animations
+    //              DÃ©clenchements des animations
     //=======================================================
     public:
     virtual void attente_retour_faisceau()
     {
         if (!drapeau_initialisee || drapeau_scene_terminee) return;
 
-        //Générique:
-        //Départ scène à 17.8
+        //GÃ©nÃ©rique:
+        //DÃ©part scÃ¨ne Ã  17.8
 
         if (position_temps<23.5)
         {
@@ -684,7 +684,7 @@ class Scene_Tunnel: public Scene
             le_tunnel->positionne_conteneur(conteneur_texte_3,position_repere_texte_3);
         }
 
-        //Arrivé du ver:
+        //ArrivÃ© du ver:
         else if (position_temps<45.5)
         {
             if (!etapes[VER])
@@ -740,13 +740,13 @@ class Scene_Tunnel: public Scene
 
 
 
-        //Transition avec le caducée - Plan 1:
+        //Transition avec le caducÃ©e - Plan 1:
 
         else if (position_temps_scene<54) //14
         {
             if (!etapes[TRANSITION_VUE1])
             {
-                    /// Asupprimer après le developpement
+                    /// Asupprimer aprÃ¨s le developpement
                     /*
                     scene->determine_oeil_courant(oeil_2);
                     oeil_courant=oeil_2;
@@ -754,7 +754,7 @@ class Scene_Tunnel: public Scene
                     post_rendu->alpha_couleurs=1.;
                     post_rendu->alpha_auras=1.;
                     etapes[GENERIQUE+1]=true;
-                    position_ver=0.;        /// A supprimer après le developpement
+                    position_ver=0.;        /// A supprimer aprÃ¨s le developpement
                     */
 
 
@@ -784,16 +784,16 @@ class Scene_Tunnel: public Scene
             le_tunnel->vitesse_vecteur_generateur=interpolations_parametres[VITESSE_TUNNEL]->renvoie_valeur_parametre(position_temps_scene);
             le_tunnel->positionne_conteneur(conteneur_tunnel,position_conteneur_tunnel);
 
-            //Calcul la position du ver dans la trajectoire du caducée:
+            //Calcul la position du ver dans la trajectoire du caducÃ©e:
             float rapport_longueur_trajectoire_longeur_tunnel=le_tunnel->trajectoire_vecteur_generateur->renvoie_longueur_totale()/(float(le_tunnel->nbrSections-2)*le_tunnel->distance_sections);
             float position_ver_caducee=le_tunnel->position_vecteur_sur_trajectoire-(1.-position_conteneur_tunnel)/rapport_longueur_trajectoire_longeur_tunnel;
-            //Attend que le ver entre dans le caducée:
+            //Attend que le ver entre dans le caducÃ©e:
 
             if (position_ver_caducee>0.)
             {
-                //Le ver est entré, animation des faces:
+                //Le ver est entrÃ©, animation des faces:
                 position_depart_faces=interpolations_parametres[POSITION_ANIMATION_FACES_CADUCEE]->renvoie_valeur_parametre(position_temps_scene);
-                //Le point visé change dès que le mouvement des faces dépasse le ver:
+                //Le point visÃ© change dÃ¨s que le mouvement des faces dÃ©passe le ver:
                 float position_faces_visee=position_depart_faces-0.05;
                 if (position_faces_visee>position_ver_caducee)
                 {
@@ -821,7 +821,7 @@ class Scene_Tunnel: public Scene
             }
         }
 
-        // Transition avec le caducée - Plan 2
+        // Transition avec le caducÃ©e - Plan 2
         else if (position_temps_scene<68.)    //28
         {
             if (!etapes[TRANSITION_VUE2])
@@ -836,13 +836,13 @@ class Scene_Tunnel: public Scene
             }
 
             position_depart_faces=interpolations_parametres[POSITION_ANIMATION_FACES_CADUCEE]->renvoie_valeur_parametre(position_temps_scene);
-            //Position de la caméra sur la trajectoire:
+            //Position de la camÃ©ra sur la trajectoire:
             float position_trajectoire_camera=interpolations_parametres[CAMERA_POS_TRAJECTOIRE_01]->renvoie_valeur_parametre(position_temps);
             //cout<<"T:"<<position_temps<<"position scene tunnel: "<<position_trajectoire_camera<<endl;
             trajectoire_camera_caducee_01.renvoie_position(position_trajectoire_camera,position);
             conteneur_tunnel->determine_position(double(position[0]),double(position[1]),double(position[2]));
 
-            //Position du point de visée:
+            //Position du point de visÃ©e:
             float position_point_visee=position_depart_faces*0.5+0.25;
             trajectoire_caducee.renvoie_position(position_point_visee,position);
             oeil_2->determine_point_vise(double(position[0]),double(position[1]),double(position[2]));
@@ -863,7 +863,7 @@ class Scene_Tunnel: public Scene
     }
 
     //============================================================================
-    //                     Initialisations de l'éditeur
+    //                     Initialisations de l'Ã©diteur
     //============================================================================
 
     virtual void initialise_editeur()
@@ -876,7 +876,7 @@ class Scene_Tunnel: public Scene
     }
 
         //===================================================
-        //          Affiche la trajectoire éditée
+        //          Affiche la trajectoire Ã©ditÃ©e
         //===================================================
         void affiche_trajectoire()
         {
@@ -912,19 +912,19 @@ class Scene_Tunnel: public Scene
         switch (key)
         {
             case 101:
-                //flèche haut
+                //flÃ¨che haut
                 oeil_1->deplace(AVANT,pas_deplacement);
                 break;
             case 100:
-                //flèche gauche
+                //flÃ¨che gauche
                 oeil_1->deplace(GAUCHE,pas_deplacement);
                 break;
             case 103:
-                //flèche bas
+                //flÃ¨che bas
                 oeil_1->deplace(ARRIERE,pas_deplacement);
                 break;
             case 102:
-                //flèche droite
+                //flÃ¨che droite
                 oeil_1->deplace(DROITE,pas_deplacement);
                 break;
 

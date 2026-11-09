@@ -1,20 +1,20 @@
 //======================================================================
 //				Eclairage de base - 3 sources max
 //				Compatible ATI
-//		Je ne sais pas comment savoir si les lumières de bases d'OpenGL
-//		sont activées ou pas. Il faut donc entrer en paramètre les drapeaux
-//		d'activation des sources. bit n:true = source n:activée
+//		Je ne sais pas comment savoir si les lumiÃ¨res de bases d'OpenGL
+//		sont activÃ©es ou pas. Il faut donc entrer en paramÃ¨tre les drapeaux
+//		d'activation des sources. bit n:true = source n:activÃ©e
 //======================================================================
 
 
 uniform int drapeaux_sources;	//Les bits d'activation des sources lumineuses
 
 varying vec4 couleur;
-varying vec3 couleur_speculaire; //Spérarée pour apparaître par dessus les textures
+varying vec3 couleur_speculaire; //SpÃ©rarÃ©e pour apparaÃ®tre par dessus les textures
 
 void main( void )
 {
-	//Données de l'observateur:
+	//DonnÃ©es de l'observateur:
     gl_Position =  gl_ModelViewProjectionMatrix * gl_Vertex;
 	vec3 position_sommet = (gl_ModelViewMatrix * gl_Vertex).xyz;
     vec3 normale 				= gl_NormalMatrix * gl_Normal;

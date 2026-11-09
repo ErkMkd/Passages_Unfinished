@@ -3,7 +3,7 @@
 
 /*
 
-            Scène du jongleur et des crédits
+            ScÃ¨ne du jongleur et des crÃ©dits
 
 */
 
@@ -47,7 +47,7 @@ class Scene_Jungler_Credits : public Scene
 
 
 
-    //============= Données de l'éditeur:
+    //============= DonnÃ©es de l'Ã©diteur:
 
         double vitesse_rotation;
         double vitesse_deplacement;
@@ -90,7 +90,7 @@ class Scene_Jungler_Credits : public Scene
                                    0xffff4040);
                 if(vectorBalls[i]==NULL || vectorBalls[i]->erreur!=DKSVOLUME_OK)
                 {
-                    cout<<"ERREUR lors de la création des vectorBalls"<<endl;
+                    cout<<"ERREUR lors de la crÃ©ation des vectorBalls"<<endl;
                     erreur=SCENE_ERREUR_INIT;
                     return ;
                 }
@@ -103,7 +103,7 @@ class Scene_Jungler_Credits : public Scene
             //particules_vectorBalls=new dksParticulesVolumes("Particules_vectorBalls_jungler",10.,0.,0.,(dksVolume**)vectorBalls,NBR_VECTORBALLS);
             //particules_vectorBalls->determine_vitesses_rotations(0.,0.,0.);
 
-        //----------------- Création du damier:
+        //----------------- CrÃ©ation du damier:
             damier=new dksDamier("Damier_jongleur",0.,0.,0.,
                                     100.,100.,        //Taille
                                     15,15,          //Mailles
@@ -114,7 +114,7 @@ class Scene_Jungler_Credits : public Scene
                                     );
             if(damier==NULL || damier->erreur!=DKSPLAN_OK)
             {
-                cout<<"ERREUR Lors de la création du damier de la scène: "<<nom<<endl;
+                cout<<"ERREUR Lors de la crÃ©ation du damier de la scÃ¨ne: "<<nom<<endl;
                 erreur=SCENE_ERREUR_INIT;
                 return;
             }
@@ -129,13 +129,13 @@ class Scene_Jungler_Credits : public Scene
             damier->surface_plan_recto_2->drapeau_adoucissement=true;
             damier->determine_mode_rendu(DKSVOLUME_MODE_TABLEAUX);
 
-        //---------------- Création du jongleur:
+        //---------------- CrÃ©ation du jongleur:
 
 
             mon_bonhomme=new dksJongleurVectorBalls("Paul",0.,0.,0.,vectorBalls,NBR_VECTORBALLS);
             if(mon_bonhomme->erreur!=DKSJONGLEUR_OK)
             {
-                cout<<"ERREUR Lors de la création du jongleur "<<endl;
+                cout<<"ERREUR Lors de la crÃ©ation du jongleur "<<endl;
                 erreur=SCENE_ERREUR_INIT;
                 return;
             }
@@ -145,7 +145,7 @@ class Scene_Jungler_Credits : public Scene
             mon_bonhomme->rotation(M_PI,0.,1.,0.);
 
 
-        //----------------- Création des éléments de la scène:
+        //----------------- CrÃ©ation des Ã©lÃ©ments de la scÃ¨ne:
         //Yeux:
             conteneur_oeil_1=new dksConteneur("conteneur_travelling",0.,0.,0.);
             oeil_1=new dksOeil("Oeil_1",0.,0.,-10.);
@@ -157,7 +157,7 @@ class Scene_Jungler_Credits : public Scene
             double axes[9]={0.944307,-2.89037e-017,-0.329065,0.0260855,0.996853,0.0748566,0.328029,-0.0792715,0.941336};
             oeil_1->determine_axes(axes);
 
-        //Création des sources:
+        //CrÃ©ation des sources:
             source_1=new dksSourceLumineuse("Source_1",-9.06262, 29.3366, -15.7745);
             source_1->determine_attenuation(1.,0.005,0.);
             axes={0.867633,0.0304161,-0.496274,0.376909,0.610733,0.69638,0.324272,-0.791252,0.518428};
@@ -183,7 +183,7 @@ class Scene_Jungler_Credits : public Scene
 
             source_1->ajoute_enfant(mon_cube);
 
-        //Création de la scene:
+        //CrÃ©ation de la scene:
             scene=new dksMoteur3d("Credits",ecran,
                             conteneurs,2,
                             volumes,2,
@@ -269,7 +269,7 @@ class Scene_Jungler_Credits : public Scene
     //========================================================================================================================================
     //========================================================================================================================================
     //----------------------------------------------------------------------------
-    //                  Initialise les données d'animation
+    //                  Initialise les donnÃ©es d'animation
     //----------------------------------------------------------------------------
     void initialise_animations()
     {
@@ -280,7 +280,7 @@ class Scene_Jungler_Credits : public Scene
 
     public:
     //----------------------------------------------------------------------------
-    //                  Etat de la scène au départ de l'animation
+    //                  Etat de la scÃ¨ne au dÃ©part de l'animation
     //----------------------------------------------------------------------------
     virtual void initialise_t0(double t0)
     {
@@ -336,7 +336,7 @@ class Scene_Jungler_Credits : public Scene
     //======================================================================================================================================
 
     //============================================================================
-    //                     Initialisations de l'éditeur
+    //                     Initialisations de l'Ã©diteur
     //============================================================================
 
         virtual void initialise_editeur()
@@ -366,7 +366,7 @@ class Scene_Jungler_Credits : public Scene
         }
 
         //===================================================
-        //          Affiche la trajectoire éditée
+        //          Affiche la trajectoire Ã©ditÃ©e
         //===================================================
         void affiche_trajectoire()
         {
@@ -400,22 +400,22 @@ class Scene_Jungler_Credits : public Scene
             switch (key)
             {
                  case 101:
-                //flèche haut
+                //flÃ¨che haut
                 conteneur_selectionne->deplace(AVANT,vitesse_deplacement);
                 cout<<conteneur_selectionne->x<<" "<<conteneur_selectionne->y<<" "<<conteneur_selectionne->z<<endl;
                 break;
                 case 100:
-                    //flèche gauche
+                    //flÃ¨che gauche
                     conteneur_selectionne->deplace(GAUCHE,vitesse_deplacement);
                     cout<<conteneur_selectionne->x<<" "<<conteneur_selectionne->y<<" "<<conteneur_selectionne->z<<endl;
                     break;
                 case 103:
-                    //flèche bas
+                    //flÃ¨che bas
                     conteneur_selectionne->deplace(ARRIERE,vitesse_deplacement);
                     cout<<conteneur_selectionne->x<<" "<<conteneur_selectionne->y<<" "<<conteneur_selectionne->z<<endl;
                     break;
                 case 102:
-                    //flèche droite
+                    //flÃ¨che droite
                     conteneur_selectionne->deplace(DROITE,vitesse_deplacement);
                     cout<<conteneur_selectionne->x<<" "<<conteneur_selectionne->y<<" "<<conteneur_selectionne->z<<endl;
                     break;
@@ -434,13 +434,13 @@ class Scene_Jungler_Credits : public Scene
 
                 //Touches F..
                 case 1:
-                    if (ma_trajectoire.sauve_trajectoire(fichier_trajectoire)) cout<<"Trajectoire "<<fichier_trajectoire<<" sauvée avec succès!"<<endl;
+                    if (ma_trajectoire.sauve_trajectoire(fichier_trajectoire)) cout<<"Trajectoire "<<fichier_trajectoire<<" sauvÃ©e avec succÃ¨s!"<<endl;
                     break;
 
                 case 2:
                     if (ma_trajectoire.charge_trajectoire(fichier_trajectoire))
                     {
-                        cout<<"Trajectoire "<<fichier_trajectoire<<" chargée avec succès!"<<endl;
+                        cout<<"Trajectoire "<<fichier_trajectoire<<" chargÃ©e avec succÃ¨s!"<<endl;
                         point_actuel=0;
                     }
                 default:
@@ -520,7 +520,7 @@ class Scene_Jungler_Credits : public Scene
                         {
                             if (i==conteneurs_selectionnables.size()-1) conteneur_selectionne=conteneurs_selectionnables[0];
                             else conteneur_selectionne=conteneurs_selectionnables[i+1];
-                            cout<<"Conteneur sélectionné: "<<conteneur_selectionne->nom<<endl;
+                            cout<<"Conteneur sÃ©lectionnÃ©: "<<conteneur_selectionne->nom<<endl;
                             break;
                         }
                     }
@@ -549,11 +549,11 @@ class Scene_Jungler_Credits : public Scene
 
 
                 case '5':
-                    cout<<"Repère relatif: "<<conteneur_selectionne->axe_x->x<<","<<conteneur_selectionne->axe_x->y<<","<<conteneur_selectionne->axe_x->z<<","
+                    cout<<"RepÃ¨re relatif: "<<conteneur_selectionne->axe_x->x<<","<<conteneur_selectionne->axe_x->y<<","<<conteneur_selectionne->axe_x->z<<","
                                             <<conteneur_selectionne->axe_y->x<<","<<conteneur_selectionne->axe_y->y<<","<<conteneur_selectionne->axe_y->z<<","
                                             <<conteneur_selectionne->axe_z->x<<","<<conteneur_selectionne->axe_z->y<<","<<conteneur_selectionne->axe_z->z<<endl;
 
-                    cout<<"Repère absolu: "<<rep->axe_x->x<<","<<rep->axe_x->y<<","<<rep->axe_x->z<<","
+                    cout<<"RepÃ¨re absolu: "<<rep->axe_x->x<<","<<rep->axe_x->y<<","<<rep->axe_x->z<<","
                                             <<rep->axe_y->x<<","<<rep->axe_y->y<<","<<rep->axe_y->z<<","
                                             <<rep->axe_z->x<<","<<rep->axe_z->y<<","<<rep->axe_z->z<<endl;
                     break;
@@ -597,14 +597,14 @@ class Scene_Jungler_Credits : public Scene
                     cout<<"Position trajectoire t="<<position_trajectoire;
                     ma_trajectoire.renvoie_position(position_trajectoire,coordonnees_trajectoire);
                     conteneur_selectionne->determine_position(coordonnees_trajectoire);
-                    cout<<" Coordonnées X:"<<coordonnees_trajectoire[0]<<" Y:"<<coordonnees_trajectoire[1]<<" Z:"<<coordonnees_trajectoire[2]<<endl;
+                    cout<<" CoordonnÃ©es X:"<<coordonnees_trajectoire[0]<<" Y:"<<coordonnees_trajectoire[1]<<" Z:"<<coordonnees_trajectoire[2]<<endl;
                     break;
-                case 233: //²
+                case 233: //Â²
                     position_trajectoire+=pas_position_trajectoire;
                     cout<<"Position trajectoire t="<<position_trajectoire;
                     ma_trajectoire.renvoie_position(position_trajectoire,coordonnees_trajectoire);
                     conteneur_selectionne->determine_position(coordonnees_trajectoire);
-                    cout<<" Coordonnées X:"<<coordonnees_trajectoire[0]<<" Y:"<<coordonnees_trajectoire[1]<<" Z:"<<coordonnees_trajectoire[2]<<endl;
+                    cout<<" CoordonnÃ©es X:"<<coordonnees_trajectoire[0]<<" Y:"<<coordonnees_trajectoire[1]<<" Z:"<<coordonnees_trajectoire[2]<<endl;
                     break;
 
                 //Editeur de source lumineuse
@@ -626,7 +626,7 @@ class Scene_Jungler_Credits : public Scene
 
                 #if EDITEUR_PERSONNAGE
 
-                //==== Contrôles personnage:
+                //==== ContrÃ´les personnage:
 
                 //Bras:
                 case 'a':
@@ -741,7 +741,7 @@ class Scene_Jungler_Credits : public Scene
                     mon_bonhomme->depart_jonglage();
 
                     break;
-                case 233: //'é'
+                case 233: //'Ã©'
                    mon_bonhomme->stop_jonglage();
                     break;
                 case 34: //'"'

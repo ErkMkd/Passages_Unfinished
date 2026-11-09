@@ -110,13 +110,13 @@ class Essaim :public Scene
 
         glShadeModel(GL_SMOOTH);
 
-        //Activation des éclairages:
+        //Activation des Ã©clairages:
         glDisable(GL_LIGHTING);
         glDisable(GL_BLEND);
     }
 
     //====================================================
-    //          Génère des coordonnées de départ
+    //          GÃ©nÃ¨re des coordonnÃ©es de dÃ©part
     //====================================================
     void dispose_points()
     {
@@ -164,7 +164,7 @@ class Essaim :public Scene
     }
 
         //============================================================================
-        //                     Initialisations de l'éditeur
+        //                     Initialisations de l'Ã©diteur
         //============================================================================
 
         virtual void initialise_editeur()
@@ -190,19 +190,19 @@ class Essaim :public Scene
             switch (key)
             {
                 case 101:
-                    //flèche haut
+                    //flÃ¨che haut
                     oeil_1->deplace(AVANT,pas_deplacement);
                     break;
                 case 100:
-                    //flèche gauche
+                    //flÃ¨che gauche
                     oeil_1->tourne(HAUT,pas_rotation);
                     break;
                 case 103:
-                    //flèche bas
+                    //flÃ¨che bas
                     oeil_1->deplace(ARRIERE,pas_deplacement);
                     break;
                 case 102:
-                    //flèche droite
+                    //flÃ¨che droite
                     oeil_1->tourne(BAS,pas_rotation);
                     break;
 

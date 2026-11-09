@@ -14,11 +14,11 @@
 
 //=================================================================================
 //                      Affichage de texte via une texture
-//      L'image des police doit être un carré d'une puissance de 2 de cotés.
-//      Les lettres tiennent dans des carré de 1/16 de côté, et sont rangées
-//      dans l'ordre des codes ASCII, de gauche à droite et de bas en haut.
+//      L'image des police doit Ãªtre un carrÃ© d'une puissance de 2 de cotÃ©s.
+//      Les lettres tiennent dans des carrÃ© de 1/16 de cÃ´tÃ©, et sont rangÃ©es
+//      dans l'ordre des codes ASCII, de gauche Ã  droite et de bas en haut.
 //
-//      Les quadrilatères des lettres sont définis dans le sens direct.
+//      Les quadrilatÃ¨res des lettres sont dÃ©finis dans le sens direct.
 //=================================================================================
 
 #define DKSTEXTMAP_RENDU_2D 1
@@ -38,33 +38,33 @@ class dksTextMap : public dksConteneur
         GLint type_grossissement; //GL_LINEAR ou GL_NEAREST
         GLint type_diminution;
 
-        //Données utiles pour le scroll-texte vertical:
-        uint16_t pointeur_ligne;    //Numéro de la première ligne à afficher
-        uint16_t nbr_lignes_max;    //Le nombre de lignes maximum à afficher
+        //DonnÃ©es utiles pour le scroll-texte vertical:
+        uint16_t pointeur_ligne;    //NumÃ©ro de la premiÃ¨re ligne Ã  afficher
+        uint16_t nbr_lignes_max;    //Le nombre de lignes maximum Ã  afficher
 
         float scroll_ymin;  //Entre 0 et 1
         float scroll_ymax;
-        float vitesse_verticale;    //Le temps que met une ligne à traverser l'écran
+        float vitesse_verticale;    //Le temps que met une ligne Ã  traverser l'Ã©cran
 
 
 
     private:
         char* texte;
         Image* police;
-        uint32_t largeur_caractere; //Largeur en pixels des carrés contenants les caractères.
+        uint32_t largeur_caractere; //Largeur en pixels des carrÃ©s contenants les caractÃ¨res.
         float base;
         float coordonnees_lettres[256*4*2];
         float normale[3];
         float espaces_lettres[256];
         float rectangle[4*3];
-        float echelle;  //Taille des caractère par rapport à la largeur de l'écran=1
+        float echelle;  //Taille des caractÃ¨re par rapport Ã  la largeur de l'Ã©cran=1
         float espace_lettres;
         float espace_lignes;
         float espace;
 
-        uint32_t taille_texte;  //Nombre de caractères
-        uint16_t nbr_lignes;    //Le nombre de lignes du texte (chaque ligne est séparée par "\n", automatiquement transcrite en code 10 lors de la compilation)
-        uint32_t* indices_lignes;    //La tableau contenant les indices de départ des lignes dans le texte
+        uint32_t taille_texte;  //Nombre de caractÃ¨res
+        uint16_t nbr_lignes;    //Le nombre de lignes du texte (chaque ligne est sÃ©parÃ©e par "\n", automatiquement transcrite en code 10 lors de la compilation)
+        uint32_t* indices_lignes;    //La tableau contenant les indices de dÃ©part des lignes dans le texte
         uint16_t* tailles_lignes;    //La tableau contenant les tailles des lignes
 
         dksEcran* ecran;
@@ -130,12 +130,12 @@ class dksTextMap : public dksConteneur
     {
         uint16_t x,y;
 
-        //Coordonnées du quadrilatère:
+        //CoordonnÃ©es du quadrilatÃ¨re:
         rectangle={0,0.,0., 1.,0.,0., 1.,1.,0., 0.,1.,0.};
 
         normale={0.,0.,1.};
 
-        //Coordonnées de texture:
+        //CoordonnÃ©es de texture:
         for(y=0;y<16;y++)
         {
             for (x=0;x<16;x++)
@@ -184,10 +184,10 @@ class dksTextMap : public dksConteneur
     }
 
     //-------------------------------
-    //Détermine le texte à afficher:
+    //DÃ©termine le texte Ã  afficher:
     //-------------------------------
 
-    //--------- Détermine le texte à partir d'un fichier:
+    //--------- DÃ©termine le texte Ã  partir d'un fichier:
     bool determine_texte_fichier(char* p_nom_fichier)
     {
         if (texte!=NULL)free(texte);
@@ -197,7 +197,7 @@ class dksTextMap : public dksConteneur
         taille_texte=Fichiers::renvoie_taille_fichier(p_nom_fichier);;
         if (taille_texte==0)
         {
-            cout<<"ERREUR dans dksTextMap::determine_texte_fichier() - Impossible de déterminer la taille du fichier "<<p_nom_fichier<<endl;
+            cout<<"ERREUR dans dksTextMap::determine_texte_fichier() - Impossible de dÃ©terminer la taille du fichier "<<p_nom_fichier<<endl;
             erreur=DKSTEXTE_ERREUR_FICHIER;
             return false;
         }
@@ -210,11 +210,11 @@ class dksTextMap : public dksConteneur
             return false;
         }
 
-        texte[taille_texte]=0; //Au cas où...
+        texte[taille_texte]=0; //Au cas oÃ¹...
         return initialise_texte();
     }
 
-    //------------- Détermine le texte à partir d'une chaine:
+    //------------- DÃ©termine le texte Ã  partir d'une chaine:
     bool determine_texte(char* p_texte)
     {
         if (texte!=NULL)free(texte);
@@ -224,7 +224,7 @@ class dksTextMap : public dksConteneur
         texte=(char*)malloc(taille_texte+1);
         if (texte==NULL)
         {
-            cout<<"ERREUR dans dksTextMap::determine_texte() - Impossible d'allouer la chaîne de caractères: "<<p_texte<<endl;
+            cout<<"ERREUR dans dksTextMap::determine_texte() - Impossible d'allouer la chaÃ®ne de caractÃ¨res: "<<p_texte<<endl;
             erreur=DKSTEXTE_ERREUR_MEMOIRE;
             return false;
         }
@@ -243,7 +243,7 @@ class dksTextMap : public dksConteneur
         return initialise_texte();
     }
 
-    //------------------ Initialise les données pour l'affichage:
+    //------------------ Initialise les donnÃ©es pour l'affichage:
     private:
     bool initialise_texte()
     {
@@ -252,7 +252,7 @@ class dksTextMap : public dksConteneur
         nbr_lignes=1;
         pointeur_ligne=0;
         for(i=0;i<taille_texte;i++) if(texte[i]==10)nbr_lignes++;
-        nbr_lignes_max=nbr_lignes;          ///Valeur par défaut, à changer après si besoin...
+        nbr_lignes_max=nbr_lignes;          ///Valeur par dÃ©faut, Ã  changer aprÃ¨s si besoin...
 
         //---------- Allocation du tableau des tailles et indices de lignes:
         tailles_lignes=(uint16_t*)malloc(nbr_lignes*sizeof(uint16_t));
@@ -269,7 +269,7 @@ class dksTextMap : public dksConteneur
         indices_lignes[j]=0;
         for(i=0;i<taille_texte;i++)
         {
-            tailles_lignes[j]++;    //!!!le retour est compté !!!
+            tailles_lignes[j]++;    //!!!le retour est comptÃ© !!!
             if(texte[i]==10)
             {
                 j++;
@@ -282,7 +282,7 @@ class dksTextMap : public dksConteneur
     }
 
     //-------------------------------
-    //Détermine la position du curseur
+    //DÃ©termine la position du curseur
     //-------------------------------
     public:
     void determine_position_curseur(float px,float py)
@@ -310,8 +310,8 @@ class dksTextMap : public dksConteneur
     }
 
     //-----------------------------------------------------
-    //     Taille du caractère ESPACE
-    //     1.=largeur du carré contenant les lettres.
+    //     Taille du caractÃ¨re ESPACE
+    //     1.=largeur du carrÃ© contenant les lettres.
     //-----------------------------------------------------
     void determine_espace(float p_espace)
     {
@@ -413,8 +413,8 @@ class dksTextMap : public dksConteneur
 
     //--------------------------------------------------------------------------
     //  Affiche les lettres dans l'espace.
-    //  Le texte est géré comme un affichage transparent (Z-buffer désactivé)
-    //  donc pour les recouvrements il faut faire attention à l'ordre d'affichage.
+    //  Le texte est gÃ©rÃ© comme un affichage transparent (Z-buffer dÃ©sactivÃ©)
+    //  donc pour les recouvrements il faut faire attention Ã  l'ordre d'affichage.
     //--------------------------------------------------------------------------
     void affiche_3d()
     {

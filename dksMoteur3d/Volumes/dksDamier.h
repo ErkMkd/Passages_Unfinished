@@ -2,8 +2,8 @@
 #define DKSDAMIER_H_INCLUDED
 
 /*
-            Génère un damier composé d'un nombre paramétrable de mailles.
-            Plan défini sur O,X,Z
+            GÃ©nÃ¨re un damier composÃ© d'un nombre paramÃ©trable de mailles.
+            Plan dÃ©fini sur O,X,Z
 */
 
 
@@ -28,7 +28,7 @@ class dksDamier : public dksVolume
     uint32_t nbr_mailles_x;
     uint32_t nbr_mailles_z;
 
-    float taille_x;  //En unités d'espace
+    float taille_x;  //En unitÃ©s d'espace
     float taille_z;
 
     double* sommets_plan;
@@ -39,18 +39,18 @@ class dksDamier : public dksVolume
     dksSurface* surface_plan_verso_1;
     dksSurface* surface_plan_verso_2;
     dksSurface* surfaces_plan[4];
-    bool drapeau_recto_verso;   //True si le plan est à double face (2 fois plus de polygones, 2 surfaces au lieu d'une.
-    bool drapeau_triangles; //True(défaut) si les mailles sont divisées en deux triangles, false si les mailles sont des polygones quadrangulaires
+    bool drapeau_recto_verso;   //True si le plan est Ã  double face (2 fois plus de polygones, 2 surfaces au lieu d'une.
+    bool drapeau_triangles; //True(dÃ©faut) si les mailles sont divisÃ©es en deux triangles, false si les mailles sont des polygones quadrangulaires
 
     uint32_t couleur_recto_1;
     uint32_t couleur_recto_2;
     uint32_t couleur_verso_1;
     uint32_t couleur_verso_2;
 
-    //Données pour les ondulations le long de l'axe Z:
+    //DonnÃ©es pour les ondulations le long de l'axe Z:
     double amplitude_ondes;
-    double longueur_ondes; //Taille d'une période en unités d'espace
-    double vitesse_ondes; //Vitesse de déplacement des ondes en degres/s
+    double longueur_ondes; //Taille d'une pÃ©riode en unitÃ©s d'espace
+    double vitesse_ondes; //Vitesse de dÃ©placement des ondes en degres/s
 
     //===========================================================================================================
     //             CONSTRUCTEUR
@@ -105,9 +105,9 @@ class dksDamier : public dksVolume
     //===================================================
     ~dksDamier()
     {
-        if (aretes_plan!=NULL) delete aretes_plan;  ///Attention, les faces ne doivent pas libérer leurs arètes.
+        if (aretes_plan!=NULL) delete aretes_plan;  ///Attention, les faces ne doivent pas libÃ©rer leurs arÃ¨tes.
 
-        ///Libération par le destructeur du volume:
+        ///LibÃ©ration par le destructeur du volume:
         //if (faces_plan!=NULL) delete faces_plan;
         if (surface_plan_recto_1!=NULL) delete surface_plan_recto_1;
         if (surface_plan_recto_2!=NULL) delete surface_plan_recto_2;
@@ -116,7 +116,7 @@ class dksDamier : public dksVolume
     }
 
     //====================================================================================================
-    //  Création du maillage
+    //  CrÃ©ation du maillage
     //====================================================================================================
     private:
     bool creation_sommets()
@@ -132,7 +132,7 @@ class dksDamier : public dksVolume
             erreur=DKSDAMIER_ERREUR_MEMOIRE;
             return false;
         }
-        //--------- Coordonnées:
+        //--------- CoordonnÃ©es:
         px=taille_x/double(nbr_mailles_x);
         pz=taille_z/double(nbr_mailles_z);
         for (mz=0;mz<(nbr_mailles_z+1);mz++)
@@ -152,7 +152,7 @@ class dksDamier : public dksVolume
     }
 
     //----------------------------
-    //  Création des faces
+    //  CrÃ©ation des faces
     //----------------------------
     private:
     bool creation_faces()
@@ -161,7 +161,7 @@ class dksDamier : public dksVolume
         else return creation_faces_quadrangles();
     }
 
-    //---------- 4 côtés:
+    //---------- 4 cÃ´tÃ©s:
     bool creation_faces_quadrangles()
     {
         uint32_t i,j,s;
@@ -174,16 +174,16 @@ class dksDamier : public dksVolume
             erreur=DKSDAMIER_ERREUR_MEMOIRE;
             return false;
         }
-        //------- Table des arètes:
+        //------- Table des arÃ¨tes:
         aretes_plan=(uint32_t*)malloc(p_nbrFaces*4*sizeof(uint32_t));
         if(aretes_plan==NULL)
         {
-            cout<<"ERREUR dans dksDamier::creation_faces() - Impossible d'allouer la table des arètes"<<endl;
+            cout<<"ERREUR dans dksDamier::creation_faces() - Impossible d'allouer la table des arÃ¨tes"<<endl;
             erreur=DKSDAMIER_ERREUR_MEMOIRE;
             return false;
         }
 
-        //------- Initialise les arètes:
+        //------- Initialise les arÃ¨tes:
         for(i=0;i<p_nbrFaces;i++)
         {
            s=(i%nbr_mailles_x)+i/nbr_mailles_x*(nbr_mailles_x+1);
@@ -192,7 +192,7 @@ class dksDamier : public dksVolume
            aretes_plan[4*i+2]=s+(nbr_mailles_x+1)+1;
            aretes_plan[4*i+3]=s+(nbr_mailles_x+1);
         }
-        //------ Création des faces:
+        //------ CrÃ©ation des faces:
         char surface_1[]={"surface_recto_1"};
         char surface_2[]={"surface_recto_2"};
         char* surface_nom;
@@ -226,7 +226,7 @@ class dksDamier : public dksVolume
         return determine_faces(faces_plan,p_nbrFaces);
     }
 
-    //----- 3 côtés:
+    //----- 3 cÃ´tÃ©s:
     bool creation_faces_triangles()
     {
         uint32_t i,j,s;
@@ -239,16 +239,16 @@ class dksDamier : public dksVolume
             erreur=DKSDAMIER_ERREUR_MEMOIRE;
             return false;
         }
-        //------- Table des arètes:
+        //------- Table des arÃ¨tes:
         aretes_plan=(uint32_t*)malloc(p_nbrFaces*3*sizeof(uint32_t));
         if(aretes_plan==NULL)
         {
-            cout<<"ERREUR dans dksDamier::creation_faces() - Impossible d'allouer la table des arètes"<<endl;
+            cout<<"ERREUR dans dksDamier::creation_faces() - Impossible d'allouer la table des arÃ¨tes"<<endl;
             erreur=DKSDAMIER_ERREUR_MEMOIRE;
             return false;
         }
 
-        //------- Initialise les arètes:
+        //------- Initialise les arÃ¨tes:
         for(i=0;i<p_nbrFaces/2;i++)
         {
            s=(i%nbr_mailles_x)+i/nbr_mailles_x*(nbr_mailles_x+1);
@@ -260,7 +260,7 @@ class dksDamier : public dksVolume
            aretes_plan[6*i+4]=s+(nbr_mailles_x+1)+1;
            aretes_plan[6*i+5]=s+(nbr_mailles_x+1);
         }
-        //------ Création des faces:
+        //------ CrÃ©ation des faces:
         char surface_1[]={"surface_recto_1"};
         char surface_2[]={"surface_recto_2"};
         char* surface_nom;
@@ -294,7 +294,7 @@ class dksDamier : public dksVolume
         return determine_faces(faces_plan,p_nbrFaces);
     }
     //----------------------------
-    //  Création des surfaces
+    //  CrÃ©ation des surfaces
     //----------------------------
     private:
     bool creation_surfaces()
@@ -319,7 +319,7 @@ class dksDamier : public dksVolume
         float* uvs_tab=(float*)malloc(nbrSommets*2*sizeof(float));
         if (uvs_tab==NULL)
         {
-            cout<<"ERREUR dans dksDamier::determine_texture_recto() - Impossible d'allouer la table des coordonnées UV"<<endl;
+            cout<<"ERREUR dans dksDamier::determine_texture_recto() - Impossible d'allouer la table des coordonnÃ©es UV"<<endl;
             erreur=DKSDAMIER_ERREUR_MEMOIRE;
             return false;
         }
@@ -333,7 +333,7 @@ class dksDamier : public dksVolume
             return false;
         }
 
-        //---------- Initialisation des coordonnées UV:
+        //---------- Initialisation des coordonnÃ©es UV:
         uint32_t i,px,pz;
         i=0;
         for(px=0;px<nbr_mailles_x+1;px++)
@@ -346,8 +346,8 @@ class dksDamier : public dksVolume
                 i++;
             }
         }
-        //---------- Création de la texture:
-        /// La texture est automatiquement détruite par la surface
+        //---------- CrÃ©ation de la texture:
+        /// La texture est automatiquement dÃ©truite par la surface
         dksTexture* texture_recto_1=new dksTexture(NULL,image,p_canal,uvs_tab,indices_uvs,nbrSommets,false,GL_MIRRORED_REPEAT,GL_MIRRORED_REPEAT,GL_LINEAR,GL_LINEAR);
         dksTexture* texture_recto_2=new dksTexture(NULL,image,p_canal,uvs_tab,indices_uvs,nbrSommets,false,GL_MIRRORED_REPEAT,GL_MIRRORED_REPEAT,GL_LINEAR,GL_LINEAR);
         free(uvs_tab);
@@ -361,8 +361,8 @@ class dksDamier : public dksVolume
     //=============================================================================================
 
     //--------------------------------------------------------------------------
-    //      Détermine le relief à partir d'une texture en niveaux de gris
-    ///     L'image doit être en niveaux de gris sur 8 bits!
+    //      DÃ©termine le relief Ã  partir d'une texture en niveaux de gris
+    ///     L'image doit Ãªtre en niveaux de gris sur 8 bits!
     //--------------------------------------------------------------------------
     void determine_relief(Image* bitmap_relief,double facteur,double ymin=0.)
     {
@@ -390,9 +390,9 @@ class dksDamier : public dksVolume
     //=============================================================================================
 
     //----------------------------------------------------------------------
-    //      Mise à jour des ondulations le long de l'axe Z.
-    //  Fonction à appeler après applique_mouvement(),
-    //  pour avoir les bons repères temporels (position_temps et delta_t)
+    //      Mise Ã  jour des ondulations le long de l'axe Z.
+    //  Fonction Ã  appeler aprÃ¨s applique_mouvement(),
+    //  pour avoir les bons repÃ¨res temporels (position_temps et delta_t)
     //----------------------------------------------------------------------
     void maj_ondulations_z()
     {

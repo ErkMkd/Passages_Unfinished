@@ -7,14 +7,14 @@
 #include "dksMatrice4.h"
 
 //===================================================================================
-//                  La classe chargée de gérer les repères tridimentionnels
-//                  Le repère peut être transformé directecement sur ses axes, ou via
+//                  La classe chargÃ©e de gÃ©rer les repÃ¨res tridimentionnels
+//                  Le repÃ¨re peut Ãªtre transformÃ© directecement sur ses axes, ou via
 //                  sa matrice de transformation.
 //
 ///     ATTENTION !!! A propos des angles Roulis-Tangage-Lacet:
-//          Ces angles sont absolus par rapport au repère [(1,0,0)(0,1,0)(0,0,1)]
-//          Tout appel à la fonction determine_RTL() anule les effets des éventuelles
-//          précédentes rotations selon un axe quelconque.
+//          Ces angles sont absolus par rapport au repÃ¨re [(1,0,0)(0,1,0)(0,0,1)]
+//          Tout appel Ã  la fonction determine_RTL() anule les effets des Ã©ventuelles
+//          prÃ©cÃ©dentes rotations selon un axe quelconque.
 //===================================================================================
 
 class dksRepere : public dksVecteur
@@ -36,12 +36,12 @@ class dksRepere : public dksVecteur
 
         dksVecteur* test_tableau_objets;
 
-		double echelle_x; //Facteurs multiplicateurs des axes du repère
+		double echelle_x; //Facteurs multiplicateurs des axes du repÃ¨re
 		double echelle_y;
 		double echelle_z;
 
-		//Pour alléger les calculs:
-		//Ce sont les axes mis à l'échelle du repère
+		//Pour allÃ©ger les calculs:
+		//Ce sont les axes mis Ã  l'Ã©chelle du repÃ¨re
         double ax_x ;
         double ax_y ;
         double ax_z ;
@@ -54,9 +54,9 @@ class dksRepere : public dksVecteur
         double az_y ;
         double az_z ;
 
-		//============================ Fonctions de translations de repères:
+		//============================ Fonctions de translations de repÃ¨res:
 
-		//Calcul l'orientation d'un axe relativement à un repère:
+		//Calcul l'orientation d'un axe relativement Ã  un repÃ¨re:
 		static void axe_relatif(dksVecteurUnitaire* axeAbs,dksRepere* parent_rep_abs,dksVecteurUnitaire* axeRel)
 		{
 			//Projection de l'axe:
@@ -64,14 +64,14 @@ class dksRepere : public dksVecteur
 			double yTemp = axeAbs->y ;
 			double zTemp = axeAbs->z ;
 
-			//Projection de la nouvelle position sur les axes du nouveau repère par produits scalaires:
+			//Projection de la nouvelle position sur les axes du nouveau repÃ¨re par produits scalaires:
 			axeRel->x = parent_rep_abs->axe_x->x * xTemp + parent_rep_abs->axe_x->y * yTemp + parent_rep_abs->axe_x->z * zTemp ;
 			axeRel->y = parent_rep_abs->axe_y->x * xTemp + parent_rep_abs->axe_y->y * yTemp + parent_rep_abs->axe_y->z * zTemp ;
 			axeRel->z = parent_rep_abs->axe_z->x * xTemp + parent_rep_abs->axe_z->y * yTemp + parent_rep_abs->axe_z->z * zTemp ;
 		}
 
-		//Calcul l'orientation d'une table d'axes relativement à un repère:
-		//Les tables source et destination peuvent être la même table.
+		//Calcul l'orientation d'une table d'axes relativement Ã  un repÃ¨re:
+		//Les tables source et destination peuvent Ãªtre la mÃªme table.
 		static void axes_relatifs(double* axesAbs,dksRepere* parent_rep_abs,double* axesRel,uint32_t nbrAxes)
 		{
 		    for(uint32_t i=0;i<nbrAxes;i++)
@@ -81,7 +81,7 @@ class dksRepere : public dksVecteur
                 double yTemp = axesAbs[3*i+1] ;
                 double zTemp = axesAbs[3*i+2] ;
 
-                //Projection de la nouvelle position sur les axes du nouveau repère par produits scalaires:
+                //Projection de la nouvelle position sur les axes du nouveau repÃ¨re par produits scalaires:
                 axesRel[3*i] = parent_rep_abs->axe_x->x * xTemp + parent_rep_abs->axe_x->y * yTemp + parent_rep_abs->axe_x->z * zTemp ;
                 axesRel[3*i+1] = parent_rep_abs->axe_y->x * xTemp + parent_rep_abs->axe_y->y * yTemp + parent_rep_abs->axe_y->z * zTemp ;
                 axesRel[3*i+2] = parent_rep_abs->axe_z->x * xTemp + parent_rep_abs->axe_z->y * yTemp + parent_rep_abs->axe_z->z * zTemp ;
@@ -89,8 +89,8 @@ class dksRepere : public dksVecteur
 
 		}
 
-		//Calcul les coordonnées d'un point relatives à un repère:
-		//pointAbs et pointRel peuvent pointer sur le même objet Vecteur.
+		//Calcul les coordonnÃ©es d'un point relatives Ã  un repÃ¨re:
+		//pointAbs et pointRel peuvent pointer sur le mÃªme objet Vecteur.
 		static void point_relatif(dksVecteur* pointAbs, dksRepere* parent_rep_abs, dksVecteur* pointRel)
 		{
 			double xTemp = (pointAbs->x - parent_rep_abs->x) ;
@@ -113,8 +113,8 @@ class dksRepere : public dksVecteur
 			point_rel[2] = (parent_rep_abs->axe_z->x * xTemp + parent_rep_abs->axe_z->y * yTemp + parent_rep_abs->axe_z->z * zTemp)/parent_rep_abs->echelle_z;
 		}
 
-		//Détermine les coordonnées d'une table de points, par rapport à un repère.
-		//C'est,en gros, l'inverse d'une translation d'un point par un repère.
+		//DÃ©termine les coordonnÃ©es d'une table de points, par rapport Ã  un repÃ¨re.
+		//C'est,en gros, l'inverse d'une translation d'un point par un repÃ¨re.
 		static void points_relatifs(double* points, dksRepere* parent_rep_abs, double* points_rel,uint32_t nbrPoints)
 		{
 		    for(uint32_t i=0;i<nbrPoints;i++)
@@ -130,7 +130,7 @@ class dksRepere : public dksVecteur
 
 		}
 
-		//Translate un point par un repère:
+		//Translate un point par un repÃ¨re:
 		static void translation_point(dksVecteur* pointRel, dksRepere* parent_rep_abs, dksVecteur* pointAbs)
 		{
 			double xTemp = pointRel->x * parent_rep_abs->echelle_x;
@@ -142,7 +142,7 @@ class dksRepere : public dksVecteur
 			pointAbs->z = parent_rep_abs->z + (parent_rep_abs->axe_x->z * xTemp + parent_rep_abs->axe_y->z * yTemp + parent_rep_abs->axe_z->z * zTemp);
 		}
 
-		//Translate un point par un repère:
+		//Translate un point par un repÃ¨re:
 		static void translation_point(vec3d* pointRel, dksRepere* parent_rep_abs, vec3d* pointAbs)
 		{
 			double xTemp = pointRel->x * parent_rep_abs->echelle_x;
@@ -154,7 +154,7 @@ class dksRepere : public dksVecteur
 			pointAbs->z = parent_rep_abs->z + (parent_rep_abs->axe_x->z * xTemp + parent_rep_abs->axe_y->z * yTemp + parent_rep_abs->axe_z->z * zTemp);
 		}
 
-        //Translate un point par un repère:
+        //Translate un point par un repÃ¨re:
 		static void translation_point(double* pointRel, dksRepere* parent_rep_abs, double* pointAbs)
 		{
 			double xTemp = pointRel[0] * parent_rep_abs->echelle_x;
@@ -166,7 +166,7 @@ class dksRepere : public dksVecteur
 			pointAbs[2] = parent_rep_abs->z + (parent_rep_abs->axe_x->z * xTemp + parent_rep_abs->axe_y->z * yTemp + parent_rep_abs->axe_z->z * zTemp);
 		}
 
-		//Translate l'orientation d'un axe par un repère:
+		//Translate l'orientation d'un axe par un repÃ¨re:
 		static void translation_axe(vec3d* axeRel, dksRepere* parent_rep_abs, vec3d* axeAbs)
 		{
 			double xTemp = axeRel->x * parent_rep_abs->echelle_x;
@@ -178,7 +178,7 @@ class dksRepere : public dksVecteur
 			axeAbs->z = parent_rep_abs->axe_x->z * xTemp + parent_rep_abs->axe_y->z * yTemp + parent_rep_abs->axe_z->z * zTemp;
 		}
 
-		//Translate l'orientation d'un axe par un repère:
+		//Translate l'orientation d'un axe par un repÃ¨re:
 		static void translation_axe(double* axeRel, dksRepere* parent_rep_abs, double* axeAbs)
 		{
 			double xTemp = axeRel[0] * parent_rep_abs->echelle_x;
@@ -190,9 +190,9 @@ class dksRepere : public dksVecteur
 			axeAbs[2] = parent_rep_abs->axe_x->z * xTemp + parent_rep_abs->axe_y->z * yTemp + parent_rep_abs->axe_z->z * zTemp;
 		}
 
-		//Translate l'orientation d'une table d'axes par un repère:
-		//Les tables source et destination peuvent être la même table.
-		//La différence avec les points, c'est que la position de l'origine du repère n'est pas prise en compte.
+		//Translate l'orientation d'une table d'axes par un repÃ¨re:
+		//Les tables source et destination peuvent Ãªtre la mÃªme table.
+		//La diffÃ©rence avec les points, c'est que la position de l'origine du repÃ¨re n'est pas prise en compte.
 		//Sert pour la translation des normales,tangentes ou binormales.
 		static void translation_axes(DOUBLE* axesRel, dksRepere* parent_rep_abs, double* axesAbs,uint32_t nbrAxes)
 		{
@@ -208,8 +208,8 @@ class dksRepere : public dksVecteur
 		    }
 		}
 
-		//Translate une table de points par un repère:
-		//La table de résultat peut être la même que la table de points relatifs.
+		//Translate une table de points par un repÃ¨re:
+		//La table de rÃ©sultat peut Ãªtre la mÃªme que la table de points relatifs.
 		static void translation_points(double* pointsRel, dksRepere* parent_rep_abs, double* pointsAbs, uint32_t nbrSommets)
 		{
 			for (uint32_t i = 0; i < nbrSommets; i++)
@@ -238,8 +238,8 @@ class dksRepere : public dksVecteur
 			}
 		}
 
-		//Translate un repere par un autre repère:
-		//Si le repère destination est NULL, le résultat est stocké dans le repère enfant
+		//Translate un repere par un autre repÃ¨re:
+		//Si le repÃ¨re destination est NULL, le rÃ©sultat est stockÃ© dans le repÃ¨re enfant
 		static void translation_repere(dksRepere* parent,dksRepere* enfant,dksRepere* dest=NULL)
 		{
 			dksVecteur* fiston_axe_x=enfant->axe_x;
@@ -302,14 +302,14 @@ class dksRepere : public dksVecteur
 		}
 
 
-		//Calcul les coordonnees relatives d'un repère par rapport à un autre repère:
+		//Calcul les coordonnees relatives d'un repÃ¨re par rapport Ã  un autre repÃ¨re:
 		static void determine_repere_relatif(dksRepere* repAbs, dksRepere* repParent, dksRepere* repRel )
 		{
 			double xTemp = repAbs->x - repParent->x;
 			double yTemp = repAbs->y - repParent->y;
 			double zTemp = repAbs->z - repParent->z;
 
-			//Projection de la nouvelle position sur les axes du nouveau repère par produits scalaires:
+			//Projection de la nouvelle position sur les axes du nouveau repÃ¨re par produits scalaires:
 			repRel->x = repParent->axe_x->x * xTemp + repParent->axe_x->y * yTemp + repParent->axe_x->z * zTemp;
 			repRel->y = repParent->axe_y->x * xTemp + repParent->axe_y->y * yTemp + repParent->axe_y->z * zTemp;
 			repRel->z = repParent->axe_z->x * xTemp + repParent->axe_z->y * yTemp + repParent->axe_z->z * zTemp;
@@ -376,11 +376,11 @@ class dksRepere : public dksVecteur
 			axe_z->x = 0.; axe_z->y = 0.; axe_z->z = 1.;
         }
 
-        //Initialisation du repère à tendance orthonormée.
-		// Il reste des cas où le repère peut être aberrant. (ex: axe_x=null, axe_y=null axe_z=1,0,0 => génère un axe_x=axe_z...)
+        //Initialisation du repÃ¨re Ã  tendance orthonormÃ©e.
+		// Il reste des cas oÃ¹ le repÃ¨re peut Ãªtre aberrant. (ex: axe_x=null, axe_y=null axe_z=1,0,0 => gÃ©nÃ¨re un axe_x=axe_z...)
 		void initialisation_repere_orthonorme(dksVecteurUnitaire* my_axe_x=NULL,dksVecteurUnitaire* my_axe_y=NULL, dksVecteurUnitaire* my_axe_z=NULL)
 		{
-		// le repère est toujours direct (ou presque... cf dernière ligne...)
+		// le repÃ¨re est toujours direct (ou presque... cf derniÃ¨re ligne...)
 			if ( (my_axe_x == NULL) && (my_axe_y == NULL) && (my_axe_z == NULL))
 			{
 			    return;
@@ -480,7 +480,7 @@ class dksRepere : public dksVecteur
 
 		void initialisation_repere_orthonorme(double* my_axe_x=NULL,double* my_axe_y=NULL, double* my_axe_z=NULL)
 		{
-		// le repère est toujours direct (ou presque... cf dernière ligne...)
+		// le repÃ¨re est toujours direct (ou presque... cf derniÃ¨re ligne...)
             double n;
 
 			if ( (my_axe_x == NULL) && (my_axe_y == NULL) && (my_axe_z == NULL))
@@ -586,7 +586,7 @@ class dksRepere : public dksVecteur
             }
 		}
 
-		//Rotation forcée, sans tenir compte du torseur:
+		//Rotation forcÃ©e, sans tenir compte du torseur:
 		virtual void rotation(double angle, dksVecteurUnitaire* axe)
 		{
 			axe_x->rotation(angle, axe);
@@ -612,7 +612,7 @@ class dksRepere : public dksVecteur
 			axe_z->rotation(angle, rx,ry,rz);
 		}
 
-		//Translation d'une table de points par le repère:
+		//Translation d'une table de points par le repÃ¨re:
 		void translation_sommets(double* sommets, double* tabRes, int nbrSommets)
 		{
 			maj_axes_echelles();
@@ -624,7 +624,7 @@ class dksRepere : public dksVecteur
 				double xt = sommets[i++];
 				double yt = sommets[i++];
 				double zt = sommets[i++];
-				// coordonnées de l'objet enfant dans le repère de l'objet parent
+				// coordonnÃ©es de l'objet enfant dans le repÃ¨re de l'objet parent
 				tabRes[j++] =  x + xt * ax_x + yt * ay_x + zt * az_x;
 				tabRes[j++] =  y + xt * ax_y + yt * ay_y + zt * az_y;
 				tabRes[j++] =  z + xt * ax_z + yt * ay_z + zt * az_z;
@@ -638,7 +638,7 @@ class dksRepere : public dksVecteur
 		}
 
         //=================================================================================================================
-        //                  Gestion de l'orientation du repère en fonction des angles de tangage, lacet et roulis
+        //                  Gestion de l'orientation du repÃ¨re en fonction des angles de tangage, lacet et roulis
         //=================================================================================================================
         virtual void determine_RTL(double p_roulis, double p_tangage, double p_lacet)
 		{
@@ -662,7 +662,7 @@ class dksRepere : public dksVecteur
 		float renvoie_angle_lacet() { return angle_lacet; }
 
         //============================================================================================
-        //      Calcul les angles tangage,lacet et roulis en fonction de l'orientation du repère
+        //      Calcul les angles tangage,lacet et roulis en fonction de l'orientation du repÃ¨re
         //============================================================================================
 
 		double renvoie_tangage_relatif()
@@ -699,7 +699,7 @@ class dksRepere : public dksVecteur
 			return lacet;
 		}
 
-        //Transforme le repère par une matrice 4*4:
+        //Transforme le repÃ¨re par une matrice 4*4:
 		void transforme_matrice(dksMatrice4* matrice,dksRepere* rep_dest)
         {
             matrice->applique_vecteur(this,rep_dest);

@@ -6,12 +6,12 @@
 
                                     Animation d'un serpent
         Les parties du corps sont dans un fichier LWO2
-            Calque 0: la tête
-            Calque 1: machoire inférieure
+            Calque 0: la tÃªte
+            Calque 1: machoire infÃ©rieure
             Calque 2: oeil droit
             Calque 3: oeil gauche
 
-            Le corps est généré par extrusion du raccord de la tête (points 234 à 245)
+            Le corps est gÃ©nÃ©rÃ© par extrusion du raccord de la tÃªte (points 234 Ã  245)
 
 *******************************************************************************************************
 */
@@ -20,13 +20,13 @@
 #include "../LWO/dksChargeLWO2.h"
 #include "../LWO/dksConvertionLWO2.h"
 
-//débogage:
+//dÃ©bogage:
 #define SERPENT_DEBUG true
 
 //Les type de longueurs pour les segments:
 
-#define SERPENT_SEGMENTS_EGAUX 1 //Les longeurs des segments sont toutes les mêmes.
-#define SERPENT_SEGMENTS_PROPORTIONNELS 2 //Le longeurs entre les segments diminuent du même facteur que les diamètres des sections
+#define SERPENT_SEGMENTS_EGAUX 1 //Les longeurs des segments sont toutes les mÃªmes.
+#define SERPENT_SEGMENTS_PROPORTIONNELS 2 //Le longeurs entre les segments diminuent du mÃªme facteur que les diamÃ¨tres des sections
 
 //Erreurs:
 
@@ -36,7 +36,7 @@
 #define SERPENT_ERREUR_MEMOIRE 0x100+3
 
 //==================================================================================================
-//                      Définition de la classe
+//                      DÃ©finition de la classe
 //==================================================================================================
 
 class Serpent : public dksVolume
@@ -56,7 +56,7 @@ class Serpent : public dksVolume
 
         uint32_t corps_nbrSommets;  //Le nombre de sommets composants le corps
         double* corps_sommets;      //Les sommets dans leurs positions d'origine
-        double* corps_sommets_tampon; //Les sommets animés
+        double* corps_sommets_tampon; //Les sommets animÃ©s
 
         uint32_t tete_corps_nbrFaces;
         uint32_t corps_nbrFaces;
@@ -73,14 +73,14 @@ class Serpent : public dksVolume
         float longueur_corps;
 
         float longueur_premier_segment; //Sert lorsque type longeurs segments=PROPORTIONNELS
-        float facteur_extrusion;    //facteur d'échelle de la dernière section par rapport à la première
+        float facteur_extrusion;    //facteur d'Ã©chelle de la derniÃ¨re section par rapport Ã  la premiÃ¨re
 
         uint32_t indices_cou[12];
-        double modele_section[12*3];    //Coordonnées des points de la section-modèle du cou
+        double modele_section[12*3];    //CoordonnÃ©es des points de la section-modÃ¨le du cou
 
-        double lien_tete_colonne[3]; //Le premier point de la colonne vertébrale dans le repère du volume
+        double lien_tete_colonne[3]; //Le premier point de la colonne vertÃ©brale dans le repÃ¨re du volume
         double* colonne_vertebrale;
-        double* tangentes_colonne;  //Les repères d'orientations des sections de la colonne vertébrale. Le serpent peut se torsader.
+        double* tangentes_colonne;  //Les repÃ¨res d'orientations des sections de la colonne vertÃ©brale. Le serpent peut se torsader.
         double* normales_colonne;
         double* binormales_colonne;
 
@@ -92,7 +92,7 @@ class Serpent : public dksVolume
         float* longueurs_segments;
         bool drapeau_triangles;         //True si les faces du corps sont des triangle, false si ce sont des rectangles
 
-        bool drapeau_colonne_repere_parent; //True si la colonne vertébrale est située dans le repère du parent(true) ou dans celui du volume(false).
+        bool drapeau_colonne_repere_parent; //True si la colonne vertÃ©brale est situÃ©e dans le repÃ¨re du parent(true) ou dans celui du volume(false).
 
     public:
 
@@ -112,7 +112,7 @@ class Serpent : public dksVolume
                 :dksVolume(p_nom,0,px,py,pz,axe1,axe2,axe3)
     {
             #if SERPENT_DEBUG
-                cout<<"***------------------------Création du Serpent: "<<nom<<endl;
+                cout<<"***------------------------CrÃ©ation du Serpent: "<<nom<<endl;
             #endif
 
             erreur=SERPENT_OK;
@@ -174,7 +174,7 @@ class Serpent : public dksVolume
             ajoute_enfant(oeil_gauche);
             ajoute_enfant(dents);
 
-            //Initialise les repères:
+            //Initialise les repÃ¨res:
             //transfere_colonne_repere_parent();
     }
 
@@ -191,9 +191,9 @@ class Serpent : public dksVolume
     }
 
     //=====================================================================================
-    //              Génère le corps.
-    //      -La tête est dupliquée,
-    //      -Le corps est ajouté au même volume par extrusion du la base du cou.
+    //              GÃ©nÃ¨re le corps.
+    //      -La tÃªte est dupliquÃ©e,
+    //      -Le corps est ajoutÃ© au mÃªme volume par extrusion du la base du cou.
     //=====================================================================================
     private:
     bool creation_corps()
@@ -201,23 +201,23 @@ class Serpent : public dksVolume
         nbrCotes=12;
         longueur_premier_segment=   longueur_corps / ( nbrSegments - (1.-facteur_extrusion) * (nbrSegments+1.) / 2. );
 
-        indices_cou={234,235,236,237,238,239,240,241,242,243,244,245};  //La section de raccord à la tête
+        indices_cou={234,235,236,237,238,239,240,241,242,243,244,245};  //La section de raccord Ã  la tÃªte
         decallage_sommets_corps=tete_modele->nbrSommets;
         corps_nbrSommets=nbrSegments*nbrCotes;
         tete_corps_nbrSommets=tete_modele->nbrSommets+corps_nbrSommets;
 
-        //------- Génère la colone vertébrale:
+        //------- GÃ©nÃ¨re la colone vertÃ©brale:
             if (!genere_colonne_vertebrale()) return false;
 
-        //-------Création des sommets:
+        //-------CrÃ©ation des sommets:
             if (!genere_sommets()) return false;
             drapeaux_liberation_memoire|=DKSVOLUME_LIBERE_SOMMETS;
 
-        //------- Création des faces:
+        //------- CrÃ©ation des faces:
             if (!genere_faces()) return false;
             drapeaux_liberation_memoire|=DKSVOLUME_LIBERE_FACES;
 
-        //------- Création des surfaces:
+        //------- CrÃ©ation des surfaces:
             if (!genere_surfaces()) return false;
             drapeaux_liberation_memoire|=DKSVOLUME_LIBERE_SURFACES;
 
@@ -225,7 +225,7 @@ class Serpent : public dksVolume
     }
 
     //=============================================================
-    //          Génère la colonne vertébrale
+    //          GÃ©nÃ¨re la colonne vertÃ©brale
     //=============================================================
     bool genere_colonne_vertebrale()
     {
@@ -236,7 +236,7 @@ class Serpent : public dksVolume
         longueurs_segments=(float*)malloc((nbrSegments)*sizeof(float));
         if (colonne_vertebrale==NULL || longueurs_segments==NULL)
         {
-            cout<<"ERREUR dans Serpent::creation_corps() - Impossible de créer la colonne vertébrale"<<endl;
+            cout<<"ERREUR dans Serpent::creation_corps() - Impossible de crÃ©er la colonne vertÃ©brale"<<endl;
             erreur=SERPENT_ERREUR_MEMOIRE;
             return false;
         }
@@ -250,7 +250,7 @@ class Serpent : public dksVolume
         binormales_colonne_tampon=&normales_colonne_tampon[3*(nbrSegments+1)];
 
 
-        //1er point de la colonne: centre géométrique des sommets de raccord:
+        //1er point de la colonne: centre gÃ©omÃ©trique des sommets de raccord:
         double* tete_modele_sommets=tete_modele->renvoie_sommets();
 
         lien_tete_colonne[0]=0.;
@@ -289,7 +289,7 @@ class Serpent : public dksVolume
                 cout<<"Premier point de la colonne: x:"<<colonne_vertebrale[0]<<" y:"<<colonne_vertebrale[1]<<" z:"<<colonne_vertebrale[2]<<endl;
             #endif
 
-        //Coordonnées de la colonne, dans la direction des Z, sens négatif:
+        //CoordonnÃ©es de la colonne, dans la direction des Z, sens nÃ©gatif:
         float l=longueur_corps/nbrSegments;
 
         for (i=1;i<nbrSegments+1;i++)
@@ -325,7 +325,7 @@ class Serpent : public dksVolume
     }
 
     //=============================================================
-    //          Génère les sommets du corps
+    //          GÃ©nÃ¨re les sommets du corps
     //=============================================================
     bool genere_sommets()
     {
@@ -344,7 +344,7 @@ class Serpent : public dksVolume
         corps_sommets_tampon=&tete_corps_sommets[3*decallage_sommets_corps];
         corps_sommets=&corps_sommets_tampon[3*corps_nbrSommets];
 
-        //Copie les sommets de la tête:
+        //Copie les sommets de la tÃªte:
 
         double* tete_modele_sommets=tete_modele->renvoie_sommets();
         for (i=0;i<tete_modele->nbrSommets;i++)
@@ -354,7 +354,7 @@ class Serpent : public dksVolume
             tete_corps_sommets[3*i+2]=tete_modele_sommets[3*i+2];
         }
 
-        //Saisie de la section-modèle qui va être extrudée:
+        //Saisie de la section-modÃ¨le qui va Ãªtre extrudÃ©e:
         for (i=0;i<nbrCotes;i++)
         {
             j=indices_cou[i];
@@ -364,7 +364,7 @@ class Serpent : public dksVolume
         }
 
 
-        //Génère les sections:
+        //GÃ©nÃ¨re les sections:
         double pas_f=(1-facteur_extrusion)/nbrSegments;
 
         for(i=0;i<nbrSegments;i++)
@@ -387,11 +387,11 @@ class Serpent : public dksVolume
     }
 
     //====================================================================
-    //          Génère les faces du corps et recopie celles de la tête
+    //          GÃ©nÃ¨re les faces du corps et recopie celles de la tÃªte
     //====================================================================
     bool genere_faces()
     {
-        //Répartition des surfaces dans un segments:
+        //RÃ©partition des surfaces dans un segments:
             char dos[]={"peau"};
             char ventre[]={"peau_ventre"};
             char* repartition_surfaces_segment[]={dos,dos,dos,dos,dos,dos,dos,ventre,ventre,ventre,ventre,dos};
@@ -412,14 +412,14 @@ class Serpent : public dksVolume
                 cout<<"ERREUR dans Serpent::genere_faces - Impossible d'allouer la table des faces"<<endl;
                 erreur=SERPENT_ERREUR_MEMOIRE; return false;
             }
-        //Copie les faces de la tête:
+        //Copie les faces de la tÃªte:
             uint32_t i;
             for (i=0;i<tete_modele->nbrFaces;i++)
             {
                 tete_corps_faces[i]=new dksFace(*(tete_modele->renvoie_face(i)));
             }
 
-        //Génère les faces du corps:
+        //GÃ©nÃ¨re les faces du corps:
             if (drapeau_triangles) return genere_faces_triangulaires(tete_corps_faces,repartition_surfaces_segment);
             else return genere_faces_rectangulaires(tete_corps_faces,repartition_surfaces_segment);
     }
@@ -440,7 +440,7 @@ class Serpent : public dksVolume
         //Allocation des tables d'aretes:
         p_nbrAretes=4*corps_nbrFaces;
         #if SERPENT_DEBUG
-            cout<<"Nombre d'arètes dans le corps: "<<p_nbrAretes<<endl;
+            cout<<"Nombre d'arÃ¨tes dans le corps: "<<p_nbrAretes<<endl;
         #endif
         tables_aretes=(uint32_t*)malloc(p_nbrAretes*sizeof(uint32_t));
         if (tables_aretes==NULL)
@@ -450,7 +450,7 @@ class Serpent : public dksVolume
             return false;
         }
 
-        //La jointure entre la tête et le corps (premier segment):
+        //La jointure entre la tÃªte et le corps (premier segment):
         fp=0;
         f=tete_modele->nbrFaces;
         p_aretes=tables_aretes;
@@ -487,7 +487,7 @@ class Serpent : public dksVolume
     }
 
     //====================================================================
-    //          Génère les surfaces du corps et recopie celles de la tête
+    //          GÃ©nÃ¨re les surfaces du corps et recopie celles de la tÃªte
     //====================================================================
     bool genere_surfaces()
     {
@@ -510,7 +510,7 @@ class Serpent : public dksVolume
     }
 
     //===========================================================
-    //              Fonctions détermine/renvoie
+    //              Fonctions dÃ©termine/renvoie
     //===========================================================
     public:
 
@@ -550,9 +550,9 @@ class Serpent : public dksVolume
 
     //---------------------------------------
     //  Place les points de la colonne le long de la trajectoire.
-    //  La trajectoire doit être situé dans le repère parent du serpent.
-    /// Au besoin, développer la reconnaissance du drapeau_repere_parent
-    //  position_depart:la position du premier points de la colonne (lien tête-colonne)
+    //  La trajectoire doit Ãªtre situÃ© dans le repÃ¨re parent du serpent.
+    /// Au besoin, dÃ©velopper la reconnaissance du drapeau_repere_parent
+    //  position_depart:la position du premier points de la colonne (lien tÃªte-colonne)
     //  direction: true=colonne dans le sens de la trajectoire
     //             false= colonne dans le sens inverse de la trajectoire
     //---------------------------------------
@@ -564,12 +564,12 @@ class Serpent : public dksVolume
         float longueur_trajectoire=trajectoire->renvoie_longueur_totale();
         float pt=position_depart*longueur_trajectoire;
 
-        //Positionne la tête:
+        //Positionne la tÃªte:
 
         float distance_tete_lien_colonne=sqrtf(powf(float(lien_tete_colonne[0]),2)+powf(float(lien_tete_colonne[1]),2)+powf(float(lien_tete_colonne[2]),2));
         trajectoire->renvoie_position(pt/longueur_trajectoire,position);
         determine_position(double(position[0]),double(position[1]),double(position[2]));
-        //Alignement à la trajectoire:
+        //Alignement Ã  la trajectoire:
         trajectoire->renvoie_tangente(pt/longueur_trajectoire,position);
         double nouvel_axez[3]={double(position[0]),double(position[1]),double(position[2])};
         if (direction){nouvel_axez={-nouvel_axez[0],-nouvel_axez[1],-nouvel_axez[2]};}
@@ -665,11 +665,11 @@ class Serpent : public dksVolume
     //===========================================================================================================================================
     private:
     //-------------------------------------------------------------------------------------------------------------------------
-    //      Le corps suit la trajectoire de la tête
-    //  Les coordonnées de la colonne vertébrale sont
-    //  situées dans le repère du conteneur parent.
-    //  Utiliser la fonction transfere_colonne_repere_parent() pour positionner correctement la colonne par rapport à la tête
-    //  Pour utiliser les fonctions d'animation dans le repère du volume: transfere_colonne_repere_volume()
+    //      Le corps suit la trajectoire de la tÃªte
+    //  Les coordonnÃ©es de la colonne vertÃ©brale sont
+    //  situÃ©es dans le repÃ¨re du conteneur parent.
+    //  Utiliser la fonction transfere_colonne_repere_parent() pour positionner correctement la colonne par rapport Ã  la tÃªte
+    //  Pour utiliser les fonctions d'animation dans le repÃ¨re du volume: transfere_colonne_repere_volume()
     //-------------------------------------------------------------------------------------------------------------------------
 
     void trajectoire_tete()
@@ -681,9 +681,9 @@ class Serpent : public dksVolume
         double ABx,ABy,ABz;
         double n;
 
-        //------- Positionne la colonne vertébrale par rapport à la tête:
+        //------- Positionne la colonne vertÃ©brale par rapport Ã  la tÃªte:
 
-        //Point d'attache dans le repère du parent:
+        //Point d'attache dans le repÃ¨re du parent:
         dksRepere::translation_point(lien_tete_colonne,this,colonne_vertebrale);
         pA={colonne_vertebrale[0],colonne_vertebrale[1],colonne_vertebrale[2]};
         tangentes_colonne[0]=this->axe_x->x;
@@ -696,7 +696,7 @@ class Serpent : public dksVolume
         binormales_colonne[1]=this->axe_z->y;
         binormales_colonne[2]=this->axe_z->z;
 
-        //Calcul les points de la colonne vertébrale:
+        //Calcul les points de la colonne vertÃ©brale:
         for (i=0;i<nbrSegments;i++)
         {
             j=(i+1)*3;
@@ -717,11 +717,11 @@ class Serpent : public dksVolume
             pA={colonne_vertebrale[j],colonne_vertebrale[j+1],colonne_vertebrale[j+2]};
         }
 
-        //--------- Calcule les repères des sections:
+        //--------- Calcule les repÃ¨res des sections:
 
         calcul_reperes_TNB_colonne();
 
-        //--------- Transfère de repère:
+        //--------- TransfÃ¨re de repÃ¨re:
         //Copie le point d'attache:
 
         colonne_vertebrale_tampon[0]=lien_tete_colonne[0];
@@ -740,7 +740,7 @@ class Serpent : public dksVolume
         binormales_colonne_tampon[1]=0.;
         binormales_colonne_tampon[2]=1.;
 
-        //Transfère de repère de la colonne vertébrale:
+        //TransfÃ¨re de repÃ¨re de la colonne vertÃ©brale:
         dksRepere::points_relatifs(&colonne_vertebrale[3],this,&colonne_vertebrale_tampon[3],nbrSegments);
         dksRepere::axes_relatifs(&tangentes_colonne[3],this,&tangentes_colonne_tampon[3],nbrSegments);
         dksRepere::axes_relatifs(&normales_colonne[3],this,&normales_colonne_tampon[3],nbrSegments);
@@ -843,7 +843,7 @@ class Serpent : public dksVolume
             Bx=Cx; By=Cy; Bz=Cz;
         }
 
-        // -----Dernière section:
+        // -----DerniÃ¨re section:
             ABx=Bx-Ax;ABy=By-Ay;ABz=Bz-Az;
             n=sqrt(ABx*ABx+ABy*ABy+ABz*ABz);
             ABx/=-n;ABy/=-n;ABz/=-n;
@@ -882,8 +882,8 @@ class Serpent : public dksVolume
 
     public:
     //--------
-    //      Transfère les coordonnées de la colonne vertébrale dans le repère du parent ou du volume selon l'usage.
-    //      Le premier point est le point d'attache avec la tête, ses coordonnées dans le volume sont situées dans lien_tete_colonne[]
+    //      TransfÃ¨re les coordonnÃ©es de la colonne vertÃ©brale dans le repÃ¨re du parent ou du volume selon l'usage.
+    //      Le premier point est le point d'attache avec la tÃªte, ses coordonnÃ©es dans le volume sont situÃ©es dans lien_tete_colonne[]
     //--------
     void transfere_colonne_repere_parent()
     {
@@ -973,7 +973,7 @@ class Serpent : public dksVolume
     }
 
     //-------------------------------------------------------------------
-    //      Positionne les sections le long de la colonne vertébrale
+    //      Positionne les sections le long de la colonne vertÃ©brale
     //-------------------------------------------------------------------
     void rafraichi_sections()
     {

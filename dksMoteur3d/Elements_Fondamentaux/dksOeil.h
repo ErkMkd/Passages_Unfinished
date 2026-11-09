@@ -8,7 +8,7 @@
 #define DKSCONTENEUR_CLASSE_OEIL "Oeil"
 #define DKSCONTENEUR_CLASSE_OEIL_ID 2
 
-#define DKSOEIL_VISEE_LIBRE 0       //Pas de visée particulière.
+#define DKSOEIL_VISEE_LIBRE 0       //Pas de visÃ©e particuliÃ¨re.
 #define DKSOEIL_VISEE_POINT 1       //L'oeil vise un point
 #define DKSOEIL_VISEE_CONTENEUR 2
 
@@ -26,8 +26,8 @@ class dksOeil :public dksConteneur
 
 
     protected:
-        Matrice4x4 matrice_projection;  //La matrice projetant les coordonnées sur la fenêtre de représentation
-        Matrice4x4 matrice_vision;      //Matrice de positionnement de la scène
+        Matrice4x4 matrice_projection;  //La matrice projetant les coordonnÃ©es sur la fenÃªtre de reprÃ©sentation
+        Matrice4x4 matrice_vision;      //Matrice de positionnement de la scÃ¨ne
         Matrice4x4 matrice_projection_vision;   //Le produit matrice_projection*matrice_vision
         uint16_t mode_visee;
         double point_vise[3];
@@ -77,7 +77,7 @@ class dksOeil :public dksConteneur
 			direction_gauche = repere_absolu->axe_x;
 
 			determine_ouverture(45.);
-		    determine_resolution(800,600);   //Mis à jour dès utilisation de l'oeil
+		    determine_resolution(800,600);   //Mis Ã  jour dÃ¨s utilisation de l'oeil
 		    determine_limites_profondeur(1.,1000.);
 		}
 
@@ -108,12 +108,12 @@ class dksOeil :public dksConteneur
         }
 
 		//=================================================================
-		//              Positionne l'oeil dans la scène:
+		//              Positionne l'oeil dans la scÃ¨ne:
 		//=================================================================
 
 		//------------------------------------------------------------------------------
-        //      Mise à jour du repère absolu et de la matrice.
-        /// A n'utiliser que lorsque l'oeil n'est pas un élément d'une scène.
+        //      Mise Ã  jour du repÃ¨re absolu et de la matrice.
+        /// A n'utiliser que lorsque l'oeil n'est pas un Ã©lÃ©ment d'une scÃ¨ne.
         /// La matrice courante devient la vue de l'oeil.
         //------------------------------------------------------------------------------
         virtual void maj(double t)
@@ -137,7 +137,7 @@ class dksOeil :public dksConteneur
         }
 
         //-------------------------------------------------------------------------------------------------
-        // Lorsque l'oeil est inactif dans une scène, mais que l'on souhaite tout de même mettre à jour sa visée
+        // Lorsque l'oeil est inactif dans une scÃ¨ne, mais que l'on souhaite tout de mÃªme mettre Ã  jour sa visÃ©e
         //-------------------------------------------------------------------------------------------------
         void maj_visee()
         {
@@ -160,7 +160,7 @@ class dksOeil :public dksConteneur
         }
 
         //-------------------------------------------------------
-        // Lorsque l'oeil est actif dans une scène:
+        // Lorsque l'oeil est actif dans une scÃ¨ne:
         //-------------------------------------------------------
 
         virtual void positionne_scene()
@@ -187,7 +187,7 @@ class dksOeil :public dksConteneur
                     break;
                 default: visee();break;
             }
-            //Sauvegarde la matrice de la fenêtre de représentation:
+            //Sauvegarde la matrice de la fenÃªtre de reprÃ©sentation:
 
             /*
             glGetDoublev(GL_MODELVIEW_MATRIX,projection.matrice);
@@ -247,7 +247,7 @@ class dksOeil :public dksConteneur
             dx=direction_regard_relatif->x;
             dy=direction_regard_relatif->y;
             dz=direction_regard_relatif->z;
-            //Coordonnées du point visé dans le repère du parent de l'oeil:
+            //CoordonnÃ©es du point visÃ© dans le repÃ¨re du parent de l'oeil:
             vx=point_vise[0]-parent->repere_absolu->x;
             vy=point_vise[1]-parent->repere_absolu->y;
             vz=point_vise[2]-parent->repere_absolu->z;
@@ -275,7 +275,7 @@ class dksOeil :public dksConteneur
                 if(rx*dx+ry*dy+rz*dz<0.)
                 {
                     if(dy==1.)
-                    {   //Si le regard est pointé vers le haut:
+                    {   //Si le regard est pointÃ© vers le haut:
                         rx=axe_horizontal->x;
                         ry=axe_horizontal->y;
                         rz=axe_horizontal->z;
@@ -313,18 +313,18 @@ class dksOeil :public dksConteneur
                 angle*=delta_t*inertie_visee;
             }
             drapeau_initialise_visee_inertielle=false;
-            //rotation avec contrainte de verticalité:
+            //rotation avec contrainte de verticalitÃ©:
             //if (drapeau_contrainte_verticale) rotation_contrainte_verticale(angle,rx,ry,rz);
             //else
             rotation(angle,rx,ry,rz);
 
-            //Mise à jour du repère absolu et propagation de la hiérarchie:
+            //Mise Ã  jour du repÃ¨re absolu et propagation de la hiÃ©rarchie:
             calcul_repere_absolu();
 
         }
 
         //==========================================================
-        //      Gestion des modes de visée
+        //      Gestion des modes de visÃ©e
         //==========================================================
         public:
         void determine_mode_visee(uint16_t mv)
@@ -360,8 +360,8 @@ class dksOeil :public dksConteneur
             drapeau_visee_inertielle=false;
         }
 
-        //Si ce drapeau est activé, le premier rafraichissement
-        //de la visée suivant se fera sans inertie.
+        //Si ce drapeau est activÃ©, le premier rafraichissement
+        //de la visÃ©e suivant se fera sans inertie.
         void active_initialisation_visee_inertielle()
         {
             drapeau_initialise_visee_inertielle=true;
@@ -382,7 +382,7 @@ class dksOeil :public dksConteneur
         }
 
         //=========================================================
-        //------- Détermine l'ouverture (en degrés) de l'oeil courant:
+        //------- DÃ©termine l'ouverture (en degrÃ©s) de l'oeil courant:
         //=========================================================
         void determine_ouverture(float p_ouverture)
         {

@@ -35,7 +35,7 @@ class Scene_Test :public Scene
     float tangage;
     float lacet;
 
-    //Données éditeur:
+    //DonnÃ©es Ã©diteur:
     bool balance;
     double vitesse_deplacement;
     double vitesse_rotation;
@@ -60,7 +60,7 @@ class Scene_Test :public Scene
         for (i=0;i<sizeof(sources)/sizeof(dksSourceLumineuse*);i++) sources[i]=NULL;
         for (i=0;i<sizeof(volumes_particules)/sizeof(dksVolume*);i++) volumes_particules[i]=NULL;
 
-        //Création des éléments:
+        //CrÃ©ation des Ã©lÃ©ments:
         oeil_1=new dksOeil("Oeil_1",0.,2.,-10.);
         yeux[0]=oeil_1;
         //oeil_1->determine_contrainte_verticale(true);
@@ -107,7 +107,7 @@ class Scene_Test :public Scene
         source_2->ajoute_enfant(cube_source_2);
         source_3->ajoute_enfant(cube_source_3);
 
-        //Création des particules:
+        //CrÃ©ation des particules:
         for (i=0;i<sizeof(volumes_particules)/sizeof(dksVolume*);i++)
         {
             volumes_particules[i]=new dksCube("cube_particule",0.,0.,0.,0.2,0.2,0.2,0xff8080);
@@ -121,7 +121,7 @@ class Scene_Test :public Scene
         mes_particules->random_orientations();
         volumes[5]=mes_particules;
 
-        //Création de la scène:
+        //CrÃ©ation de la scÃ¨ne:
         scene=new dksMoteur3d("essaim",ecran,
                             NULL,0,
                             volumes,6,
@@ -174,7 +174,7 @@ class Scene_Test :public Scene
 
         glShadeModel(GL_SMOOTH);
 
-        //Activation des éclairages:
+        //Activation des Ã©clairages:
         glDisable(GL_LIGHTING);
         glDisable(GL_BLEND);
     }
@@ -211,7 +211,7 @@ class Scene_Test :public Scene
 
 
         //============================================================================
-        //                     Initialisations de l'éditeur
+        //                     Initialisations de l'Ã©diteur
         //============================================================================
 
         virtual void initialise_editeur()
@@ -251,22 +251,22 @@ class Scene_Test :public Scene
             switch (key)
             {
                 case 101:
-                    //flèche haut
+                    //flÃ¨che haut
                     conteneur_selectionne->deplace(AVANT,vitesse_deplacement);
                     cout<<conteneur_selectionne->x<<" "<<conteneur_selectionne->y<<" "<<conteneur_selectionne->z<<endl;
                     break;
                 case 100:
-                    //flèche gauche
+                    //flÃ¨che gauche
                     conteneur_selectionne->deplace(GAUCHE,vitesse_deplacement);
                     cout<<conteneur_selectionne->x<<" "<<conteneur_selectionne->y<<" "<<conteneur_selectionne->z<<endl;
                     break;
                 case 103:
-                    //flèche bas
+                    //flÃ¨che bas
                     conteneur_selectionne->deplace(ARRIERE,vitesse_deplacement);
                     cout<<conteneur_selectionne->x<<" "<<conteneur_selectionne->y<<" "<<conteneur_selectionne->z<<endl;
                     break;
                 case 102:
-                    //flèche droite
+                    //flÃ¨che droite
                     conteneur_selectionne->deplace(DROITE,vitesse_deplacement);
                     cout<<conteneur_selectionne->x<<" "<<conteneur_selectionne->y<<" "<<conteneur_selectionne->z<<endl;
                     break;
@@ -360,7 +360,7 @@ class Scene_Test :public Scene
                         {
                             if (i==conteneurs_selectionnables.size()-1) conteneur_selectionne=conteneurs_selectionnables[0];
                             else conteneur_selectionne=conteneurs_selectionnables[i+1];
-                            cout<<"Conteneur sélectionné: "<<conteneur_selectionne->nom<<endl;
+                            cout<<"Conteneur sÃ©lectionnÃ©: "<<conteneur_selectionne->nom<<endl;
                             break;
                         }
                     }

@@ -20,7 +20,7 @@
 #define INSECTE_NBR_ARTICULATIONS 24
 #define INSECTE_NBR_CONTACTS 6  //Les points de contact des pattes avec le sol
 #define INSECTE_NBR_AXES 16 //Nombre de points qui, avec certaines articulations, constituent les axes de rotation
-#define INSECTE_NBRPOINTS 64 //Il y a les points qui ne servent qu'à l'édition du squelette
+#define INSECTE_NBRPOINTS 64 //Il y a les points qui ne servent qu'Ã  l'Ã©dition du squelette
 
 //Articulations:
 #define INSECTE_FEMUR_AVANT_DROIT 0
@@ -90,7 +90,7 @@
 
 
 //--------------------------------------------------------
-//      Structure de définition des angles des pattes
+//      Structure de dÃ©finition des angles des pattes
 //--------------------------------------------------------
 
 #define INSECTE_PAVD 0    //Indices dans le tableau
@@ -107,8 +107,8 @@
 class Patte_Insecte
 {
     public:
-        float angle_Fa; //angle de rotation du fémur autour de son axe
-        float angle_Fr; //angle de rotation du fémur (donc axe vertical)
+        float angle_Fa; //angle de rotation du fÃ©mur autour de son axe
+        float angle_Fr; //angle de rotation du fÃ©mur (donc axe vertical)
         float angle_Ta; //Angle de rotation du tibia autour de son axe
         uint32_t id_femur;  //Les indices des points dans la table
         uint32_t id_tibia;
@@ -149,8 +149,8 @@ class Patte_Insecte
 
 
 //=================================================================================================================================
-//                          Définition de la classe
-//          Pour faciliter les animations, les angles sont en degrés.
+//                          DÃ©finition de la classe
+//          Pour faciliter les animations, les angles sont en degrÃ©s.
 //=================================================================================================================================
 class dksInsecte:public dksConteneur
 {
@@ -177,9 +177,9 @@ class dksInsecte:public dksConteneur
 
 
     public:
-        //Coordonnées des articulations et points stratégiques
-        double squelette_base[3*INSECTE_NBRPOINTS];    //Les points à l'état de repos
-        double squelette[3*INSECTE_NBRPOINTS];         //Les points articulés
+        //CoordonnÃ©es des articulations et points stratÃ©giques
+        double squelette_base[3*INSECTE_NBRPOINTS];    //Les points Ã  l'Ã©tat de repos
+        double squelette[3*INSECTE_NBRPOINTS];         //Les points articulÃ©s
 
         //Angles des antennes:
         float angle_AntAd;    //Angles d'abduction (axe horizontal longitudinal)
@@ -209,7 +209,7 @@ class dksInsecte:public dksConteneur
 
             echelle_geometrique=1.;
 
-            //------------- Chargement du volume de définition des points:
+            //------------- Chargement du volume de dÃ©finition des points:
 
             //char nom_fichier[]={"LWO2/snake.lwo"};
 
@@ -218,7 +218,7 @@ class dksInsecte:public dksConteneur
             volumes_lwo2=new dksChargeLWO2(nom_fichier);
             if (volumes_lwo2==NULL || volumes_lwo2->erreur!=DKSCHARGELWO2_OK)
             {
-                cout<<"ERREUR dans dksInsecte::dksInsecte() - Impossible de charger le volume de définition des points - "<<nom_fichier<<endl;
+                cout<<"ERREUR dans dksInsecte::dksInsecte() - Impossible de charger le volume de dÃ©finition des points - "<<nom_fichier<<endl;
                 erreur=DKSINSECTE_ERREUR_CHARGEMENT_VOLUME;
                 return;
             }
@@ -226,13 +226,13 @@ class dksInsecte:public dksConteneur
             volumes_convertis=new dksConvertionLWO2(volumes_lwo2);
             if (volumes_convertis==NULL || volumes_convertis->erreur!=DKSCONVERTIONLWO2_OK)
             {
-                cout<<"ERREUR dans dksInsecte::dksInsecte() - Impossible de convertir le volume de définition des points - "<<nom_fichier<<endl;
+                cout<<"ERREUR dans dksInsecte::dksInsecte() - Impossible de convertir le volume de dÃ©finition des points - "<<nom_fichier<<endl;
                 erreur=DKSINSECTE_ERREUR_CONVERTION_VOLUME;
                 delete volumes_lwo2;
                 return;
             }
 
-            //------------ Mémorisation des points:
+            //------------ MÃ©morisation des points:
             double* points=volumes_convertis->renvoie_volume_index(0)->renvoie_sommets();
 
             for(i=0;i<INSECTE_NBRPOINTS;i++)
@@ -258,7 +258,7 @@ class dksInsecte:public dksConteneur
 
             raz_squelette();
 
-            //------- Supprime les données LWO2:
+            //------- Supprime les donnÃ©es LWO2:
             delete volumes_convertis;
             delete volumes_lwo2;
         }
@@ -273,7 +273,7 @@ class dksInsecte:public dksConteneur
         }
 
     //================================================
-    //      Paramétrage
+    //      ParamÃ©trage
     //================================================
     virtual void determine_echelle_geometrique(double p_echelle)
     {
@@ -288,7 +288,7 @@ class dksInsecte:public dksConteneur
         echelle_geometrique=p_echelle;
     }
 
-    //Lorsque l'on veut déterminer les mêmes angles pour toutes les pattes:
+    //Lorsque l'on veut dÃ©terminer les mÃªmes angles pour toutes les pattes:
     void determine_angles_pattes(float fa,float fr, float ta)
     {
         for (uint16_t i=0;i<6;i++)
@@ -482,7 +482,7 @@ class dksInsecte:public dksConteneur
 			/*
 			formule d'Olinde Rodrigues :
 			V = cos(phi)*U + (1-cos(phi))*((U.N)*N) + sin(phi)[N^U]
-			La formule ci-dessus donne l'expression vectorielle du transformé V  d'un vecteur U  quelconque, dans la rotation phi,N d'angle phi, et d'axe N unitaire
+			La formule ci-dessus donne l'expression vectorielle du transformÃ© V  d'un vecteur U  quelconque, dans la rotation phi,N d'angle phi, et d'axe N unitaire
 			*/
 
             Px=src[id*3]-Cx;
@@ -501,7 +501,7 @@ class dksInsecte:public dksConteneur
 		}
 
     //===============================================
-    //      Réinitialisation du squelette
+    //      RÃ©initialisation du squelette
     //===============================================
     public:
         void raz_squelette()
@@ -576,7 +576,7 @@ class dksInsecte:public dksConteneur
             glVertex3dv(&squelette[3*INSECTE_CONTACT_MEDIAN_GAUCHE]);
             glEnd();
 
-            //patte arrière droite
+            //patte arriÃ¨re droite
             glBegin(GL_LINE_STRIP);
             glVertex3dv(&squelette[3*INSECTE_FEMUR_ARRIERE_DROIT]);
             glVertex3dv(&squelette[3*INSECTE_TIBIA_ARRIERE_DROIT]);
@@ -584,7 +584,7 @@ class dksInsecte:public dksConteneur
             glVertex3dv(&squelette[3*INSECTE_CONTACT_ARRIERE_DROIT]);
             glEnd();
 
-            //patte arrière gauche
+            //patte arriÃ¨re gauche
             glBegin(GL_LINE_STRIP);
             glVertex3dv(&squelette[3*INSECTE_FEMUR_ARRIERE_GAUCHE]);
             glVertex3dv(&squelette[3*INSECTE_TIBIA_ARRIERE_GAUCHE]);
@@ -604,13 +604,13 @@ class dksInsecte:public dksConteneur
             glVertex3dv(&squelette[3*INSECTE_BOUT_AILE_AVANT_GAUCHE]);
             glEnd();
 
-            //Aile arrière droite:
+            //Aile arriÃ¨re droite:
             glBegin(GL_LINE_STRIP);
             glVertex3dv(&squelette[3*INSECTE_AILE_ARRIERE_DROITE]);
             glVertex3dv(&squelette[3*INSECTE_BOUT_AILE_ARRIERE_DROITE]);
             glEnd();
 
-            //Aile arrière gauche:
+            //Aile arriÃ¨re gauche:
             glBegin(GL_LINE_STRIP);
             glVertex3dv(&squelette[3*INSECTE_AILE_ARRIERE_GAUCHE]);
             glVertex3dv(&squelette[3*INSECTE_BOUT_AILE_ARRIERE_GAUCHE]);

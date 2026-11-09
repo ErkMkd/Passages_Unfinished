@@ -41,7 +41,7 @@ class Scene_Caduce: public Scene
         dksCube* cube_arriere_plan;
         Image* textures_arriere_plan[6];
 
-        //------------DonnÈes de la scËne de transition:
+        //------------Donn√©es de la sc√®ne de transition:
         #define Z_DEPART_STARFIELD -5000.
             dksMoteur3d* scene_transition;
             dksSprite3d* etoile_1;
@@ -50,7 +50,7 @@ class Scene_Caduce: public Scene
             Image* textures_arriere_plan_starfield[6];
             dksTrajectoire trajectoire_oeil_01_starfield;
             Courbe_Bezier_Plan* courbe_trajectoire_oeil_01_starfield;
-            Interpolation_Parametre* position_trajectoire_oeil_1_starfield; ///DÈtruite par la scËne du starfield
+            Interpolation_Parametre* position_trajectoire_oeil_1_starfield; ///D√©truite par la sc√®ne du starfield
         //------------------------------------
 
 
@@ -74,13 +74,13 @@ class Scene_Caduce: public Scene
         float position_trajectoire_serpent;
         dksTrajectoire* trajectoire_camera_caducee_01;
         dksTrajectoire trajectoire_camera_caducee_02;
-        dksTrajectoire trajectoire_caducee;    //Trajectoire rÈcupÈrÈe de la scËne du tunnel
-        dksTrajectoire trajectoire_deplacement_serpent; //dÈplacement du serpent
+        dksTrajectoire trajectoire_caducee;    //Trajectoire r√©cup√©r√©e de la sc√®ne du tunnel
+        dksTrajectoire trajectoire_deplacement_serpent; //d√©placement du serpent
 
         dksRepere repere_arrivee_serpent;
 
         //================= Animations ======================
-        Interpolation_Parametre* camera_pos_trajectoire_01; //rÈcupÈrÈe dans la scËne prÈcÈdente
+        Interpolation_Parametre* camera_pos_trajectoire_01; //r√©cup√©r√©e dans la sc√®ne pr√©c√©dente
         //Etapes de l'animation:
         enum    {
                     SERPENT,
@@ -93,7 +93,7 @@ class Scene_Caduce: public Scene
 
         Courbe_Bezier_Plan* courbe_interpolation_serpent;
 
-        //Interpolations de paramËtre simple:
+        //Interpolations de param√®tre simple:
         enum    {
                     CAMERA_POS_TRAJECTOIRE_02,
                     OUVERTURE_SOURCE_SOLEIL,
@@ -114,13 +114,13 @@ class Scene_Caduce: public Scene
                 };
         Interpolation_Parametre_3d* interpolations_positions[3];
 
-        //Interpolations d'orientation de repËres:
+        //Interpolations d'orientation de rep√®res:
         enum    {
                     VISE_SERPENT
                 };
         Interpolation_Repere* interpolations_reperes[1];
 
-        //============= DonnÈes de l'Èditeur:
+        //============= Donn√©es de l'√©diteur:
 
         //dksCube* mon_cube;
         double vitesse_rotation;
@@ -200,7 +200,7 @@ class Scene_Caduce: public Scene
                 erreur=SCENE_ERREUR_INIT;
                 return;
             }
-            //--------------CrÈation du serpent animÈ:
+            //--------------Cr√©ation du serpent anim√©:
 
 
             mon_serpent=new Serpent("mon_serpent",0.,0.,0.,"LWO2/snake.lwo",73,3.35,0.26,SERPENT_SEGMENTS_EGAUX,false);
@@ -238,7 +238,7 @@ class Scene_Caduce: public Scene
 
                 mes_particules->determine_vitesses_rotations(0.,0.,M_PI/180.*2.);
 
-            //----------- ArriËre-plan:
+            //----------- Arri√®re-plan:
 
 
                 textures_arriere_plan[0]=scene_tunnel->textures_arriere_plan_transition[0];
@@ -262,15 +262,15 @@ class Scene_Caduce: public Scene
                 cube_arriere_plan->determine_mode_rendu(DKSVOLUME_MODE_LISTE);
 
 
-            //--------------- CrÈation de la scËne de transition du starfield:
+            //--------------- Cr√©ation de la sc√®ne de transition du starfield:
 
-                //CrÈation du starfield:
+                //Cr√©ation du starfield:
                 etoile_1=new dksSprite3d("etoile_1","textures/starfield/etoile_b00.tif");
                 le_starfield=new dksStarfield("Champ_etoiles",0.,0.,0.,2000,1000.,30.,etoile_1);
                 //mes_particules->determine_point(0,1.,1.,80.);
                 le_starfield->random_points(-1000.,1000.,-1000.,1000.,-1000.+Z_DEPART_STARFIELD,1000.+Z_DEPART_STARFIELD);
 
-                //ArriËre plan:
+                //Arri√®re plan:
                 cube_arriere_plan_starfield=new dksCube("Cube_arriere_plan_starfield",0.,0.,0.,10.,10.,10.,0xffffffff);
 
                 textures_arriere_plan_starfield[0]=new Image("textures/arriere_plans/cosmos_FR.jpg",false,true);
@@ -340,7 +340,7 @@ class Scene_Caduce: public Scene
                 sol_eau=volumes[2];
                 tas_cailloux=volumes[3];
 
-                //ParamËtres de l'eau:
+                //Param√®tres de l'eau:
 
                 sol_eau->determine_angle_seuil_ombres(90.);
                 sol_eau->determine_recoit_ombres(false);
@@ -384,14 +384,14 @@ class Scene_Caduce: public Scene
                 axes={-0.964869,0,0.262733,0.00217545,0.999966,0.00798921,-0.262724,0.0082801,-0.964836};
                 repere_arrivee_serpent.determine_axes(axes);
 
-                //---------- Trajectoires de camÈra:
+                //---------- Trajectoires de cam√©ra:
                 trajectoire_camera_caducee_01=new dksTrajectoire(scene_tunnel->trajectoire_camera_caducee_01);
                 trajectoire_camera_caducee_01->determine_echelle_trajectoire(1./scene_tunnel->echelle_caducee);
                 camera_pos_trajectoire_01=scene_tunnel->renvoie_interpolation_camera_pos_trajectoire_01();
 
                 if (!trajectoire_camera_caducee_02.charge_trajectoire("trajectoires/camera_caducee_02.traj"))
                 {
-                    cout<<"ERREUR - Trajectoire "<<"trajectoires/camera_caducee_02.traj"<<" impossible ‡ charger"<<endl;
+                    cout<<"ERREUR - Trajectoire "<<"trajectoires/camera_caducee_02.traj"<<" impossible √† charger"<<endl;
                     erreur=SCENE_ERREUR_INIT;
                     return;
                 }
@@ -402,9 +402,9 @@ class Scene_Caduce: public Scene
                 caducee_baton->determine_position(0.,0.,0.);
 
 
-                //---------- Positionnement du serpent animÈ:
+                //---------- Positionnement du serpent anim√©:
                 // Je ne reprend pas l'objet de la scene du tunnel, car elle sert
-                // pour le tunnel. Elle est donc rÈorientÈe selon la direction du vecteur gÈnÈrateur.
+                // pour le tunnel. Elle est donc r√©orient√©e selon la direction du vecteur g√©n√©rateur.
                 // Et puis elle correspond au serpent 1. Ici, c'est le serpent 2 qui bouge...
                 //mon_serpent->determine_position(2.16771, 17.0808, -2.11968);
                 //axes={0.210557,-0.0779609,0.974468,0.697258,0.710656,-0.0938043,-0.685198,0.699207,0.203992};
@@ -413,9 +413,9 @@ class Scene_Caduce: public Scene
                 mon_serpent->transfere_colonne_repere_parent();
 
                 traj_position_serpent->determine_position(0.,0.,0.);    ///ATTENTION si la position est autre que (0.,0.,0.),
-                                                                        ///il faut replacer les points dans le repËre du parent du serpent !
+                                                                        ///il faut replacer les points dans le rep√®re du parent du serpent !
 
-                trajectoire_caducee.determine_drapeau_longueurs(false);    //Pour Èviter des calculs inutiles
+                trajectoire_caducee.determine_drapeau_longueurs(false);    //Pour √©viter des calculs inutiles
                 trajectoire_caducee.determine_points(traj_position_serpent->renvoie_sommets(),traj_position_serpent->nbrSommets);
                 trajectoire_caducee.tri_points(DKSTRAJECTOIRE_AXE_Y,true);
                 trajectoire_caducee.determine_drapeau_longueurs(true);
@@ -423,7 +423,7 @@ class Scene_Caduce: public Scene
 
 
                 /*
-                ma_trajectoire.determine_drapeau_longueurs(false);    //Pour Èviter des calculs inutiles
+                ma_trajectoire.determine_drapeau_longueurs(false);    //Pour √©viter des calculs inutiles
                 ma_trajectoire.determine_points(traj_position_serpent->renvoie_sommets(),traj_position_serpent->nbrSommets);
                 ma_trajectoire.tri_points(DKSTRAJECTOIRE_AXE_Y,true);
                 ma_trajectoire.determine_drapeau_longueurs(true);
@@ -433,7 +433,7 @@ class Scene_Caduce: public Scene
                 //------------- Initialise l'animation du serpent:
                 if (!trajectoire_deplacement_serpent.charge_trajectoire("trajectoires/serpent_caducee.traj"))
                 {
-                    cout<<"ERREUR - Trajectoire "<<"trajectoires/serpent_caducee.traj"<<" impossible ‡ charger"<<endl;
+                    cout<<"ERREUR - Trajectoire "<<"trajectoires/serpent_caducee.traj"<<" impossible √† charger"<<endl;
                     erreur=SCENE_ERREUR_INIT;
                     return;
                 }
@@ -446,7 +446,7 @@ class Scene_Caduce: public Scene
                 trajectoire_deplacement_serpent.determine_point(1,&point_copie[0]);
                 trajectoire_deplacement_serpent.determine_drapeau_longueurs(true);
 
-                //Alignement du serpent ‡ la trajectoire:
+                //Alignement du serpent √† la trajectoire:
                 trajectoire_deplacement_serpent.renvoie_tangente(0.,point_copie);
                 double nouvel_axez[3]={double(point_copie[0]),double(point_copie[1]),double(point_copie[2])};
                 mon_serpent->initialisation_repere_orthonorme(NULL,NULL,nouvel_axez);
@@ -454,12 +454,12 @@ class Scene_Caduce: public Scene
 
                 /*
                 ma_trajectoire.determine_drapeau_longueurs(false);
-                ma_trajectoire.determine_points(trajectoire_deplacement_serpent.renvoie_points(),trajectoire_deplacement_serpent.renvoie_nbrPoints());//Pour Èviter des calculs inutiles
+                ma_trajectoire.determine_points(trajectoire_deplacement_serpent.renvoie_points(),trajectoire_deplacement_serpent.renvoie_nbrPoints());//Pour √©viter des calculs inutiles
                 ma_trajectoire.determine_drapeau_longueurs(true);
                 */
 
 
-            //------------CrÈation de la scËne:scene->ajoute_volumes(volumes_particules,sizeof(volumes_particules)/sizeof(dksVolume*),mes_particules);
+            //------------Cr√©ation de la sc√®ne:scene->ajoute_volumes(volumes_particules,sizeof(volumes_particules)/sizeof(dksVolume*),mes_particules);
 
 
 
@@ -501,7 +501,7 @@ class Scene_Caduce: public Scene
                 initialise_editeur();
                 #endif
 
-            //---------------- Initd brutale le temps du dÈveloppement -
+            //---------------- Initd brutale le temps du d√©veloppement -
                 scene->active_arriere_plan();
 
         }
@@ -530,7 +530,7 @@ class Scene_Caduce: public Scene
             for (i=0;i<sizeof(volumes_particules)/sizeof(dksVolume*);i++) if (volumes_particules[i]!=NULL) delete volumes_particules[i];
             if(courbe_interpolation_serpent!=NULL) delete courbe_interpolation_serpent;
 
-            ///Les images sont dÈtruites par la scËne prÈcÈdente:
+            ///Les images sont d√©truites par la sc√®ne pr√©c√©dente:
             //for (i=0;i<sizeof(textures_arriere_plan)/sizeof(Image*);i++) if(textures_arriere_plan[i]!=NULL) delete textures_arriere_plan[i];
 
             if(cube_arriere_plan!=NULL)delete cube_arriere_plan;
@@ -558,7 +558,7 @@ class Scene_Caduce: public Scene
         }
 
         //----------------------------------------------------------------------------
-        //                 Mise ‡ jour de la fenÍtre, si on est pas en plein ecran
+        //                 Mise √† jour de la fen√™tre, si on est pas en plein ecran
         //----------------------------------------------------------------------------
         virtual void maj_dimensions_fenetre()
         {
@@ -594,7 +594,7 @@ class Scene_Caduce: public Scene
                 scene_transition->maj(t);
                 post_rendu->affiche_tempon_ecran_2(oeil_1_starfield);
                 scene_transition->desactive();
-            //Superpose les scËnes:
+            //Superpose les sc√®nes:
                 /*
                 post_rendu->depart_superposition_tempons();
                 post_rendu->superpose_tempon(DKSECRAN_TEMPON_ECRAN_1);
@@ -611,7 +611,7 @@ class Scene_Caduce: public Scene
         //========================================================================================================================================
         //========================================================================================================================================
         //----------------------------------------------------------------------------
-        //                  Initialise les donnÈes d'animation
+        //                  Initialise les donn√©es d'animation
         //----------------------------------------------------------------------------
         void initialise_animations()
         {
@@ -625,7 +625,7 @@ class Scene_Caduce: public Scene
             point_vise_0={-0.3,18.1,-1.1}; //Centre des serpents
             source_soleil->determine_point_vise(point_vise_0);
             interpolations_positions[POINT_VISE_CENTRE_SERPENTS]=new Interpolation_Parametre_3d(-1.,point_vise_1,point_vise_0,3.,INTERPOLATION_COSINUS);
-            point_vise_1={29.5438, 16.842, 29.8626}; //Point de visÈe du regard de la vue d'ensemble
+            point_vise_1={29.5438, 16.842, 29.8626}; //Point de vis√©e du regard de la vue d'ensemble
             interpolations_positions[POINT_VISE_SCENE]=new Interpolation_Parametre_3d(-1.,point_vise_0,point_vise_1,10.,INTERPOLATION_COSINUS);
 
             interpolations_parametres[CAMERA_POS_TRAJECTOIRE_02]=new Interpolation_Parametre(-1.,0,1.,15.,INTERPOLATION_COSINUS);
@@ -658,7 +658,7 @@ class Scene_Caduce: public Scene
 
         public:
         //----------------------------------------------------------------------------
-        //                  Etat de la scËne au dÈpart de l'animation
+        //                  Etat de la sc√®ne au d√©part de l'animation
         //----------------------------------------------------------------------------
         virtual void initialise_t0(double t0)
         {
@@ -679,8 +679,8 @@ class Scene_Caduce: public Scene
             //source_soleil->determine_mode_visee(DKSOEIL_VISEE_CONTENEUR);
             //source_soleil->determine_conteneur_vise(oeil_1);
 
-            ///----------------------------------------------------------------------------------------------------------------- activer lors de la dÈmo intÈgrale
-            //Copie les derniËres positions de la scËne prÈcÈdente:
+            ///----------------------------------------------------------------------------------------------------------------- activer lors de la d√©mo int√©grale
+            //Copie les derni√®res positions de la sc√®ne pr√©c√©dente:
 
 
                 dksRepere* repere_transition=scene_tunnel->transition_caducee_particules->repere_absolu;
@@ -710,7 +710,7 @@ class Scene_Caduce: public Scene
 
 
 
-                //Pour obtenir les derniËres coordonnÈes de la scËne prÈcÈdente: (raccord)
+                //Pour obtenir les derni√®res coordonn√©es de la sc√®ne pr√©c√©dente: (raccord)
                 /*
                 oeil_1->toString();
                 cout<<endl;
@@ -753,7 +753,7 @@ class Scene_Caduce: public Scene
                                             scene_tunnel->source_2->renvoie_attenuation_lineaire()*e,
                                             scene_tunnel->source_2->renvoie_attenuation_carree());
 
-            //...Et voil‡, on a le mÍme point de vue!
+            //...Et voil√†, on a le m√™me point de vue!
 
             oeil_1->determine_ouverture(ouverture_camera);
             oeil_courant=oeil_1;
@@ -831,7 +831,7 @@ class Scene_Caduce: public Scene
                 oeil_1->determine_point_vise(point_vise_0);
                 //mon_cube->determine_position(point_vise_0);
 
-                position_trajectoire_camera=camera_pos_trajectoire_01->renvoie_valeur_parametre(position_temps); ///+14 a retirer aprËs le dÈveloppement !!!
+                position_trajectoire_camera=camera_pos_trajectoire_01->renvoie_valeur_parametre(position_temps); ///+14 a retirer apr√®s le d√©veloppement !!!
                 //cout<<"T:"<<position_temps<<"position scene caducee: "<<position_trajectoire_camera<<endl;
 
                 trajectoire_camera_caducee_01->renvoie_position(position_trajectoire_camera,position);
@@ -893,7 +893,7 @@ class Scene_Caduce: public Scene
             }
 
 
-            //Temps d'immobilitÈ de l'oeil avant la scËne suivante:
+            //Temps d'immobilit√© de l'oeil avant la sc√®ne suivante:
             else if (position_temps_scene<32)
             {
                 if (!etapes[VUE_ENSEMBLE_CADUCEE])
@@ -984,7 +984,7 @@ class Scene_Caduce: public Scene
         //======================================================================================================================================
 
         //============================================================================
-        //                     Initialisations de l'Èditeur
+        //                     Initialisations de l'√©diteur
         //============================================================================
 
 
@@ -1022,7 +1022,7 @@ class Scene_Caduce: public Scene
         }
 
         //===================================================
-        //          Affiche la trajectoire ÈditÈe
+        //          Affiche la trajectoire √©dit√©e
         //===================================================
         void affiche_trajectoire(dksTrajectoire* trajectoire)
         {
@@ -1042,7 +1042,7 @@ class Scene_Caduce: public Scene
         }
 
         //===================================================
-        //          Affiche l'origine du conteneur sÈlectionnÈ
+        //          Affiche l'origine du conteneur s√©lectionn√©
         //===================================================
         void affiche_origine_conteneur(dksConteneur* cont)
         {
@@ -1076,22 +1076,22 @@ class Scene_Caduce: public Scene
             switch (key)
             {
                  case 101:
-                //flËche haut
+                //fl√®che haut
                 conteneur_selectionne->deplace(AVANT,vitesse_deplacement);
                 cout<<conteneur_selectionne->x<<" "<<conteneur_selectionne->y<<" "<<conteneur_selectionne->z<<endl;
                 break;
                 case 100:
-                    //flËche gauche
+                    //fl√®che gauche
                     conteneur_selectionne->deplace(GAUCHE,vitesse_deplacement);
                     cout<<conteneur_selectionne->x<<" "<<conteneur_selectionne->y<<" "<<conteneur_selectionne->z<<endl;
                     break;
                 case 103:
-                    //flËche bas
+                    //fl√®che bas
                     conteneur_selectionne->deplace(ARRIERE,vitesse_deplacement);
                     cout<<conteneur_selectionne->x<<" "<<conteneur_selectionne->y<<" "<<conteneur_selectionne->z<<endl;
                     break;
                 case 102:
-                    //flËche droite
+                    //fl√®che droite
                     conteneur_selectionne->deplace(DROITE,vitesse_deplacement);
                     cout<<conteneur_selectionne->x<<" "<<conteneur_selectionne->y<<" "<<conteneur_selectionne->z<<endl;
                     break;
@@ -1111,14 +1111,14 @@ class Scene_Caduce: public Scene
                 //Touches F..
                 case 1:
                     if (ma_trajectoire.renvoie_longueur_totale()>0.)
-                    {if (ma_trajectoire.sauve_trajectoire(fichier_trajectoire)) cout<<"Trajectoire "<<fichier_trajectoire<<" sauvÈe avec succËs!"<<endl;}
-                    else cout<<"Sauvegarde impossible-pas de trajectoire en mÈmoire!"<<endl;
+                    {if (ma_trajectoire.sauve_trajectoire(fichier_trajectoire)) cout<<"Trajectoire "<<fichier_trajectoire<<" sauv√©e avec succ√®s!"<<endl;}
+                    else cout<<"Sauvegarde impossible-pas de trajectoire en m√©moire!"<<endl;
                     break;
 
                 case 2:
                     if (ma_trajectoire.charge_trajectoire(fichier_trajectoire))
                     {
-                        cout<<"Trajectoire "<<fichier_trajectoire<<" chargÈe avec succËs!"<<endl;
+                        cout<<"Trajectoire "<<fichier_trajectoire<<" charg√©e avec succ√®s!"<<endl;
                         point_actuel=0;
                     }
                 default:
@@ -1198,7 +1198,7 @@ class Scene_Caduce: public Scene
                         {
                             if (i==conteneurs_selectionnables.size()-1) conteneur_selectionne=conteneurs_selectionnables[0];
                             else conteneur_selectionne=conteneurs_selectionnables[i+1];
-                            cout<<"Conteneur sÈlectionnÈ: "<<conteneur_selectionne->nom<<endl;
+                            cout<<"Conteneur s√©lectionn√©: "<<conteneur_selectionne->nom<<endl;
                             break;
                         }
                     }
@@ -1260,7 +1260,7 @@ class Scene_Caduce: public Scene
                     ma_trajectoire.affiche_position_point(point_actuel);
                     break;
 
-                //............ DÈplacement sur la trajectoire:
+                //............ D√©placement sur la trajectoire:
                 case '&':
                      if( drapeau_alignement_conteneur_trajectoire ) conteneur_selectionne->contrainte_trajectoire=true;
                      else conteneur_selectionne->contrainte_trajectoire=false;
@@ -1268,32 +1268,32 @@ class Scene_Caduce: public Scene
                     cout<<"Position trajectoire t="<<position_trajectoire;
                     ma_trajectoire.renvoie_position(position_trajectoire,coordonnees_trajectoire);
                     conteneur_selectionne->determine_position(coordonnees_trajectoire);
-                    cout<<" CoordonnÈes X:"<<coordonnees_trajectoire[0]<<" Y:"<<coordonnees_trajectoire[1]<<" Z:"<<coordonnees_trajectoire[2]<<endl;
+                    cout<<" Coordonn√©es X:"<<coordonnees_trajectoire[0]<<" Y:"<<coordonnees_trajectoire[1]<<" Z:"<<coordonnees_trajectoire[2]<<endl;
 
 
                     break;
-                case 233:// È
+                case 233:// √©
                     if( drapeau_alignement_conteneur_trajectoire ) conteneur_selectionne->contrainte_trajectoire=true;
                     else conteneur_selectionne->contrainte_trajectoire=false;
                     position_trajectoire+=pas_position_trajectoire;
                     cout<<"Position trajectoire t="<<position_trajectoire;
                     ma_trajectoire.renvoie_position(position_trajectoire,coordonnees_trajectoire);
                     conteneur_selectionne->determine_position(coordonnees_trajectoire);
-                    cout<<" CoordonnÈes X:"<<coordonnees_trajectoire[0]<<" Y:"<<coordonnees_trajectoire[1]<<" Z:"<<coordonnees_trajectoire[2]<<endl;
+                    cout<<" Coordonn√©es X:"<<coordonnees_trajectoire[0]<<" Y:"<<coordonnees_trajectoire[1]<<" Z:"<<coordonnees_trajectoire[2]<<endl;
                     break;
 
-                //............... Affiche les coordonnÈes:
+                //............... Affiche les coordonn√©es:
                 case 'r':
-                    cout<<"RepËre relatif: "<<conteneur_selectionne->axe_x->x<<","<<conteneur_selectionne->axe_x->y<<","<<conteneur_selectionne->axe_x->z<<","
+                    cout<<"Rep√®re relatif: "<<conteneur_selectionne->axe_x->x<<","<<conteneur_selectionne->axe_x->y<<","<<conteneur_selectionne->axe_x->z<<","
                                             <<conteneur_selectionne->axe_y->x<<","<<conteneur_selectionne->axe_y->y<<","<<conteneur_selectionne->axe_y->z<<","
                                             <<conteneur_selectionne->axe_z->x<<","<<conteneur_selectionne->axe_z->y<<","<<conteneur_selectionne->axe_z->z<<endl;
 
-                    cout<<"RepËre absolu: "<<rep->axe_x->x<<","<<rep->axe_x->y<<","<<rep->axe_x->z<<","
+                    cout<<"Rep√®re absolu: "<<rep->axe_x->x<<","<<rep->axe_x->y<<","<<rep->axe_x->z<<","
                                             <<rep->axe_y->x<<","<<rep->axe_y->y<<","<<rep->axe_y->z<<","
                                             <<rep->axe_z->x<<","<<rep->axe_z->y<<","<<rep->axe_z->z<<endl;
                     break;
 
-                case 178: // ≤
+                case 178: // ¬≤
                     if(drapeau_alignement_conteneur_trajectoire) drapeau_alignement_conteneur_trajectoire=false;
                     else drapeau_alignement_conteneur_trajectoire=true;
                     cout<<"Alignement trajectoire: "<<drapeau_alignement_conteneur_trajectoire<<endl;

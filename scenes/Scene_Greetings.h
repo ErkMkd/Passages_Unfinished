@@ -3,7 +3,7 @@
 
 /*
 
-            Scène des greetings
+            ScÃ¨ne des greetings
 
 */
 
@@ -77,9 +77,9 @@ class Scene_Greetings : public Scene
             };
     bool etapes[1];
 
-    //============ Données d'animation
+    //============ DonnÃ©es d'animation
 
-        //Interpolations de paramètre simple:
+        //Interpolations de paramÃ¨tre simple:
         enum    {
                     ARRIVEE_GROUPE,
                     DEPART_GROUPE
@@ -87,7 +87,7 @@ class Scene_Greetings : public Scene
 
         Interpolation_Parametre* interpolations_parametres[2];
 
-    //============= Données de l'éditeur:
+    //============= DonnÃ©es de l'Ã©diteur:
 
         double vitesse_rotation;
         double vitesse_deplacement;
@@ -153,11 +153,11 @@ class Scene_Greetings : public Scene
 
 
 
-        //--------------- Création des textes 3d:
+        //--------------- CrÃ©ation des textes 3d:
             for(i=0;i<GREETS_NBR_LETTRES;i++)
             {
                 lettres[i]=lettres_converties->renvoie_volume_index(i);
-                //lettres[i]->determine_mode_rendu(DKSVOLUME_MODE_LISTE); //Mode LISTE activé lors de la création de la police.
+                //lettres[i]->determine_mode_rendu(DKSVOLUME_MODE_LISTE); //Mode LISTE activÃ© lors de la crÃ©ation de la police.
             }
             police_groupes=new dksPolice3d(lettres,GREETS_NBR_LETTRES,1.,.15);
             police_groupes->determine_mode_rendu(DKSVOLUME_MODE_TABLEAUX);
@@ -181,7 +181,7 @@ class Scene_Greetings : public Scene
             }
             */
 
-        //-------------- Création du plan ondulant:
+        //-------------- CrÃ©ation du plan ondulant:
 
 
             double axes[9]={0.55479,0,-0.83199,0,1,0,0.83199,0,0.55479};
@@ -194,7 +194,7 @@ class Scene_Greetings : public Scene
                                         );
             if(plan_ondulant==NULL || plan_ondulant->erreur!=DKSPLAN_OK)
             {
-                cout<<"ERREUR Lors de la création du plan ondulant de la scène: "<<nom<<endl;
+                cout<<"ERREUR Lors de la crÃ©ation du plan ondulant de la scÃ¨ne: "<<nom<<endl;
                 erreur=SCENE_ERREUR_INIT;
                 return;
             }
@@ -244,10 +244,10 @@ class Scene_Greetings : public Scene
             plan_ondulant->determine_texture_recto(texture_plan);
             //plan_ondulant->surface_plan_recto->mode_rendu=DKSSURFACE_RENDU_TEXTURE_COULEUR;
             plan_ondulant->surface_plan_recto->mode_rendu=DKSSURFACE_RENDU_ONDES_TEXTURE_COULEUR;
-            //---------- Génère la texture de bruit:
+            //---------- GÃ©nÃ¨re la texture de bruit:
             if (!Bruit::genere_bruit_de_Perlin_2D_8bits(4,4,TAILLE_TEXTURE_ONDULATIONS_GREETS,TAILLE_TEXTURE_ONDULATIONS_GREETS,12,0.75,bruit_ondulations))
             {
-                cout<<"ERREUR dans Scene_Greetings() - Impossible de créer la texture de bruit des ondulations"<<endl;
+                cout<<"ERREUR dans Scene_Greetings() - Impossible de crÃ©er la texture de bruit des ondulations"<<endl;
                 erreur=SCENE_ERREUR_INIT;
                 return;
             }
@@ -258,7 +258,7 @@ class Scene_Greetings : public Scene
                                              );
             plan_ondulant->texture_perturbation=image_bruit_ondulation;
 
-        //------------------ Arrière plan:
+        //------------------ ArriÃ¨re plan:
             cube_arriere_plan=new dksCube("Cube_arriere_plan_greetings",0.,0.,0.,10.,10.,10.,0xffffffff);
             textures_arriere_plan[0]=new Image("textures/arriere_plans/greets_FR.jpg",false,true);
             textures_arriere_plan[1]=new Image("textures/arriere_plans/greets_BK.jpg",false,true);
@@ -283,7 +283,7 @@ class Scene_Greetings : public Scene
                                    0xffff4040);
                 if(vectorBalls[i]==NULL || vectorBalls[i]->erreur!=DKSVOLUME_OK)
                 {
-                    cout<<"ERREUR lors de la création des vectorBalls"<<endl;
+                    cout<<"ERREUR lors de la crÃ©ation des vectorBalls"<<endl;
                     erreur=SCENE_ERREUR_INIT;
                     return ;
                 }
@@ -293,19 +293,19 @@ class Scene_Greetings : public Scene
 
             particules_vectorBalls=new dksParticulesVolumes("Particules_vectorBalls_Greets",0.,0.,0.,(dksVolume**)vectorBalls,NBR_VECTORBALLS);
             particules_vectorBalls->determine_vitesses_rotations(0.,0.,0.);
-            ///A commenter après développement.
+            ///A commenter aprÃ¨s dÃ©veloppement.
             particules_vectorBalls->determine_points(scene_arbre->particules_vectorBalls->renvoie_points(),NBR_VECTORBALLS);
             particules_vectorBalls->random_masses(1.,3.);
             particules_vectorBalls->random_amplitudes_perlin(0.25,1.);
             particules_vectorBalls->random_intervalles_perlin(0.1,.5);
 
-            //Conteneurs utilisés pour générer les mouvements des shpères par gravité:
+            //Conteneurs utilisÃ©s pour gÃ©nÃ©rer les mouvements des shpÃ¨res par gravitÃ©:
             conteneur_mvt_balls_1=new dksConteneur("conteneur_mouvement_balls_1",0.,POSITION_GROUPS_Y,POSITION_GROUPS_Z);
             conteneur_mvt_balls_2=new dksConteneur("conteneur_mouvement_balls_2",0.,4.,0.);
             conteneur_mvt_balls_1->ajoute_enfant(conteneur_mvt_balls_2);
             vitesse_centre_gravite_balls_RTL={35./180.*M_PI*1.,43./180.*M_PI*1.,-57./180*M_PI*1.};
 
-        //----------------- Création des éléments de la scène:
+        //----------------- CrÃ©ation des Ã©lÃ©ments de la scÃ¨ne:
         //Yeux:
             oeil_1=new dksOeil("Oeil_1",-0.0772596, 3.72469, -9.8722);
             oeil_courant=oeil_1;
@@ -314,7 +314,7 @@ class Scene_Greetings : public Scene
             axes={0.999978,-0.00327286,-0.0056919,0.00213878,0.981993,-0.188901,0.00620767,0.188884,0.981979};
             oeil_1->determine_axes(axes);
 
-        //Création des sources:
+        //CrÃ©ation des sources:
             source_1=new dksSourceLumineuse("Source_1",96.4604, 42.5317, 264.856);
             source_1->determine_attenuation(1.,0.,0.);
 
@@ -346,7 +346,7 @@ class Scene_Greetings : public Scene
             conteneurs[2]=conteneur_mvt_balls_2;
 
 
-        //Création de la scene:
+        //CrÃ©ation de la scene:
             scene=new dksMoteur3d("Greetings",ecran,
                             conteneurs,3,
                             volumes,2,
@@ -446,7 +446,7 @@ class Scene_Greetings : public Scene
     //========================================================================================================================================
     //========================================================================================================================================
     //----------------------------------------------------------------------------
-    //                  Initialise les données d'animation
+    //                  Initialise les donnÃ©es d'animation
     //----------------------------------------------------------------------------
     void initialise_animations()
     {
@@ -467,7 +467,7 @@ class Scene_Greetings : public Scene
 
     public:
     //----------------------------------------------------------------------------
-    //                  Etat de la scène au départ de l'animation
+    //                  Etat de la scÃ¨ne au dÃ©part de l'animation
     //----------------------------------------------------------------------------
     virtual void initialise_t0(double t0)
     {
@@ -531,7 +531,7 @@ class Scene_Greetings : public Scene
     }
 
     //====================================================================================
-    //      Gestion du défilement des noms des groupes
+    //      Gestion du dÃ©filement des noms des groupes
     //====================================================================================
     void defilement_groupes()
     {
@@ -550,7 +550,7 @@ class Scene_Greetings : public Scene
                     groupes[groupe_actuel]->a_ete_deplace();
                     if(interpolations_parametres[ARRIVEE_GROUPE]->drapeau_terminee) etape_groupe=1;
                 }
-                if(etape_groupe==1)    ///Pas Else if, sinon il peut y avoir des décallage dans la synchro
+                if(etape_groupe==1)    ///Pas Else if, sinon il peut y avoir des dÃ©callage dans la synchro
                 {
                   if(t_depart_groupe<0.)
                     {
@@ -594,7 +594,7 @@ class Scene_Greetings : public Scene
     //======================================================================================================================================
 
     //============================================================================
-    //                     Initialisations de l'éditeur
+    //                     Initialisations de l'Ã©diteur
     //============================================================================
 
         virtual void initialise_editeur()
@@ -627,7 +627,7 @@ class Scene_Greetings : public Scene
         }
 
         //===================================================
-        //          Affiche la trajectoire éditée
+        //          Affiche la trajectoire Ã©ditÃ©e
         //===================================================
         void affiche_trajectoire()
         {
@@ -661,22 +661,22 @@ class Scene_Greetings : public Scene
             switch (key)
             {
                  case 101:
-                //flèche haut
+                //flÃ¨che haut
                 conteneur_selectionne->deplace(AVANT,vitesse_deplacement);
                 cout<<conteneur_selectionne->x<<" "<<conteneur_selectionne->y<<" "<<conteneur_selectionne->z<<endl;
                 break;
                 case 100:
-                    //flèche gauche
+                    //flÃ¨che gauche
                     conteneur_selectionne->deplace(GAUCHE,vitesse_deplacement);
                     cout<<conteneur_selectionne->x<<" "<<conteneur_selectionne->y<<" "<<conteneur_selectionne->z<<endl;
                     break;
                 case 103:
-                    //flèche bas
+                    //flÃ¨che bas
                     conteneur_selectionne->deplace(ARRIERE,vitesse_deplacement);
                     cout<<conteneur_selectionne->x<<" "<<conteneur_selectionne->y<<" "<<conteneur_selectionne->z<<endl;
                     break;
                 case 102:
-                    //flèche droite
+                    //flÃ¨che droite
                     conteneur_selectionne->deplace(DROITE,vitesse_deplacement);
                     cout<<conteneur_selectionne->x<<" "<<conteneur_selectionne->y<<" "<<conteneur_selectionne->z<<endl;
                     break;
@@ -695,13 +695,13 @@ class Scene_Greetings : public Scene
 
                 //Touches F..
                 case 1:
-                    if (ma_trajectoire.sauve_trajectoire(fichier_trajectoire)) cout<<"Trajectoire "<<fichier_trajectoire<<" sauvée avec succès!"<<endl;
+                    if (ma_trajectoire.sauve_trajectoire(fichier_trajectoire)) cout<<"Trajectoire "<<fichier_trajectoire<<" sauvÃ©e avec succÃ¨s!"<<endl;
                     break;
 
                 case 2:
                     if (ma_trajectoire.charge_trajectoire(fichier_trajectoire))
                     {
-                        cout<<"Trajectoire "<<fichier_trajectoire<<" chargée avec succès!"<<endl;
+                        cout<<"Trajectoire "<<fichier_trajectoire<<" chargÃ©e avec succÃ¨s!"<<endl;
                         point_actuel=0;
                     }
                 default:
@@ -780,7 +780,7 @@ class Scene_Greetings : public Scene
                         {
                             if (i==conteneurs_selectionnables.size()-1) conteneur_selectionne=conteneurs_selectionnables[0];
                             else conteneur_selectionne=conteneurs_selectionnables[i+1];
-                            cout<<"Conteneur sélectionné: "<<conteneur_selectionne->nom<<endl;
+                            cout<<"Conteneur sÃ©lectionnÃ©: "<<conteneur_selectionne->nom<<endl;
                             break;
                         }
                     }
@@ -846,21 +846,21 @@ class Scene_Greetings : public Scene
                     cout<<"Position trajectoire t="<<position_trajectoire;
                     ma_trajectoire.renvoie_position(position_trajectoire,coordonnees_trajectoire);
                     conteneur_selectionne->determine_position(coordonnees_trajectoire);
-                    cout<<" Coordonnées X:"<<coordonnees_trajectoire[0]<<" Y:"<<coordonnees_trajectoire[1]<<" Z:"<<coordonnees_trajectoire[2]<<endl;
+                    cout<<" CoordonnÃ©es X:"<<coordonnees_trajectoire[0]<<" Y:"<<coordonnees_trajectoire[1]<<" Z:"<<coordonnees_trajectoire[2]<<endl;
                     break;
-                case 233: //²
+                case 233: //Â²
                     position_trajectoire+=pas_position_trajectoire;
                     cout<<"Position trajectoire t="<<position_trajectoire;
                     ma_trajectoire.renvoie_position(position_trajectoire,coordonnees_trajectoire);
                     conteneur_selectionne->determine_position(coordonnees_trajectoire);
-                    cout<<" Coordonnées X:"<<coordonnees_trajectoire[0]<<" Y:"<<coordonnees_trajectoire[1]<<" Z:"<<coordonnees_trajectoire[2]<<endl;
+                    cout<<" CoordonnÃ©es X:"<<coordonnees_trajectoire[0]<<" Y:"<<coordonnees_trajectoire[1]<<" Z:"<<coordonnees_trajectoire[2]<<endl;
                     break;
                 case 'r':
-                    cout<<"Repère relatif: "<<conteneur_selectionne->axe_x->x<<","<<conteneur_selectionne->axe_x->y<<","<<conteneur_selectionne->axe_x->z<<","
+                    cout<<"RepÃ¨re relatif: "<<conteneur_selectionne->axe_x->x<<","<<conteneur_selectionne->axe_x->y<<","<<conteneur_selectionne->axe_x->z<<","
                                             <<conteneur_selectionne->axe_y->x<<","<<conteneur_selectionne->axe_y->y<<","<<conteneur_selectionne->axe_y->z<<","
                                             <<conteneur_selectionne->axe_z->x<<","<<conteneur_selectionne->axe_z->y<<","<<conteneur_selectionne->axe_z->z<<endl;
 
-                    cout<<"Repère absolu: "<<rep->axe_x->x<<","<<rep->axe_x->y<<","<<rep->axe_x->z<<","
+                    cout<<"RepÃ¨re absolu: "<<rep->axe_x->x<<","<<rep->axe_x->y<<","<<rep->axe_x->z<<","
                                             <<rep->axe_y->x<<","<<rep->axe_y->y<<","<<rep->axe_y->z<<","
                                             <<rep->axe_z->x<<","<<rep->axe_z->y<<","<<rep->axe_z->z<<endl;
                     break;

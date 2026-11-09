@@ -15,24 +15,24 @@
 #define CANAL_ANIMATION_SOURCE_LUMINEUSE 5
 
 //=================================================================================
-//                      Définition de la classe de base des canaux d'animation
+//                      DÃ©finition de la classe de base des canaux d'animation
 //==================================================================================
 
 class  Canal_Animation
 {
     public:
         string nom;
-        void* scenario; //L'animation à laquelle appartient le canal.
+        void* scenario; //L'animation Ã  laquelle appartient le canal.
         uint16_t type;  //Type du canal
     protected:
-        vector<Cle_Animation*> cles; //Les clés du canal
+        vector<Cle_Animation*> cles; //Les clÃ©s du canal
 
         double position_depart; //Temps 0 du canal
-        double duree; //Durée totale du canal.
+        double duree; //DurÃ©e totale du canal.
         Vecteur position_rot;
 
-        //Pour la gestion mémoire:
-        vector<Cle_Animation*> cles_crees; //A libérer par le destructeur
+        //Pour la gestion mÃ©moire:
+        vector<Cle_Animation*> cles_crees; //A libÃ©rer par le destructeur
 
     protected:
         bool actif;
@@ -111,10 +111,10 @@ class  Canal_Animation
         }
 
         //=================================================================================
-        //                       Fonctions de recherche des clés
+        //                       Fonctions de recherche des clÃ©s
         //=================================================================================
 
-        //Renvoie la clé située à l'indice:
+        //Renvoie la clÃ© situÃ©e Ã  l'indice:
         //Si l'indice est hors du tableau, renvoie NULL.
         Cle_Animation* renvoie_cle(uint32_t indice)
         {
@@ -122,16 +122,16 @@ class  Canal_Animation
             else return cles[indice];
         }
 
-        //Renvoie la clé suivante à la clé spécifiée en entrée
-        //Renvoie null si il n'y a pas de clé suivante.
+        //Renvoie la clÃ© suivante Ã  la clÃ© spÃ©cifiÃ©e en entrÃ©e
+        //Renvoie null si il n'y a pas de clÃ© suivante.
         Cle_Animation* renvoie_cle_suivante(Cle_Animation* cle)
         {
             if (cle->index >= cles.size() - 1) return NULL;
             else return cles[cle->index + 1];
         }
 
-        //Renvoie la clé précédente à la clé spécifiée en entrée
-        //Renvoie null si il n'y a pas de clé précédente.
+        //Renvoie la clÃ© prÃ©cÃ©dente Ã  la clÃ© spÃ©cifiÃ©e en entrÃ©e
+        //Renvoie null si il n'y a pas de clÃ© prÃ©cÃ©dente.
         Cle_Animation* renvoie_cle_precedente(Cle_Animation* cle)
         {
             if (cle->index == 0) return NULL;
@@ -139,8 +139,8 @@ class  Canal_Animation
         }
 
 
-        //Renvoie la clé précédente la plus proche de la position indiquée
-        //Si il y a une clé située au temps indiqué, elle est renvoyée par la fonction.
+        //Renvoie la clÃ© prÃ©cÃ©dente la plus proche de la position indiquÃ©e
+        //Si il y a une clÃ© situÃ©e au temps indiquÃ©, elle est renvoyÃ©e par la fonction.
         Cle_Animation* renvoie_cle_precedente_proche(double t)
         {
             if (cles.size() == 0) return NULL;
@@ -152,8 +152,8 @@ class  Canal_Animation
             return cles[cles.size() - 1];
         }
 
-        //Renvoie la clé suivante la plus proche de la position indiquée
-        //Null si il n'y a pas de clé après la position spécifiée.
+        //Renvoie la clÃ© suivante la plus proche de la position indiquÃ©e
+        //Null si il n'y a pas de clÃ© aprÃ¨s la position spÃ©cifiÃ©e.
         Cle_Animation* renvoie_cle_suivante_proche(double t)
         {
             for (uint32_t i = 0; i < cles.size(); i++ )
@@ -167,7 +167,7 @@ class  Canal_Animation
         //==================== Fonctions de calculs d'interpolations:
         //=================================================================================
     protected:
-        //renvoie la valeur interpolée d'un paramètre de type FLOTTANT:
+        //renvoie la valeur interpolÃ©e d'un paramÃ¨tre de type FLOTTANT:
         //t est normalement compris entre 0 et 1
         double calcul_interpolation_FLOTTANT(Parametre_Animation* p_org,Parametre_Animation* p_dst,double t)
         {
@@ -186,7 +186,7 @@ class  Canal_Animation
             else{return valOrg;}
         }
 
-        //renvoie l'angle interpolé d'une rotation:
+        //renvoie l'angle interpolÃ© d'une rotation:
         //t est normalement compris entre 0 et 1
         double calcul_interpolation_rotation(Parametre_Animation* p_org,double t)
         {
@@ -201,7 +201,7 @@ class  Canal_Animation
             else{return 0.;}
         }
 
-        //renvoie la valeur interpolée d'un paramètre au format int 0x00RRVVBB (généralement utilisé pour la définition d'une couleur)
+        //renvoie la valeur interpolÃ©e d'un paramÃ¨tre au format int 0x00RRVVBB (gÃ©nÃ©ralement utilisÃ© pour la dÃ©finition d'une couleur)
         //t est normalement compris entre 0 et 1
         uint32_t calcul_interpolationRVB(Parametre_Animation* p_org,Parametre_Animation* p_dst,double t)
         {
@@ -229,7 +229,7 @@ class  Canal_Animation
             return (val_R << 16) | (val_V<<8) | val_B;
         }
 
-        //renvoie la valeur position interpolée sur une trajectoire:
+        //renvoie la valeur position interpolÃ©e sur une trajectoire:
         //t est normalement compris entre 0 et 1
         void calcul_interpolation_trajectoire_courbe(Parametre_Animation_TRAJECTOIRE* trajectoire,double t,vec3d* position)
         {
@@ -293,12 +293,12 @@ class  Canal_Animation
         */
 
         //=================================================================================
-        //=================== Fonctions de gestion de la table des clés:
+        //=================== Fonctions de gestion de la table des clÃ©s:
         //=================================================================================
     public:
-        //Fonction qui crée une clé adaptée au canal.
-        //LA clé n'est pas ajoutée au canal. Pour cela, appeler ajoute_cle()
-        //! La clé n'est pas ajoutée à la table des clés du canal. Comme ça, il est possible de créer une clé
+        //Fonction qui crÃ©e une clÃ© adaptÃ©e au canal.
+        //LA clÃ© n'est pas ajoutÃ©e au canal. Pour cela, appeler ajoute_cle()
+        //! La clÃ© n'est pas ajoutÃ©e Ã  la table des clÃ©s du canal. Comme Ã§a, il est possible de crÃ©er une clÃ©
         //! vide que l'on peut ajouter dans un autre canal.
         Cle_Animation* creation_cle(double t=0.,string p_nom="")
         {
@@ -319,17 +319,17 @@ class  Canal_Animation
             uint32_t index = 0;
             if (cle_prec != NULL) index = cle_prec->index + 1;
 
-            //Insertion de la clé au bon endroit. Ca évite un tri.
+            //Insertion de la clÃ© au bon endroit. Ca Ã©vite un tri.
             cles.insert(cles.begin()+index,1,cle); // <=> cles.splice(index, 0, cle ) (en ActionScript 3)
 
-            //Initialisation des indexs de la clé et des clé suivantes:
+            //Initialisation des indexs de la clÃ© et des clÃ© suivantes:
             uint32_t i;
             for (i = index; i < cles.size(); i++ )
             {
                 cles[i]->index = i;
             }
-            //Si besoin, on raccorde les clés entre elles.
-            //Cela peut être les trajectoires courbes pour un canal de conteneur.
+            //Si besoin, on raccorde les clÃ©s entre elles.
+            //Cela peut Ãªtre les trajectoires courbes pour un canal de conteneur.
             raccorde_cles(cle_prec, cle);
             raccorde_cles(cle, renvoie_cle_suivante(cle));
 
@@ -337,11 +337,11 @@ class  Canal_Animation
         }
 
 
-        //Supprime une clé au temps indiqué.
-        //Renvoie la clé supprimée ou null le cas échéant.
+        //Supprime une clÃ© au temps indiquÃ©.
+        //Renvoie la clÃ© supprimÃ©e ou null le cas Ã©chÃ©ant.
         Cle_Animation* supprime_cle_position(double pos)
         {
-            if (pos==0.){return NULL;} //La clé au temps 0 est toujours présente
+            if (pos==0.){return NULL;} //La clÃ© au temps 0 est toujours prÃ©sente
             for (uint32_t i=0;i<cles.size();i++)
             {
                 if (cles[i]->t > pos){return NULL;}
@@ -353,9 +353,9 @@ class  Canal_Animation
             return NULL;
         }
 
-        //Supprime une clé à l'index indiqué.
-        //!!! La clé 0 n'est pas protégée !!! Comme ça elle peut être écrasée
-        //Renvoie la clé supprimée du tableau ou null si l'index est hors tableau.
+        //Supprime une clÃ© Ã  l'index indiquÃ©.
+        //!!! La clÃ© 0 n'est pas protÃ©gÃ©e !!! Comme Ã§a elle peut Ãªtre Ã©crasÃ©e
+        //Renvoie la clÃ© supprimÃ©e du tableau ou null si l'index est hors tableau.
         Cle_Animation* supprime_cle_index(uint32_t i)
         {
             if (i<cles.size())
@@ -363,7 +363,7 @@ class  Canal_Animation
                 Cle_Animation* clef = cles[i];
                 raccorde_cles(renvoie_cle_precedente(clef), renvoie_cle_suivante(clef));
                 cles.erase(cles.begin()+i); //<=> cles.splice(i, 1);
-                //Initialisation des indexs des clé suivantes:
+                //Initialisation des indexs des clÃ© suivantes:
                 for (i = clef->index; i < cles.size(); i++ )
                 {
                     cles[i]->index = i;
@@ -375,7 +375,7 @@ class  Canal_Animation
         }
 
 
-        // déplacement d'un groupe de cles -> les clefs doivent appartenir au canal !!!!
+        // dÃ©placement d'un groupe de cles -> les clefs doivent appartenir au canal !!!!
         //************** FONCTION OBSOLETE **************************
         /*
         public function deplace_cles(selection_cles:Array, t:Number=0):void
@@ -407,13 +407,13 @@ class  Canal_Animation
         }
 
         //=================================================================================
-        //=================== Prototypes des fonctions à adapter selon le type de canal:
+        //=================== Prototypes des fonctions Ã  adapter selon le type de canal:
         //=================================================================================
 
-        //Crée les paramètres propre au canal d'une clé:
+        //CrÃ©e les paramÃ¨tres propre au canal d'une clÃ©:
         virtual void initialise_cle(Cle_Animation* cle)=0;
 
-        //Prototype de la fonction qui initialise l'objet affecté au canal avec les valeurs des paramètres d'un moment t :
+        //Prototype de la fonction qui initialise l'objet affectÃ© au canal avec les valeurs des paramÃ¨tres d'un moment t :
         virtual void initialise_objet(double t) = 0;
         /*
         {
@@ -427,15 +427,15 @@ class  Canal_Animation
         */
 
 
-        //Prototype de la fonction qui initialise les valeurs de la clé en fonction de son objet de référence:
+        //Prototype de la fonction qui initialise les valeurs de la clÃ© en fonction de son objet de rÃ©fÃ©rence:
         virtual void initialise_valeurs_cle(Cle_Animation* cle) = 0;
         /*
         {
             cout<<"Initialise les valeurs"<<endl;
         }
         */
-        //Prototype de la fonction qui effectue le raccord entre deux clés, après suppression ou insertion d'autres clés.
-        //!!!!!!!!!LES CLES DOIVENT APPARTENIR AU CANAL - Il n'y a pas de vérification !!!!!!!!!!
+        //Prototype de la fonction qui effectue le raccord entre deux clÃ©s, aprÃ¨s suppression ou insertion d'autres clÃ©s.
+        //!!!!!!!!!LES CLES DOIVENT APPARTENIR AU CANAL - Il n'y a pas de vÃ©rification !!!!!!!!!!
         virtual void raccorde_cles(Cle_Animation* cle_prec, Cle_Animation* cle_suiv) =0;
         /*
         {

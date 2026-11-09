@@ -13,7 +13,7 @@
 //#include "main.h"
 
 //*************************************************************
-// Chargement et contrôls d'une musique
+// Chargement et contrÃ´ls d'une musique
 //*************************************************************
 
 
@@ -33,11 +33,11 @@ class Musique
         if (!initialise_device()) return;
 
         musique_id = BASS_StreamCreateFile(
-                                            false,  //true si la musique est lue depuis la mémoire
+                                            false,  //true si la musique est lue depuis la mÃ©moire
                                             fichier_musique,    //Le fichier
-                                            0,                //Départ de la musique
+                                            0,                //DÃ©part de la musique
                                             0,                //Longueur de la musique
-                                            BASS_SAMPLE_LOOP //Libération de la mémoire à la fin de la musique
+                                            BASS_SAMPLE_LOOP //LibÃ©ration de la mÃ©moire Ã  la fin de la musique
                                             );
 
         erreur=BASS_ErrorGetCode();
@@ -72,11 +72,11 @@ class Musique
         if(Musique::drapeau_son_initialise) return true;
 
         BASS_Init(
-                    -1,     //L'audio-device utilisée. -1 = device par défaut du sytème
-                    44100,  //Fréquence d'échantillonnage
-                    BASS_DEVICE_LATENCY, //Active la latence du device (durée entre la demande d'un son et le moment où il va commencer à être joué.)
-                    0, //Fenêtre actuellement au premier plan. Il vaut mieux avoir ouvert l'écran avant de créer un objet Musique.
-                    NULL //Classe de l'objet à créer ?
+                    -1,     //L'audio-device utilisÃ©e. -1 = device par dÃ©faut du sytÃ¨me
+                    44100,  //FrÃ©quence d'Ã©chantillonnage
+                    BASS_DEVICE_LATENCY, //Active la latence du device (durÃ©e entre la demande d'un son et le moment oÃ¹ il va commencer Ã  Ãªtre jouÃ©.)
+                    0, //FenÃªtre actuellement au premier plan. Il vaut mieux avoir ouvert l'Ã©cran avant de crÃ©er un objet Musique.
+                    NULL //Classe de l'objet Ã  crÃ©er ?
                 );
 
             int e=BASS_ErrorGetCode();
@@ -98,7 +98,7 @@ class Musique
         if (erreur==BASS_OK)
         {
             //BASS_Start();
-            BASS_ChannelPlay(musique_id,repete); //Le booléen sert à préciser si l'on rejoue depuis le début ou pas.
+            BASS_ChannelPlay(musique_id,repete); //Le boolÃ©en sert Ã  prÃ©ciser si l'on rejoue depuis le dÃ©but ou pas.
         }
     }
 

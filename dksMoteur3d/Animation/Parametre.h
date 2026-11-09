@@ -10,30 +10,30 @@
 //================================================
 //          Types d'interpolations
 //================================================
-//Interpolations à une dimension:
-#define INTERPOLATION_BASCULE 1  //La valeur du paramètre ne passera pas par des valeurs intermédiaires lors de l'interpolation
-#define INTERPOLATION_LINEAIRE 2 //Variation linéaire de la valeur
-#define INTERPOLATION_BEZIER 3 //Variation de la valeur suivant une courbe de bézier
+//Interpolations Ã  une dimension:
+#define INTERPOLATION_BASCULE 1  //La valeur du paramÃ¨tre ne passera pas par des valeurs intermÃ©diaires lors de l'interpolation
+#define INTERPOLATION_LINEAIRE 2 //Variation linÃ©aire de la valeur
+#define INTERPOLATION_BEZIER 3 //Variation de la valeur suivant une courbe de bÃ©zier
 
 //Interpolations multidimentionnelles:
-#define TRAJECTOIRE_RECTILIGNE 1 //Les valeurs sont interpolées suivant une ligne droite
+#define TRAJECTOIRE_RECTILIGNE 1 //Les valeurs sont interpolÃ©es suivant une ligne droite
 #define TRAJECTOIRE_COURBE 2 //Interpolation suivant une courbe
 #define TRAJECTOIRE_CIRCULAIRE 3 //Interpolation suivant un arc de cercle
 
 //===================================================
-//          Types de donnée gérée par le paramètre
+//          Types de donnÃ©e gÃ©rÃ©e par le paramÃ¨tre
 //===================================================
-//Types de donnée pour les paramètres gérés par les clés:
-#define PARAMETRE_BASE 0   //Pas de valeur pour le paramètre
+//Types de donnÃ©e pour les paramÃ¨tres gÃ©rÃ©s par les clÃ©s:
+#define PARAMETRE_BASE 0   //Pas de valeur pour le paramÃ¨tre
 #define PARAMETRE_ENTIER 1 //uint32
 #define PARAMETRE_FLOTTANT 2   //double
 #define PARAMETRE_BOOLEEN 3    //bool
-#define PARAMETRE_TRAJECTOIRE 5 //Détermine la courbe d'une trajectoire spatiale.
-#define PARAMETRE_HIERARCHIE 6 //Pointe sur un tableau de définition de la hiérarchie.
-#define PARAMETRE_ELEMENT 7 //Pointe sur un élément fondamentale de la scène (oeil,lumière, volume ou conteneur)
+#define PARAMETRE_TRAJECTOIRE 5 //DÃ©termine la courbe d'une trajectoire spatiale.
+#define PARAMETRE_HIERARCHIE 6 //Pointe sur un tableau de dÃ©finition de la hiÃ©rarchie.
+#define PARAMETRE_ELEMENT 7 //Pointe sur un Ã©lÃ©ment fondamentale de la scÃ¨ne (oeil,lumiÃ¨re, volume ou conteneur)
 
 //==================================================
-//      Classe de base des paramètres d'animation
+//      Classe de base des paramÃ¨tres d'animation
 //==================================================
 class Parametre_Animation
 {
@@ -79,7 +79,7 @@ class Parametre_Animation
                     return "BEZIER";break;
                 case INTERPOLATION_LINEAIRE:
                     return "LINEAIRE";break;
-                default: return "indéfinie";break;
+                default: return "indÃ©finie";break;
             }
         }
 
@@ -101,7 +101,7 @@ class Parametre_Animation
                     return "HIERARCHIE";break;
                 case PARAMETRE_ELEMENT:
                     return "ELEMENT";break;
-                default: return "indéfini";break;
+                default: return "indÃ©fini";break;
             }
         }
 
@@ -116,7 +116,7 @@ class Parametre_Animation
 };
 
 //==================================================
-//      Paramètre de type ENTIER
+//      ParamÃ¨tre de type ENTIER
 //==================================================
 class Parametre_Animation_ENTIER: public Parametre_Animation
 {
@@ -150,7 +150,7 @@ class Parametre_Animation_ENTIER: public Parametre_Animation
 };
 
 //==================================================
-//      Paramètre de type FLOTTANT
+//      ParamÃ¨tre de type FLOTTANT
 //==================================================
 class Parametre_Animation_FLOTTANT: public Parametre_Animation
 {
@@ -184,7 +184,7 @@ class Parametre_Animation_FLOTTANT: public Parametre_Animation
 };
 
 //==================================================
-//      Paramètre de type BOOLEEN
+//      ParamÃ¨tre de type BOOLEEN
 //==================================================
 class Parametre_Animation_BOOLEEN: public Parametre_Animation
 {
@@ -216,7 +216,7 @@ class Parametre_Animation_BOOLEEN: public Parametre_Animation
 };
 
 //==================================================
-//      Paramètre de type TRAJECTOIRE
+//      ParamÃ¨tre de type TRAJECTOIRE
 //==================================================
 class Parametre_Animation_TRAJECTOIRE: public Parametre_Animation
 {
@@ -254,7 +254,7 @@ class Parametre_Animation_TRAJECTOIRE: public Parametre_Animation
                 case TRAJECTOIRE_CIRCULAIRE:
                     return "CIRCULAIRE";break;
                 default:
-                return "indéfinie";break;
+                return "indÃ©finie";break;
             }
         }
 
@@ -283,7 +283,7 @@ class Parametre_Animation_TRAJECTOIRE: public Parametre_Animation
 };
 
 //==================================================
-//      Paramètre de type HIERARCHIE
+//      ParamÃ¨tre de type HIERARCHIE
 //==================================================
 
 class definition_hierarchie
@@ -318,13 +318,13 @@ class Parametre_Animation_HIERARCHIE: public Parametre_Animation
         virtual void toString()
         {
             Parametre_Animation::toString();
-            cout<<" - Définition de la hiérarchie"<<endl;
+            cout<<" - DÃ©finition de la hiÃ©rarchie"<<endl;
         }
 
 };
 
 //==================================================
-//      Paramètre de type ELEMENT
+//      ParamÃ¨tre de type ELEMENT
 //==================================================
 
 class Parametre_Animation_ELEMENT: public Parametre_Animation
@@ -352,7 +352,7 @@ class Parametre_Animation_ELEMENT: public Parametre_Animation
         virtual void toString()
         {
             Parametre_Animation::toString();
-            cout<<" - Elément : ";
+            cout<<" - ElÃ©ment : ";
             if (element!=NULL)cout<<element->nom<<endl;
             else cout<<"NULL"<<endl;
         }

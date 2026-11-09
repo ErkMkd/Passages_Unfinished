@@ -1,5 +1,5 @@
 //======================================================================
-//				Ondes aqueuses avec éclairage - Vertex Shader
+//				Ondes aqueuses avec Ã©clairage - Vertex Shader
 //======================================================================
 
 
@@ -36,13 +36,13 @@ void main( void )
 	position_sommet_2d.x 	= dot(position_sommet,tangente);
 	position_sommet_2d.y 	= dot(position_sommet,binormale);
 	
-	//Coordonnées de la texture de bruit:
+	//CoordonnÃ©es de la texture de bruit:
 	float pas_texture=(vitesse_ondes*position_temps);
 	texture_bruit_coord			=	(position_sommet_2d+vec2(-pas_texture,-pas_texture))/echelle_texture_bruit_ondes;
 	//texture_bruit_coord			=	(position_sommet_2d+vec2(pas_texture,0.))/echelle_texture_bruit_ondes;
 	texture_couleur_coord     		= gl_MultiTexCoord0.xy;
 	
-	//Données de l'observateur:
+	//DonnÃ©es de l'observateur:
 	position_sommet 	= (gl_ModelViewMatrix * gl_Vertex).xyz;
     normale_face 			= gl_NormalMatrix * gl_Normal;
 	direction_sommet_oeil 	= -position_sommet;

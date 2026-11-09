@@ -33,14 +33,14 @@ class Scene_Bureau : public Scene
         dksVolume* logo;
 
         uint32_t teinte_principale;
-        float ouverture_camera; //L'ouverture en °
+        float ouverture_camera; //L'ouverture en Â°
 
-        //Données pour le rendu des auras:
+        //DonnÃ©es pour le rendu des auras:
         GLuint texture_scene_id;
         GLuint texture_filtre_id;
         uint32_t taille_texture_aura;
 
-        //============= Données de l'éditeur:
+        //============= DonnÃ©es de l'Ã©diteur:
 
         char* fichier_trajectoire;
         dksTrajectoire ma_trajectoire;
@@ -152,7 +152,7 @@ class Scene_Bureau : public Scene
             }
 
             scene->determine_couleur_fond(0.,0.,0.,0.);
-            //-------- Initialise l'éclairage:
+            //-------- Initialise l'Ã©clairage:
             source_1->determine_couleur_diffusion(0xffffffff);
             //source_1->determine_couleur_ambiance(0xff80eeff);
             source_1->determine_couleur_ambiance(0xff000000);
@@ -181,7 +181,7 @@ class Scene_Bureau : public Scene
             fauteuil->applique_teinte_diffusion(teinte_principale);
             fauteuil->determine_couleur_ambiance(source_1->renvoie_couleur_ambiance_ARVB(),.25);
 
-            //------- Initialise la lampe à néon:
+            //------- Initialise la lampe Ã  nÃ©on:
 
             lampe_neon->applique_teinte_diffusion(teinte_principale);
             lampe_neon->applique_teinte_luminescence(teinte_principale);
@@ -244,21 +244,21 @@ class Scene_Bureau : public Scene
             //------------TEXTURE DE FILTRE:
             glGenTextures(1,&texture_filtre_id);
             glBindTexture(GL_TEXTURE_2D,texture_filtre_id);
-            //Paramètres d'affichage de la texture:
+            //ParamÃ¨tres d'affichage de la texture:
             glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP);
             glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_CLAMP);
             glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
-            glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);    //Il semble que ce paramètre active la texture.....
+            glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);    //Il semble que ce paramÃ¨tre active la texture.....
             glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,taille_texture_aura,taille_texture_aura,0,GL_RGBA,GL_UNSIGNED_BYTE,NULL);
 
             //------------TEXTURE DE RENDU DE SCENE:
             glGenTextures(1,&texture_scene_id);
             glBindTexture(GL_TEXTURE_2D,texture_scene_id);
-            //Paramètres d'affichage de la texture:
+            //ParamÃ¨tres d'affichage de la texture:
             glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
             glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
             glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-            glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);    //Il semble que ce paramètre active la texture.....
+            glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);    //Il semble que ce paramÃ¨tre active la texture.....
             glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,ecran->resolution_x,ecran->resolution_y,0,GL_RGBA,GL_UNSIGNED_BYTE,NULL);
         }
 
@@ -299,7 +299,7 @@ class Scene_Bureau : public Scene
         //======================================================================================================================================
 
         //============================================================================
-        //                     Initialisations de l'éditeur
+        //                     Initialisations de l'Ã©diteur
         //============================================================================
 
 
@@ -328,7 +328,7 @@ class Scene_Bureau : public Scene
         }
 
         //===================================================
-        //          Affiche la trajectoire éditée
+        //          Affiche la trajectoire Ã©ditÃ©e
         //===================================================
         void affiche_trajectoire()
         {
@@ -360,22 +360,22 @@ class Scene_Bureau : public Scene
             switch (key)
             {
                 case 101:
-                    //flèche haut
+                    //flÃ¨che haut
                     volume_selectionne->deplace(AVANT,vitesse_deplacement);
                     volume_selectionne->affiche_position();
                     break;
                 case 100:
-                    //flèche gauche
+                    //flÃ¨che gauche
                     volume_selectionne->deplace(GAUCHE,vitesse_deplacement);
                     volume_selectionne->affiche_position();
                     break;
                 case 103:
-                    //flèche bas
+                    //flÃ¨che bas
                     volume_selectionne->deplace(ARRIERE,vitesse_deplacement);
                     volume_selectionne->affiche_position();
                     break;
                 case 102:
-                    //flèche droite
+                    //flÃ¨che droite
                     volume_selectionne->deplace(DROITE,vitesse_deplacement);
                     volume_selectionne->affiche_position();
                     break;
@@ -394,13 +394,13 @@ class Scene_Bureau : public Scene
 
                 //Touches F..
                 case 1:
-                    if (ma_trajectoire.sauve_trajectoire(fichier_trajectoire)) cout<<"Trajectoire "<<fichier_trajectoire<<" sauvée avec succès!"<<endl;
+                    if (ma_trajectoire.sauve_trajectoire(fichier_trajectoire)) cout<<"Trajectoire "<<fichier_trajectoire<<" sauvÃ©e avec succÃ¨s!"<<endl;
                     break;
 
                 case 2:
                     if (ma_trajectoire.charge_trajectoire(fichier_trajectoire))
                     {
-                        cout<<"Trajectoire "<<fichier_trajectoire<<" chargée avec succès!"<<endl;
+                        cout<<"Trajectoire "<<fichier_trajectoire<<" chargÃ©e avec succÃ¨s!"<<endl;
                         point_actuel=0;
                     }
                 default:
@@ -475,7 +475,7 @@ class Scene_Bureau : public Scene
                         {
                             if (i==volumes_selectionnables.size()-1) volume_selectionne=volumes_selectionnables[0];
                             else volume_selectionne=volumes_selectionnables[i+1];
-                            cout<<"Volume sélectionné: "<<volume_selectionne->nom<<endl;
+                            cout<<"Volume sÃ©lectionnÃ©: "<<volume_selectionne->nom<<endl;
                             break;
                         }
                     }
@@ -547,14 +547,14 @@ class Scene_Bureau : public Scene
                     cout<<"Position trajectoire t="<<position_trajectoire;
                     ma_trajectoire.renvoie_position(position_trajectoire,coordonnees_trajectoire);
                     volume_selectionne->determine_position(coordonnees_trajectoire);
-                    cout<<" Coordonnées X:"<<coordonnees_trajectoire[0]<<" Y:"<<coordonnees_trajectoire[1]<<" Z:"<<coordonnees_trajectoire[2]<<endl;
+                    cout<<" CoordonnÃ©es X:"<<coordonnees_trajectoire[0]<<" Y:"<<coordonnees_trajectoire[1]<<" Z:"<<coordonnees_trajectoire[2]<<endl;
                     break;
                 case 233:
                     position_trajectoire+=pas_position_trajectoire;
                     cout<<"Position trajectoire t="<<position_trajectoire;
                     ma_trajectoire.renvoie_position(position_trajectoire,coordonnees_trajectoire);
                     volume_selectionne->determine_position(coordonnees_trajectoire);
-                    cout<<" Coordonnées X:"<<coordonnees_trajectoire[0]<<" Y:"<<coordonnees_trajectoire[1]<<" Z:"<<coordonnees_trajectoire[2]<<endl;
+                    cout<<" CoordonnÃ©es X:"<<coordonnees_trajectoire[0]<<" Y:"<<coordonnees_trajectoire[1]<<" Z:"<<coordonnees_trajectoire[2]<<endl;
                     break;
                 default:
                     break;

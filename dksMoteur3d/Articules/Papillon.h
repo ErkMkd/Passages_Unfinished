@@ -2,7 +2,7 @@
 #define PAPILLON_H_INCLUDED
 
 /*
-        Papillon animé
+        Papillon animÃ©
 */
 
 #include "dksInsecte.h"
@@ -19,7 +19,7 @@
 #define PAPILLON_NBR_VOLUMES 31 //Le nombre de volumes qui constituent le papillon
 
 //==============================================
-//      Classe de définition des pattes:
+//      Classe de dÃ©finition des pattes:
 //==============================================
 class patte_papillon
 {
@@ -43,9 +43,9 @@ class patte_papillon
 };
 
 //=======================================================================
-//          Définition de la classe
+//          DÃ©finition de la classe
 /// Pour afficher le papillon, il faut ajouter tout les volumes
-/// qui le constitue dans la scène.
+/// qui le constitue dans la scÃ¨ne.
 //=======================================================================
 class Papillon: public dksInsecte
 {
@@ -66,7 +66,7 @@ class Papillon: public dksInsecte
         dksVolume* antenne_gauche;
         patte_papillon volumes_pattes[6];
 
-        dksVolume* volumes[PAPILLON_NBR_VOLUMES]; //La tableau des volumes du papillon, pour ajouter ses volumes à une scène
+        dksVolume* volumes[PAPILLON_NBR_VOLUMES]; //La tableau des volumes du papillon, pour ajouter ses volumes Ã  une scÃ¨ne
 
         //Parametres d'animation:
         Interpolation_Parametre* interpolation_ailes_avants;
@@ -74,7 +74,7 @@ class Papillon: public dksInsecte
         Interpolation_Parametre_2f* interpolation_pattes_femurs;    //Angles axe et rotation
         Interpolation_Parametre* interpolation_pattes_tibias;
 
-        Bruit bruit_Aavd;   //Tremblement des ailes lors du vol plané
+        Bruit bruit_Aavd;   //Tremblement des ailes lors du vol planÃ©
         Bruit bruit_Aavg;
         Bruit bruit_Aard;
         Bruit bruit_Aarg;
@@ -87,16 +87,16 @@ class Papillon: public dksInsecte
         #define DKSPAPILLON_PHASE_AILE_RETOUR 3 //Retour en pause
         bool drapeau_vol;   //True tant que dure le battement.
         uint16_t phase_ailes;   //Identifiant de la phase d'animation des ailes
-        float vol_duree_descente; //Durées des phases
+        float vol_duree_descente; //DurÃ©es des phases
         float vol_duree_montee;
         float vol_duree_retour;
-        float vol_angle_repos;  //Angles max des différentes phases
+        float vol_angle_repos;  //Angles max des diffÃ©rentes phases
         float vol_angle_descente;
         float vol_angle_montee;
-        float vol_amplitude_corps;  //Amplitude du mouvement rétroactif du battement des ailes sur le corps
+        float vol_amplitude_corps;  //Amplitude du mouvement rÃ©troactif du battement des ailes sur le corps
 
-        //Gestion du vol plané:
-        //L'identifiant "phase_ailes" sert à indiquer la phase du vol plané, puisque celui-ci court-circuite le vol
+        //Gestion du vol planÃ©:
+        //L'identifiant "phase_ailes" sert Ã  indiquer la phase du vol planÃ©, puisque celui-ci court-circuite le vol
         #define DKSPAPILLON_PHASE_PLANE_VOL 4
         #define DKSPAPILLON_PHASE_PLANE_POSITIONNEMENT 5
         #define DKSPAPILLON_PHASE_PLANE_RETOUR 6
@@ -109,7 +109,7 @@ class Papillon: public dksInsecte
         float amplitude_bruit_Aar;
 
         //Gestion de l'animation des pattes:
-        #define DKSPAPILLON_PHASE_PATTES_REPOS 0    //Pattes en repos (debout posé)
+        #define DKSPAPILLON_PHASE_PATTES_REPOS 0    //Pattes en repos (debout posÃ©)
         #define DKSPAPILLON_PHASE_PATTES_ENVOL 1    //Repliage des pattes lors de l'envol
         #define DKSPAPILLON_PHASE_PATTES_VOL 2      //Pattes en position vol
         #define DKSPAPILLON_PHASE_PATTES_RETOUR_REPOS 3   //Pattes en retour vers la position de repos
@@ -127,9 +127,9 @@ class Papillon: public dksInsecte
         float pattes_amplitude_Fa;
         float pattes_amplitude_Fr;
         float pattes_amplitude_Ta;
-        float v_corps;  //Vitesse de déplacement inertiel du corps
+        float v_corps;  //Vitesse de dÃ©placement inertiel du corps
         float pos_corps;    //Position du corps lors du vol (varie entre 0 et 1)
-        float pos_corps_precedant;  //La position verticale du corps à l'image précédante (entre 0 et 1). Sert pour le calcul de l'inertie des pattes et des antennes lors du vol.
+        float pos_corps_precedant;  //La position verticale du corps Ã  l'image prÃ©cÃ©dante (entre 0 et 1). Sert pour le calcul de l'inertie des pattes et des antennes lors du vol.
 
         //Gestion de l'animation des antennes:
         float antennes_angle_repos_a;
@@ -235,7 +235,7 @@ class Papillon: public dksInsecte
         volumes[p++]=volumes_pattes[INSECTE_PARG].tibia;
         volumes[p++]=volumes_pattes[INSECTE_PARG].tarse;
 
-        //Hiérarchie:
+        //HiÃ©rarchie:
         for(p=0;p<PAPILLON_NBR_VOLUMES;p++)
         {
             if(volumes[p]==corps) ajoute_enfant(volumes[p]);
@@ -253,7 +253,7 @@ class Papillon: public dksInsecte
         vol_duree_descente=.75/FACTEUR_ANIM;
         vol_duree_montee=1./FACTEUR_ANIM;
         vol_duree_retour=.5/FACTEUR_ANIM;
-        vol_angle_repos=85.;    //!!!Ajouter une phase si l'angle est différent de l'angle max de montée
+        vol_angle_repos=85.;    //!!!Ajouter une phase si l'angle est diffÃ©rent de l'angle max de montÃ©e
         vol_angle_montee=85.;
         vol_angle_descente=-45.;
         vol_amplitude_corps=0.2;
@@ -406,7 +406,7 @@ class Papillon: public dksInsecte
                 interpolation_ailes_avants->determine_parametres(-1.,angle_Aavd,vol_angle_descente,vol_duree_descente);
                 interpolation_ailes_arrieres->determine_parametres(-1.,angle_Aard,vol_angle_descente,vol_duree_descente);
             }
-            //Gestion du vol plané:
+            //Gestion du vol planÃ©:
             else
             {
                 if(drapeau_vol_plane)
@@ -468,7 +468,7 @@ class Papillon: public dksInsecte
             }
         }
 
-        //Vol inactif, mais le mouvement n'est pas terminé
+        //Vol inactif, mais le mouvement n'est pas terminÃ©
         else
         {
             if(drapeau_vol_plane)drapeau_vol_plane=false;
@@ -507,7 +507,7 @@ class Papillon: public dksInsecte
         float corps_y;
 
         if(phase_ailes==DKSPAPILLON_PHASE_AILE_REPOS) corps_y=0.;
-        ///Il faudra différencier suivant les phases pour des mouvements plus fins
+        ///Il faudra diffÃ©rencier suivant les phases pour des mouvements plus fins
         else if(phase_ailes==DKSPAPILLON_PHASE_AILE_RETOUR)
         {
             corps_y=(1.-(angle_Aavd-vol_angle_descente)/(vol_angle_montee-vol_angle_descente))*vol_amplitude_corps;
@@ -531,7 +531,7 @@ class Papillon: public dksInsecte
         drapeau_pattes_position_vol=true;
     }
 
-    //----- Ramène les pattes en position de repos (debout, posé)
+    //----- RamÃ¨ne les pattes en position de repos (debout, posÃ©)
     void pattes_position_repos()
     {
         drapeau_pattes_position_vol=false;
@@ -544,7 +544,7 @@ class Papillon: public dksInsecte
         float femurs_angles_fin[2];
         float femurs_angles[2];
 
-        //Position vol activé:
+        //Position vol activÃ©:
         if(drapeau_pattes_position_vol)
         {
             if(phase_pattes==DKSPAPILLON_PHASE_PATTES_REPOS)
@@ -582,7 +582,7 @@ class Papillon: public dksInsecte
             }
         }
 
-        //Position vol désactivée:
+        //Position vol dÃ©sactivÃ©e:
         else
         {
             if(phase_pattes==DKSPAPILLON_PHASE_PATTES_REPOS) return;

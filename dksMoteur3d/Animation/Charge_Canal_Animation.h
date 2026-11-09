@@ -3,10 +3,10 @@
 
 //======================================================================================================
 //
-//                          Charge un canal à partir d'un script XML
+//                          Charge un canal Ã  partir d'un script XML
 //
-//      ATTENTION: Il ne faut pas détruire l'objet une fois le canal chargé, car le destructeur
-//                  se charge de détruire les courbes et les canaux.
+//      ATTENTION: Il ne faut pas dÃ©truire l'objet une fois le canal chargÃ©, car le destructeur
+//                  se charge de dÃ©truire les courbes et les canaux.
 //
 //======================================================================================================
 
@@ -33,7 +33,7 @@ class Charge_Canal_Animation
 
     private:
         vector<Canal_Animation*> canaux;
-        vector<CourbeBezier_Plan*> courbes_interpolations_creees; //Pour libérer proprement la mémoire.
+        vector<CourbeBezier_Plan*> courbes_interpolations_creees; //Pour libÃ©rer proprement la mÃ©moire.
         vector<CourbeBezier_Espace*> courbes_trajectoires_creees;
 
         //==================================================================
@@ -73,7 +73,7 @@ class Charge_Canal_Animation
         virtual ~Charge_Canal_Animation()
         {
             uint32_t i;
-            //Efface les canaux chargés:
+            //Efface les canaux chargÃ©s:
             for (i=0;i<canaux.size();i++)
             {
                 if (canaux[i]!=NULL)
@@ -96,7 +96,7 @@ class Charge_Canal_Animation
         }
 
         //==================================================================================
-        //              Création des canaux
+        //              CrÃ©ation des canaux
         //==================================================================================
         bool creation_canaux(TiXmlElement* canalXml)
         {
@@ -106,7 +106,7 @@ class Charge_Canal_Animation
                 string type_canal=canalXml->Attribute("type");
                 string nom_canal=canalXml->Attribute("nom");
 
-                //Création du canal:
+                //CrÃ©ation du canal:
                 Canal_Animation* nouveau_canal;
 
                 if (type_canal=="CONTENEUR" || type_canal=="VOLUME" || type_canal=="OEIL" || type_canal=="SOURCE_LUMINEUSE")
@@ -136,7 +136,7 @@ class Charge_Canal_Animation
         }
 
         //==================================================================
-        //                 Création d'un canal d'animation de conteneur
+        //                 CrÃ©ation d'un canal d'animation de conteneur
         //==================================================================
 
         Canal_Animation_Conteneur* creation_Canal_Conteneur(TiXmlElement* canalXml)
@@ -150,7 +150,7 @@ class Charge_Canal_Animation
             if (booleen=="true")canal_active=true;
 
             if ( DEBUG_CHARGEMENT_CANAL )
-                cout<<"--- Création d'un canal de Conteneur: "<<nom_canal<<" - Activé: "<<booleen<<endl;
+                cout<<"--- CrÃ©ation d'un canal de Conteneur: "<<nom_canal<<" - ActivÃ©: "<<booleen<<endl;
 
 
             //Canal_Animation_Conteneur(Conteneur* p_conteneur=NULL,vector<Cle_Animation*>* p_cles=NULL,bool p_actif=false)
@@ -158,12 +158,12 @@ class Charge_Canal_Animation
             Canal_Animation_Conteneur* nouveau_canal=new Canal_Animation_Conteneur(NULL,NULL,canal_active);
             if (nouveau_canal==NULL)
             {
-                cout<<"ERREUR dans Charge_Canal_Animation.creation_Canal_Conteneur() - Impossible de créé le canal"<<endl;
+                cout<<"ERREUR dans Charge_Canal_Animation.creation_Canal_Conteneur() - Impossible de crÃ©Ã© le canal"<<endl;
                 erreur=CHARGE_CANAL_ANIMATION_MEMOIRE;
                 return NULL;
             }
 
-            //------Création des clés:
+            //------CrÃ©ation des clÃ©s:
             TiXmlElement* cleXML=canalXml->FirstChildElement("Cle");
             while (cleXML!=NULL)
             {
@@ -176,15 +176,15 @@ class Charge_Canal_Animation
                 //Drapeau principal des interpolations:
                 if (booleen=="true")nouvelle_cle->active_interpolations();
                 else nouvelle_cle->desactive_interpolations();
-                //Initialise les valeurs de la clé:
+                //Initialise les valeurs de la clÃ©:
                 if (!lecture_parametres_cle(nouvelle_cle,cleXML))
                 {
-                    cout<<"ERREUR dans Charge_Canal_Animation.creation_Canal_Conteneur() - Impossible de lire les paramètres de la clé: "<<cle_t<<endl;
+                    cout<<"ERREUR dans Charge_Canal_Animation.creation_Canal_Conteneur() - Impossible de lire les paramÃ¨tres de la clÃ©: "<<cle_t<<endl;
                     return NULL;
                 }
-                //Ajoute la clé au canal, au passage la rotation est calculée.
+                //Ajoute la clÃ© au canal, au passage la rotation est calculÃ©e.
                 nouveau_canal->ajoute_cle(nouvelle_cle);
-                //Clé suivante:
+                //ClÃ© suivante:
                 cleXML=cleXML->NextSiblingElement("Cle");
 
             }
@@ -240,10 +240,10 @@ class Charge_Canal_Animation
 
 
         //=====================================================================================
-        //      Décrypte les paramètres XML d'une clé
-        //      La clé doit être correctement initialisée
-        //      Les drapeaux d'interpolation seront initialisés par initialise_interpolations()
-        //      une fois toutes les clés décryptées.
+        //      DÃ©crypte les paramÃ¨tres XML d'une clÃ©
+        //      La clÃ© doit Ãªtre correctement initialisÃ©e
+        //      Les drapeaux d'interpolation seront initialisÃ©s par initialise_interpolations()
+        //      une fois toutes les clÃ©s dÃ©cryptÃ©es.
          //=====================================================================================
 
         bool lecture_parametres_cle(Cle_Animation* cle,TiXmlElement* cleXML)
@@ -299,7 +299,7 @@ class Charge_Canal_Animation
                             CourbeBezier_Plan* courbe_plan=new CourbeBezier_Plan(xa0,ya0,xa1,ya1,xb1,yb1,xb0,yb0,0.5);
                             if (courbe_plan==NULL)
                             {
-                                cout<<"ERREUR impossible de créer la courbe d'interpolation - "<<cle->t<<" - parametre: "<<nom_parametre<<endl;
+                                cout<<"ERREUR impossible de crÃ©er la courbe d'interpolation - "<<cle->t<<" - parametre: "<<nom_parametre<<endl;
                                 cle->determine_methode_interpolation(id_parametre,INTERPOLATION_LINEAIRE);
                             }
                             else
@@ -308,17 +308,17 @@ class Charge_Canal_Animation
                                 courbes_interpolations_creees.push_back(courbe_plan);
                             }
                         }
-                        //Si la courbe n'est pas définie, on passe en mode linéaire:
+                        //Si la courbe n'est pas dÃ©finie, on passe en mode linÃ©aire:
                         else
                         {
-                            cout<<"ERREUR impossible de créer la courbe d'interpolation - "<<cle->t<<" - parametre: "<<nom_parametre<<endl;
+                            cout<<"ERREUR impossible de crÃ©er la courbe d'interpolation - "<<cle->t<<" - parametre: "<<nom_parametre<<endl;
                             cle->determine_methode_interpolation(id_parametre,INTERPOLATION_LINEAIRE);
                         }
 
                     }
                     else cle->determine_methode_interpolation(id_parametre,INTERPOLATION_BASCULE);
 
-                    //Lecture de la valeur du paramètre:
+                    //Lecture de la valeur du paramÃ¨tre:
                     if (type_parametre=="ENTIER")
                     {
                         parametreXML->QueryIntAttribute("valeur",&entier);
@@ -372,7 +372,7 @@ class Charge_Canal_Animation
                         CourbeBezier_Espace* courbe_espace=new CourbeBezier_Espace(p0x,p0y,p0z,p1x,p1y,p1z,p2x,p2y,p2z,p3x,p3y,p3z);
                         if (courbe_espace==NULL)
                         {
-                            cout<<"ERREUR impossible de créer la courbe de trajectoire - "<<cle->t<<" - parametre: "<<nom_parametre<<endl;
+                            cout<<"ERREUR impossible de crÃ©er la courbe de trajectoire - "<<cle->t<<" - parametre: "<<nom_parametre<<endl;
                             cle->determine_type_trajectoire(id_parametre,TRAJECTOIRE_RECTILIGNE);
                         }
                         else
@@ -394,11 +394,11 @@ class Charge_Canal_Animation
             return true;
         }
 
-        //Détermine si il y a interpolation entre deux parametres de clés d'animation:
+        //DÃ©termine si il y a interpolation entre deux parametres de clÃ©s d'animation:
 		//Il y a interpolation:
-		//     -si l'interpolation de la clé est activée
-		//	ET -si il y a une clé suivante
-		//	ET -si le paramètre de la clé suivante est différent,
+		//     -si l'interpolation de la clÃ© est activÃ©e
+		//	ET -si il y a une clÃ© suivante
+		//	ET -si le paramÃ¨tre de la clÃ© suivante est diffÃ©rent,
 		//	ET -si l'interpolation est LINEAIRE ou suivant une courbe de BEZIER.
 
 		bool determine_interpolation(uint32_t p, Cle_Animation* cle, Cle_Animation* cle_suiv)
@@ -432,7 +432,7 @@ class Charge_Canal_Animation
             return interpolation;
 		}
 
-		//Détermine si l'interpolation d'une rotation doit être activée:
+		//DÃ©termine si l'interpolation d'une rotation doit Ãªtre activÃ©e:
 		bool determine_interpolation_rotation(uint32_t p, Cle_Animation* cle)
 		{
 
@@ -464,10 +464,10 @@ class Charge_Canal_Animation
 		}
 
 		//========================================================================
-		//          Fonctions de gestion des canaux chargés
+		//          Fonctions de gestion des canaux chargÃ©s
 		//========================================================================
 
-        //Renvoie un canal à partir de son nom.
+        //Renvoie un canal Ã  partir de son nom.
         //NULL si le canal n'existe pas.
 		Canal_Animation* renvoi_canal(string p_nom)
 		{

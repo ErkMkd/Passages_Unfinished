@@ -11,7 +11,7 @@ varying vec3 normale_face;
 
 void main( void )
 {
-	//Données de l'observateur:
+	//DonnÃ©es de l'observateur:
     gl_Position 			=  gl_ModelViewProjectionMatrix * gl_Vertex;
 	vec3 position_sommet 	= (gl_ModelViewMatrix * gl_Vertex).xyz;
     normale_face 			= gl_NormalMatrix * gl_Normal;

@@ -18,14 +18,14 @@ class dksVecteur : public dksRendu
         double y;
         double z;
 
-        // L'axe est normalisé à l'unité
+        // L'axe est normalisÃ© Ã  l'unitÃ©
         //L'angle est en radians
         void rotation(double* pt, double angle,double* axe, double* resultat)
 		{
 			/*
 			formule d'Olinde Rodrigues :
 			V = cos(phi)*U + (1-cos(phi))*((U.N)*N) + sin(phi)[N^U]
-			La formule ci-dessus donne l'expression vectorielle du transformé V  d'un vecteur U  quelconque, dans la rotation phi,N d'angle phi, et d'axe N unitaire
+			La formule ci-dessus donne l'expression vectorielle du transformÃ© V  d'un vecteur U  quelconque, dans la rotation phi,N d'angle phi, et d'axe N unitaire
 			*/
 
 			double prod_scal = axe[0]*pt[0]+axe[1]*pt[1]+axe[2]*pt[2];
@@ -114,10 +114,10 @@ class dksVecteur : public dksRendu
 			x = 0; y = 0; z = 0;
 		}
 
-		// resultat est le projeté orthogonale de px,py,pz sur le plan (ABC)
+		// resultat est le projetÃ© orthogonale de px,py,pz sur le plan (ABC)
 		static void projection_orthogonale(double px, double py, double pz, dksVecteur* A, dksVecteur* B, dksVecteur* C, dksVecteur* resultat)
 		{
-			// intermédiaires de calcul
+			// intermÃ©diaires de calcul
 			double theta = A->x - B->x;
 			double phi = A->x - C->x;
 
@@ -133,7 +133,7 @@ class dksVecteur : public dksRendu
 			double ny = ( delta * theta - beta * phi) / temp;
 			double nx = 1 - ny - nz;
 
-			// equation du plan (ABC) : nx * x + ny * y + nz * z + d = 0 or A € (ABC) donc :
+			// equation du plan (ABC) : nx * x + ny * y + nz * z + d = 0 or A â‚¬ (ABC) donc :
 			double d = -nx * A->x - ny * A->y - nz * A->z;
 
 			double k = ( -nx * px - ny * py - nz * pz - d) / (nx * nx + ny * ny + nz * nz);
@@ -145,7 +145,7 @@ class dksVecteur : public dksRendu
 
 		static double distance_point_plan(double px, double py, double pz,dksVecteur* A,dksVecteur* B,dksVecteur* C)
 		{
-			// intermédiaires de calcul
+			// intermÃ©diaires de calcul
 			double theta = A->x - B->x;
 			double phi = A->x - C->x;
 
@@ -161,14 +161,14 @@ class dksVecteur : public dksRendu
 			double ny = ( delta * theta - beta * phi) / temp;
 			double nx = 1 - ny - nz;
 
-			// equation du plan (ABC) : nx * x + ny * y + nz * z + d = 0 or A € (ABC) donc :
+			// equation du plan (ABC) : nx * x + ny * y + nz * z + d = 0 or A â‚¬ (ABC) donc :
 			double d = -nx * A->x - ny * A->y - nz * A->z;
 
 			return fabs( -nx * px - ny * py - nz * pz - d) / (nx * nx + ny * ny + nz * nz);
 		}
 
-		// calcul l'intersection des droites (AB) et (CD), sans vérification de la réalité de l'intersection trouvée
-		//Fonction utilisée notamment par l'interface d'édition de scènes.
+		// calcul l'intersection des droites (AB) et (CD), sans vÃ©rification de la rÃ©alitÃ© de l'intersection trouvÃ©e
+		//Fonction utilisÃ©e notamment par l'interface d'Ã©dition de scÃ¨nes.
 		static void intersection_certaine_de_droites(dksVecteur* A, dksVecteur* B, dksVecteur* C, dksVecteur* D, dksVecteur* res)
 		{
 			double dir_AB_x = B->x - A->x;
@@ -204,14 +204,14 @@ class dksVecteur : public dksRendu
 		}
 
 
-        // L'axe doit être un vecteur unitaire.
+        // L'axe doit Ãªtre un vecteur unitaire.
         //L'angle est en radians
         void rotation(double angle, dksVecteur* axe)
 		{
 			/*
 			formule d'Olinde Rodrigues :
 			V = cos(phi)*U + (1-cos(phi))*((U.N)*N) + sin(phi)[N^U]
-			La formule ci-dessus donne l'expression vectorielle du transformé V  d'un vecteur U  quelconque, dans la rotation phi,N d'angle phi, et d'axe N unitaire
+			La formule ci-dessus donne l'expression vectorielle du transformÃ© V  d'un vecteur U  quelconque, dans la rotation phi,N d'angle phi, et d'axe N unitaire
 			*/
 
 			double prod_scal = produit_scalaire(axe,this);
@@ -226,14 +226,14 @@ class dksVecteur : public dksRendu
 			y = yt;
 		}
 
-		// L'axe est normalisé à l'unité
+		// L'axe est normalisÃ© Ã  l'unitÃ©
         //L'angle est en radians
         void rotation(double angle,double rx,double ry,double rz)
 		{
 			/*
 			formule d'Olinde Rodrigues :
 			V = cos(phi)*U + (1-cos(phi))*((U.N)*N) + sin(phi)[N^U]
-			La formule ci-dessus donne l'expression vectorielle du transformé V  d'un vecteur U  quelconque, dans la rotation phi,N d'angle phi, et d'axe N unitaire
+			La formule ci-dessus donne l'expression vectorielle du transformÃ© V  d'un vecteur U  quelconque, dans la rotation phi,N d'angle phi, et d'axe N unitaire
 			*/
 
 			double prod_scal = rx*x+ry*y+rz*z;
@@ -269,9 +269,9 @@ class dksVecteur : public dksRendu
             z= cos_aL * ( pz*cos_aT - sin_aT * ( px*sin_aR + py*cos_aR ) ) - sin_aL * ( px*cos_aR - py*sin_aR );
         }
 
-        //Renvoie le paramètre correspondant à l'intersection entre la droite (A,B) et plan(O,U,V)
-        //La normale N doit être unitaire.
-        //Renvoie Nan si la droite est parallèle au plan.
+        //Renvoie le paramÃ¨tre correspondant Ã  l'intersection entre la droite (A,B) et plan(O,U,V)
+        //La normale N doit Ãªtre unitaire.
+        //Renvoie Nan si la droite est parallÃ¨le au plan.
         static double intersection_droite_plan(dksVecteur* segment_A, dksVecteur* segment_B, dksVecteur* plan_O, dksVecteur* plan_U, dksVecteur* plan_V, dksVecteur* N)
         {
             dksVecteur AB( segment_B->x - segment_A->x , segment_B->y - segment_A->y , segment_B->z - segment_A->z );
@@ -281,7 +281,7 @@ class dksVecteur : public dksRendu
             //Calcul la distance:
             double D= - N->x*plan_O->x - N->y*plan_O->y - N->z*plan_O->z;
 
-            //Test la parallèléité:
+            //Test la parallÃ¨lÃ©itÃ©:
             double temp=AB.x*N->x+AB.y*N->y+AB.z*N->z;
             if (temp > -DKSVECTEUR_EPSILON && temp < DKSVECTEUR_EPSILON) return NAN;
 
@@ -293,7 +293,7 @@ class dksVecteur : public dksRendu
 
         /*
 		On compte le nombre d'intersection avec la demi droite positive des U
-		Test dans l'espace. Le point doit être dans le plan du polygone.
+		Test dans l'espace. Le point doit Ãªtre dans le plan du polygone.
 		*/
 		static bool inclus_dans_polygone(vector<uint32_t>* tabAretes, vector<double>* tabSommets,uint32_t nbr_sommets,
                                         dksVecteur* normale,
@@ -303,8 +303,8 @@ class dksVecteur : public dksRendu
             uint32_t U,V;
             double Up,Vp;
 
-			//Détermine le plan de projection.
-			//La composante la plus grande de la normale détermine la dimension ignorée:
+			//DÃ©termine le plan de projection.
+			//La composante la plus grande de la normale dÃ©termine la dimension ignorÃ©e:
 			double nx=fabs(normale->x);
 			double ny=fabs(normale->y);
 			double nz=fabs(normale->z);
@@ -325,10 +325,10 @@ class dksVecteur : public dksRendu
 
 			for (uint32_t i = 1; i <= nbr_sommets;i++)
 			{
-				//Origine du polygone sur le point testé
+				//Origine du polygone sur le point testÃ©
 				double xpB = (*tabSommets)[(*tabAretes)[i]*3+U] - Up;
 				double ypB = (*tabSommets)[(*tabAretes)[i]*3+V] - Vp;
-				//Si Y des deux sommets de même signes, pas d'intersection:
+				//Si Y des deux sommets de mÃªme signes, pas d'intersection:
 				if (xpB == 0 && ypB == 0)
 				{
 					xpB = 1e-4;

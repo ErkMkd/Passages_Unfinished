@@ -5,7 +5,7 @@
 #include "Interpolations.h"
 
 //=========================================================
-//          Générateur de bruits.
+//          GÃ©nÃ©rateur de bruits.
 //=========================================================
 
 class Bruit: public Interpolations
@@ -16,7 +16,7 @@ class Bruit: public Interpolations
         double borne_1;
         double t0;
     public:
-        char nom[64];       //Pour le débugage
+        char nom[64];       //Pour le dÃ©bugage
 
 
     //=============================================================================================
@@ -49,7 +49,7 @@ class Bruit: public Interpolations
     }
 
     //=============================================================================================
-    //             Génère un bruit de base variant de 0 à 1 dans un tempon en 2 dimensions.
+    //             GÃ©nÃ¨re un bruit de base variant de 0 Ã  1 dans un tempon en 2 dimensions.
     //=============================================================================================
     static void genere_bruit_f(uint32_t largeur, uint32_t hauteur, float intensite, float* tempon)
 
@@ -86,23 +86,23 @@ class Bruit: public Interpolations
     }
 
     //===================================================================
-    //   Génère un tableau de pixels en nuances de gris
+    //   GÃ©nÃ¨re un tableau de pixels en nuances de gris
     //   avec un bruit de Perlin
     //===================================================================
 
     //------------------------------------------------------
-    //      Génère une couche de bruit de perlin
+    //      GÃ©nÃ¨re une couche de bruit de perlin
     //------------------------------------------------------
     private:
     static void interpolation_octave_f(uint32_t largeur_fondamentale, uint32_t hauteur_fondamentale,uint32_t largeur_tempon,uint32_t hauteur_tempon,float persistance,uint32_t octave_i,vector<float> &valeurs_octave, float *tempon)
     {
         uint32_t x,y;
-        uint32_t xf,yf,xfc,yfc; //Position sur les valeurs aléatoires
-        float xi,yi;    //Position dans l'intervalle entre deux valeurs aléatoires (valeurs comprises entre 0 et 1 )
+        uint32_t xf,yf,xfc,yfc; //Position sur les valeurs alÃ©atoires
+        float xi,yi;    //Position dans l'intervalle entre deux valeurs alÃ©atoires (valeurs comprises entre 0 et 1 )
         uint32_t largeur_octave=largeur_fondamentale*(octave_i+1);
         uint32_t hauteur_octave=hauteur_fondamentale*(octave_i+1);
 
-        //----- Génère les valeurs intermédiaires pour arriver au total demandé:
+        //----- GÃ©nÃ¨re les valeurs intermÃ©diaires pour arriver au total demandÃ©:
         for (y=0;y<hauteur_tempon;y++)
         {
             yi=(y*(hauteur_octave)/(float)hauteur_tempon);
@@ -136,12 +136,12 @@ class Bruit: public Interpolations
     static void interpolation_octave_d(uint32_t largeur_fondamentale, uint32_t hauteur_fondamentale,uint32_t largeur_tempon,uint32_t hauteur_tempon,double persistance,uint32_t octave_i,vector<double> &valeurs_octave, double *tempon)
     {
         uint32_t x,y;
-        uint32_t xf,yf,xfc,yfc; //Position sur les valeurs aléatoires
-        double xi,yi;    //Position dans l'intervalle entre deux valeurs aléatoires (valeurs comprises entre 0 et 1 )
+        uint32_t xf,yf,xfc,yfc; //Position sur les valeurs alÃ©atoires
+        double xi,yi;    //Position dans l'intervalle entre deux valeurs alÃ©atoires (valeurs comprises entre 0 et 1 )
         uint32_t largeur_octave=largeur_fondamentale*(octave_i+1);
         uint32_t hauteur_octave=hauteur_fondamentale*(octave_i+1);
 
-        //----- Génère les valeurs intermédiaires pour arriver au total demandé:
+        //----- GÃ©nÃ¨re les valeurs intermÃ©diaires pour arriver au total demandÃ©:
         for (y=0;y<hauteur_tempon;y++)
         {
             yi=(y*(hauteur_octave)/(double)hauteur_tempon);
@@ -173,7 +173,7 @@ class Bruit: public Interpolations
     }
 
     //============================================================================
-    //      Génère des valeurs comprises entre 0 et 1 avec la fonction f(x,y)=x
+    //      GÃ©nÃ¨re des valeurs comprises entre 0 et 1 avec la fonction f(x,y)=x
     //      et rempli un tempon en 2 dimensions
     //============================================================================
     public:
@@ -206,7 +206,7 @@ class Bruit: public Interpolations
     }
 
     //=====================================================================================================
-    //      Génère des valeurs comprises entre 0 et 1 avec la fonction f(x,y)=x+y**amplitude*sin(frequence)
+    //      GÃ©nÃ¨re des valeurs comprises entre 0 et 1 avec la fonction f(x,y)=x+y**amplitude*sin(frequence)
     //      et rempli un tempon en 2 dimensions
     //=====================================================================================================
     public:
@@ -229,7 +229,7 @@ class Bruit: public Interpolations
     }
 
     //=====================================================================================================
-    //      Génère des valeurs comprises entre 0 et 1 avec la fonction f(x)=1-cos(frequence)/2
+    //      GÃ©nÃ¨re des valeurs comprises entre 0 et 1 avec la fonction f(x)=1-cos(frequence)/2
     //      et rempli un tempon en 2 dimensions
     //=====================================================================================================
     public:
@@ -251,7 +251,7 @@ class Bruit: public Interpolations
     }
 
     //==================================================================================================================================
-    //      Génère des valeurs comprises entre 0 et 1 en combinant la fonction f(x)=1-cos(frequence)/2 et un tempon de perturbation
+    //      GÃ©nÃ¨re des valeurs comprises entre 0 et 1 en combinant la fonction f(x)=1-cos(frequence)/2 et un tempon de perturbation
     //      et rempli un tempon en 2 dimensions
     //==================================================================================================================================
     public:
@@ -273,8 +273,8 @@ class Bruit: public Interpolations
     }
 
     //=====================================================================================================
-    //      Génère des valeurs comprises entre 0 et 1 en superposant deux tempons A et B.
-    //      et rempli un troisième tempon en 2 dimensions (ce 3ème tempon peut être A ou B ou un autre).
+    //      GÃ©nÃ¨re des valeurs comprises entre 0 et 1 en superposant deux tempons A et B.
+    //      et rempli un troisiÃ¨me tempon en 2 dimensions (ce 3Ã¨me tempon peut Ãªtre A ou B ou un autre).
     //=====================================================================================================
     static void superpose_tempons_f (uint32_t largeur, uint32_t hauteur, float* tempon_A, float intensite_A, float* tempon_B, float intensite_B, float *tempon_resultat)
     {
@@ -290,7 +290,7 @@ class Bruit: public Interpolations
     }
 
     //============================================================================
-    //      Génère des valeurs comprises entre 0 et 1 avec un bruit de Perlin
+    //      GÃ©nÃ¨re des valeurs comprises entre 0 et 1 avec un bruit de Perlin
     //      et rempli un tempon en 2 dimensions
     //============================================================================
     public:
@@ -301,12 +301,12 @@ class Bruit: public Interpolations
         uint32_t i,x,y;
         float amplitude;
 
-        //----- Génère les couches:
+        //----- GÃ©nÃ¨re les couches:
 
         for (i=0;i<nbr_octaves;i++)
         {
             octave.clear();
-            //Génère les valeurs de base, comprises entre 0 et 1
+            //GÃ©nÃ¨re les valeurs de base, comprises entre 0 et 1
             for (y=0;y<hauteur_fondamentale*(i+1);y++)
                 for (x=0;x<largeur_fondamentale*(i+1);x++)
                     octave.push_back((float)rand()/32768.);
@@ -315,7 +315,7 @@ class Bruit: public Interpolations
         }
 
 
-        //----- Génère les valeurs finales:
+        //----- GÃ©nÃ¨re les valeurs finales:
         amplitude=(1.-persistance)/(1.-powf(persistance,(float)(nbr_octaves)));
 
         for (y=0;y<largeur_tempon;y++)
@@ -331,12 +331,12 @@ class Bruit: public Interpolations
         uint32_t i,x,y;
         double amplitude;
 
-        //----- Génère les couches:
+        //----- GÃ©nÃ¨re les couches:
 
         for (i=0;i<nbr_octaves;i++)
         {
             octave.clear();
-            //Génère les valeurs de base, comprises entre 0 et 1
+            //GÃ©nÃ¨re les valeurs de base, comprises entre 0 et 1
             for (y=0;y<hauteur_fondamentale*(i+1);y++)
             for (x=0;x<largeur_fondamentale*(i+1);x++)
                 octave.push_back((double)rand()/32768.);
@@ -345,7 +345,7 @@ class Bruit: public Interpolations
         }
 
 
-        //----- Génère les valeurs finales:
+        //----- GÃ©nÃ¨re les valeurs finales:
         amplitude=(1.-persistance)/(1.-powf(persistance,(double)(nbr_octaves)));
 
         for (y=0;y<largeur_tempon;y++)
@@ -364,12 +364,12 @@ class Bruit: public Interpolations
         float* tempon_f=(float*)calloc(sizeof(float),hauteur_tempon*largeur_tempon);
         if (tempon_f==NULL) return false;
 
-        //----- Génère les couches:
+        //----- GÃ©nÃ¨re les couches:
 
         for (i=0;i<nbr_octaves;i++)
         {
             octave.clear();
-            //Génère les valeurs de base, comprises entre 0 et 1
+            //GÃ©nÃ¨re les valeurs de base, comprises entre 0 et 1
             for (y=0;y<hauteur_fondamentale*(i+1);y++)
                 for (x=0;x<largeur_fondamentale*(i+1);x++)
                     octave.push_back((float)rand()/32768.);
@@ -378,7 +378,7 @@ class Bruit: public Interpolations
         }
 
 
-        //----- Génère les valeurs finales:
+        //----- GÃ©nÃ¨re les valeurs finales:
         amplitude=(1.-persistance)/(1.-powf(persistance,(float)(nbr_octaves)))*255.;
 
         for (y=0;y<largeur_tempon;y++)
@@ -395,11 +395,11 @@ class Bruit: public Interpolations
 
 
     //===================================================================================
-    //          Génère une valeur temporelle aléatoire, lissée selon un bruit de Perlin
-    //          La valeur renvoyée est comprise entre 0 et 1
+    //          GÃ©nÃ¨re une valeur temporelle alÃ©atoire, lissÃ©e selon un bruit de Perlin
+    //          La valeur renvoyÃ©e est comprise entre 0 et 1
     //          t: temps en s
-    //          t_prec: temps précédent en s
-    //          intervalle: l'intervalle de temps entre les valeurs aléatoires à interpôler (en s)
+    //          t_prec: temps prÃ©cÃ©dent en s
+    //          intervalle: l'intervalle de temps entre les valeurs alÃ©atoires Ã  interpÃ´ler (en s)
     //===================================================================================
     double valeur_aleatoire_temporelle(double t, double intervalle)
     {
@@ -407,7 +407,7 @@ class Bruit: public Interpolations
         uint32_t position_trame_aleatoire=(uint32_t)position_interpolation;
         position_interpolation-=position_trame_aleatoire_precedente;
 
-        //Génère une nouvelle valeur aléatoire:
+        //GÃ©nÃ¨re une nouvelle valeur alÃ©atoire:
         if (position_trame_aleatoire>position_trame_aleatoire_precedente)
         {
             position_trame_aleatoire_precedente=position_trame_aleatoire;
@@ -430,18 +430,18 @@ class Bruit: public Interpolations
             */
 
         }
-        //Interpolation entre les deux valeurs aléatoires:
+        //Interpolation entre les deux valeurs alÃ©atoires:
         return interpolation_cosinusoidale_d(borne_0,borne_1,position_interpolation);
     }
 
 
     //===================================================================================
-    //          Génère une valeur temporelle selon une suite donnée.
-    //          La valeur renvoyée est comprise entre 0 et 1
+    //          GÃ©nÃ¨re une valeur temporelle selon une suite donnÃ©e.
+    //          La valeur renvoyÃ©e est comprise entre 0 et 1
     //          t: temps en s
-    //          t_prec: temps précédent en s
-    //          intervalle: l'intervalle de temps entre les valeurs à interpôler (en s)
-    //          suite: le tableau de valeurs à interpoler
+    //          t_prec: temps prÃ©cÃ©dent en s
+    //          intervalle: l'intervalle de temps entre les valeurs Ã  interpÃ´ler (en s)
+    //          suite: le tableau de valeurs Ã  interpoler
     //          taille: le nombre de valeurs dans la suite.
     //===================================================================================
     double valeur_suite_temporelle(double t, double intervalle,double* suite,uint32_t taille)
@@ -454,12 +454,12 @@ class Bruit: public Interpolations
         position_trame=position_trame%taille;
         borne_0=suite[position_trame];
         if (position_trame==taille-1) borne_1=suite[0]; else borne_1=suite[position_trame+1];
-        //Interpolation entre les deux valeurs aléatoires:
+        //Interpolation entre les deux valeurs alÃ©atoires:
         return interpolation_cosinusoidale_d(borne_0,borne_1,position_interpolation);
     }
 
     //------------------------------------------
-    //Sert à initialiser une suite fixe
+    //Sert Ã  initialiser une suite fixe
     //------------------------------------------
 
     void reset_suite()

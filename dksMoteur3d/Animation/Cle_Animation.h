@@ -4,25 +4,25 @@
 #include "Parametre.h"
 
 //==================================================================================================================
-//  Classe de base des clés d'animation
+//  Classe de base des clÃ©s d'animation
 //!!!DEVELOPPER UNE TABLE DE CORRESPONDANCE ENTRE LES IDENTIFIANTS DES PARAMETRES ET LEUR INDICE DANS LA TABLE
 //==================================================================================================================
 
 class Cle_Animation
 {
-    //Données:
+    //DonnÃ©es:
     public:
         string nom;
-        double t; //temps en secondes où est située la clé
-        uint32_t index; //L'index de la clé dans le tableau du canal
-        void* canal;    //Le canal de la clé.
+        double t; //temps en secondes oÃ¹ est situÃ©e la clÃ©
+        uint32_t index; //L'index de la clÃ© dans le tableau du canal
+        void* canal;    //Le canal de la clÃ©.
 
 
     protected:
-        vector<Parametre_Animation*> parametres;    //Paramètres de la clef
-        vector<Parametre_Animation*> parametres_crees;  //Paramètres à supprimer par le constructeur
-        bool  drapeau_interpolations;    //Le drapeau globale d'activation des interpolations des paramètres de la clé.
-                                        //Si ce drapeau est à false, aucun paramètre n'est interpolé.
+        vector<Parametre_Animation*> parametres;    //ParamÃ¨tres de la clef
+        vector<Parametre_Animation*> parametres_crees;  //ParamÃ¨tres Ã  supprimer par le constructeur
+        bool  drapeau_interpolations;    //Le drapeau globale d'activation des interpolations des paramÃ¨tres de la clÃ©.
+                                        //Si ce drapeau est Ã  false, aucun paramÃ¨tre n'est interpolÃ©.
 
         //=======================================
         //  Constructeur:
@@ -33,13 +33,13 @@ class Cle_Animation
             nom=p_nom;
             t = t_p;
             index=0;
-            drapeau_interpolations=true; //Par défaut, le drapeau global des interpolations est activé.
+            drapeau_interpolations=true; //Par dÃ©faut, le drapeau global des interpolations est activÃ©.
         }
 
         //----------------Destructeur:
         virtual ~Cle_Animation()
         {
-            //Suppression des paramètres créés:
+            //Suppression des paramÃ¨tres crÃ©Ã©s:
             for (uint32_t i=0;i<parametres_crees.size();i++)
             {
                 if (parametres_crees[i]!=NULL)
@@ -52,12 +52,12 @@ class Cle_Animation
 
 
         //====================================================================
-        //                  Création de paramètres
-        //             Les paramètres créés avec ces fonctions sont
-        //             automatiquement supprimés par le destructeur
+        //                  CrÃ©ation de paramÃ¨tres
+        //             Les paramÃ¨tres crÃ©Ã©s avec ces fonctions sont
+        //             automatiquement supprimÃ©s par le destructeur
         //====================================================================
 
-        //---------------Ajoute un paramètre de type ENTIER à la clé:
+        //---------------Ajoute un paramÃ¨tre de type ENTIER Ã  la clÃ©:
         Parametre_Animation* ajoute_parametre(
                             string p_nom,uint32_t p_indice,int32_t p_valeur,
                             bool p_interpolation=false, uint16_t p_methodeInterpolation=INTERPOLATION_BASCULE,
@@ -67,12 +67,12 @@ class Cle_Animation
                                                                 (p_nom,p_indice,p_interpolation,p_methodeInterpolation,
                                                                 p_courbe,p_valeur);
             parametres_crees.push_back(nouveau_parametre);
-            parametres.push_back(nouveau_parametre);    //Comme ça on peut aussi ajouter des paramètres qui
-                                                        //ne sont pas créés par la clef.
+            parametres.push_back(nouveau_parametre);    //Comme Ã§a on peut aussi ajouter des paramÃ¨tres qui
+                                                        //ne sont pas crÃ©Ã©s par la clef.
             return nouveau_parametre;
         }
 
-        //----------------Ajoute un paramètre de type FLOTTANT à la clé:
+        //----------------Ajoute un paramÃ¨tre de type FLOTTANT Ã  la clÃ©:
         Parametre_Animation* ajoute_parametre(
                             string p_nom,uint32_t p_indice,double p_valeur,
                             bool p_interpolation=false, uint16_t p_methodeInterpolation=INTERPOLATION_BASCULE,
@@ -82,12 +82,12 @@ class Cle_Animation
                                                                 (p_nom,p_indice,p_interpolation,p_methodeInterpolation,
                                                                 p_courbe,p_valeur);
             parametres_crees.push_back(nouveau_parametre);
-            parametres.push_back(nouveau_parametre);    //Comme ça on peut aussi ajouter des paramètres qui
-                                                        //ne sont pas créés par la clef.
+            parametres.push_back(nouveau_parametre);    //Comme Ã§a on peut aussi ajouter des paramÃ¨tres qui
+                                                        //ne sont pas crÃ©Ã©s par la clef.
             return nouveau_parametre;
         }
 
-        //-----------------Ajoute un paramètre de type BOOLEEN à la clé:
+        //-----------------Ajoute un paramÃ¨tre de type BOOLEEN Ã  la clÃ©:
         Parametre_Animation* ajoute_parametre(
                             string p_nom,uint32_t p_indice,bool p_valeur,
                             bool p_interpolation=false, uint16_t p_methodeInterpolation=INTERPOLATION_BASCULE,
@@ -96,12 +96,12 @@ class Cle_Animation
             Parametre_Animation_BOOLEEN* nouveau_parametre= new Parametre_Animation_BOOLEEN
                                                                 (p_nom,p_indice,p_valeur);
             parametres_crees.push_back(nouveau_parametre);
-            parametres.push_back(nouveau_parametre);    //Comme ça on peut aussi ajouter des paramètres qui
-                                                        //ne sont pas créés par la clef.
+            parametres.push_back(nouveau_parametre);    //Comme Ã§a on peut aussi ajouter des paramÃ¨tres qui
+                                                        //ne sont pas crÃ©Ã©s par la clef.
             return nouveau_parametre;
         }
 
-        //------------------Ajoute un paramètre de type TRAJECTOIRE à la clé:
+        //------------------Ajoute un paramÃ¨tre de type TRAJECTOIRE Ã  la clÃ©:
         Parametre_Animation* ajoute_parametre
                             (
                             string p_nom,uint32_t p_indice,
@@ -119,12 +119,12 @@ class Cle_Animation
                                                                 p_courbe,p_type_trajectoire,p_courbe_trajectoire,
                                                                 p_asservissement_tangente);
             parametres_crees.push_back(nouveau_parametre);
-            parametres.push_back(nouveau_parametre);    //Comme ça on peut aussi ajouter des paramètres qui
-                                                        //ne sont pas créés par la clef.
+            parametres.push_back(nouveau_parametre);    //Comme Ã§a on peut aussi ajouter des paramÃ¨tres qui
+                                                        //ne sont pas crÃ©Ã©s par la clef.
             return nouveau_parametre;
         }
 
-        //------------------Ajoute un paramètre de type HIERARCHIE à la clé:
+        //------------------Ajoute un paramÃ¨tre de type HIERARCHIE Ã  la clÃ©:
         Parametre_Animation* ajoute_parametre
                             (
                             string p_nom,uint32_t p_indice,vector<definition_hierarchie>* p_hierarchie
@@ -133,12 +133,12 @@ class Cle_Animation
             Parametre_Animation_HIERARCHIE* nouveau_parametre= new Parametre_Animation_HIERARCHIE
                                                                 (p_nom,p_indice,p_hierarchie);
             parametres_crees.push_back(nouveau_parametre);
-            parametres.push_back(nouveau_parametre);    //Comme ça on peut aussi ajouter des paramètres qui
-                                                        //ne sont pas créés par la clef.
+            parametres.push_back(nouveau_parametre);    //Comme Ã§a on peut aussi ajouter des paramÃ¨tres qui
+                                                        //ne sont pas crÃ©Ã©s par la clef.
             return nouveau_parametre;
         }
 
-        //------------------Ajoute un paramètre de type ELEMENT à la clé:
+        //------------------Ajoute un paramÃ¨tre de type ELEMENT Ã  la clÃ©:
         Parametre_Animation* ajoute_parametre
                             (
                             string p_nom,uint32_t p_indice,Conteneur* p_element
@@ -146,15 +146,15 @@ class Cle_Animation
         {
             Parametre_Animation_ELEMENT* nouveau_parametre= new Parametre_Animation_ELEMENT
                                                                 (p_nom,p_indice,p_element);
-            parametres_crees.push_back(nouveau_parametre);  //Comme ça on peut aussi ajouter des paramètres qui
-                                                            //ne sont pas créés par la clef.
+            parametres_crees.push_back(nouveau_parametre);  //Comme Ã§a on peut aussi ajouter des paramÃ¨tres qui
+                                                            //ne sont pas crÃ©Ã©s par la clef.
             parametres.push_back(nouveau_parametre);
 
             return nouveau_parametre;
         }
 
         //=============================================================
-        //              Gestion des paramètres globaux:
+        //              Gestion des paramÃ¨tres globaux:
         //=============================================================
 
     public:
@@ -174,7 +174,7 @@ class Cle_Animation
         }
 
     private:
-        //Renvoie l'indice du paramètre dans la table, à partir de son identifiant.
+        //Renvoie l'indice du paramÃ¨tre dans la table, Ã  partir de son identifiant.
         //Renvoie -1 si l'identifiant est inconnu.
         uint32_t renvoie_indice_parametre(uint32_t parametre)
         {
@@ -185,7 +185,7 @@ class Cle_Animation
             return 0xffffffff;
         }
     public:
-        //Renvoie le paramètre correspondant à l'identifiant:
+        //Renvoie le paramÃ¨tre correspondant Ã  l'identifiant:
         Parametre_Animation* renvoie_parametre(uint32_t parametre_id)
         {
             uint32_t indice=renvoie_indice_parametre(parametre_id);
@@ -201,7 +201,7 @@ class Cle_Animation
             return parametres[indice]->type;
         }
 
-        //Active l'interpolation d'un paramètre:
+        //Active l'interpolation d'un paramÃ¨tre:
         void active_interpolation(uint32_t parametre_id)
         {
             uint32_t indice=renvoie_indice_parametre(parametre_id);
@@ -230,7 +230,7 @@ class Cle_Animation
             parametres[indice]->determine_valeur(valeur);
         }
 
-        //Renvoie la valeur du paramètre de la clé:
+        //Renvoie la valeur du paramÃ¨tre de la clÃ©:
         void* renvoie_valeur(uint32_t parametre_id)
         {
             uint32_t indice=renvoie_indice_parametre(parametre_id);
@@ -238,7 +238,7 @@ class Cle_Animation
             return parametres[indice]->renvoie_valeur();
         }
 
-        //Renvoie la méthode d'interpolation d'un paramètre:
+        //Renvoie la mÃ©thode d'interpolation d'un paramÃ¨tre:
         uint16_t renvoie_methode_interpolation(uint32_t parametre_id)
         {
             uint32_t indice=renvoie_indice_parametre(parametre_id);
@@ -246,8 +246,8 @@ class Cle_Animation
             return parametres[indice]->methodeInterpolation;
         }
 
-        //Renvoie la courbe de bézier d'interpolation d'un paramètre:
-        //Null si pas de courbe définie.
+        //Renvoie la courbe de bÃ©zier d'interpolation d'un paramÃ¨tre:
+        //Null si pas de courbe dÃ©finie.
         CourbeBezier_Plan* renvoie_courbe_interpolation(uint32_t parametre_id)
         {
             uint32_t indice=renvoie_indice_parametre(parametre_id);
@@ -256,7 +256,7 @@ class Cle_Animation
         }
 
 
-        //Détermine la méthode d'interpolation d'un paramètre:
+        //DÃ©termine la mÃ©thode d'interpolation d'un paramÃ¨tre:
         void determine_methode_interpolation(uint32_t parametre_id, uint16_t methode)
         {
             uint32_t indice=renvoie_indice_parametre(parametre_id);
@@ -264,7 +264,7 @@ class Cle_Animation
             parametres[indice]->methodeInterpolation = methode;
         }
 
-        //Détermine la méthode d'interpolation d'un paramètre:
+        //DÃ©termine la mÃ©thode d'interpolation d'un paramÃ¨tre:
         void determine_courbe_interpolation(uint32_t parametre_id, CourbeBezier_Plan* courbe)
         {
             uint32_t indice=renvoie_indice_parametre(parametre_id);
@@ -272,7 +272,7 @@ class Cle_Animation
             parametres[indice]->courbe = courbe;
         }
 
-        //Le parametre doit être de type TRAJECTOIRE:
+        //Le parametre doit Ãªtre de type TRAJECTOIRE:
         void determine_type_trajectoire(uint32_t parametre_id,uint16_t p_type)
         {
             uint32_t indice=renvoie_indice_parametre(parametre_id);
@@ -280,7 +280,7 @@ class Cle_Animation
             ((Parametre_Animation_TRAJECTOIRE*)parametres[indice])->type_trajectoire = p_type;
         }
 
-        //Le parametre doit être de type TRAJECTOIRE:
+        //Le parametre doit Ãªtre de type TRAJECTOIRE:
         uint16_t renvoie_type_trajectoire(uint32_t parametre_id)
         {
             uint32_t indice=renvoie_indice_parametre(parametre_id);
@@ -288,7 +288,7 @@ class Cle_Animation
             return ((Parametre_Animation_TRAJECTOIRE*)parametres[indice])->type_trajectoire;
         }
 
-        //Le parametre doit être de type TRAJECTOIRE:
+        //Le parametre doit Ãªtre de type TRAJECTOIRE:
         CourbeBezier_Espace* renvoie_courbe_trajectoire(uint32_t parametre_id)
         {
             uint32_t indice=renvoie_indice_parametre(parametre_id);
@@ -296,7 +296,7 @@ class Cle_Animation
             return ((Parametre_Animation_TRAJECTOIRE*)parametres[indice])->courbe_trajectoire;
         }
 
-        //Le parametre doit être de type TRAJECTOIRE:
+        //Le parametre doit Ãªtre de type TRAJECTOIRE:
         bool renvoie_asservissement_tangente(uint32_t parametre_id)
         {
             uint32_t indice=renvoie_indice_parametre(parametre_id);
@@ -304,7 +304,7 @@ class Cle_Animation
             return ((Parametre_Animation_TRAJECTOIRE*)parametres[indice])->asservissement_tangente;
         }
 
-        //Affiche les paramètres de la clé:
+        //Affiche les paramÃ¨tres de la clÃ©:
         virtual void toString()
         {
             cout << "--- Cle_Animation: " << " - t: " << t << " - Nom:"<< nom << endl;

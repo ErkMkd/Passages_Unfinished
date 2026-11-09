@@ -4,8 +4,8 @@
 
 //---------------------------------------------------------------
 //          Information sur l'image
-//      C'est une structure intermédiaire, renvoyée par
-//      les classes statiques gérants les différents formats
+//      C'est une structure intermÃ©diaire, renvoyÃ©e par
+//      les classes statiques gÃ©rants les diffÃ©rents formats
 //---------------------------------------------------------------
 
 class Image_infos

@@ -20,7 +20,7 @@ class Shader_Transition_Textures_Couleur: public dksShader
         {
             if(erreur==DKSSHADER_OK)
             {
-                //--------- Création des liens avec les variables type "uniform":
+                //--------- CrÃ©ation des liens avec les variables type "uniform":
                 texture_depart=glGetUniformLocation(programme_id,"texture_depart");
                 texture_destination=glGetUniformLocation(programme_id,"texture_destination");
                 texture_transition=glGetUniformLocation(programme_id,"texture_transition");

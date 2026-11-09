@@ -1,7 +1,7 @@
 
 /*
 *		
-*		Réflexion du cube d'arrière plan - Calcul des fragments
+*		RÃ©flexion du cube d'arriÃ¨re plan - Calcul des fragments
 *
 */
 

@@ -1,4 +1,4 @@
-﻿#ifndef DKSVECTEUR_H_INCLUDED
+#ifndef DKSVECTEUR_H_INCLUDED
 #define DKSVECTEUR_H_INCLUDED
 
 #include "math.h"

@@ -4,22 +4,22 @@
 
 //-----------------------------------------------------------------------------------
 //  Classe des faces:
-/// ATTENTION: les tables des arêtes sont libérées par le destructeur des faces.
+/// ATTENTION: les tables des arÃªtes sont libÃ©rÃ©es par le destructeur des faces.
 //-----------------------------------------------------------------------------------
 
 #define DKSFACE_OK 0
-#define DKSFACE_ERREUR_SURFACE 1 //Si aucune surface n'est définie pour la face.
+#define DKSFACE_ERREUR_SURFACE 1 //Si aucune surface n'est dÃ©finie pour la face.
 #define DKSFACE_ERREUR_MEMOIRE 2
 
 #define DKSFACE_LIBERE_RIEN 0x00
 #define DKSFACE_LIBERE_ARETES 0x01
 
-//Structure utilisée pour le tri des faces transparentes:
+//Structure utilisÃ©e pour le tri des faces transparentes:
 class dksFace;
 
 class tri_face
 {   public:
-    double distance;        //Distance de la face à l'oeil
+    double distance;        //Distance de la face Ã  l'oeil
     dksFace* face;   //L'indice de la face
 };
 
@@ -30,30 +30,30 @@ class tri_face
 class dksFace
 {
     public:
-        //------ Données fournies au volume à sa création:
+        //------ DonnÃ©es fournies au volume Ã  sa crÃ©ation:
         uint16_t erreur;
         uint16_t nbrSommets;
-        uint32_t* aretes;   //Les aretes doivent boucler (dernier sommets lié au premier)
+        uint32_t* aretes;   //Les aretes doivent boucler (dernier sommets liÃ© au premier)
 
 
-        //------- Données initialisées automatiquement:
+        //------- DonnÃ©es initialisÃ©es automatiquement:
         uint32_t    indice; //L'indice de la face dans le volume
         dksVolume*  volume; //Le volume auquel appartient la face
-        char nom_surface[128];  //Le nom de la surface à laquelle est liée la face. Ca sert dans le cas d'une modification des surfaces du volume, pour refaire les liens.
-        dksSurface* surface;   //La surface à laquelle est affectée la face. Ce champ doit être rempli par l'utilisateur. Une erreur est générée si il est vide.
+        char nom_surface[128];  //Le nom de la surface Ã  laquelle est liÃ©e la face. Ca sert dans le cas d'une modification des surfaces du volume, pour refaire les liens.
+        dksSurface* surface;   //La surface Ã  laquelle est affectÃ©e la face. Ce champ doit Ãªtre rempli par l'utilisateur. Une erreur est gÃ©nÃ©rÃ©e si il est vide.
 
         GLdouble normale[3];
-        GLdouble* normales_sommets; //La table des normales aux sommets de la face. Créée lors de l'initialisation des surfaces
+        GLdouble* normales_sommets; //La table des normales aux sommets de la face. CrÃ©Ã©e lors de l'initialisation des surfaces
 
-        bool drapeau_partiellement_adoucie; //True si au moins une arête n'est pas adoucie (angle superieur à la limite de la surface)
+        bool drapeau_partiellement_adoucie; //True si au moins une arÃªte n'est pas adoucie (angle superieur Ã  la limite de la surface)
 
         GLdouble tangente[3];
         GLdouble binormale[3];
 
-        double centre_gravite_relatif[3]; //Le centre de gravité de la face
+        double centre_gravite_relatif[3]; //Le centre de gravitÃ© de la face
         double centre_gravite_absolu[3]; //Le centre de gravite absolu sert pour le tri des faces transparentes
 
-        uint32_t* liens_aretes; //Indices des arêtes de la face dans la table des arêtes du volume.
+        uint32_t* liens_aretes; //Indices des arÃªtes de la face dans la table des arÃªtes du volume.
 
         uint8_t drapeaux_liberation_memoire;
 
@@ -76,7 +76,7 @@ class dksFace
 
             if(!allocation_normales_sommets())
             {
-                cout<<"ERREUR dans dksFace::dksFace() - Mémoire insuffisante pour allouer la table des normales des sommets"<<endl;
+                cout<<"ERREUR dans dksFace::dksFace() - MÃ©moire insuffisante pour allouer la table des normales des sommets"<<endl;
                 erreur=DKSFACE_ERREUR_MEMOIRE;
 
             }
@@ -89,7 +89,7 @@ class dksFace
 
         //=================================================
         //              CONSTRUCTEUR de copie
-        //  La face copiée n'est pas attribuée à un volume.
+        //  La face copiÃ©e n'est pas attribuÃ©e Ã  un volume.
         //
         //=================================================
         public:
@@ -106,11 +106,11 @@ class dksFace
 
             if(!allocation_aretes() || !allocation_normales_sommets())
             {
-               cout<<"ERREUR dans dksFace::dksFace(dksFace&) - Mémoire insuffisante pour allouer les tables"<<endl;
+               cout<<"ERREUR dans dksFace::dksFace(dksFace&) - MÃ©moire insuffisante pour allouer les tables"<<endl;
                 erreur=DKSFACE_ERREUR_MEMOIRE;
             }
 
-            //Copie les arêtes:
+            //Copie les arÃªtes:
             for(uint32_t i=0;i<nbrSommets;i++) aretes[i]=face_originale.aretes[i];
 
             if (!copie_nom_surface(face_originale.nom_surface)) erreur=DKSFACE_ERREUR_SURFACE;
@@ -122,7 +122,7 @@ class dksFace
         public:
         ~dksFace()
         {
-            //La table des arêtes est libérée par le volume, au besoin.
+            //La table des arÃªtes est libÃ©rÃ©e par le volume, au besoin.
             if (liens_aretes!=NULL) free(liens_aretes);
             if ( ((drapeaux_liberation_memoire&DKSFACE_LIBERE_ARETES)!=0 ) &&  aretes!=NULL ) free (aretes);
             if (normales_sommets!=NULL) free(normales_sommets);
@@ -170,7 +170,7 @@ class dksFace
         }
         public:
         //---------------------------------------------------------------
-        //      Calcul le centre de gravité absolu de la face.
+        //      Calcul le centre de gravitÃ© absolu de la face.
         //      Sert notamment pour le tri des faces transparentes
         //---------------------------------------------------------------
         void calcul_centre_gravite_absolu(dksRepere* repere_absolu)

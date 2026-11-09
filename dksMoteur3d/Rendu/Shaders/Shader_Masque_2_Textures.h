@@ -18,7 +18,7 @@ class Shader_Masque_2_Textures: public dksShader
         {
             if(erreur==DKSSHADER_OK)
             {
-                //--------- Création des liens avec les variables type "uniform":
+                //--------- CrÃ©ation des liens avec les variables type "uniform":
                 texture_1=glGetUniformLocation(programme_id,"texture_1");
                 texture_2=glGetUniformLocation(programme_id,"texture_2");
                 couleur_masque=glGetUniformLocation(programme_id,"couleur_masque");

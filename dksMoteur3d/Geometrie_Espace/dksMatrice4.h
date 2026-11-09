@@ -35,7 +35,7 @@ class dksMatrice4
         identite();
     }
 
-    //========== Initialise la matrice identité:
+    //========== Initialise la matrice identitÃ©:
 
     void identite()
     {
@@ -87,7 +87,7 @@ class dksMatrice4
         dest_matrice->elements[Ml] = elements[Mi] * ma_matrice->elements[Md] + elements[Mj] * ma_matrice->elements[Mh] + elements[Mk] * ma_matrice->elements[Ml] + elements[Ml];
     }
 
-    //---------- Pour transformer un repère par la matrice:
+    //---------- Pour transformer un repÃ¨re par la matrice:
 
     void applique_vecteur(dksVecteur* vecteur, dksVecteur* dest_vect)
     {

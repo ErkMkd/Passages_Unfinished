@@ -10,7 +10,7 @@
 class ES_TransitionTexturesCouleurAxe : public dksEffetSpecial
 {
     public:
-        float zmin; //extrémités de la transition (par défaut, la dimension z du volume)
+        float zmin; //extrÃ©mitÃ©s de la transition (par dÃ©faut, la dimension z du volume)
         float zmax;
         float niveau; //Position sur l'axe Z
         float largeur_transition;  // varie entre 0 et 1
@@ -33,7 +33,7 @@ class ES_TransitionTexturesCouleurAxe : public dksEffetSpecial
     //=========================================================================================
 
     //---------------------------------------------------------
-    //  Les limites de transition sont callée sur un volume
+    //  Les limites de transition sont callÃ©e sur un volume
     //---------------------------------------------------------
     void initialise_limites(dksVolume* volume)
     {
@@ -50,7 +50,7 @@ class ES_TransitionTexturesCouleurAxe : public dksEffetSpecial
         dksTexture* texture_dest;
         dksVolume* vol=surface->volume;
 
-        //Texture départ:
+        //Texture dÃ©part:
         drapeaux_textures=0;
         if(surface->indice_texture_depart>=0)
         {
@@ -112,8 +112,8 @@ class ES_TransitionTexturesCouleurAxe : public dksEffetSpecial
 
     //--------------------------------------------------------------------------------------------------------------------
     //
-    //  Rendus en mode immédiat
-    /// ATTENTION ce n'est pas optimisé, le mode immédiat étant surtout utilisé provisoirement pour le développement.
+    //  Rendus en mode immÃ©diat
+    /// ATTENTION ce n'est pas optimisÃ©, le mode immÃ©diat Ã©tant surtout utilisÃ© provisoirement pour le dÃ©veloppement.
     //--------------------------------------------------------------------------------------------------------------------
     virtual void rendu_opaque_immediat(dksSurface* surface)
     {

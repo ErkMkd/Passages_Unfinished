@@ -1,8 +1,8 @@
 //-------------------------------------------------------------------------
 //			Compatible ATI - 1 source lumineuse
-//			Caclul de la rugositÈ, sans texture de couleur.
+//			Caclul de la rugosit√©, sans texture de couleur.
 //			La couche Alpha de la texture de normales sert pour la transparence en bascule
-//			Alpha>0.5, le pixel est affichÈ, sinon il est absent.
+//			Alpha>0.5, le pixel est affich√©, sinon il est absent.
 //-------------------------------------------------------------------------
 
 

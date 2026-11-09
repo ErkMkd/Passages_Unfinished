@@ -2,9 +2,9 @@
 #define CONVERTION_LWO2_VOLUME_H_INCLUDED
 
 //===================================================================================================
-//        Convertion des données récupérées du format LWO2 pour créer un volume utilisable par le moteur
-//      La couleur d'ambiance ré-émise par les matériaux n'étant pas définie dans les données LWO,
-//      elle est fixée au maximum (1.0).
+//        Convertion des donnÃ©es rÃ©cupÃ©rÃ©es du format LWO2 pour crÃ©er un volume utilisable par le moteur
+//      La couleur d'ambiance rÃ©-Ã©mise par les matÃ©riaux n'Ã©tant pas dÃ©finie dans les donnÃ©es LWO,
+//      elle est fixÃ©e au maximum (1.0).
 //===================================================================================================
 
 #include "Charge_LWO2.h"
@@ -17,7 +17,7 @@
 #define DEBUG_DUREES_CONVERTION_LWO2 false
 
 //---------------------------------------------
-// La structure renvoyée par le convertisseur
+// La structure renvoyÃ©e par le convertisseur
 //---------------------------------------------
 
 class Volumes_convertis
@@ -74,14 +74,14 @@ class Volumes_convertis
 //                          Classe de convertion
 //===================================================================================================
 
-class Convertion_LWO2_Volume: public Fichiers   //Hérite de la classe Fichiers pour les traitements de chaînes de caratères.
+class Convertion_LWO2_Volume: public Fichiers   //HÃ©rite de la classe Fichiers pour les traitements de chaÃ®nes de caratÃ¨res.
 {
     public:
 
         //--------------------------------------------------
-        //  Crée un volume à partir d'un calque LWO2.
+        //  CrÃ©e un volume Ã  partir d'un calque LWO2.
         //  Renvoie un tableau contenant les volumes.
-        //  Renvoie 0 si il y a eut un problème.
+        //  Renvoie 0 si il y a eut un problÃ¨me.
         //--------------------------------------------------
         static Volumes_convertis* convertion(Charge_LWO2* donnees_lwo)
         {
@@ -105,7 +105,7 @@ class Convertion_LWO2_Volume: public Fichiers   //Hérite de la classe Fichiers p
             volumes->volumes=(Volume**)calloc(volumes->nbrVolumes,4);
             if (volumes->volumes==NULL)
             {
-                cout<<"ERREUR dans Convertion_LWO2_Volume::convertion - Mémoire insuffisante"<<endl;
+                cout<<"ERREUR dans Convertion_LWO2_Volume::convertion - MÃ©moire insuffisante"<<endl;
                 delete volumes;
                 return NULL;
             }
@@ -124,7 +124,7 @@ class Convertion_LWO2_Volume: public Fichiers   //Hérite de la classe Fichiers p
 
 private:
         //===================================================================================
-        //Converti les données d'un calque en volume
+        //Converti les donnÃ©es d'un calque en volume
         //Renvoie un pointeur sur le nouveau volume,
         //NULL si une erreur s'est produite.
         //===================================================================================
@@ -132,7 +132,7 @@ private:
         {
             uint32_t i,j;
 
-            //Récupère le calque:
+            //RÃ©cupÃ¨re le calque:
             LWO2_Calque* calque=donnees_lwo->renvoie_LWO2_calque(numCalque);
 
             if (calque==NULL)
@@ -143,10 +143,10 @@ private:
             }
 
             if ( DEBUG_CONVERTION_LWO2 )
-            cout<<"========== Création du volume "<<calque->nom<<" à partir de données LWO2 ========="<<endl;
+            cout<<"========== CrÃ©ation du volume "<<calque->nom<<" Ã  partir de donnÃ©es LWO2 ========="<<endl;
 
 
-            //Création des faces:
+            //CrÃ©ation des faces:
 
             uint32_t nbrFaces=calque->renvoie_nbr_polygones();
 
@@ -158,7 +158,7 @@ private:
                 cout<<" ERREUR dans Convertion_LWO2_Volume::creation_volume() - Impossible d'allouer la table des faces"<<endl;
                 return NULL;
             }
-            //Création des faces:
+            //CrÃ©ation des faces:
             for (i=0;i<nbrFaces;i++)
             {
                 faces[i]=new Face();
@@ -169,12 +169,12 @@ private:
             for (i=0;i<nbrFaces;i++)
             {
                 LWO2_Polygone* face_lwo2=calque->renvoie_polygone(i);
-                faces[i]->indice=i; //! PROVISOIRE - Cette valeur est réinitialisée lors de la création du volume.
+                faces[i]->indice=i; //! PROVISOIRE - Cette valeur est rÃ©initialisÃ©e lors de la crÃ©ation du volume.
                 ////Initialise la face:
                 faces[i]->aretes=(uint32_t*)malloc(sizeof(uint32_t) * (uint32_t)face_lwo2->nbrSommets+1); //+1 pour le bouclage
                 if(faces[i]->aretes==NULL)
                 {
-                    cout<<" ERREUR dans Convertion_LWO2_Volume.creation_volume() - Impossible d'allouer la table des arêtes"<<endl;
+                    cout<<" ERREUR dans Convertion_LWO2_Volume.creation_volume() - Impossible d'allouer la table des arÃªtes"<<endl;
                     for (i=0;i<nbrFaces;i++){delete faces[i];}
                     free(faces);
                     return NULL;
@@ -197,7 +197,7 @@ private:
                 }
             }
 
-            //Création des textures UV:
+            //CrÃ©ation des textures UV:
 
             if ( DEBUG_CONVERTION_LWO2 )
             cout<<"............. Initialisation des UV des faces ................."<<endl;
@@ -212,7 +212,7 @@ private:
             }
 
 
-            //Création du volume:
+            //CrÃ©ation du volume:
             Volume* nouveau_volume = new Volume(calque->nom,
                                                 LIBERE_FACES|LIBERE_ARETES_FACES,
                                                 double(calque->pivot[0]),double(calque->pivot[1]),double(calque->pivot[2]),
@@ -229,8 +229,8 @@ private:
 private:
         //===================================================================================
         //Converti les surfaces extraites d'un fichier LWO2:
-        //Renvoie un tableau de surfaces, NULL si il y a eut un problème.
-        //Ne pas oublier de restituer la mémoire une fois que les surfaces ne servent plus.
+        //Renvoie un tableau de surfaces, NULL si il y a eut un problÃ¨me.
+        //Ne pas oublier de restituer la mÃ©moire une fois que les surfaces ne servent plus.
         //===================================================================================
         static Surface** convertion_surfaces(Charge_LWO2* donnees_lwo)
         {
@@ -242,7 +242,7 @@ private:
             uint32_t nbrSurfaces=donnees_lwo->renvoie_nbrSurfaces();
             if (nbrSurfaces==0)
             {
-                cout<<"Pas de volume défini - "<<donnees_lwo->chemin_fichier<<endl;
+                cout<<"Pas de volume dÃ©fini - "<<donnees_lwo->chemin_fichier<<endl;
                 return NULL;
             }
 
@@ -251,16 +251,16 @@ private:
             Surface** surfaces=(Surface**)calloc(nbrSurfaces,4);
             if (surfaces==NULL)
             {
-                if ( DEBUG_CONVERTION_LWO2 ) cout<<"ERREUR dans Convertion_LWO2_Volume::creation_surfaces() - Mémoire insuffisante"<<std::endl;
+                if ( DEBUG_CONVERTION_LWO2 ) cout<<"ERREUR dans Convertion_LWO2_Volume::creation_surfaces() - MÃ©moire insuffisante"<<std::endl;
                 return NULL;
             }
 
-            //Création des objets Surface:
+            //CrÃ©ation des objets Surface:
             for (i=0;i<nbrSurfaces;i++)
             {
                 surfaces[i]=new Surface();
             }
-            //---- Création des surfaces:
+            //---- CrÃ©ation des surfaces:
 
             for (i=0;i<nbrSurfaces;i++)
             {
@@ -278,7 +278,7 @@ private:
                 surfaces[i]->reflexion=surface->reflexion;
                 surfaces[i]->transparence=surface->transparence;
                 surfaces[i]->translucidite=surface->translucidite;
-                surfaces[i]->ambiance=1.f;   //niveau de ré-émission de la couleur d'ambiance au maximum.
+                surfaces[i]->ambiance=1.f;   //niveau de rÃ©-Ã©mission de la couleur d'ambiance au maximum.
                 surfaces[i]->angle_limite_adoucissement=surface->angle_limite_adoucissement;
                 if (DEBUG_CONVERTION_LWO2)
                 {
@@ -289,7 +289,7 @@ private:
 
             duree_surfaces=glutGet(GLUT_ELAPSED_TIME)-duree_surfaces;
             if (DEBUG_DUREES_CONVERTION_LWO2)
-            cout<<"Durée de création des surfaces : "<<duree_surfaces<<endl;
+            cout<<"DurÃ©e de crÃ©ation des surfaces : "<<duree_surfaces<<endl;
             return surfaces;
         }
 

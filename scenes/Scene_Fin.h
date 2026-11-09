@@ -3,7 +3,7 @@
 
 /*
 
-            Scène du générique de fin
+            ScÃ¨ne du gÃ©nÃ©rique de fin
 
 */
 
@@ -52,7 +52,7 @@ class Scene_Fin : public Scene
         };
     Interpolation_Parametre_2f* interpolations_parametres_2f[3];
 
-    //============= Données de l'éditeur:
+    //============= DonnÃ©es de l'Ã©diteur:
 
         double vitesse_rotation;
         double vitesse_deplacement;
@@ -90,7 +90,7 @@ class Scene_Fin : public Scene
         bitmap_fin=new Image("textures/pics/queen_of_spades.jpg",true);
         if(bitmap_fin->erreur!=IMAGE_OK)
         {
-            cout<<"ERREUR lors de la création de l'image de fin"<<endl;
+            cout<<"ERREUR lors de la crÃ©ation de l'image de fin"<<endl;
             erreur=SCENE_ERREUR_INIT;
             return ;
         }
@@ -98,7 +98,7 @@ class Scene_Fin : public Scene
         image_fin=new dksAfficheImage(bitmap_fin,ecran);
         if(image_fin->erreur!=DKSAFFICHEIMAGE_OK)
         {
-            cout<<"ERREUR lors de la création de l'afficheur de l'image de fin"<<endl;
+            cout<<"ERREUR lors de la crÃ©ation de l'afficheur de l'image de fin"<<endl;
             erreur=SCENE_ERREUR_INIT;
             return ;
         }
@@ -112,12 +112,12 @@ class Scene_Fin : public Scene
             texte_fin->nbr_lignes_max=22;
             texte_fin->vitesse_verticale=15.;
 
-        //----------------- Création des éléments de la scène:
+        //----------------- CrÃ©ation des Ã©lÃ©ments de la scÃ¨ne:
         //Yeux:
             oeil_1=new dksOeil("Oeil_1",0.,0.,-10.);
             oeil_courant=oeil_1;
 
-        //Création des sources:
+        //CrÃ©ation des sources:
             source_1=new dksSourceLumineuse("Source_1",100.,100.,-10.);
             source_1->determine_attenuation(1.,0.,0.);
 
@@ -129,7 +129,7 @@ class Scene_Fin : public Scene
             sources[0]=source_1;
             yeux[0]=oeil_1;
 
-        //Création de la scene:
+        //CrÃ©ation de la scene:
             scene=new dksMoteur3d("Fin",ecran,
                             NULL,0,
                             NULL,0,
@@ -214,7 +214,7 @@ class Scene_Fin : public Scene
     //========================================================================================================================================
     //========================================================================================================================================
     //----------------------------------------------------------------------------
-    //                  Initialise les données d'animation
+    //                  Initialise les donnÃ©es d'animation
     //----------------------------------------------------------------------------
     void initialise_animations()
     {
@@ -232,7 +232,7 @@ class Scene_Fin : public Scene
 
     public:
     //----------------------------------------------------------------------------
-    //                  Etat de la scène au départ de l'animation
+    //                  Etat de la scÃ¨ne au dÃ©part de l'animation
     //----------------------------------------------------------------------------
     virtual void initialise_t0(double t0)
     {
@@ -290,7 +290,7 @@ class Scene_Fin : public Scene
     //======================================================================================================================================
 
     //============================================================================
-    //                     Initialisations de l'éditeur
+    //                     Initialisations de l'Ã©diteur
     //============================================================================
 
         virtual void initialise_editeur()
@@ -312,7 +312,7 @@ class Scene_Fin : public Scene
         }
 
         //===================================================
-        //          Affiche la trajectoire éditée
+        //          Affiche la trajectoire Ã©ditÃ©e
         //===================================================
         void affiche_trajectoire()
         {
@@ -346,22 +346,22 @@ class Scene_Fin : public Scene
             switch (key)
             {
                  case 101:
-                //flèche haut
+                //flÃ¨che haut
                 conteneur_selectionne->deplace(AVANT,vitesse_deplacement);
                 cout<<conteneur_selectionne->x<<" "<<conteneur_selectionne->y<<" "<<conteneur_selectionne->z<<endl;
                 break;
                 case 100:
-                    //flèche gauche
+                    //flÃ¨che gauche
                     conteneur_selectionne->deplace(GAUCHE,vitesse_deplacement);
                     cout<<conteneur_selectionne->x<<" "<<conteneur_selectionne->y<<" "<<conteneur_selectionne->z<<endl;
                     break;
                 case 103:
-                    //flèche bas
+                    //flÃ¨che bas
                     conteneur_selectionne->deplace(ARRIERE,vitesse_deplacement);
                     cout<<conteneur_selectionne->x<<" "<<conteneur_selectionne->y<<" "<<conteneur_selectionne->z<<endl;
                     break;
                 case 102:
-                    //flèche droite
+                    //flÃ¨che droite
                     conteneur_selectionne->deplace(DROITE,vitesse_deplacement);
                     cout<<conteneur_selectionne->x<<" "<<conteneur_selectionne->y<<" "<<conteneur_selectionne->z<<endl;
                     break;
@@ -380,13 +380,13 @@ class Scene_Fin : public Scene
 
                 //Touches F..
                 case 1:
-                    if (ma_trajectoire.sauve_trajectoire(fichier_trajectoire)) cout<<"Trajectoire "<<fichier_trajectoire<<" sauvée avec succès!"<<endl;
+                    if (ma_trajectoire.sauve_trajectoire(fichier_trajectoire)) cout<<"Trajectoire "<<fichier_trajectoire<<" sauvÃ©e avec succÃ¨s!"<<endl;
                     break;
 
                 case 2:
                     if (ma_trajectoire.charge_trajectoire(fichier_trajectoire))
                     {
-                        cout<<"Trajectoire "<<fichier_trajectoire<<" chargée avec succès!"<<endl;
+                        cout<<"Trajectoire "<<fichier_trajectoire<<" chargÃ©e avec succÃ¨s!"<<endl;
                         point_actuel=0;
                     }
                 default:
@@ -466,7 +466,7 @@ class Scene_Fin : public Scene
                         {
                             if (i==conteneurs_selectionnables.size()-1) conteneur_selectionne=conteneurs_selectionnables[0];
                             else conteneur_selectionne=conteneurs_selectionnables[i+1];
-                            cout<<"Conteneur sélectionné: "<<conteneur_selectionne->nom<<endl;
+                            cout<<"Conteneur sÃ©lectionnÃ©: "<<conteneur_selectionne->nom<<endl;
                             break;
                         }
                     }
@@ -533,14 +533,14 @@ class Scene_Fin : public Scene
                     cout<<"Position trajectoire t="<<position_trajectoire;
                     ma_trajectoire.renvoie_position(position_trajectoire,coordonnees_trajectoire);
                     conteneur_selectionne->determine_position(coordonnees_trajectoire);
-                    cout<<" Coordonnées X:"<<coordonnees_trajectoire[0]<<" Y:"<<coordonnees_trajectoire[1]<<" Z:"<<coordonnees_trajectoire[2]<<endl;
+                    cout<<" CoordonnÃ©es X:"<<coordonnees_trajectoire[0]<<" Y:"<<coordonnees_trajectoire[1]<<" Z:"<<coordonnees_trajectoire[2]<<endl;
                     break;
-                case 233: //²
+                case 233: //Â²
                     position_trajectoire+=pas_position_trajectoire;
                     cout<<"Position trajectoire t="<<position_trajectoire;
                     ma_trajectoire.renvoie_position(position_trajectoire,coordonnees_trajectoire);
                     conteneur_selectionne->determine_position(coordonnees_trajectoire);
-                    cout<<" Coordonnées X:"<<coordonnees_trajectoire[0]<<" Y:"<<coordonnees_trajectoire[1]<<" Z:"<<coordonnees_trajectoire[2]<<endl;
+                    cout<<" CoordonnÃ©es X:"<<coordonnees_trajectoire[0]<<" Y:"<<coordonnees_trajectoire[1]<<" Z:"<<coordonnees_trajectoire[2]<<endl;
                     break;
                 #endif EDITEUR_TRAJECTOIRE
 
@@ -604,11 +604,11 @@ class Scene_Fin : public Scene
                 #endif
 
                 case 'r':
-                    cout<<"Repère relatif: "<<conteneur_selectionne->axe_x->x<<","<<conteneur_selectionne->axe_x->y<<","<<conteneur_selectionne->axe_x->z<<","
+                    cout<<"RepÃ¨re relatif: "<<conteneur_selectionne->axe_x->x<<","<<conteneur_selectionne->axe_x->y<<","<<conteneur_selectionne->axe_x->z<<","
                                             <<conteneur_selectionne->axe_y->x<<","<<conteneur_selectionne->axe_y->y<<","<<conteneur_selectionne->axe_y->z<<","
                                             <<conteneur_selectionne->axe_z->x<<","<<conteneur_selectionne->axe_z->y<<","<<conteneur_selectionne->axe_z->z<<endl;
 
-                    cout<<"Repère absolu: "<<rep->axe_x->x<<","<<rep->axe_x->y<<","<<rep->axe_x->z<<","
+                    cout<<"RepÃ¨re absolu: "<<rep->axe_x->x<<","<<rep->axe_x->y<<","<<rep->axe_x->z<<","
                                             <<rep->axe_y->x<<","<<rep->axe_y->y<<","<<rep->axe_y->z<<","
                                             <<rep->axe_z->x<<","<<rep->axe_z->y<<","<<rep->axe_z->z<<endl;
                     break;

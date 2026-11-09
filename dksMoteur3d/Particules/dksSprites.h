@@ -5,7 +5,7 @@
 //
 //                           Gestion de l'affichage des sprites
 //
-//          Les sprites de base (classe dksSprite3d) sont gérés au sein des listes d'affichage
+//          Les sprites de base (classe dksSprite3d) sont gÃ©rÃ©s au sein des listes d'affichage
 //          via les particules.
 //
 //**********************************************************************************************
@@ -49,8 +49,8 @@ class dksSprites : public dksParticules
                :dksParticules(p_nom,dx,dy,dz,0,axe1,axe2,axe3)
     {
         determine_nombre_de_points(p_nbrSprites);
-        determine_rendu_faces_transparentes(true);  //De toutes façons le champ de particules ne contient pas de faces....
-                                                ///Trouver une solution pour afficher le champs de particules APRES les éléments opaques de la scène.
+        determine_rendu_faces_transparentes(true);  //De toutes faÃ§ons le champ de particules ne contient pas de faces....
+                                                ///Trouver une solution pour afficher le champs de particules APRES les Ã©lÃ©ments opaques de la scÃ¨ne.
     }
 
     ~dksSprites()
@@ -62,7 +62,7 @@ class dksSprites : public dksParticules
     //          Gestion des images des sprites
     //=========================================================
 
-    //Lie un sprite à une particule
+    //Lie un sprite Ã  une particule
     bool determine_sprite(uint32_t indice,dksSprite3d* sprite)
     {
         if (indice>=nbrPoints) return false;
@@ -71,7 +71,7 @@ class dksSprites : public dksParticules
         return true;
     }
 
-    //Le même sprite est lié à toutes les particules:
+    //Le mÃªme sprite est liÃ© Ã  toutes les particules:
     void determine_sprites(dksSprite3d* sprite)
     {
         for(uint32_t i=0;i<nbrPoints;i++)

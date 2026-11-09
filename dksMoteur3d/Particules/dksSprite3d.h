@@ -2,9 +2,9 @@
 #define DKSSPRITE3D_H_INCLUDED
 
 /*
-        Gestion de l'affichage d'un sprite situé dans l'espace.
-        Le sprite est toujours face à l'oeil. Sa taille est calculée en fonction de la distance à l'oeil.
-        C'est une classe de base, les coordonnées du sprite ne sont pas mémorisées ici.
+        Gestion de l'affichage d'un sprite situÃ© dans l'espace.
+        Le sprite est toujours face Ã  l'oeil. Sa taille est calculÃ©e en fonction de la distance Ã  l'oeil.
+        C'est une classe de base, les coordonnÃ©es du sprite ne sont pas mÃ©morisÃ©es ici.
 */
 
 #include "../../chargeurs_images/Image.h"
@@ -20,10 +20,10 @@ class dksSprite3d
     uint16_t erreur;
     char nom[64];
     Image* image;
-    float facteur_taille;   //Taille d'un pixel en unités d'espace
+    float facteur_taille;   //Taille d'un pixel en unitÃ©s d'espace
 
     protected:
-    bool drapeau_affecte_par_brouillard;    //True par défaut: le sprite est affecté par le brouillard.
+    bool drapeau_affecte_par_brouillard;    //True par dÃ©faut: le sprite est affectÃ© par le brouillard.
 
 
     //====================================================
@@ -67,7 +67,7 @@ class dksSprite3d
     }
 
     //-----------------------------------------------------------------------------------
-    //      Détermine si le sprite est affecté par le brouillard
+    //      DÃ©termine si le sprite est affectÃ© par le brouillard
     //-----------------------------------------------------------------------------------
     void determine_affecte_par_brouillard(bool p_drapeau)
     {
@@ -84,15 +84,15 @@ class dksSprite3d
     //============================================================
 
     //----------------------------------------------------------------
-    //      Affiche l'image en utilisant les déplacements de pixels.
-    //      Sert pour les affichages à plat.
+    //      Affiche l'image en utilisant les dÃ©placements de pixels.
+    //      Sert pour les affichages Ã  plat.
     //----------------------------------------------------------------
 
     void affiche_pixels(double px, double py, double pz, dksOeil* oeil)
     {
         bool fog_mem=glIsEnabled(GL_FOG);
         if (!drapeau_affecte_par_brouillard) glDisable(GL_FOG);
-        //Calcul la taille du sprite par rapport à l'oeil:
+        //Calcul la taille du sprite par rapport Ã  l'oeil:
         float dx=px-oeil->repere_absolu->x;
         float dy=py-oeil->repere_absolu->y;
         float dz=pz-oeil->repere_absolu->z;
@@ -128,7 +128,7 @@ class dksSprite3d
 
     //-------------------------------------------------------------------
     //  Affiche l'image en utilisant une texture.
-    //  Sert pour les affchages dans l'espace, si il y a peu de sprites à afficher.
+    //  Sert pour les affchages dans l'espace, si il y a peu de sprites Ã  afficher.
     //-------------------------------------------------------------------
 
     void affiche_texture(double px,double py,double pz, dksOeil* oeil,float alpha=1.)
@@ -146,7 +146,7 @@ class dksSprite3d
         glDisable(GL_LIGHTING);
         glEnable(GL_BLEND);
         glEnable(GL_TEXTURE_2D);
-        glEnable(GL_DEPTH_TEST); //Désactive la prise en compte de la profondeur ("z-buffer")
+        glEnable(GL_DEPTH_TEST); //DÃ©sactive la prise en compte de la profondeur ("z-buffer")
         glEnable(GL_CULL_FACE);
         glFrontFace(GL_CCW);
 
@@ -155,7 +155,7 @@ class dksSprite3d
         float cx=float(image->largeur)*facteur_taille/2.;
         float cy=float(image->hauteur)*facteur_taille/2.;
 
-        //Calcul les coordonnées du rectangle:
+        //Calcul les coordonnÃ©es du rectangle:
         float x0,y0,z0,x1,y1,z1,x2,y2,z2,x3,y3,z3;
         dksVecteurUnitaire* repX=oeil->repere_absolu->axe_x;
         dksVecteurUnitaire* repY=oeil->repere_absolu->axe_y;
@@ -195,8 +195,8 @@ class dksSprite3d
     }
 
     //-----------------------------------------------------------------
-    //Si il y a beaucoup de sprites à afficher,
-    //Se servir de ces fonction pour éviter les inits à répétition
+    //Si il y a beaucoup de sprites Ã  afficher,
+    //Se servir de ces fonction pour Ã©viter les inits Ã  rÃ©pÃ©tition
     //------------------------------------------------------------------
     static void initialise_affichage()
     {
@@ -207,13 +207,13 @@ class dksSprite3d
         openGl_mem[4]=glIsEnabled(GL_CULL_FACE);
         openGl_mem[5]=glIsEnabled(GL_FOG);
 
-        /// Voir si il y a besoin de désactiver toutes les unités de texture.
+        /// Voir si il y a besoin de dÃ©sactiver toutes les unitÃ©s de texture.
 
         glActiveTexture(GL_TEXTURE0);
         glDisable(GL_LIGHTING);
         glEnable(GL_BLEND);
         glEnable(GL_TEXTURE_2D);
-        glEnable(GL_DEPTH_TEST); //Désactive la prise en compte de la profondeur ("z-buffer")
+        glEnable(GL_DEPTH_TEST); //DÃ©sactive la prise en compte de la profondeur ("z-buffer")
         glEnable(GL_CULL_FACE);
         glFrontFace(GL_CCW);
     }
@@ -232,7 +232,7 @@ class dksSprite3d
         float cx=float(image->largeur)*facteur_taille/2.;
         float cy=float(image->hauteur)*facteur_taille/2.;
 
-        //Calcul les coordonnées du rectangle:
+        //Calcul les coordonnÃ©es du rectangle:
         float x0,y0,z0,x1,y1,z1,x2,y2,z2,x3,y3,z3;
         dksVecteurUnitaire* repX=oeil->repere_absolu->axe_x;
         dksVecteurUnitaire* repY=oeil->repere_absolu->axe_y;

@@ -1,6 +1,6 @@
 /*
 
-		Ondes aqueuses avec éclairage - Fragment shader
+		Ondes aqueuses avec Ã©clairage - Fragment shader
 
 */
 
@@ -57,7 +57,7 @@ void main( void )
 	
 	
 	
-	//Calcul des éclairages:
+	//Calcul des Ã©clairages:
 	vec3 direction_oeil_unitaire=normalize(direction_sommet_oeil);
 	vec3 couleur_rgb=vec3(0.,0.,0.);
 	vec3 couleur_speculaire=vec3 (0.,0.,0.);

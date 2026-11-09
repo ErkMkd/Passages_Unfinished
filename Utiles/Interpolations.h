@@ -20,9 +20,9 @@ class Interpolations
 
     public:
     //-----------------------------------------------------
-    //  Interpolation linÈaire entre deux valeurs a et b
+    //  Interpolation lin√©aire entre deux valeurs a et b
     //  t varie entre 0 et 1 (0=a, 1=b)
-    // renvoie la valeur intermÈdiaire.
+    // renvoie la valeur interm√©diaire.
     //-----------------------------------------------------
     static float interpolation_lineaire_f(float a,float b,float t)
     {
@@ -63,9 +63,9 @@ class Interpolations
 
 
     //-----------------------------------------------------
-    //  Interpolation sinusoÔdale entre deux valeurs a et b
+    //  Interpolation sinuso√Ødale entre deux valeurs a et b
     //  x varie entre 0 et 1 (0=a, 1=b)
-    // renvoie la valeur intermÈdiaire.
+    // renvoie la valeur interm√©diaire.
     //-----------------------------------------------------
     static float interpolation_cosinusoidale_f(float a,float b,float t)
     {
@@ -105,10 +105,10 @@ class Interpolations
 //-------------------------------------------------------------------------------------------------------------------------
 //===============================================================================================================
 //      Enveloppe d'interpolation
-//      x(temps) et y(position) varient de 0 ‡ 1. Les points de l'enveloppe doivent Ítre compris entre ces valeurs
+//      x(temps) et y(position) varient de 0 √† 1. Les points de l'enveloppe doivent √™tre compris entre ces valeurs
 //      Type d'interpolation possible entre les points: LINEAIRE et COSINUS
-///     ATTENTION ‡ ce que les points se suivent dans un ordre croissant sur l'axe x (temps) !!!
-///     Les points situÈs ‡ x>1. sont ignorÈs.
+///     ATTENTION √† ce que les points se suivent dans un ordre croissant sur l'axe x (temps) !!!
+///     Les points situ√©s √† x>1. sont ignor√©s.
 //===============================================================================================================
 //-------------------------------------------------------------------------------------------------------------------------
 
@@ -143,10 +143,10 @@ class Enveloppe_Interpolation: public Interpolations
     {
         if (t<0.) t=0.;
         if (t>1.) t=1.;
-        //ExtrÈmitÈs:
+        //Extr√©mit√©s:
         if (t==0.) return points[1];
         if (t==1.) return points[nbrPoints*2+1];
-        //cherche le numÈro de l'intervalle:
+        //cherche le num√©ro de l'intervalle:
         uint32_t i;
         for(i=0;i<nbrPoints;i++)
         {
@@ -167,8 +167,8 @@ class Enveloppe_Interpolation: public Interpolations
 //-------------------------------------------------------------------------------------------------------------------------
 //===============================================================================================================
 //      Interpolation entre deux valeurs
-//      Si le temps de dÈpart est infÈrieur ‡ 0, l'interpolation dÈbute dËs le premier appel ‡ renvoie_valeur_parametre()
-//      La courbe en entrÈe ne sert que pour dÈfinir les paramËtre de la courbe interne.
+//      Si le temps de d√©part est inf√©rieur √† 0, l'interpolation d√©bute d√®s le premier appel √† renvoie_valeur_parametre()
+//      La courbe en entr√©e ne sert que pour d√©finir les param√®tre de la courbe interne.
 //===============================================================================================================
 //-------------------------------------------------------------------------------------------------------------------------
 
@@ -188,7 +188,7 @@ class Interpolation_Parametre: public Interpolations
     Courbe_Bezier_Plan* courbe_bezier;
     Enveloppe_Interpolation* enveloppe;
 
-    bool drapeau_terminee; //True lorsque l'interpolation est terminÈe.
+    bool drapeau_terminee; //True lorsque l'interpolation est termin√©e.
 
     public:
 
@@ -198,7 +198,7 @@ class Interpolation_Parametre: public Interpolations
         courbe_bezier=new Courbe_Bezier_Plan();
         if(courbe_bezier==NULL)
         {
-            cout<<"ERREUR dans Interpolation_Parametre::Interpolation_Parametre() - Impossible de crÈer la courbe d'interpolation"<<endl;
+            cout<<"ERREUR dans Interpolation_Parametre::Interpolation_Parametre() - Impossible de cr√©er la courbe d'interpolation"<<endl;
             erreur=INTERPOLATION_PARAMETRE_ERREUR_MEMOIRE;
             return;
         }
@@ -211,7 +211,7 @@ class Interpolation_Parametre: public Interpolations
         if (courbe_bezier!=NULL) delete courbe_bezier;
     }
 
-    //Pour dÈfinir tout les paramËtres d'un coup.
+    //Pour d√©finir tout les param√®tres d'un coup.
     void determine_parametres(float p_t0,float p_depart,float p_fin,float p_duree,uint8_t p_type=INTERPOLATION_INCONNUE,Courbe_Bezier_Plan* p_courbe=NULL,Enveloppe_Interpolation* p_enveloppe=NULL)
     {
         t0=p_t0;
@@ -224,8 +224,8 @@ class Interpolation_Parametre: public Interpolations
         enveloppe=p_enveloppe;
     }
 
-    //RÈinitialise l'interpolation.
-    ///La valeur de t0 est mise ‡ -1 !!!
+    //R√©initialise l'interpolation.
+    ///La valeur de t0 est mise √† -1 !!!
     void reset()
     {
         drapeau_terminee=false;
@@ -264,9 +264,9 @@ class Interpolation_Parametre: public Interpolations
 
 //========================================================================================================
 //              Suite d'interpolations
-//  Les valeurs se prÈsentent comme suit: valeur,duree,...
-//  La derniËre durÈe sert dans le cas d'un bouclage.
-//  Si t0 en entrÈe est infÈrieur ‡ 0, l'interpolation commence dËs le premier appel ‡ renvoie_valeur()
+//  Les valeurs se pr√©sentent comme suit: valeur,duree,...
+//  La derni√®re dur√©e sert dans le cas d'un bouclage.
+//  Si t0 en entr√©e est inf√©rieur √† 0, l'interpolation commence d√®s le premier appel √† renvoie_valeur()
 //========================================================================================================
 
 class Suite_Interpolations :public Interpolations
@@ -308,7 +308,7 @@ class Suite_Interpolations :public Interpolations
     }
 
     //--------------------------------------
-    //      ContrÙls de lecture
+    //      Contr√¥ls de lecture
     //--------------------------------------
     ///Provisoire
     void start()
@@ -364,7 +364,7 @@ class Suite_Interpolations :public Interpolations
 
     void determine_t0(float p_t0)
     {
-        t0=p_t0;    //Valeur nÈgative si l'on veut relancer immÈdiatement le mouvement
+        t0=p_t0;    //Valeur n√©gative si l'on veut relancer imm√©diatement le mouvement
     }
 
     //-----------------------------------------------
@@ -391,7 +391,7 @@ class Suite_Interpolations :public Interpolations
             return tableau_valeurs[0];
         }
 
-        //DÈtermine l'Ètape actuelle:
+        //D√©termine l'√©tape actuelle:
         uint16_t etape_actuelle;
         float duree_actuelle;
         float t_relatif=0.;
@@ -430,9 +430,9 @@ class Suite_Interpolations :public Interpolations
 
 //-------------------------------------------------------------------------------------------------------------------------
 //===============================================================================================================
-//      Interpolation entre deux coordonnÈes bidimentionnelles
-//      Si le temps de dÈpart est infÈrieur ‡ 0, l'interpolation dÈbute dËs le premier appel ‡ renvoie_valeur_parametre()
-//      La courbe en entrÈe ne sert que pour dÈfinir les paramËtre de la courbe interne.
+//      Interpolation entre deux coordonn√©es bidimentionnelles
+//      Si le temps de d√©part est inf√©rieur √† 0, l'interpolation d√©bute d√®s le premier appel √† renvoie_valeur_parametre()
+//      La courbe en entr√©e ne sert que pour d√©finir les param√®tre de la courbe interne.
 //===============================================================================================================
 //-------------------------------------------------------------------------------------------------------------------------
 
@@ -458,7 +458,7 @@ class Interpolation_Parametre_2f: public Interpolations
         courbe_bezier=new Courbe_Bezier_Plan();
         if(courbe_bezier==NULL)
         {
-            cout<<"ERREUR dans Interpolation_Parametre_2f::Interpolation_Parametre_2f() - Impossible de crÈer la courbe d'interpolation"<<endl;
+            cout<<"ERREUR dans Interpolation_Parametre_2f::Interpolation_Parametre_2f() - Impossible de cr√©er la courbe d'interpolation"<<endl;
             erreur=INTERPOLATION_PARAMETRE_ERREUR_MEMOIRE;
             return;
         }
@@ -470,7 +470,7 @@ class Interpolation_Parametre_2f: public Interpolations
         if (courbe_bezier!=NULL) delete courbe_bezier;
     }
 
-    //Pour dÈfinir tout les paramËtres d'un coup.
+    //Pour d√©finir tout les param√®tres d'un coup.
     void determine_parametres(float p_t0,float* p_depart,float* p_fin,float p_duree,uint8_t p_type=INTERPOLATION_INCONNUE,Courbe_Bezier_Plan* p_courbe=NULL)
     {
         t0=p_t0;
@@ -523,7 +523,7 @@ class Interpolation_Parametre_2d: public Interpolations
         courbe_bezier=new Courbe_Bezier_Plan();
         if(courbe_bezier==NULL)
         {
-            cout<<"ERREUR dans Interpolation_Parametre_2d::Interpolation_Parametre_2d() - Impossible de crÈer la courbe d'interpolation"<<endl;
+            cout<<"ERREUR dans Interpolation_Parametre_2d::Interpolation_Parametre_2d() - Impossible de cr√©er la courbe d'interpolation"<<endl;
             erreur=INTERPOLATION_PARAMETRE_ERREUR_MEMOIRE;
             return;
         }
@@ -535,7 +535,7 @@ class Interpolation_Parametre_2d: public Interpolations
         if (courbe_bezier!=NULL) delete courbe_bezier;
     }
 
-    //Pour dÈfinir tout les paramËtres d'un coup.
+    //Pour d√©finir tout les param√®tres d'un coup.
     void determine_parametres(double p_t0,double* p_depart,double* p_fin,double p_duree,uint8_t p_type,Courbe_Bezier_Plan* p_courbe=NULL)
     {
         t0=p_t0;
@@ -564,9 +564,9 @@ class Interpolation_Parametre_2d: public Interpolations
 
 //-------------------------------------------------------------------------------------------------------------------------
 //===============================================================================================================
-//      Interpolation entre deux coordonnÈes tridimensionnelle
-//      Si le temps de dÈpart est infÈrieur ‡ 0, l'interpolation dÈbute dËs le premier appel ‡ renvoie_valeur_parametre()
-//      La courbe en entrÈe ne sert que pour dÈfinir les paramËtre de la courbe interne.
+//      Interpolation entre deux coordonn√©es tridimensionnelle
+//      Si le temps de d√©part est inf√©rieur √† 0, l'interpolation d√©bute d√®s le premier appel √† renvoie_valeur_parametre()
+//      La courbe en entr√©e ne sert que pour d√©finir les param√®tre de la courbe interne.
 //===============================================================================================================
 //-------------------------------------------------------------------------------------------------------------------------
 
@@ -592,7 +592,7 @@ class Interpolation_Parametre_3f: public Interpolations
         courbe_bezier=new Courbe_Bezier_Plan();
         if(courbe_bezier==NULL)
         {
-            cout<<"ERREUR dans Interpolation_Parametre_3f::Interpolation_Parametre_3f() - Impossible de crÈer la courbe d'interpolation"<<endl;
+            cout<<"ERREUR dans Interpolation_Parametre_3f::Interpolation_Parametre_3f() - Impossible de cr√©er la courbe d'interpolation"<<endl;
             erreur=INTERPOLATION_PARAMETRE_ERREUR_MEMOIRE;
             return;
         }
@@ -604,7 +604,7 @@ class Interpolation_Parametre_3f: public Interpolations
         if (courbe_bezier!=NULL) delete courbe_bezier;
     }
 
-    //Pour dÈfinir tout les paramËtres d'un coup.
+    //Pour d√©finir tout les param√®tres d'un coup.
     void determine_parametres(float p_t0,float* p_depart,float* p_fin,float p_duree,uint8_t p_type,Courbe_Bezier_Plan* p_courbe=NULL)
     {
         t0=p_t0;
@@ -657,7 +657,7 @@ class Interpolation_Parametre_3d: public Interpolations
         courbe_bezier=new Courbe_Bezier_Plan();
         if(courbe_bezier==NULL)
         {
-            cout<<"ERREUR dans Interpolation_Parametre_3d::Interpolation_Parametre_3d() - Impossible de crÈer la courbe d'interpolation"<<endl;
+            cout<<"ERREUR dans Interpolation_Parametre_3d::Interpolation_Parametre_3d() - Impossible de cr√©er la courbe d'interpolation"<<endl;
             erreur=INTERPOLATION_PARAMETRE_ERREUR_MEMOIRE;
             return;
         }
@@ -669,7 +669,7 @@ class Interpolation_Parametre_3d: public Interpolations
         if (courbe_bezier!=NULL) delete courbe_bezier;
     }
 
-    //Pour dÈfinir tout les paramËtres d'un coup.
+    //Pour d√©finir tout les param√®tres d'un coup.
     void determine_parametres(double p_t0,double* p_depart,double* p_fin,double p_duree,uint8_t p_type,Courbe_Bezier_Plan* p_courbe=NULL)
     {
         t0=p_t0;
@@ -696,7 +696,7 @@ class Interpolation_Parametre_3d: public Interpolations
 };
 //-------------------------------------------------------------------------------------------------------------------------
 //===============================================================================================================
-//      Interpolation de l'orientation d'un repËre
+//      Interpolation de l'orientation d'un rep√®re
 //==============================================================================================================
 //-------------------------------------------------------------------------------------------------------------------------
 
@@ -726,7 +726,7 @@ class Interpolation_Repere: public Interpolations
         courbe_bezier=new Courbe_Bezier_Plan();
         if(courbe_bezier==NULL)
         {
-            cout<<"ERREUR dans Interpolation_Parametre::Interpolation_Parametre() - Impossible de crÈer la courbe d'interpolation"<<endl;
+            cout<<"ERREUR dans Interpolation_Parametre::Interpolation_Parametre() - Impossible de cr√©er la courbe d'interpolation"<<endl;
             erreur=INTERPOLATION_PARAMETRE_ERREUR_MEMOIRE;
             return;
         }
@@ -738,7 +738,7 @@ class Interpolation_Repere: public Interpolations
         if (courbe_bezier!=NULL) delete courbe_bezier;
     }
 
-    //Pour dÈfinir tout les paramËtres d'un coup.
+    //Pour d√©finir tout les param√®tres d'un coup.
     void determine_parametres(double p_t0,dksRepere* p_depart,dksRepere* p_fin,double p_duree,uint8_t p_type,Courbe_Bezier_Plan* p_courbe=NULL)
     {
         t0=p_t0;
@@ -748,7 +748,7 @@ class Interpolation_Repere: public Interpolations
         type_interpolation=p_type;
         drapeau_terminee=false;
         if (p_courbe!=NULL) courbe_bezier->copie_parametres(p_courbe);
-        //Calcul l'angle et l'axe de rotation entre l'orientation de dÈpart et l'orientation de fin:
+        //Calcul l'angle et l'axe de rotation entre l'orientation de d√©part et l'orientation de fin:
         axe_rotation.calcul_rotation_entre_deux_reperes(&repere_depart,&repere_fin);
     }
 

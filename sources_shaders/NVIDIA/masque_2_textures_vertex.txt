@@ -3,7 +3,7 @@
 //		Shader de post-rendu.
 //		Superpose deux textures avec un masque
 //		Si le texel de la texture 1 est de la couleur du masque,
-//		alors c'est le texel de la texture 2 qui est affiché
+//		alors c'est le texel de la texture 2 qui est affichÃ©
 //
 //======================================================================
 
@@ -14,7 +14,7 @@ varying vec4 couleur;
 
 void main( void )
 {
-	//Données de l'observateur:
+	//DonnÃ©es de l'observateur:
     gl_Position =  gl_ModelViewProjectionMatrix * gl_Vertex;
 	couleur		=	gl_Color;
 	

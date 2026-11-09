@@ -15,8 +15,8 @@
 typedef struct
     {
         uint16_t nbrSommets;
-        vector<uint32_t> aretes;   //Les aretes doivent boucler (dernier sommets lié au premier)
-        //Données initialisées automatiquement:
+        vector<uint32_t> aretes;   //Les aretes doivent boucler (dernier sommets liÃ© au premier)
+        //DonnÃ©es initialisÃ©es automatiquement:
         dksVecteurUnitaire normale_relative;
         dksVecteurUnitaire normale;
     }Face_collision;
@@ -24,7 +24,7 @@ typedef struct
 
 
 //=============================================================================================
-//                          Définition de la classe
+//                          DÃ©finition de la classe
 //=============================================================================================
 class dksBoiteCollision
 {
@@ -85,7 +85,7 @@ class dksBoiteCollision
             sommets_relatifs[21]=xmax;sommets_relatifs[22]=ymin;sommets_relatifs[23]=zmax;
         }
 
-        //----------Génère les sommets:
+        //----------GÃ©nÃ¨re les sommets:
         void initialise_sommets()
         {
             //cout<<"-------Limites: "<<xmin<<" "<<xmax<<" "<<ymin<<" "<<ymax<<" "<<zmin<<" "<<zmax<<endl;
@@ -103,7 +103,7 @@ class dksBoiteCollision
             sommets_absolus.reserve(nbrSommets*3);
         }
 
-        //--------- Facteur d'échelle:
+        //--------- Facteur d'Ã©chelle:
         void applique_facteur_echelle(double f)
         {
             for(uint16_t i=0;i<8;i++)
@@ -144,7 +144,7 @@ class dksBoiteCollision
                 double xt = sommets_relatifs[i];
                 double yt = sommets_relatifs[i+1];
                 double zt = sommets_relatifs[i+2];
-                // coordonnées de l'objet enfant dans le repère de l'objet parent
+                // coordonnÃ©es de l'objet enfant dans le repÃ¨re de l'objet parent
                 sommets_absolus[i++] =  rx + xt * ax_x + yt * ay_x + zt * az_x;
                 sommets_absolus[i++] =  ry + xt * ax_y + yt * ay_y + zt * az_y;
                 sommets_absolus[i++] =  rz + xt * ax_z + yt * ay_z + zt * az_z;
@@ -153,11 +153,11 @@ class dksBoiteCollision
         }
 
         //=========================================================================================
-        //                          Gestion des arêtes
+        //                          Gestion des arÃªtes
         //=========================================================================================
 
         //--------------------------------------------------------------------------------------
-        //              Création de la table des arêtes à partir des faces:
+        //              CrÃ©ation de la table des arÃªtes Ã  partir des faces:
         //--------------------------------------------------------------------------------------
     private:
         void initialisation_aretes_depuis_faces()
@@ -193,7 +193,7 @@ class dksBoiteCollision
         //=========================================================================================
 
         //---------------------------------------------------------
-        //Génère les faces:
+        //GÃ©nÃ¨re les faces:
         //---------------------------------------------------------
     private:
         void initialise_faces()

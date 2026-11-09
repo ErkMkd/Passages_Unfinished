@@ -2,7 +2,7 @@
 #define DKSSHADER_H_INCLUDED
 
 /*
-        Classe de base de définition des shaders
+        Classe de base de dÃ©finition des shaders
 */
 
 #include "../../../Utiles/Gestion_Shaders.h"
@@ -18,7 +18,7 @@
 #define DKSSHADER_ERREUR_LIAISON 5
 #define DKSSHADER_ERREUR_VALIDATION 6
 #define DKSSHADER_ERREUR_OPENGL 7
-#define DKSSHADER_ERREUR_VARIABLES 8    //Sert pour les héritiers, lorsque les variables ne sont pas trouvées dans le programme.
+#define DKSSHADER_ERREUR_VARIABLES 8    //Sert pour les hÃ©ritiers, lorsque les variables ne sont pas trouvÃ©es dans le programme.
 
 class dksShader: public Gestion_Shaders
 {
@@ -53,7 +53,7 @@ class dksShader: public Gestion_Shaders
 
             memcpy(nom,p_nom,strlen(p_nom)+1);
 
-            if(DKSSHADER_DEBUG) cout<<endl<<"$$$$$$$$$$$$$$$$$$$$ Création du Shader: "<<nom<<endl;
+            if(DKSSHADER_DEBUG) cout<<endl<<"$$$$$$$$$$$$$$$$$$$$ CrÃ©ation du Shader: "<<nom<<endl;
 
             if(p_source_vertex!=NULL) drapeau_vertex=true; else drapeau_vertex=false;
             if(p_source_fragment!=NULL) drapeau_fragment=true; else drapeau_fragment=false;
@@ -67,13 +67,13 @@ class dksShader: public Gestion_Shaders
                 return;
             }
 
-            //---------- Création des shaders:
-            if (DKSSHADER_DEBUG) cout<<"Création des objets shaders...";
+            //---------- CrÃ©ation des shaders:
+            if (DKSSHADER_DEBUG) cout<<"CrÃ©ation des objets shaders...";
             if(drapeau_vertex) vertex_id=glCreateShader(GL_VERTEX_SHADER);
             if(drapeau_fragment) fragment_id=glCreateShader(GL_FRAGMENT_SHADER);
             if ((drapeau_vertex && vertex_id==0) || (drapeau_fragment && fragment_id==0))
             {
-                cout<<"ERREUR dans dksShader::dksShader() - Impossible de créer les objets Shader"<<endl;
+                cout<<"ERREUR dans dksShader::dksShader() - Impossible de crÃ©er les objets Shader"<<endl;
                 erreur=DKSSHADER_ERREUR_OBJETS;
                 return;
             }
@@ -119,13 +119,13 @@ class dksShader: public Gestion_Shaders
 
             if (DKSSHADER_DEBUG) cout<<"OK"<<endl;
 
-            //----------- Création du programme
-            if (DKSSHADER_DEBUG) cout<<"Création du programme...";
+            //----------- CrÃ©ation du programme
+            if (DKSSHADER_DEBUG) cout<<"CrÃ©ation du programme...";
 
             programme_id=glCreateProgram();
             if (programme_id==0)
             {
-                cout<<"ERREUR dans dksShader::dksShader() - Impossible de créer le programme"<<endl;
+                cout<<"ERREUR dans dksShader::dksShader() - Impossible de crÃ©er le programme"<<endl;
                 erreur=DKSSHADER_ERREUR_PROGRAMME;
                 return;
             }
@@ -149,7 +149,7 @@ class dksShader: public Gestion_Shaders
 
             if (DKSSHADER_DEBUG) cout<<"OK"<<endl;
 
-            //----------- Vérifie la validité des shaders:
+            //----------- VÃ©rifie la validitÃ© des shaders:
             if (DKSSHADER_DEBUG) cout<<"Validation du programme ...";
             if (!valide_programme_shader(programme_id))
             {

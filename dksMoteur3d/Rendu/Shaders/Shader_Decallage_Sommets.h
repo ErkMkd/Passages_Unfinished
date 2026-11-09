@@ -22,12 +22,12 @@ class Shader_Decallage_Sommets: public dksShader
     {
         if(erreur==DKSSHADER_OK)
         {
-            //--------- Création des liens avec les variables type "uniform":
+            //--------- CrÃ©ation des liens avec les variables type "uniform":
 
             deplacement=glGetUniformLocation(programme_id,"deplacement");
             niveau_eclairage=glGetUniformLocation(programme_id,"niveau_eclairage");
 
-            //--------- Création des liens avec les variables type "attribute":
+            //--------- CrÃ©ation des liens avec les variables type "attribute":
 
             tangente_face=glGetAttribLocation(programme_id,"tangente_face");
             normale_face=glGetAttribLocation(programme_id,"normale_face");

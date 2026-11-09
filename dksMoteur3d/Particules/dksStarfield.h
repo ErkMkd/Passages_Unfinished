@@ -3,11 +3,11 @@
 
 /*
 
-    Rendus des champs d'étoiles
-    L'affichage se fait par ordre de priorité:
-        Si image==NULL et sprite==NULL, les étoiles sont affichés par de simples points
-        Si image!=NULL et sprite==NULL, les étoiles sont affichées avec l'extension spritePoint
-        Si sprite!=NULL, les étoiles sont affichées avec le sprite.
+    Rendus des champs d'Ã©toiles
+    L'affichage se fait par ordre de prioritÃ©:
+        Si image==NULL et sprite==NULL, les Ã©toiles sont affichÃ©s par de simples points
+        Si image!=NULL et sprite==NULL, les Ã©toiles sont affichÃ©es avec l'extension spritePoint
+        Si sprite!=NULL, les Ã©toiles sont affichÃ©es avec le sprite.
 
 */
 
@@ -22,17 +22,17 @@
 class dksStarfield : public dksParticules
 {
     public:
-        double rayon; //le rayon du champs. Si un point sort de ce rayon en arrière du déplacement,il est replacé en avant. Attention aux points situés trop loin hors du rayon.
-        double taille_points;    //Taille des points en unités d'espace
+        double rayon; //le rayon du champs. Si un point sort de ce rayon en arriÃ¨re du dÃ©placement,il est replacÃ© en avant. Attention aux points situÃ©s trop loin hors du rayon.
+        double taille_points;    //Taille des points en unitÃ©s d'espace
         uint32_t couleur;   //Couleur des points
         float alpha;
-        bool drapeau_destruction_image; //True si l'image est détruite par le destructeur
+        bool drapeau_destruction_image; //True si l'image est dÃ©truite par le destructeur
 
     private:
-        bool drapeau_initialisation;    //True lorsque le vecteur d'orientation peut être calculé (à la deuxième mise à jour...)
-        double orientation_deplacement[3]; //le vecteur UNITAIRE indiquant la direction et le sens du déplacement
+        bool drapeau_initialisation;    //True lorsque le vecteur d'orientation peut Ãªtre calculÃ© (Ã  la deuxiÃ¨me mise Ã  jour...)
+        double orientation_deplacement[3]; //le vecteur UNITAIRE indiquant la direction et le sens du dÃ©placement
         double centre_prec[3]; //Sert pour le calcul de l'orientation
-        Image* image;           //L'image à afficher à la place des points (la transparence ne marche pas....)
+        Image* image;           //L'image Ã  afficher Ã  la place des points (la transparence ne marche pas....)
         dksSprite3d* sprite;    //Apparence des points
 
 
@@ -43,8 +43,8 @@ class dksStarfield : public dksParticules
         dksStarfield(char* p_nom="Starfield",
                     double px=0.,double py=0.,double pz=0., //Centre du champ
                     uint32_t p_nbrPoints=0,
-                    double p_rayon=1000.,       //Rayon du champ d'étoiles
-                    double p_taille_points=1.,  //taille des étoiles en unités d'espace
+                    double p_rayon=1000.,       //Rayon du champ d'Ã©toiles
+                    double p_taille_points=1.,  //taille des Ã©toiles en unitÃ©s d'espace
                     dksSprite3d* p_sprite=NULL,
                     char* nom_fichier_image=NULL
                     ):dksParticules(p_nom,px,py,pz,p_nbrPoints)
@@ -69,7 +69,7 @@ class dksStarfield : public dksParticules
 
         //-------------------------------------------------
         //  Enclenchement du starfield
-        //  A appeler au départ du mouvement
+        //  A appeler au dÃ©part du mouvement
         //-------------------------------------------------
         void reset()
         {
@@ -82,7 +82,7 @@ class dksStarfield : public dksParticules
         }
 
         //-------------------------------------------------
-        //  Détermine une texture pour les points:
+        //  DÃ©termine une texture pour les points:
         //-------------------------------------------------
         bool determine_image(char* nom_fichier=NULL)
         {
@@ -111,7 +111,7 @@ class dksStarfield : public dksParticules
         }
 
         //--------------------------------------------------
-        //      Détermine un sprite pour l'image des étoiles
+        //      DÃ©termine un sprite pour l'image des Ã©toiles
         //--------------------------------------------------
         void determine_sprite(dksSprite3d* p_sprite)
         {
@@ -138,8 +138,8 @@ class dksStarfield : public dksParticules
         }
 
         //-----------------------------------------------------------------------
-        //       Simple champ d'étoiles:
-        /// Appeler APRES la mise à jour de la scène
+        //       Simple champ d'Ã©toiles:
+        /// Appeler APRES la mise Ã  jour de la scÃ¨ne
         //-----------------------------------------------------------------------
         void maj_champ_etoiles_base(double cx, double cy, double cz)
         {
@@ -151,7 +151,7 @@ class dksStarfield : public dksParticules
                 drapeau_initialisation=true;
             }
 
-            //Calcul le vecteur de déplacement:
+            //Calcul le vecteur de dÃ©placement:
             orientation_deplacement=  {
                                         cx-centre_prec[0],
                                         cy-centre_prec[1],
@@ -164,7 +164,7 @@ class dksStarfield : public dksParticules
 
             centre_prec={cx,cy,cz};
 
-            //repositionne les points qui débordent si le déplacement n'est pas nul:
+            //repositionne les points qui dÃ©bordent si le dÃ©placement n'est pas nul:
             if (n==0) return;
 
             orientation_deplacement[0]/=n;
@@ -194,7 +194,7 @@ class dksStarfield : public dksParticules
         //-----------------------------------------------------------
         virtual void affiche(dksOeil* oeil)
         {
-            //Sauvegarde états sensibles openGL:
+            //Sauvegarde Ã©tats sensibles openGL:
             bool blend_mem=glIsEnabled(GL_BLEND);
             bool lighting_mem=glIsEnabled(GL_LIGHTING);
             GLboolean depth_mask_mem;
@@ -209,7 +209,7 @@ class dksStarfield : public dksParticules
 
             //Affiche des points si pas de sprite
             if (sprite==NULL) affiche_points(oeil);
-            //Affiche les étoiles avec le sprite:
+            //Affiche les Ã©toiles avec le sprite:
             else
             {
                 dksSprite3d::initialise_affichage();
@@ -220,15 +220,15 @@ class dksStarfield : public dksParticules
                 dksSprite3d::fin_affichage();
             }
 
-            //Restitue les états sensibles d'openGL:
+            //Restitue les Ã©tats sensibles d'openGL:
             glDepthMask(depth_mask_mem);
             if (!blend_mem) glDisable(GL_BLEND);
             if (lighting_mem) glEnable(GL_LIGHTING);
         }
 
         //-----------------------------------------------------------
-        //      Affiche les étoiles avec des points
-        /// Les points sont limités à une taille de 64*64 pixels....
+        //      Affiche les Ã©toiles avec des points
+        /// Les points sont limitÃ©s Ã  une taille de 64*64 pixels....
         //-----------------------------------------------------------
 
         void affiche_points(dksOeil* oeil)
@@ -272,7 +272,7 @@ class dksStarfield : public dksParticules
                 for (i=0;i<nbrPoints;i++) glVertex3dv(&points[3*i]);
             glEnd();
 
-            //Restitue les données évcentuellement sensibles:
+            //Restitue les donnÃ©es Ã©vcentuellement sensibles:
 
             if (!point_smooth_mem) glDisable(GL_POINT_SMOOTH);
 
@@ -287,7 +287,7 @@ class dksStarfield : public dksParticules
 
         //-----------------------------------------------------------
         //     Affichage pour le rendu des pixels luminescents
-        /// Les points sont limités à une taille de 64*64 pixels....
+        /// Les points sont limitÃ©s Ã  une taille de 64*64 pixels....
         //-----------------------------------------------------------
         virtual void affiche_couleurs_luminescentes(dksOeil* oeil)
         {

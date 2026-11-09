@@ -14,13 +14,13 @@ class Scene
 
     uint16_t erreur;
     char nom[128];
-    bool drapeau_scene_terminee;    //True lorsque l'on peut passer à la scène suivante
-    bool drapeau_initialisee;          //True lorsque les initialisations des transitions ont été réalisées
+    bool drapeau_scene_terminee;    //True lorsque l'on peut passer Ã  la scÃ¨ne suivante
+    bool drapeau_initialisee;          //True lorsque les initialisations des transitions ont Ã©tÃ© rÃ©alisÃ©es
     dksOeil* oeil_courant;          //Sert pour l'affichage principal
 
     float position_temps;           //Le temps global
-    float position_temps_depart;    //La date de départ de la scène.
-    float position_temps_scene;    //Le temps dans la scène
+    float position_temps_depart;    //La date de dÃ©part de la scÃ¨ne.
+    float position_temps_scene;    //Le temps dans la scÃ¨ne
     float delta_t;                  //Intervalle
 
     Musique* la_musique;
@@ -49,7 +49,7 @@ class Scene
     }
 
     //*******************************************
-    //      Désactive les unités de texture:
+    //      DÃ©sactive les unitÃ©s de texture:
     //*******************************************
     static void desactive_textures()
     {
@@ -107,10 +107,10 @@ class Scene
     virtual void initialise_t0(double t0)
     {
         delta_t=t0;
-    } //Etat initial de la scène. Certaines scènes peuvent avoir besoin de données provenants d'autres scènes, pour les transitions.
-    virtual void active(){}   //Activations, initialisations OpenGL juste avant le départ de l'animation
+    } //Etat initial de la scÃ¨ne. Certaines scÃ¨nes peuvent avoir besoin de donnÃ©es provenants d'autres scÃ¨nes, pour les transitions.
+    virtual void active(){}   //Activations, initialisations OpenGL juste avant le dÃ©part de l'animation
     virtual void desactive(){}
-    virtual void maj_dimensions_fenetre(){} //Redimensionne la fenêtre si on est pas en plein écran
+    virtual void maj_dimensions_fenetre(){} //Redimensionne la fenÃªtre si on est pas en plein Ã©cran
     virtual void affiche(double t)  //Mieux vaut appeler cette fonction originelle.
     {
         if (position_temps_depart<0.) position_temps_depart=t;

@@ -13,8 +13,8 @@
 *   Chargement des textures:
 *   ------------------------
 *
-*   Les répertoires des images utilisées pour les textures sont redirigés vers "chemin_images"
-*   Si ce chemin n'est pas défini (NULL), le chemin figurant dans le fichier LWO2 est utilisé.
+*   Les rÃ©pertoires des images utilisÃ©es pour les textures sont redirigÃ©s vers "chemin_images"
+*   Si ce chemin n'est pas dÃ©fini (NULL), le chemin figurant dans le fichier LWO2 est utilisÃ©.
 *
 */
 
@@ -79,7 +79,7 @@ using namespace std;
 #define ID_LWO2  LWID_('L','W','O','2')
 #define ID_LWOB  LWID_('L','W','O','B')
 
-/* Identifiants récents: */
+/* Identifiants rÃ©cents: */
 #define ID_VERS  LWID_('V','E','R','S')
 #define ID_NODS  LWID_('N','O','D','S')
 
@@ -236,9 +236,9 @@ using namespace std;
 #define ID_SHDR  LWID_('S','H','D','R')
 #define ID_DATA  LWID_('D','A','T','A')
 
-//======================== Structures des définitions de blocs(pour la définition des textures):
+//======================== Structures des dÃ©finitions de blocs(pour la dÃ©finition des textures):
 
-//Types d'opacité (définis par le sous-chunk OPAC):
+//Types d'opacitÃ© (dÃ©finis par le sous-chunk OPAC):
 #define LWO2_OPAC_Normale 0
 #define LWO2_OPAC_Soustraction 1
 #define LWO2_OPAC_Difference 2
@@ -248,16 +248,16 @@ using namespace std;
 #define LWO2_OPAC_Deplacement_texture 6
 #define LWO2_OPAC_Addition 7
 
-//Axes de déplacement dans le cas d'un type OPAC_Deplacement_texture (sous-chunk AXIS)
+//Axes de dÃ©placement dans le cas d'un type OPAC_Deplacement_texture (sous-chunk AXIS)
 #define LWO2_AXIS_X 0
 #define LWO2_AXIS_Y 1
 #define LWO2_AXIS_Z 2
 
-//Systèmes de coordonnées (bloc CSYS)
+//SystÃ¨mes de coordonnÃ©es (bloc CSYS)
 #define LWO2_REPERE_RELATIF 0
 #define LWO2_REPERE_ABSOLU 1
 
-//Modes de projections des textures. Pour le moment seul le mode UV est implémenté:
+//Modes de projections des textures. Pour le moment seul le mode UV est implÃ©mentÃ©:
 #define LWO2_TYPE_PROJECTION_PLAN 0
 #define LWO2_TYPE_PROJECTION_CYLINDRIQUE 1
 #define LWO2_TYPE_PROJECTION_SPHERIQUE 2
@@ -265,14 +265,14 @@ using namespace std;
 #define LWO2_TYPE_PROJECTION_FRONTALE 4
 #define LWO2_TYPE_PROJECTION_UV 5
 
-//Modes de débordement des textures:
+//Modes de dÃ©bordement des textures:
 #define LWO2_MODE_DEBORDEMENT_DECOUPAGE 0
 #define LWO2_MODE_DEBORDEMENT_REPETITION 1
 #define LWO2_MODE_DEBORDEMENT_REFLEXION 2
 #define LWO2_MODE_DEBORDEMENT_BORD 3
 
 //---------------------------------------------------------------
-//      Définition des bitmaps (blocs CLIP)
+//      DÃ©finition des bitmaps (blocs CLIP)
 //      Les plugins et les filtres ne sont pas pris en compte
 //      Les animations ne sont pas prises en compte.
 //      Seulement les images fixes au format TIFF (CLIP STIL)
@@ -284,11 +284,11 @@ class LWO2_Bitmap
         uint32_t identite;
         char*   fichier;
         Image* image;
-        float   contraste;          //Défaut=0
-        float   luminosite;         //Défaut=0
-        float   saturation;         //Défaut=0
+        float   contraste;          //DÃ©faut=0
+        float   luminosite;         //DÃ©faut=0
+        float   saturation;         //DÃ©faut=0
         float   decallage_teinte;   //defaut=0
-        float   gamma;              //Défaut=1
+        float   gamma;              //DÃ©faut=1
         bool    negatif;            //true=invertion RGB
 
         LWO2_Bitmap()
@@ -314,16 +314,16 @@ class LWO2_Bitmap
 };
 
 //---------------------------------------------------------------
-//      Définition des polygones
+//      DÃ©finition des polygones
 //      Seuls les polygones de type "FACE" sont pris en compte.
 //---------------------------------------------------------------
 
 class LWO2_Polygone
 {
     public:
-                //Ces trois indices pointent dans la table des étiquettes.
-    uint16_t    indice_etiquette_surface; //Surface appliquée au polygone
-    uint16_t    indice_etiquette_part;    //Donnée d'édition, c'est la couleur donnée aux arêtes
+                //Ces trois indices pointent dans la table des Ã©tiquettes.
+    uint16_t    indice_etiquette_surface; //Surface appliquÃ©e au polygone
+    uint16_t    indice_etiquette_part;    //DonnÃ©e d'Ã©dition, c'est la couleur donnÃ©e aux arÃªtes
     uint16_t    indice_etiquette_groupe_filtre;   //Le groupe de filtrage (shading) auquel appartient le polygone
 
     uint32_t    nbrSommets;
@@ -340,14 +340,14 @@ class LWO2_Polygone
 };
 
 //---------------------------------------------------------------
-//Bloc VMAP= Vertex Mapping, en français: paramètres de sommet
+//Bloc VMAP= Vertex Mapping, en franÃ§ais: paramÃ¨tres de sommet
 //  Seuls les types TXUV sont pris en compte
 //---------------------------------------------------------------
 typedef struct
 {
-    uint32_t indice_sommet;     //Le sommet à corriger
-    uint32_t indice_polygone;   //Le polygone concerné par la correction
-    float U;            //Les coordonnées UV de substitution
+    uint32_t indice_sommet;     //Le sommet Ã  corriger
+    uint32_t indice_polygone;   //Le polygone concernÃ© par la correction
+    float U;            //Les coordonnÃ©es UV de substitution
     float V;
 }LWO2_Sommet_UV_couture;
 
@@ -362,14 +362,14 @@ typedef struct
 class LWO2_ParametresSommets
 {
     public:
-    char*       nom;    //Utilisé pour faire le lien avec les blocs définis dans les surfaces (voir plus haut)
+    char*       nom;    //UtilisÃ© pour faire le lien avec les blocs dÃ©finis dans les surfaces (voir plus haut)
     uint32_t    dimensions;
     vector<LWO2_Sommet_UV>   sommets_UV;
-    //Ces deux champs servent pour corriger les polygones situés à la couture des textures UV:
-    //Ce genre de paramètres de sommet est couplé avec des paramètres portants le même nom.
-    //Les vecteurs de couture se substituent aux autres vecteurs lorsque les polygones spécifiés sont calculés.
+    //Ces deux champs servent pour corriger les polygones situÃ©s Ã  la couture des textures UV:
+    //Ce genre de paramÃ¨tres de sommet est couplÃ© avec des paramÃ¨tres portants le mÃªme nom.
+    //Les vecteurs de couture se substituent aux autres vecteurs lorsque les polygones spÃ©cifiÃ©s sont calculÃ©s.
     bool                couture;    //true=couture
-    vector<LWO2_Sommet_UV_couture>    sommets_UV_couture;  //Polygones concernés par la couture
+    vector<LWO2_Sommet_UV_couture>    sommets_UV_couture;  //Polygones concernÃ©s par la couture
 
     LWO2_ParametresSommets()
     {
@@ -383,37 +383,37 @@ class LWO2_ParametresSommets
 };
 
 //---------------------------------------------------------------
-//      Définition des textures de surface. (Surface bloc
-//      Seules les textures UV et les projections planes sont implémentées pour le moment.
-//      Le fondu d'effet de texture (FALL) est ignoré.
+//      DÃ©finition des textures de surface. (Surface bloc
+//      Seules les textures UV et les projections planes sont implÃ©mentÃ©es pour le moment.
+//      Le fondu d'effet de texture (FALL) est ignorÃ©.
 //---------------------------------------------------------------
 
 class LWO2_Texture
 {
     public:
     uint32_t type;  //IMAP (ou PROC ou GRAD ou SHDR, non pris en compte pour le moment)
-    char* chaine_tri;   //La chaine utilisée pour le tri des calques de textures
+    char* chaine_tri;   //La chaine utilisÃ©e pour le tri des calques de textures
     uint32_t canal; //COLR,DIFF,LUMI,SPEC,GLOS,REFL,TRAN,RIND,TRNL,BUMP
-    char nom_canal[5];  //Le nom du canal en chaine de caractères. C'est plus simple à débuguer.
+    char nom_canal[5];  //Le nom du canal en chaine de caractÃ¨res. C'est plus simple Ã  dÃ©buguer.
     uint16_t active;    //true ou false
-    bool fondu_pixels;  //True: lorsque les pixels de la texture sont plus gros que les pixels de l'écran, ils sont fondus.
-    uint16_t type_opacite;  //0:Normale, 1:Soustraction, 2:Différence, 3:Multiplication,4:Division, 5:Alpha, 6:Déplacement de texture, 7: Addition
+    bool fondu_pixels;  //True: lorsque les pixels de la texture sont plus gros que les pixels de l'Ã©cran, ils sont fondus.
+    uint16_t type_opacite;  //0:Normale, 1:Soustraction, 2:DiffÃ©rence, 3:Multiplication,4:Division, 5:Alpha, 6:DÃ©placement de texture, 7: Addition
     float valeur_opacite;
-    float amplitude_rugosite;   //Sert pour les textures de rugosité(Bump). La valeur des pixels est multipliée par cette amplitude.
-    char* objet_de_reference;   //Le nom de l'objet de référence pour le repère des données précédentes.
-    uint16_t systeme_coordonnees; //Pour les textures de projection ,spécifie le repère de référence (absolu ("world coordinates") ou relatif ("object coordinates") )
-    float centre[3];        //Paramètres des textures projetées
+    float amplitude_rugosite;   //Sert pour les textures de rugositÃ©(Bump). La valeur des pixels est multipliÃ©e par cette amplitude.
+    char* objet_de_reference;   //Le nom de l'objet de rÃ©fÃ©rence pour le repÃ¨re des donnÃ©es prÃ©cÃ©dentes.
+    uint16_t systeme_coordonnees; //Pour les textures de projection ,spÃ©cifie le repÃ¨re de rÃ©fÃ©rence (absolu ("world coordinates") ou relatif ("object coordinates") )
+    float centre[3];        //ParamÃ¨tres des textures projetÃ©es
     float echelle[3];
     float rotation[3];      //"head","pitch","bank" roulis,tangage,lacet en radians
-    //Données propres au type IMAP:
-    uint16_t    type_projection; //0:Plan, 1: Cylindrique, 2:Sphérique, 3:Cubique, 4: Frontale, 5:UV
+    //DonnÃ©es propres au type IMAP:
+    uint16_t    type_projection; //0:Plan, 1: Cylindrique, 2:SphÃ©rique, 3:Cubique, 4: Frontale, 5:UV
     uint16_t    axe_projection; //0:X, 1:Y, 2:Z (Ne sert pas pour les UV)
-    uint32_t identite_clip;  //L'identité du clip utilisé (image bitmap)
-    uint16_t mode_debordement_largeur;  //0:découpe (=clamp), 1:répétition, 2:miroir, 3:couleur des bords
+    uint32_t identite_clip;  //L'identitÃ© du clip utilisÃ© (image bitmap)
+    uint16_t mode_debordement_largeur;  //0:dÃ©coupe (=clamp), 1:rÃ©pÃ©tition, 2:miroir, 3:couleur des bords
     uint16_t mode_debordement_hauteur;
-    float nbr_debordements_largeur; //Nombre de répétition pour les projection sphériques et cylindriques.
+    float nbr_debordements_largeur; //Nombre de rÃ©pÃ©tition pour les projection sphÃ©riques et cylindriques.
     float nbr_debordements_hauteur;
-    LWO2_ParametresSommets* Texture_UV;   //objet UV (structure définie ci-dessus)
+    LWO2_ParametresSommets* Texture_UV;   //objet UV (structure dÃ©finie ci-dessus)
 
     LWO2_Texture()
     {
@@ -441,16 +441,16 @@ class LWO2_Texture
 
 //-------------------------------
 //  Surfaces
-//  Les enveloppes ne sont pas récupérées.
+//  Les enveloppes ne sont pas rÃ©cupÃ©rÃ©es.
 //--------------------------------
 
 class LWO2_Surface
 {
     public:
     char* nom; //Nom de la surface
-    char* nom_source; //Le nom de la surface de laquelle est dérivée celle-ci. Le traitement des liens entre les surfaces et leurs sources est effectué après avoir distribué les données LWO2.
+    char* nom_source; //Le nom de la surface de laquelle est dÃ©rivÃ©e celle-ci. Le traitement des liens entre les surfaces et leurs sources est effectuÃ© aprÃ¨s avoir distribuÃ© les donnÃ©es LWO2.
     uint32_t taille_chunk; //Taille du chunk SURF
-    bool  double_face;    //false si le devant des faces est affiché, true si les deux cotés des faces sont visibles
+    bool  double_face;    //false si le devant des faces est affichÃ©, true si les deux cotÃ©s des faces sont visibles
     float couleur[3];      //COLR Couleur {R,V,B} en nombres flottants
     float luminescence;       //LUMI
     float diffusion;        //DIFF
@@ -460,19 +460,19 @@ class LWO2_Surface
     float transparence;     //TRAN
     float translucidite;    //TRNL
     float teinte_lumiere;   //CLRH  taux de renvoie de la couleur de la source lumineuse. 0=renvoie toute la couleur de la source, 1.=ne renvoie que la couleur de la surface
-    float terminateur;      //SHRP rapidité du fondu du terminateur des ombres (pris en compte par openGL?)
+    float terminateur;      //SHRP rapiditÃ© du fondu du terminateur des ombres (pris en compte par openGL?)
     float rugosite;         //BUMP  //A voir avec les shaders...
-    float intensite_halo;             //GLOW ou GVAL - L'épaisseur du halo
-    bool  halo;             //true si la surface émet un halo
+    float intensite_halo;             //GLOW ou GVAL - L'Ã©paisseur du halo
+    bool  halo;             //true si la surface Ã©met un halo
     bool  adoucissement;    //True si les faces sont adoucies.
 
-    float angle_limite_adoucissement; //l'angle entre les faces adjacentes au-delà duquel la couleur des sommets ne sont plus interpolées.
-    vector<LWO2_Texture*> textures;    //Blocs de définition des textures ou des filtres (shaders) seules les définitions de textures UV sont récupérées.
+    float angle_limite_adoucissement; //l'angle entre les faces adjacentes au-delÃ  duquel la couleur des sommets ne sont plus interpolÃ©es.
+    vector<LWO2_Texture*> textures;    //Blocs de dÃ©finition des textures ou des filtres (shaders) seules les dÃ©finitions de textures UV sont rÃ©cupÃ©rÃ©es.
 
     LWO2_Surface()
     {
         nom=NULL;
-        //Valeurs par défaut:
+        //Valeurs par dÃ©faut:
         diffusion=1.0;
         luminescence=0.;
         specularite=0.;
@@ -481,7 +481,7 @@ class LWO2_Surface
         teinte_lumiere=0.;
         terminateur=0.5;
         rugosite=1.0;
-        brillance=0.4;  //Valeur par défaut donnée par la documentation du format LWO2
+        brillance=0.4;  //Valeur par dÃ©faut donnÃ©e par la documentation du format LWO2
         double_face=false;
         adoucissement=false;
         halo=false;
@@ -506,7 +506,7 @@ class LWO2_Calque
         char*       nom;
         uint16_t    index;
         int16_t     parent; //L'index du calque parent. -1 si aucun parent.
-        uint16_t    drapeaux;   //bit0=1 : le calque est masqué.
+        uint16_t    drapeaux;   //bit0=1 : le calque est masquÃ©.
         float       pivot[3];
         float       boite[6];
         uint32_t    nbrSommets;
@@ -554,7 +554,7 @@ class LWO2_Calque
 
 
 
-//------------Définition des blocs, avec respect des hiérarchies: (C'est asser complexe, voir la doc du format LWO2)
+//------------DÃ©finition des blocs, avec respect des hiÃ©rarchies: (C'est asser complexe, voir la doc du format LWO2)
 
 
 //************************************************************************************************
@@ -582,16 +582,16 @@ class dksChargeLWO2: public Fichiers
     //+++++++++++++++++++++++ Nouvelle version:
         ifstream fichier_flux;
         uint32_t taille_fichier;
-        char* donnees_LWO2;  //Le fichier chargé en mémoire - Le traitement est plus rapide.
-        vector<LWO2_Bitmap*> Bitmaps;  //La bibliothèque d'images du fichier LWO2
+        char* donnees_LWO2;  //Le fichier chargÃ© en mÃ©moire - Le traitement est plus rapide.
+        vector<LWO2_Bitmap*> Bitmaps;  //La bibliothÃ¨que d'images du fichier LWO2
         vector<LWO2_Calque*> calques_lwo2;  //Les calques contenants les volumes
         vector<LWO2_Surface*> surfaces_lwo2;
 
-        uint32_t*   ptr_lwo2;   //Tête de lecture des données au format LWO2
+        uint32_t*   ptr_lwo2;   //TÃªte de lecture des donnÃ©es au format LWO2
         uint32_t    taille_bloc,taille_sous_bloc;    //Sert lors de la recherche des sous-blocs
         uint32_t    position,position_bloc,position_sous_bloc;
         vector<char*> table_etiquettes;
-        vector<LWO2_ParametresSommets*> table_parametres_sommets; //Les définitions de coordonnées UV utilisées par les textures
+        vector<LWO2_ParametresSommets*> table_parametres_sommets; //Les dÃ©finitions de coordonnÃ©es UV utilisÃ©es par les textures
         //Arborescence basique du fichier
         char uint32_converti[5];   //Sert pour le debuguage, pour afficher les noms des blocs.
 
@@ -601,8 +601,8 @@ class dksChargeLWO2: public Fichiers
     //=================================================================
 
     public:
-    //Entrées:  nom_fichier: le nom du fichier
-    //          chemin_images: le répertoire où se trouvent les images utilisées pour les textures.
+    //EntrÃ©es:  nom_fichier: le nom du fichier
+    //          chemin_images: le rÃ©pertoire oÃ¹ se trouvent les images utilisÃ©es pour les textures.
     dksChargeLWO2(char* nom_fichier,char* p_chemin_images=NULL)
     {
         taille_fichier=0;
@@ -621,7 +621,7 @@ class dksChargeLWO2: public Fichiers
 
         duree_chargement=glutGet(GLUT_ELAPSED_TIME)-duree_chargement;
 
-        if (DKSCHARGELWO2_DEBUG && DKSCHARGELWO2_DEBUG_DUREES) cout<<"=======>Durée du chargement de l'objet "<<chemin_fichier<<" : "<<((float)duree_chargement)/1000.<<" s"<<endl;
+        if (DKSCHARGELWO2_DEBUG && DKSCHARGELWO2_DEBUG_DUREES) cout<<"=======>DurÃ©e du chargement de l'objet "<<chemin_fichier<<" : "<<((float)duree_chargement)/1000.<<" s"<<endl;
     }
 
     //============= Destructeur:
@@ -721,12 +721,12 @@ private:
             return false;
         }
 
-        //--------- copie le fichier en mémoire:
+        //--------- copie le fichier en mÃ©moire:
         fichier_flux.seekg(0,ios::beg);
         donnees_LWO2=(char*)malloc(taille_fichier);
         if (donnees_LWO2==NULL)
         {
-            cout<<"ERREUR - LWO2 - Mémoire insuffisante pour charger le fichier"<<endl;
+            cout<<"ERREUR - LWO2 - MÃ©moire insuffisante pour charger le fichier"<<endl;
             erreur=DKSCHARGELWO2_ERREUR_MEMOIRE;
             fichier_flux.close();
             return false;
@@ -735,7 +735,7 @@ private:
         fichier_flux.read(donnees_LWO2,taille_fichier);
         fichier_flux.close();
 
-        //-------- Création des structures:
+        //-------- CrÃ©ation des structures:
         position=8;
         if (!creation_table_etiquettes() )  { free (donnees_LWO2); return false; }  //TAGS
         if (!creation_bitmaps() )           { free (donnees_LWO2); return false; }  //CLIP
@@ -744,18 +744,18 @@ private:
         if (!creation_surfaces_lwo2())      { free (donnees_LWO2); return false; }  //SURF
 
         //-------- Fin:
-        if (DKSCHARGELWO2_DEBUG) cout<<endl<<"========== Fichier lu avec succès ! ============"<<endl<<endl<<endl;
+        if (DKSCHARGELWO2_DEBUG) cout<<endl<<"========== Fichier lu avec succÃ¨s ! ============"<<endl<<endl<<endl;
         free(donnees_LWO2);
         donnees_LWO2=NULL;
         return true;
     }
 
     //======================================================================
-    //                  Lit les blocs TAGS (étiquettes)
+    //                  Lit les blocs TAGS (Ã©tiquettes)
     //======================================================================
     bool creation_table_etiquettes()
     {
-        if (DKSCHARGELWO2_DEBUG) cout<<endl<<"---- Création des étiquettes: ----"<<endl;
+        if (DKSCHARGELWO2_DEBUG) cout<<endl<<"---- CrÃ©ation des Ã©tiquettes: ----"<<endl;
 
         uint32_t i;
 
@@ -774,7 +774,7 @@ private:
                     char* etiquette=copie_chaine((char*)ptr_lwo2);
                     if (etiquette==NULL)
                     {
-                        cout<<"Erreur dans dksChargeLWO2::creation_table_etiquettes()- Mémoire insuffisante pour créer les chaînes de caractères"<<endl;
+                        cout<<"Erreur dans dksChargeLWO2::creation_table_etiquettes()- MÃ©moire insuffisante pour crÃ©er les chaÃ®nes de caractÃ¨res"<<endl;
                         erreur=DKSCHARGELWO2_ERREUR_MEMOIRE;
                         return false;
                     }
@@ -800,7 +800,7 @@ private:
     //======================================================================
     bool creation_bitmaps()
     {
-        if (DKSCHARGELWO2_DEBUG) cout<<endl<<"---- Création des bitmaps ----"<<endl;
+        if (DKSCHARGELWO2_DEBUG) cout<<endl<<"---- CrÃ©ation des bitmaps ----"<<endl;
 
         uint32_t    identifiant;
         //---- Lecture des blocs:
@@ -824,7 +824,7 @@ private:
                     char* fichier_image=copie_chaine((char*)ptr_lwo2);
                     if (fichier_image==NULL)
                     {
-                        cout<<"Erreur dans dksChargeLWO2::creation_bitmaps() 1 - Mémoire insuffisante pour créer les chaînes de caractères"<<endl;
+                        cout<<"Erreur dans dksChargeLWO2::creation_bitmaps() 1 - MÃ©moire insuffisante pour crÃ©er les chaÃ®nes de caractÃ¨res"<<endl;
                         erreur=DKSCHARGELWO2_ERREUR_MEMOIRE;
                         return false;
                     }
@@ -842,7 +842,7 @@ private:
                         bitmap->fichier=(char*)malloc(strlen(fichier_image)+strlen(chemin_images)+1);
                         if (bitmap->fichier==NULL)
                         {
-                            cout<<"Erreur dans dksChargeLWO2::creation_bitmaps() 2 - Mémoire insuffisante pour créer les chaînes de caractères"<<endl;
+                            cout<<"Erreur dans dksChargeLWO2::creation_bitmaps() 2 - MÃ©moire insuffisante pour crÃ©er les chaÃ®nes de caractÃ¨res"<<endl;
                             erreur=DKSCHARGELWO2_ERREUR_MEMOIRE;
                             return false;
                         }
@@ -857,7 +857,7 @@ private:
                     bitmap->image=new Image(bitmap->fichier);
                     bitmap->image->renversement_horizontal();
 
-                    //recherche les sous-blocs de réglage de l'image:
+                    //recherche les sous-blocs de rÃ©glage de l'image:
 
                     while (position_bloc<taille_bloc-4)
                     {
@@ -879,7 +879,7 @@ private:
                                 break;
                             case ID_HUE:
                                 bitmap->decallage_teinte=recupere_sous_bloc_FP4();
-                                if (DKSCHARGELWO2_DEBUG) cout<<"Décallage de teinte:"<<bitmap->decallage_teinte<<endl;
+                                if (DKSCHARGELWO2_DEBUG) cout<<"DÃ©callage de teinte:"<<bitmap->decallage_teinte<<endl;
                                 break;
                             case ID_GAMM:
                                 bitmap->gamma=recupere_sous_bloc_FP4();
@@ -890,7 +890,7 @@ private:
                                 if (drapeau!=0)
                                 {
                                     bitmap->negatif=true;
-                                    if (DKSCHARGELWO2_DEBUG) cout<<"Image en négatif"<<endl;
+                                    if (DKSCHARGELWO2_DEBUG) cout<<"Image en nÃ©gatif"<<endl;
                                 }
                                 break;
                             default:
@@ -920,7 +920,7 @@ private:
 
     bool creation_calques_lwo2()
     {
-        if (DKSCHARGELWO2_DEBUG) cout<<endl<<"---- Création des calques ----"<<endl;
+        if (DKSCHARGELWO2_DEBUG) cout<<endl<<"---- CrÃ©ation des calques ----"<<endl;
         position=8;
 
         //---- Lecture des blocs:
@@ -958,7 +958,7 @@ private:
                 position=position_LAYR;
                 if(!creation_polygones(calque)) return false;
 
-                //---- Affiche les données:
+                //---- Affiche les donnÃ©es:
                 if(DKSCHARGELWO2_DEBUG)
                 {
                     cout<<"** Calque : "<<calque->index<<endl;
@@ -982,7 +982,7 @@ private:
 
     //======================================================================
     //                  Lit les blocs PNTS (sommets)
-    ///         !!! Convertis les nombre en double précision !!!
+    ///         !!! Convertis les nombre en double prÃ©cision !!!
     //======================================================================
     bool creation_points(LWO2_Calque* calque)
     {
@@ -1004,12 +1004,12 @@ private:
 
                 if(calque->sommets==NULL)
                 {
-                    cout<<"Erreur dans dksChargeLWO2::creation_points() - Mémoire insuffisante"<<endl;
+                    cout<<"Erreur dans dksChargeLWO2::creation_points() - MÃ©moire insuffisante"<<endl;
                     erreur=DKSCHARGELWO2_ERREUR_MEMOIRE;
                     return false;
                 }
 
-                //Récupération des coordonnées:
+                //RÃ©cupÃ©ration des coordonnÃ©es:
                 for(i=0;i<calque->nbrSommets;i++)
                 {
                     recupere_vecteur_3f_convertion_3d(&calque->sommets[i*3]);
@@ -1029,7 +1029,7 @@ private:
             else position+=2;
         }
 
-        //Fin des données, aucun sommet trouvé:
+        //Fin des donnÃ©es, aucun sommet trouvÃ©:
         if (DKSCHARGELWO2_DEBUG) cout<<"Avertissement: Le calque "<<calque->index<<" ne contient pas de points"<<endl;
         return true;
     }
@@ -1054,8 +1054,8 @@ private:
 
                 if (type_polygones==ID_FACE)
                 {
-                    vector<LWO2_Polygone*> table_polygones; //Table provisoire. Elle est insérée à la table des polygones du calque
-                                                            //après la création des liens avec les étiquettes (surfaces, part, groupes de filtre)
+                    vector<LWO2_Polygone*> table_polygones; //Table provisoire. Elle est insÃ©rÃ©e Ã  la table des polygones du calque
+                                                            //aprÃ¨s la crÃ©ation des liens avec les Ã©tiquettes (surfaces, part, groupes de filtre)
 
                     while (position_bloc<taille_bloc)
                     {
@@ -1068,11 +1068,11 @@ private:
 
                         if (polygone->indices_sommets==NULL)
                         {
-                            cout<<"Erreur dans dksChargeLWO2::creation_polygones() - Mémoire insuffisante"<<endl;
+                            cout<<"Erreur dans dksChargeLWO2::creation_polygones() - MÃ©moire insuffisante"<<endl;
                             erreur=DKSCHARGELWO2_ERREUR_MEMOIRE;
                             return false;
                         }
-                        //Récupération des indices de sommets:
+                        //RÃ©cupÃ©ration des indices de sommets:
                         for (i=0;i<polygone->nbrSommets;i++)
                         {
                                 polygone->indices_sommets[i]=recupere_VX();
@@ -1170,21 +1170,21 @@ private:
                 }
                 position+=taille_bloc;
             }
-            //Test si on passe à une autre table de définition de polygones ouy carrément à un autre calque:
+            //Test si on passe Ã  une autre table de dÃ©finition de polygones ouy carrÃ©ment Ã  un autre calque:
             else if (id==ID_POLS || id==ID_LAYR) return true;
-            //Parcours les données:
+            //Parcours les donnÃ©es:
             else position+=2;
         }
         return true;
     }
 
     //======================================================================
-    //                  Création des paramètres de sommets (VMAP et VMAD)
+    //                  CrÃ©ation des paramÃ¨tres de sommets (VMAP et VMAD)
     //======================================================================
     bool creation_parametres_sommets()
     {
         #if DKSCHARGELWO2_DEBUG
-         cout<<endl<<"---- Création des coordonnées UV ----"<<endl;
+         cout<<endl<<"---- CrÃ©ation des coordonnÃ©es UV ----"<<endl;
         #endif
         uint32_t i;
         LWO2_ParametresSommets* parametres_UV;
@@ -1221,7 +1221,7 @@ private:
                     #endif
                     if (parametres_UV->nom==NULL)
                     {
-                        cout<<"Erreur dans Charge_LWO2::creation_parametres_sommets() - Mémoire insuffisante"<<endl;
+                        cout<<"Erreur dans Charge_LWO2::creation_parametres_sommets() - MÃ©moire insuffisante"<<endl;
                         erreur=DKSCHARGELWO2_ERREUR_MEMOIRE;
                         return false;
                     }
@@ -1249,7 +1249,7 @@ private:
             else position+=2;
         }
 
-        //------------- Lecture des blocs VMAD éventuels (création des coutures):
+        //------------- Lecture des blocs VMAD Ã©ventuels (crÃ©ation des coutures):
         position=8;
         //Lecture des blocs VMAP:
         while(position<taille_fichier)
@@ -1309,7 +1309,7 @@ private:
         return true;
     }
 
-    //Ajoute un sommet à une table de coordonnées UV:
+    //Ajoute un sommet Ã  une table de coordonnÃ©es UV:
     LWO2_Sommet_UV* ajoute_LWO2_sommet_UV (LWO2_ParametresSommets* parametres_UV)
     {
         LWO2_Sommet_UV sommet;
@@ -1317,7 +1317,7 @@ private:
         return &(parametres_UV->sommets_UV[parametres_UV->sommets_UV.size()-1]);
     }
 
-    //Ajoute un sommet de couture à une table de coordonnées UV:
+    //Ajoute un sommet de couture Ã  une table de coordonnÃ©es UV:
     LWO2_Sommet_UV_couture* ajoute_LWO2_sommet_UV_couture (LWO2_ParametresSommets* parametres_UV)
     {
         LWO2_Sommet_UV_couture sommet;
@@ -1326,11 +1326,11 @@ private:
     }
 
     //======================================================================
-    //                  Création des surfaces
+    //                  CrÃ©ation des surfaces
     //======================================================================
     bool creation_surfaces_lwo2()
     {
-        if (DKSCHARGELWO2_DEBUG) cout<<endl<<"---- Création des Surfaces ----"<<endl;
+        if (DKSCHARGELWO2_DEBUG) cout<<endl<<"---- CrÃ©ation des Surfaces ----"<<endl;
         position=8;
         //Lecture des blocs SURF:
         while(position<taille_fichier)
@@ -1353,11 +1353,11 @@ private:
                 LWO2_Surface* surface=new LWO2_Surface();
                 surfaces_lwo2.push_back(surface);
 
-                //Récupère le nom de la surface:
+                //RÃ©cupÃ¨re le nom de la surface:
                 surface->nom=copie_chaine((char*)ptr_lwo2);
                 if (surface->nom==NULL)
                 {
-                    cout<<"Erreur dans dksChargeLWO2::creation_surfaces_lwo2() - Mémoire insuffisante"<<endl;
+                    cout<<"Erreur dans dksChargeLWO2::creation_surfaces_lwo2() - MÃ©moire insuffisante"<<endl;
                     erreur=DKSCHARGELWO2_ERREUR_MEMOIRE;
                     return false;
                 }
@@ -1370,11 +1370,11 @@ private:
                 position_bloc+=(strlen((char*)ptr_lwo2)+2) & 0xfffffffe;
                 ptr_lwo2=(uint32_t*)(donnees_LWO2+position+position_bloc);
 
-                //Récupère le nom de la source:
+                //RÃ©cupÃ¨re le nom de la source:
                 surface->nom_source=copie_chaine((char*)ptr_lwo2);
                 if (surface->nom_source==NULL)
                 {
-                    cout<<"Erreur dans dksChargeLWO2::creation_surfaces_lwo2() - Mémoire insuffisante"<<endl;
+                    cout<<"Erreur dans dksChargeLWO2::creation_surfaces_lwo2() - MÃ©moire insuffisante"<<endl;
                     erreur=DKSCHARGELWO2_ERREUR_MEMOIRE;
                     return false;
                 }
@@ -1486,7 +1486,7 @@ private:
                         case ID_NODS:
                             //cout<<"NODS"<<endl;
                         break;
-                        //Création des textures (BLOK):
+                        //CrÃ©ation des textures (BLOK):
                         case ID_BLOK:
                             if(!creation_textures_lwo2(surface)) return false;
                         break;
@@ -1506,7 +1506,7 @@ private:
     }
 
     //======================================================================
-    //                  Création des textures (BLOK)
+    //                  CrÃ©ation des textures (BLOK)
     //  Seuls les bloc de type IMAP avec les projections UV (TXUV) sont pris en compte.
     //======================================================================
     bool creation_textures_lwo2(LWO2_Surface* surface)
@@ -1525,7 +1525,7 @@ private:
         texture->chaine_tri=copie_chaine((char*)ptr_lwo2);
         #if (DKSCHARGELWO2_DEBUG && DKSCHARGELWO2_DEBUG_TEXTURES)
 
-            cout<<"               Chaîne de tri: "<<hex;
+            cout<<"               ChaÃ®ne de tri: "<<hex;
             uint32_t taille_chaine=strlen(texture->chaine_tri);
             for (uint16_t i=0 ; i<taille_chaine;i++)
             {
@@ -1535,14 +1535,14 @@ private:
         #endif
         if(texture->chaine_tri==NULL)
         {
-            cout<<"Erreur dans dksChargeLWO2::creation_textures_lwo2() - Mémoire insuffisiante"<<endl;
+            cout<<"Erreur dans dksChargeLWO2::creation_textures_lwo2() - MÃ©moire insuffisiante"<<endl;
             erreur=DKSCHARGELWO2_ERREUR_MEMOIRE;
             return false;
         }
         position_sous_bloc+=(strlen(texture->chaine_tri)+2) & 0xfffffffe;
         ptr_lwo2=(uint32_t*)(donnees_LWO2+position+position_bloc+position_sous_bloc);
 
-        //Lecture des paramètres de la texture:
+        //Lecture des paramÃ¨tres de la texture:
         if (texture->type==ID_IMAP)
         {
             while(position_sous_bloc<taille_sous_bloc)
@@ -1634,7 +1634,7 @@ private:
                                 break;
                             case ID_CSYS:
                                 //cout<<"CSYS"<<endl;
-                                texture->systeme_coordonnees=retournement_uint16(*(uint16*)ptr_lwo2); //Repère de référence pour les textures projetées
+                                texture->systeme_coordonnees=retournement_uint16(*(uint16*)ptr_lwo2); //RepÃ¨re de rÃ©fÃ©rence pour les textures projetÃ©es
                                 break;
 
                     default:
@@ -1647,7 +1647,7 @@ private:
         }
         //Tri les textures:
 
-        //Débuguage:
+        //DÃ©buguage:
         #if DKSCHARGELWO2_DEBUG
             cout<<"               Canal: "<<converti_uint32_chaine(texture->canal);
             cout<<endl;
@@ -1656,9 +1656,9 @@ private:
     }
 
     //------------------------------------------------------------------------------------
-    //      Récupère un indice de type 'VX' :
-    //      Si le premier octet est à 0xFF, l'indice s'étend sur les 3 octets suivants (24 bits)
-    //      Sinon l'indice s'étend sur l'octet testé plus le suivant (16 bits)
+    //      RÃ©cupÃ¨re un indice de type 'VX' :
+    //      Si le premier octet est Ã  0xFF, l'indice s'Ã©tend sur les 3 octets suivants (24 bits)
+    //      Sinon l'indice s'Ã©tend sur l'octet testÃ© plus le suivant (16 bits)
     //------------------------------------------------------------------------------------
 
     uint32_t recupere_VX()
@@ -1680,7 +1680,7 @@ private:
 
 
     //------------------------------------------------------------------------------------
-    //      Récupère le nombre flottant dans un sous-bloc ne comportant que cette donnée
+    //      RÃ©cupÃ¨re le nombre flottant dans un sous-bloc ne comportant que cette donnÃ©e
     //      Positionne le pointeur sur la fin du bloc.
     //------------------------------------------------------------------------------------
     float recupere_sous_bloc_FP4()
@@ -1694,7 +1694,7 @@ private:
     }
 
     //------------------------------------------------------------------------------------
-    //      Récupère le nombre 16bits dans un sous-bloc ne comportant que cette donnée
+    //      RÃ©cupÃ¨re le nombre 16bits dans un sous-bloc ne comportant que cette donnÃ©e
     //      Positionne le pointeur sur la fin du bloc.
     //------------------------------------------------------------------------------------
     uint16_t recupere_sous_bloc_U2()
@@ -1707,7 +1707,7 @@ private:
         return donnee;
     }
     //------------------------------------------------------------------------------------
-    //      Récupère des coordonnées tridimensionnelles
+    //      RÃ©cupÃ¨re des coordonnÃ©es tridimensionnelles
     //      Positionne le pointeur sur la fin du vecteur.
     //------------------------------------------------------------------------------------
     void recupere_vecteur_3f(float* coordonnees)
@@ -1729,7 +1729,7 @@ private:
         }
     }
 
-    //Le vecteur est convertis en double précision:
+    //Le vecteur est convertis en double prÃ©cision:
     void recupere_vecteur_3f_convertion_3d(double* coordonnees)
     {
         for(uint16_t i=0;i<3;i++)
@@ -1811,7 +1811,7 @@ public:
         return table_etiquettes[indice];
     }
 
-    //Renvoie le bitmap correspondant à l'identifiant
+    //Renvoie le bitmap correspondant Ã  l'identifiant
     LWO2_Bitmap* renvoie_LWO2_bitMap_id(uint32_t id)
     {
         uint32_t i;
@@ -1824,14 +1824,14 @@ public:
         return NULL;
     }
 
-    //Renvoie le bitmap correspondant à l'index dans le tableau des bitmaps
+    //Renvoie le bitmap correspondant Ã  l'index dans le tableau des bitmaps
     LWO2_Bitmap* renvoie_LWO2_bitmap_index(uint32_t indice)
     {
         if(indice>=Bitmaps.size()) return NULL;
         return Bitmaps[indice];
     }
 
-    //Génère les objets textures d'openGl à partir des images:
+    //GÃ©nÃ¨re les objets textures d'openGl Ã  partir des images:
     /*
     bool genere_textures_OpenGl(bool drapeau_mipmap=false)
     {
@@ -1845,7 +1845,7 @@ public:
     */
 
     //------------------------------------------------------------------------------------
-    //      Renvoie l'objet Parametres_Sommets en fonction du nom spécifié en entrée
+    //      Renvoie l'objet Parametres_Sommets en fonction du nom spÃ©cifiÃ© en entrÃ©e
     //      Renvoie NULL si aucun objet ne porte ce nom.
     //------------------------------------------------------------------------------------
     LWO2_ParametresSommets* renvoie_ParametresSommets(char* nom_cherche)

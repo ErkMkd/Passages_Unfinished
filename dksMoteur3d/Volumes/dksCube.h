@@ -12,7 +12,7 @@ class dksCube : public dksVolume
     uint32_t aretes_faces_cube[6][4];
 
     private:
-        //Les textures d'arrière-plan:
+        //Les textures d'arriÃ¨re-plan:
         dksTexture* texture_avant;
         dksTexture* texture_arriere;
         dksTexture* texture_droite;
@@ -61,7 +61,7 @@ class dksCube : public dksVolume
                                 -.5*tx,.5*ty,-.5*tz
                                 };
 
-                    aretes_faces_cube={{2,3,0,1},{5,4,3,2},{6,7,4,5},{1,0,7,6},{3,4,7,0},{5,2,1,6}}; ///Ne pas changer l'ordre des sommets, à cause des UV d'arrière-plan
+                    aretes_faces_cube={{2,3,0,1},{5,4,3,2},{6,7,4,5},{1,0,7,6},{3,4,7,0},{5,2,1,6}}; ///Ne pas changer l'ordre des sommets, Ã  cause des UV d'arriÃ¨re-plan
 
                     determine_sommets(sommets_cube,8);
 
@@ -111,7 +111,7 @@ class dksCube : public dksVolume
                 if (faces_cube[i]!=NULL) delete (faces_cube[i]);
                 if (surfaces_cube[i]!=NULL) delete surfaces_cube[i];
             }
-            ///Pas besoin de détruire les textures, les destructeurs des surfaces s'en chargent.
+            ///Pas besoin de dÃ©truire les textures, les destructeurs des surfaces s'en chargent.
             /*
             if (texture_avant!=NULL) delete texture_avant;
             if (texture_arriere!=NULL) delete texture_arriere;
@@ -205,10 +205,10 @@ class dksCube : public dksVolume
         }
 
         //==============================================================================================
-        //      Gestion des textures d'arrière-plan.
-        //  Sert lorsque le cube est utilisé comme arrière-plan.
-        /// Il faut veiller à inverser le sens des polygones avec
-        /// "inverse_sens_polygones()" pour que le cube soit vu de l'intérieur.
+        //      Gestion des textures d'arriÃ¨re-plan.
+        //  Sert lorsque le cube est utilisÃ© comme arriÃ¨re-plan.
+        /// Il faut veiller Ã  inverser le sens des polygones avec
+        /// "inverse_sens_polygones()" pour que le cube soit vu de l'intÃ©rieur.
         //==============================================================================================
         bool ajoute_textures_arriere_plan(Image* p_avant, Image* p_arriere, Image* p_droite, Image* p_gauche, Image* p_haut, Image* p_bas)
         {

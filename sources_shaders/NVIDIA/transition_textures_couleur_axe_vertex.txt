@@ -4,13 +4,13 @@
 //				Vertex shader
 //======================================================================
 
-//Données d'éclairage:
+//DonnÃ©es d'Ã©clairage:
 uniform int drapeaux_sources;	//Les bits d'activation des sources lumineuses
 
 varying vec4 couleur;
-varying vec3 couleur_speculaire; //Spérarée pour apparaître par dessus les textures
+varying vec3 couleur_speculaire; //SpÃ©rarÃ©e pour apparaÃ®tre par dessus les textures
 
-// Données de transition:
+// DonnÃ©es de transition:
 uniform float zmin;
 uniform float zmax;
 
@@ -18,7 +18,7 @@ uniform int drapeaux_textures;
 
 varying vec2 coordonnees_texture_depart;
 varying vec2 coordonnees_texture_destination;
-varying float position_axe; //Varie de 0 à 1
+varying float position_axe; //Varie de 0 Ã  1
 
 void main( void )
 {
@@ -31,7 +31,7 @@ void main( void )
 	
 	//------------ Eclairage:
 	
-			//Données de l'observateur:
+			//DonnÃ©es de l'observateur:
 			vec3 position_sommet = (gl_ModelViewMatrix * gl_Vertex).xyz;
 			vec3 normale 				= gl_NormalMatrix * gl_Normal;
 			vec3 direction_oeil 	= -normalize(position_sommet);

@@ -4,15 +4,15 @@
 
 /*
 
-            Génère un jet de particules
+            GÃ©nÃ¨re un jet de particules
 
 */
 
 #include "dksParticules.h"
 //=============================================================
-//      Classe des éléments gérés par le jet:
+//      Classe des Ã©lÃ©ments gÃ©rÃ©s par le jet:
 //=============================================================
-#define JET_ETAPES_COULEURS_MAX 4 //nombre max d'étapes dans l'évolution des couleurs des particules au cours de leur vie
+#define JET_ETAPES_COULEURS_MAX 4 //nombre max d'Ã©tapes dans l'Ã©volution des couleurs des particules au cours de leur vie
 
 class Particule_Jet : public Element_particule
 {
@@ -30,7 +30,7 @@ class Particule_Jet : public Element_particule
         nbrEtapesCouleurs=0;
     }
 
-    //Détermine la couleur de la particule en fonction de son age.
+    //DÃ©termine la couleur de la particule en fonction de son age.
     ///l'age est compris entre 0 et 1:
     void determine_couleur(float age)
     {
@@ -61,7 +61,7 @@ class Particule_Jet : public Element_particule
 class dksJetParticules : public dksParticules
 {
     private:
-    float compteur_creation_particules; //Sert pour le control du débit
+    float compteur_creation_particules; //Sert pour le control du dÃ©bit
 
     float direction_jet[3];
     float normale_jet[3];
@@ -69,10 +69,10 @@ class dksJetParticules : public dksParticules
 
     public:
     float position_jet[3];
-    float ouverture; //Angle en ° d'ouverture du cône de projection
+    float ouverture; //Angle en Â° d'ouverture du cÃ´ne de projection
     float vitesse_jet; //Vitesse en m/s de projection
-    float rayon_surface_propulsion; //Le rayon de la surface d'où sont projetées les particules
-    float debit; //Nombre de particules générées par seconde
+    float rayon_surface_propulsion; //Le rayon de la surface d'oÃ¹ sont projetÃ©es les particules
+    float debit; //Nombre de particules gÃ©nÃ©rÃ©es par seconde
 
 
 
@@ -139,7 +139,7 @@ class dksJetParticules : public dksParticules
         }
     }
 
-    //Un repère est ascocié au jet, pour orienter correctement les perticules
+    //Un repÃ¨re est ascociÃ© au jet, pour orienter correctement les perticules
     void determine_direction_jet(float dx,float dy, float dz)
     {
         float n=sqrtf(dx*dx+dy*dy+dz*dz);
@@ -173,7 +173,7 @@ class dksJetParticules : public dksParticules
 
     //================================================
     //          Gestion du jet
-    /// Fonction à appeler après applique_mouvement()
+    /// Fonction Ã  appeler aprÃ¨s applique_mouvement()
     //================================================
 
 
@@ -203,10 +203,10 @@ class dksJetParticules : public dksParticules
 
     //---------------------------------
     //      Activation d'une particule
-    /// Fonction à appeler après applique_mouvements()
+    /// Fonction Ã  appeler aprÃ¨s applique_mouvements()
     //---------------------------------
 
-    //--------- Oriente un vecteur dans le repère du jet:
+    //--------- Oriente un vecteur dans le repÃ¨re du jet:
     void oriente_vecteur(float* vecteur, double* vecteur_dest)
     {
         vecteur_dest[0]=vecteur[0]*binormale_jet[0]+vecteur[1]*normale_jet[0]+vecteur[2]*direction_jet[0];
@@ -214,20 +214,20 @@ class dksJetParticules : public dksParticules
         vecteur_dest[2]=vecteur[0]*binormale_jet[2]+vecteur[1]*normale_jet[2]+vecteur[2]*direction_jet[2];
     }
 
-    //--------- Provoque l'éjection d'un nombre déterminé de particules:
+    //--------- Provoque l'Ã©jection d'un nombre dÃ©terminÃ© de particules:
     void ejection_particules(uint32_t nbr)
     {
         for(uint32_t i=0;i<nbr;i++) active_particule();
     }
 
-    //--------- Active une particule en lui attribuant sa direction de propulsion, inclue dans le cône du jet
+    //--------- Active une particule en lui attribuant sa direction de propulsion, inclue dans le cÃ´ne du jet
 
      void active_particule()
         {
             if ( particules_inactives==NULL ) return;
             Particule_Jet* particule = (Particule_Jet*)particules_inactives;
 
-            //Initialise les paramètres de départ de la particule:
+            //Initialise les paramÃ¨tres de dÃ©part de la particule:
 
             particule->date_creation=position_temps;
             particule->couleur[3]=1.;
@@ -294,8 +294,8 @@ class dksJetParticules : public dksParticules
         }
 
     //---------------------------------
-    //      Gestion du débit
-    /// Fonction à appeler après applique_mouvement(), à cause du delta_t
+    //      Gestion du dÃ©bit
+    /// Fonction Ã  appeler aprÃ¨s applique_mouvement(), Ã  cause du delta_t
     //---------------------------------
     void maj_debit()
     {
@@ -316,8 +316,8 @@ class dksJetParticules : public dksParticules
     //---------------------------------------------------------------------
     //          Gestion des mouvements
     //          Il y a plusieurs type de jets:
-    //          Un jet continu qui utilise le débit
-    //          Ejection d'un nombre déterminé de particules
+    //          Un jet continu qui utilise le dÃ©bit
+    //          Ejection d'un nombre dÃ©terminÃ© de particules
     //---------------------------------------------------------------------
     void maj_jet_continu()
     {
@@ -351,7 +351,7 @@ class dksJetParticules : public dksParticules
     //          Affichage
     //==============================================
 
-    //Le rendu propre aux classes dérivées.
+    //Le rendu propre aux classes dÃ©rivÃ©es.
     virtual void affiche(dksOeil* oeil)
     {
         if(!drapeau_affiche) return;

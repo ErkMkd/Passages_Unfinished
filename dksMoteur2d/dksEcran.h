@@ -19,7 +19,7 @@
 //Identifiants des tempons de rendu:
 //--------------------------------------------
 
-#define DKSECRAN_TEMPON_DEFAUT 0    //Le rendu direct dans le framebuffer par défaut (le seul visible, en fait...)
+#define DKSECRAN_TEMPON_DEFAUT 0    //Le rendu direct dans le framebuffer par dÃ©faut (le seul visible, en fait...)
 #define DKSECRAN_TEMPON_ECRAN_1 1
 #define DKSECRAN_TEMPON_ECRAN_2 2
 #define DKSECRAN_TEMPON_QUART 3
@@ -29,14 +29,14 @@
 #define DKSECRAN_TEMPON_PROFONDEUR_2048 7
 
 
-//Frame buffers ---------- Ces identifiants sont privés!!!!! Utiliser ceux ci-dessus comme identifiants.
+//Frame buffers ---------- Ces identifiants sont privÃ©s!!!!! Utiliser ceux ci-dessus comme identifiants.
 enum
         {
-          FB_ECRAN_1,                 //Rendu de la scène dans une texture de la taille de l'écran
-          FB_ECRAN_2,                 //Rendu de la scène dans une texture de la taille de l'écran
+          FB_ECRAN_1,                 //Rendu de la scÃ¨ne dans une texture de la taille de l'Ã©cran
+          FB_ECRAN_2,                 //Rendu de la scÃ¨ne dans une texture de la taille de l'Ã©cran
           FB_256_1,                 //Rendu dans une texture de 256*256
           FB_256_2,
-          FB_QUART_1,               //Rendu dans une texture du quart de la résolution de l'écran
+          FB_QUART_1,               //Rendu dans une texture du quart de la rÃ©solution de l'Ã©cran
           FB_QUART_2,
           FB_OMBRES_512,             //Rendu des profondeurs des fragments, dans une texture de 512*512, pour les ombres.
           FB_OMBRES_1024,             //Rendu des profondeurs des fragments, dans une texture de 1024*1024, pour les ombres.
@@ -75,9 +75,9 @@ enum
 class dksEcran
 {
     private:
-        DEVMODE ModeOrig; //Sauvegarde du mode écran
+        DEVMODE ModeOrig; //Sauvegarde du mode Ã©cran
         bool drapeau_plein_ecran;
-        bool drapeau_tempons_rendu;     //True lorsque les tempons de rendu ont été générés
+        bool drapeau_tempons_rendu;     //True lorsque les tempons de rendu ont Ã©tÃ© gÃ©nÃ©rÃ©s
         GLfloat couleur_bords[3];
     public:
         uint16_t    erreur;
@@ -154,7 +154,7 @@ class dksEcran
         }
 
         //*************************************************************************************************
-        //   Gestion de la résolution
+        //   Gestion de la rÃ©solution
         //*************************************************************************************************
         bool est_en_plein_ecran()
         {
@@ -178,7 +178,7 @@ class dksEcran
             return true;
         }
 
-        //Détermine la couleur des bords hors-champ des textures de rendu.
+        //DÃ©termine la couleur des bords hors-champ des textures de rendu.
         void determine_couleur_bords(float r,float v,float b)
         {
             couleur_bords={r,v,b};
@@ -191,7 +191,7 @@ class dksEcran
 
         //*************************************************************************************************
         //   Gestion des tempons de rendu
-        /// Appeler cette fonction après l'initialisation de la librairie GLEW, pour avoir accès aux extensions
+        /// Appeler cette fonction aprÃ¨s l'initialisation de la librairie GLEW, pour avoir accÃ¨s aux extensions
         //*************************************************************************************************
         bool creation_tempons_rendus()
         {
@@ -201,7 +201,7 @@ class dksEcran
 
             couleur_bords={0.,0.,0.};
 
-            //----------------- Création des tempons de rendu de la même résolution que l'écran:
+            //----------------- CrÃ©ation des tempons de rendu de la mÃªme rÃ©solution que l'Ã©cran:
             //------------------Ecran 1:
                 glBindRenderbuffer(GL_RENDERBUFFER,render_buffers[RB_PROFONDEUR_ECRAN_1]);
                 glRenderbufferStorage(GL_RENDERBUFFER,GL_DEPTH_COMPONENT32,resolution_x,resolution_y);
@@ -211,8 +211,8 @@ class dksEcran
                 glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_CLAMP_TO_BORDER);
                 glTexParameterfv(GL_TEXTURE_2D,GL_TEXTURE_BORDER_COLOR,couleur_bords);
                 glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-                glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);    //Il semble que ce paramètre active la texture.....
-                glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,resolution_x,resolution_y,0,GL_RGBA,GL_UNSIGNED_BYTE,NULL); //Alloue la mémoire automatiquement.
+                glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);    //Il semble que ce paramÃ¨tre active la texture.....
+                glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,resolution_x,resolution_y,0,GL_RGBA,GL_UNSIGNED_BYTE,NULL); //Alloue la mÃ©moire automatiquement.
 
                 //Relie les tempons au frame buffer:
                 glBindFramebuffer(GL_DRAW_FRAMEBUFFER,frame_buffers[FB_ECRAN_1]);
@@ -230,8 +230,8 @@ class dksEcran
                 glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_CLAMP_TO_BORDER);
                 glTexParameterfv(GL_TEXTURE_2D,GL_TEXTURE_BORDER_COLOR,couleur_bords);
                 glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-                glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);    //Il semble que ce paramètre active la texture.....
-                glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,resolution_x,resolution_y,0,GL_RGBA,GL_UNSIGNED_BYTE,NULL); //Alloue la mémoire automatiquement.
+                glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);    //Il semble que ce paramÃ¨tre active la texture.....
+                glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,resolution_x,resolution_y,0,GL_RGBA,GL_UNSIGNED_BYTE,NULL); //Alloue la mÃ©moire automatiquement.
 
                 //Relie les tempons au frame buffer:
                 glBindFramebuffer(GL_DRAW_FRAMEBUFFER,frame_buffers[FB_ECRAN_2]);
@@ -241,14 +241,14 @@ class dksEcran
                 if(!validation_fb(FB_ECRAN_2)) return false;
 
 
-            //----------------- Tempon de rendu 256*256 n°1:
+            //----------------- Tempon de rendu 256*256 nÂ°1:
                 glBindTexture(GL_TEXTURE_2D,textures[TX_256_1]);
                 glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP_TO_BORDER);
                 glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_CLAMP_TO_BORDER);
                 glTexParameterfv(GL_TEXTURE_2D,GL_TEXTURE_BORDER_COLOR,couleur_bords);
-                glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR); //GL_LINEAR est important pour ne pas avoir de gros carrés...
+                glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR); //GL_LINEAR est important pour ne pas avoir de gros carrÃ©s...
                 glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
-                glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,256,256,0,GL_RGBA,GL_UNSIGNED_BYTE,NULL); //Alloue la mémoire automatiquement.
+                glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,256,256,0,GL_RGBA,GL_UNSIGNED_BYTE,NULL); //Alloue la mÃ©moire automatiquement.
 
                 glBindRenderbuffer(GL_RENDERBUFFER,render_buffers[RB_PROFONDEUR_256_1]);
                 glRenderbufferStorage(GL_RENDERBUFFER,GL_DEPTH_COMPONENT24,256,256);
@@ -260,14 +260,14 @@ class dksEcran
                 if(!validation_fb(FB_256_1)) return false;
 
 
-            //----------------- Tempon de rendu 256*256 n°2:
+            //----------------- Tempon de rendu 256*256 nÂ°2:
                 glBindTexture(GL_TEXTURE_2D,textures[TX_256_2]);
                 glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP_TO_BORDER);
                 glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_CLAMP_TO_BORDER);
                 glTexParameterfv(GL_TEXTURE_2D,GL_TEXTURE_BORDER_COLOR,couleur_bords);
                 glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
                 glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-                glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,256,256,0,GL_RGBA,GL_UNSIGNED_BYTE,NULL); //Alloue la mémoire automatiquement.
+                glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,256,256,0,GL_RGBA,GL_UNSIGNED_BYTE,NULL); //Alloue la mÃ©moire automatiquement.
 
                 glBindRenderbuffer(GL_RENDERBUFFER,render_buffers[RB_PROFONDEUR_256_2]);
                 glRenderbufferStorage(GL_RENDERBUFFER,GL_DEPTH_COMPONENT24,256,256);
@@ -278,16 +278,16 @@ class dksEcran
 
                 if(!validation_fb(FB_256_2)) return false;
 
-            //----------------- Tempon de rendu 1/4 de la résolution de l'écran - n°1:
+            //----------------- Tempon de rendu 1/4 de la rÃ©solution de l'Ã©cran - nÂ°1:
                 largeur_texture_quart=resolution_x/4;
                 hauteur_texture_quart=resolution_y/4;
                 glBindTexture(GL_TEXTURE_2D,textures[TX_QUART_1]);
                 glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP_TO_BORDER);
                 glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_CLAMP_TO_BORDER);
                 glTexParameterfv(GL_TEXTURE_2D,GL_TEXTURE_BORDER_COLOR,couleur_bords);
-                glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR); //GL_LINEAR est important pour ne pas avoir de gros carrés...
+                glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR); //GL_LINEAR est important pour ne pas avoir de gros carrÃ©s...
                 glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
-                glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,largeur_texture_quart,hauteur_texture_quart,0,GL_RGBA,GL_UNSIGNED_BYTE,NULL); //Alloue la mémoire automatiquement.
+                glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,largeur_texture_quart,hauteur_texture_quart,0,GL_RGBA,GL_UNSIGNED_BYTE,NULL); //Alloue la mÃ©moire automatiquement.
 
                 glBindRenderbuffer(GL_RENDERBUFFER,render_buffers[RB_PROFONDEUR_QUART_1]);
                 glRenderbufferStorage(GL_RENDERBUFFER,GL_DEPTH_COMPONENT24,largeur_texture_quart,hauteur_texture_quart);
@@ -298,14 +298,14 @@ class dksEcran
 
                 if(!validation_fb(FB_QUART_1)) return false;
 
-            //----------------- Tempon de rendu 1/4 de la résolution de l'écran - n°2:
+            //----------------- Tempon de rendu 1/4 de la rÃ©solution de l'Ã©cran - nÂ°2:
                 glBindTexture(GL_TEXTURE_2D,textures[TX_QUART_2]);
                 glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP_TO_BORDER);
                 glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_CLAMP_TO_BORDER);
                 glTexParameterfv(GL_TEXTURE_2D,GL_TEXTURE_BORDER_COLOR,couleur_bords);
                 glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
                 glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-                glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,largeur_texture_quart,hauteur_texture_quart,0,GL_RGBA,GL_UNSIGNED_BYTE,NULL); //Alloue la mémoire automatiquement.
+                glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,largeur_texture_quart,hauteur_texture_quart,0,GL_RGBA,GL_UNSIGNED_BYTE,NULL); //Alloue la mÃ©moire automatiquement.
 
                 glBindRenderbuffer(GL_RENDERBUFFER,render_buffers[RB_PROFONDEUR_QUART_2]);
                 glRenderbufferStorage(GL_RENDERBUFFER,GL_DEPTH_COMPONENT24,largeur_texture_quart,hauteur_texture_quart);
@@ -321,11 +321,11 @@ class dksEcran
                 glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP_TO_BORDER);
                 glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_CLAMP_TO_BORDER);
                 glTexParameterfv(GL_TEXTURE_2D,GL_TEXTURE_BORDER_COLOR,couleur_bords);
-                glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR); ///Pour la texture des ombres, il FAUT lisser le rendu pour éviter les bugs d'affichage.
+                glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR); ///Pour la texture des ombres, il FAUT lisser le rendu pour Ã©viter les bugs d'affichage.
                 glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
                 //glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_COMPARE_MODE,GL_NONE);
                 //glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_COMPARE_FUNC,GL_LEQUAL);
-                glTexImage2D(GL_TEXTURE_2D,0,GL_DEPTH_COMPONENT24,512,512,0,GL_DEPTH_COMPONENT,GL_UNSIGNED_BYTE,NULL); //Alloue la mémoire automatiquement.
+                glTexImage2D(GL_TEXTURE_2D,0,GL_DEPTH_COMPONENT24,512,512,0,GL_DEPTH_COMPONENT,GL_UNSIGNED_BYTE,NULL); //Alloue la mÃ©moire automatiquement.
 
                 glBindFramebuffer(GL_DRAW_FRAMEBUFFER,frame_buffers[FB_OMBRES_512]);
                 glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER,GL_DEPTH_ATTACHMENT,GL_TEXTURE_2D,textures[TX_OMBRES_512],0);
@@ -341,7 +341,7 @@ class dksEcran
                 glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
                 //glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_COMPARE_MODE,GL_NONE);
                 //glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_COMPARE_FUNC,GL_LEQUAL);
-                glTexImage2D(GL_TEXTURE_2D,0,GL_DEPTH_COMPONENT24,1024,1024,0,GL_DEPTH_COMPONENT,GL_UNSIGNED_BYTE,NULL); //Alloue la mémoire automatiquement.
+                glTexImage2D(GL_TEXTURE_2D,0,GL_DEPTH_COMPONENT24,1024,1024,0,GL_DEPTH_COMPONENT,GL_UNSIGNED_BYTE,NULL); //Alloue la mÃ©moire automatiquement.
 
                 glBindFramebuffer(GL_DRAW_FRAMEBUFFER,frame_buffers[FB_OMBRES_1024]);
                 glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER,GL_DEPTH_ATTACHMENT,GL_TEXTURE_2D,textures[TX_OMBRES_1024],0);
@@ -357,13 +357,13 @@ class dksEcran
                 glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
                 //glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_COMPARE_MODE,GL_NONE);
                 //glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_COMPARE_FUNC,GL_LEQUAL);
-                glTexImage2D(GL_TEXTURE_2D,0,GL_DEPTH_COMPONENT24,2048,2048,0,GL_DEPTH_COMPONENT,GL_UNSIGNED_BYTE,NULL); //Alloue la mémoire automatiquement.
+                glTexImage2D(GL_TEXTURE_2D,0,GL_DEPTH_COMPONENT24,2048,2048,0,GL_DEPTH_COMPONENT,GL_UNSIGNED_BYTE,NULL); //Alloue la mÃ©moire automatiquement.
 
                 glBindFramebuffer(GL_DRAW_FRAMEBUFFER,frame_buffers[FB_OMBRES_2048]);
                 glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER,GL_DEPTH_ATTACHMENT,GL_TEXTURE_2D,textures[TX_OMBRES_2048],0);
                 if(!validation_fb(FB_OMBRES_2048)) return false;
 
-                //Restitution des tempons par défaut:
+                //Restitution des tempons par dÃ©faut:
                 glBindFramebuffer(GL_DRAW_FRAMEBUFFER,0);
                 glBindRenderbuffer(GL_RENDERBUFFER,0);
                 glBindTexture(GL_TEXTURE_2D,0);
@@ -381,7 +381,7 @@ class dksEcran
         }
 
         //-------------------------------------------
-        //      Vérifie la validité du frame buffer
+        //      VÃ©rifie la validitÃ© du frame buffer
         //-------------------------------------------
     private:
         bool validation_fb(GLuint id)
@@ -392,7 +392,7 @@ class dksEcran
             if(fb_status!=GL_FRAMEBUFFER_COMPLETE)
             {
                 cout<<GL_FRAMEBUFFER_COMPLETE<<endl;
-                cout<<"!!!! ERREUR dans dksEcran::creation_tempons_rendu() - Impossible de créer le frameBuffer: "<<id<<" - erreur: "<<fb_status<<endl;
+                cout<<"!!!! ERREUR dans dksEcran::creation_tempons_rendu() - Impossible de crÃ©er le frameBuffer: "<<id<<" - erreur: "<<fb_status<<endl;
                 return false;
             }
             return true;
@@ -404,15 +404,15 @@ class dksEcran
     private:
         bool maj_tempons_rendu()
         {
-            // Texture de la taille de l'écran:
+            // Texture de la taille de l'Ã©cran:
             glBindTexture(GL_TEXTURE_2D,textures[TX_ECRAN_1]);
-            glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,resolution_x,resolution_y,0,GL_RGBA,GL_UNSIGNED_BYTE,NULL); //Alloue la mémoire automatiquement.
+            glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,resolution_x,resolution_y,0,GL_RGBA,GL_UNSIGNED_BYTE,NULL); //Alloue la mÃ©moire automatiquement.
 
             glBindRenderbuffer(GL_RENDERBUFFER,render_buffers[RB_PROFONDEUR_ECRAN_1]);
             glRenderbufferStorage(GL_RENDERBUFFER,GL_DEPTH_COMPONENT24,resolution_x,resolution_y);
 
             glBindTexture(GL_TEXTURE_2D,textures[TX_ECRAN_2]);
-            glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,resolution_x,resolution_y,0,GL_RGBA,GL_UNSIGNED_BYTE,NULL); //Alloue la mémoire automatiquement.
+            glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,resolution_x,resolution_y,0,GL_RGBA,GL_UNSIGNED_BYTE,NULL); //Alloue la mÃ©moire automatiquement.
             glBindRenderbuffer(GL_RENDERBUFFER,render_buffers[RB_PROFONDEUR_ECRAN_2]);
             glRenderbufferStorage(GL_RENDERBUFFER,GL_DEPTH_COMPONENT24,resolution_x,resolution_y);
 
@@ -420,14 +420,14 @@ class dksEcran
             largeur_texture_quart=resolution_x/4;
             hauteur_texture_quart=resolution_y/4;
 
-            // Les textures au 1/4 de l'écran
+            // Les textures au 1/4 de l'Ã©cran
             glBindTexture(GL_TEXTURE_2D,textures[TX_QUART_1]);
-            glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,largeur_texture_quart,hauteur_texture_quart,0,GL_RGBA,GL_UNSIGNED_BYTE,NULL); //Alloue la mémoire automatiquement.
+            glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,largeur_texture_quart,hauteur_texture_quart,0,GL_RGBA,GL_UNSIGNED_BYTE,NULL); //Alloue la mÃ©moire automatiquement.
             glBindRenderbuffer(GL_RENDERBUFFER,render_buffers[RB_PROFONDEUR_QUART_1]);
             glRenderbufferStorage(GL_RENDERBUFFER,GL_DEPTH_COMPONENT24,largeur_texture_quart,hauteur_texture_quart);
 
             glBindTexture(GL_TEXTURE_2D,textures[TX_QUART_2]);
-            glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,largeur_texture_quart,hauteur_texture_quart,0,GL_RGBA,GL_UNSIGNED_BYTE,NULL); //Alloue la mémoire automatiquement.
+            glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,largeur_texture_quart,hauteur_texture_quart,0,GL_RGBA,GL_UNSIGNED_BYTE,NULL); //Alloue la mÃ©moire automatiquement.
             glBindRenderbuffer(GL_RENDERBUFFER,render_buffers[RB_PROFONDEUR_QUART_2]);
             glRenderbufferStorage(GL_RENDERBUFFER,GL_DEPTH_COMPONENT24,largeur_texture_quart,hauteur_texture_quart);
 
@@ -443,7 +443,7 @@ class dksEcran
         }
 
     public:
-        ///L'identifiant en entrée est du type: DKSECRAN_TEMPON_xxxx
+        ///L'identifiant en entrÃ©e est du type: DKSECRAN_TEMPON_xxxx
         GLuint renvoie_tempon_id_openGl(uint8_t tempon_id)
         {
             GLuint id;
@@ -542,12 +542,12 @@ class dksEcran
         }
 
         //*************************************************************************************************
-        //    Configure la résolution écran
+        //    Configure la rÃ©solution Ã©cran
         //*************************************************************************************************
     private:
         bool initialise_ecran()
         {
-            //Récupère le mode du système:
+            //RÃ©cupÃ¨re le mode du systÃ¨me:
             EnumDisplaySettings(NULL, ENUM_CURRENT_SETTINGS, &ModeOrig);
             if (!change_resolution()) return false;
             //Cache le curseur
@@ -560,7 +560,7 @@ class dksEcran
         {
             DEVMODE Mode;
             memcpy(&Mode, &ModeOrig, sizeof(DEVMODE));
-            //Change la résolution
+            //Change la rÃ©solution
             Mode.dmPelsWidth  = resolution_x;
             Mode.dmPelsHeight = resolution_y;
 
@@ -571,11 +571,11 @@ class dksEcran
                 case DISP_CHANGE_SUCCESSFUL:
                     break;
                 case DISP_CHANGE_RESTART:
-                    affiche_message("Veuillez redémarrer pour valider le nouveau mode graphique");
+                    affiche_message("Veuillez redÃ©marrer pour valider le nouveau mode graphique");
                     return false;
                     break;
                 case DISP_CHANGE_BADFLAGS:
-                    affiche_message("Erreur - Données ecran invalides");
+                    affiche_message("Erreur - DonnÃ©es ecran invalides");
                     return false;
                     break;
                 case DISP_CHANGE_FAILED:
@@ -583,11 +583,11 @@ class dksEcran
                     return false;
                     break;
                 case DISP_CHANGE_BADMODE:
-                    affiche_message("Erreur - Mode graphique non supporté");
+                    affiche_message("Erreur - Mode graphique non supportÃ©");
                     return false;
                     break;
                 case DISP_CHANGE_NOTUPDATED:
-                    affiche_message("Erreur - Impossible d'écrire les données dans le registre...");
+                    affiche_message("Erreur - Impossible d'Ã©crire les donnÃ©es dans le registre...");
                     return false;
                     break;
             }
@@ -596,7 +596,7 @@ class dksEcran
 
         void Restituer_ecran()
         {
-        //Réinitialise l'écran
+        //RÃ©initialise l'Ã©cran
             ShowCursor(true);
             ChangeDisplaySettings(&ModeOrig, 0);
             drapeau_plein_ecran=false;

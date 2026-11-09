@@ -2,7 +2,7 @@
 #define GESTION_FICHIERS_H_INCLUDED
 
 
-//=========================== Définitions des types de fichiers ===============================
+//=========================== DÃ©finitions des types de fichiers ===============================
 #define GESTION_FICHIERS 1
 #include <iostream>
 #include <fstream>
@@ -17,7 +17,7 @@ class Fichiers
 {
     public:
     //==============================================================================
-    //Remet en ordre les octets après la lecture d'une donnée dans un fichier:
+    //Remet en ordre les octets aprÃ¨s la lecture d'une donnÃ©e dans un fichier:
     //==============================================================================
 
     static uint64_t retournement_uint64(uint64_t donnee)
@@ -53,11 +53,11 @@ class Fichiers
     }
 
     //======================================================================================
-    //              Lit une chaine de caractère
-    //              Le pointeur de fichier doit pointer sur la chaîne.
-    //              En sortie, le pointeur de fichier est callé sur le premier octet après la chaîne.
-    //              La chaîne doit être terminée par un 0
-    ///              Ne pas oublier de libérer la mémoire lorsque la chaîne ne sert plus.
+    //              Lit une chaine de caractÃ¨re
+    //              Le pointeur de fichier doit pointer sur la chaÃ®ne.
+    //              En sortie, le pointeur de fichier est callÃ© sur le premier octet aprÃ¨s la chaÃ®ne.
+    //              La chaÃ®ne doit Ãªtre terminÃ©e par un 0
+    ///              Ne pas oublier de libÃ©rer la mÃ©moire lorsque la chaÃ®ne ne sert plus.
     //======================================================================================
     static char* lecture_chaine(FILE* fichier)
     {
@@ -79,9 +79,9 @@ class Fichiers
     }
 
     //======================================================================================
-    //              Duplique une chaine de caractère
-    //              La chaîne doit être terminée par un 0
-    ///              Ne pas oublier de libérer la mémoire lorsque la chaîne ne sert plus.
+    //              Duplique une chaine de caractÃ¨re
+    //              La chaÃ®ne doit Ãªtre terminÃ©e par un 0
+    ///              Ne pas oublier de libÃ©rer la mÃ©moire lorsque la chaÃ®ne ne sert plus.
     //======================================================================================
     static char* copie_chaine(char* chaine_source, uint32_t taille_max=1024)
     {
@@ -94,8 +94,8 @@ class Fichiers
     }
 
     //======================================================================================
-    //                  Récupère le nom d'un fichier sans le chemin:
-    //      La chaîne de destination peut être le même tableau. Le chemin est alors écrasé
+    //                  RÃ©cupÃ¨re le nom d'un fichier sans le chemin:
+    //      La chaÃ®ne de destination peut Ãªtre le mÃªme tableau. Le chemin est alors Ã©crasÃ©
     //======================================================================================
 
     static void recupere_nom_fichier(char* nom_complet, char* nom_fichier)
@@ -123,11 +123,11 @@ class Fichiers
     }
 
     //======================================================================================
-    //                  Lit et écrit des données binaires
+    //                  Lit et Ã©crit des donnÃ©es binaires
     //======================================================================================
 
     //-----------------------------------------
-    //          Lecture des données
+    //          Lecture des donnÃ©es
     //  Renvoie le nombre d'octets lus
     // Renvoie -1 si une erreur s'est produite
     //----------------------------------------
@@ -184,8 +184,8 @@ class Fichiers
     }
 
     //--------------------------------------------------------------
-    //      Chargement avec allocation de la mémoire nécessaire
-    /// Ne pas oublier de libérer la mémoire !!!
+    //      Chargement avec allocation de la mÃ©moire nÃ©cessaire
+    /// Ne pas oublier de libÃ©rer la mÃ©moire !!!
     //--------------------------------------------------------------
     static char* charge_donnees_binaires_allocation(char* nom_fichier)
     {
@@ -228,8 +228,8 @@ class Fichiers
     }
 
     //---------------------------------------------------
-    //      Sauve les données dans un fichier
-    /// Si le fichier existait déjà, il est écrasé !!!
+    //      Sauve les donnÃ©es dans un fichier
+    /// Si le fichier existait dÃ©jÃ , il est Ã©crasÃ© !!!
     //---------------------------------------------------
     static bool sauve_donnees_binaires(char* donnees,uint32_t taille, char* nom_fichier)
     {

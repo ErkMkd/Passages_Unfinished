@@ -24,10 +24,10 @@
 //
 //  Note sur les activations:
 //
-//          active()/desactive() : active/désactive la vision depuis la source (dans le cas de l'utilisation de la source comme oeil)
-//          active_lumiere()/desactive_lumiere: active/désactive l'éclairage de la source
-//          lumiere_est_active() : renvoie l'état d'éclairage
-//          est_actif() :renvoie l'état de la source en tant qu'oeil
+//          active()/desactive() : active/dÃ©sactive la vision depuis la source (dans le cas de l'utilisation de la source comme oeil)
+//          active_lumiere()/desactive_lumiere: active/dÃ©sactive l'Ã©clairage de la source
+//          lumiere_est_active() : renvoie l'Ã©tat d'Ã©clairage
+//          est_actif() :renvoie l'Ã©tat de la source en tant qu'oeil
 //
 //===========================================================================================
 
@@ -50,15 +50,15 @@ class dksSourceLumineuse :public dksOeil
         float couleur_diffusion_base[4];
         float couleur_speculaire_base[4];
 
-        float couleur_ambience[4];      //Couleurs après application de l'intensité
+        float couleur_ambience[4];      //Couleurs aprÃ¨s application de l'intensitÃ©
         float couleur_diffusion[4];
         float couleur_speculaire[4];
 
         float openGl_position[4];
 
-        bool drapeau_lumiere_active;            //True lorsque la source est activée.
-        Matrice4x4 matrice_uv;      //La matrice de projection de la texture de la scène sur les volumes. Sert surtout pour les ombres portées
-        Matrice4x4 matrice_correction_UV;       //Matrice de corection des coordonnées UV (l'écran est en -1,-1 1,1, alors que les UV sont en 0,0 1,1)
+        bool drapeau_lumiere_active;            //True lorsque la source est activÃ©e.
+        Matrice4x4 matrice_uv;      //La matrice de projection de la texture de la scÃ¨ne sur les volumes. Sert surtout pour les ombres portÃ©es
+        Matrice4x4 matrice_correction_UV;       //Matrice de corection des coordonnÃ©es UV (l'Ã©cran est en -1,-1 1,1, alors que les UV sont en 0,0 1,1)
         Matrice4x4 matrice_temp;
 
     public:
@@ -100,18 +100,18 @@ class dksSourceLumineuse :public dksOeil
             glMatrixMode(GL_MODELVIEW);
             glPushMatrix();
             glLoadIdentity();
-            glTranslatef(.5,.5,.5); //...des coordonnées déplacées vers la droite et vers le haut
+            glTranslatef(.5,.5,.5); //...des coordonnÃ©es dÃ©placÃ©es vers la droite et vers le haut
             glScalef(0.5,0.5,.5);   //Division par deux...
             glGetDoublev(GL_MODELVIEW_MATRIX,matrice_correction_UV.matrice);
             glPopMatrix();
         }
 
     //===============================================================================================
-    //      Gestion des paramètres d'openGl
-    //      Ces fonctions sont appelées uniquement lorsque la source est active au sein d'OpenGl
+    //      Gestion des paramÃ¨tres d'openGl
+    //      Ces fonctions sont appelÃ©es uniquement lorsque la source est active au sein d'OpenGl
     //===============================================================================================
     private:
-        //Fonction appelée lors de l'activation de la source au sein d'OpenGl:
+        //Fonction appelÃ©e lors de l'activation de la source au sein d'OpenGl:
         void initialise_openGl()
         {
             maj_openGl_intensite();
@@ -158,7 +158,7 @@ class dksSourceLumineuse :public dksOeil
             glLightf(id_openGl,GL_QUADRATIC_ATTENUATION,attenuation_carree);
         }
 
-        //Source directionnelle ou située à l'infini:
+        //Source directionnelle ou situÃ©e Ã  l'infini:
         void maj_openGl_orientation()
         {
             GLfloat direction[3];
@@ -183,7 +183,7 @@ class dksSourceLumineuse :public dksOeil
 
     //======================================
     //      Gestion des couleurs
-    //  Format d'entrée: 0xAARRVVBB
+    //  Format d'entrÃ©e: 0xAARRVVBB
     //======================================
 public:
         void determine_couleur_ambiance(uint32_t p_couleur)
@@ -240,8 +240,8 @@ public:
 
     //===================================================
     //      Rafraichissement de la source.
-    //      Fonction à appeler à chaque rendu d'image
-    //      Cette fonction est nécessaire car l'accès au repère de la source est public.
+    //      Fonction Ã  appeler Ã  chaque rendu d'image
+    //      Cette fonction est nÃ©cessaire car l'accÃ¨s au repÃ¨re de la source est public.
     //===================================================
         void maj()
         {
@@ -280,12 +280,12 @@ public:
             }
         }
         //======================================
-        //      Gestion des paramètres
-        /// Au sein d'une scène, appeler dskMoteur3d::active/desactive_source_lumineuse()
+        //      Gestion des paramÃ¨tres
+        /// Au sein d'une scÃ¨ne, appeler dskMoteur3d::active/desactive_source_lumineuse()
         //======================================
 
-        //----Active/Désactive la source:
-        //      Renvoie false si la source n'a pas pu être activée.
+        //----Active/DÃ©sactive la source:
+        //      Renvoie false si la source n'a pas pu Ãªtre activÃ©e.
         bool active_lumiere()
         {
             GLuint table_openGl_id[8]={
@@ -324,7 +324,7 @@ public:
             return drapeau_lumiere_active;
         }
 
-        //----Détermination des paramètres:
+        //----DÃ©termination des paramÃ¨tres:
         void determine_intensite(float p_intensite)
         {
             if (p_intensite<0.)p_intensite=0.;
@@ -362,7 +362,7 @@ public:
             if ( (p_type!=DKSSOURCELUMINEUSE_OMNIDIRECTIONNELLE) && (type!=DKSSOURCELUMINEUSE_INFINIE) && (type!=DKSSOURCELUMINEUSE_DIRECTIONNELLE) ) return;
             type=p_type;
             if (!drapeau_lumiere_active) return;
-            if ( (type==DKSSOURCELUMINEUSE_OMNIDIRECTIONNELLE) || (type==DKSSOURCELUMINEUSE_INFINIE) ) glLightf(id_openGl, GL_SPOT_CUTOFF,180.); //La spéciale valeur 180 indique à openGl que la source n'est plus directionelle.
+            if ( (type==DKSSOURCELUMINEUSE_OMNIDIRECTIONNELLE) || (type==DKSSOURCELUMINEUSE_INFINIE) ) glLightf(id_openGl, GL_SPOT_CUTOFF,180.); //La spÃ©ciale valeur 180 indique Ã  openGl que la source n'est plus directionelle.
             else glLightf(id_openGl, GL_SPOT_CUTOFF,ouverture_spot);
             maj();
         }
@@ -390,8 +390,8 @@ public:
         }
 
         //---------------------------------------------
-        //Copie les paramètres d'une source:
-        //Pour copier le repère et la position, utiliser copie()
+        //Copie les paramÃ¨tres d'une source:
+        //Pour copier le repÃ¨re et la position, utiliser copie()
         void copie_parametres(dksSourceLumineuse* source_org)
         {
             determine_attenuation(source_org->renvoie_attenuation_constante(),source_org->renvoie_attenuation_lineaire(),source_org->renvoie_attenuation_carree());
@@ -415,8 +415,8 @@ public:
             matrice_temp.multiplication_droite(matrice_vision,matrice_uv);
         }
 
-        //Sert pour les rendus en plusieurs passes (calcul des ombres portées...):
-        //La différence avec maj_projection() de la classe héritée dksOeil est qu'il
+        //Sert pour les rendus en plusieurs passes (calcul des ombres portÃ©es...):
+        //La diffÃ©rence avec maj_projection() de la classe hÃ©ritÃ©e dksOeil est qu'il
         // n'y a pas de test du drapeau d'activation de la vision.
         void maj_projection_source(uint32_t resX,uint32_t resY)
         {
@@ -427,9 +427,9 @@ public:
                 glMatrixMode(GL_MODELVIEW);
         }
 
-        //Renvoie la matrice de projection de la scène vue de la source, pour une projection sur les volumes (uv)
-        //Cette matrice sert surtout pour la projection de la texture de profondeur, afin de rendre les ombres portées.
-        ///Il faut que la fonction positionne_scene() aie été appelée pour un calcul correcte de cette matrice.
+        //Renvoie la matrice de projection de la scÃ¨ne vue de la source, pour une projection sur les volumes (uv)
+        //Cette matrice sert surtout pour la projection de la texture de profondeur, afin de rendre les ombres portÃ©es.
+        ///Il faut que la fonction positionne_scene() aie Ã©tÃ© appelÃ©e pour un calcul correcte de cette matrice.
         Matrice4x4* renvoie_matrice_uv()
         {
             return &matrice_uv;

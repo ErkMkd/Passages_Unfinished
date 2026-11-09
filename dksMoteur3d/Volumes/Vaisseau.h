@@ -3,19 +3,19 @@
 
 #include "../Elements_Fondamentaux/Volume.h"
 
-//Drapeaux pour la libération de la mémoire lors de la destruction:
+//Drapeaux pour la libÃ©ration de la mÃ©moire lors de la destruction:
 
 #define VAISSEAU_VOLUMES 0x0000001
 
 
 //===================================================================================
 //
-//      ATTENTION: Les volumes ne doivent pas faire partis d'une hiérarchie externe,
+//      ATTENTION: Les volumes ne doivent pas faire partis d'une hiÃ©rarchie externe,
 //                  Sinon la duplication ne marche pas bien.
 //
 //===================================================================================
 
-//================ Définition de la classe:
+//================ DÃ©finition de la classe:
 class Vaisseau :public Conteneur
 {
     public:
@@ -92,7 +92,7 @@ class Vaisseau :public Conteneur
                 volumes_copie[i]=volume_copie;
             }
 
-            //Copie la hiérarchie:
+            //Copie la hiÃ©rarchie:
             for(i=0;i<nbrVolumes;i++)
             {
                 if(volumes[i]->parent==this)volumes_copie[i]->parent=NULL;
@@ -109,7 +109,7 @@ class Vaisseau :public Conteneur
                 }
             }
 
-            //Crée le clone du vaisseau:
+            //CrÃ©e le clone du vaisseau:
             Vaisseau* clone= new Vaisseau(
                                         nom,volumes_copie,nbrVolumes,VAISSEAU_VOLUMES,
                                         x,y,z,

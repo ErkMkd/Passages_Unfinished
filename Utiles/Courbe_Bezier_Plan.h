@@ -11,10 +11,10 @@ class Courbe_Bezier_Plan
 		double P0_x; //Position du point 0
 		double P0_y;
 
-		double P1_x; //Position du point 1  (Contrôl de courbe au point 0)
+		double P1_x; //Position du point 1  (ContrÃ´l de courbe au point 0)
 		double P1_y;
 
-		double P2_x; //Position du point 2 (Contrôl de courbe au point 3)
+		double P2_x; //Position du point 2 (ContrÃ´l de courbe au point 3)
 		double P2_y;
 
 		double P3_x; //Position du point 3
@@ -27,7 +27,7 @@ class Courbe_Bezier_Plan
 
 		double facteur; //Facteur multiplucateur des tangentes.
 
-		//Données pour la résolution y(x):
+		//DonnÃ©es pour la rÃ©solution y(x):
         double alpha;
 		double beta;
 		double gamma;
@@ -35,7 +35,7 @@ class Courbe_Bezier_Plan
 
 		public:
 
-        double precision; //Précision pour la recherche par dicotomie
+        double precision; //PrÃ©cision pour la recherche par dicotomie
 
 
 		Courbe_Bezier_Plan ( vec2d& P0, vec2d& P1, vec2d& P2, vec2d& P3 , double fact)
@@ -219,7 +219,7 @@ class Courbe_Bezier_Plan
 
 		}
 
-		//Renvoie la coordonnée en y d'un point de la courbe pour une valeur de t comprise entre 0 (point A) et 1 (point B)
+		//Renvoie la coordonnÃ©e en y d'un point de la courbe pour une valeur de t comprise entre 0 (point A) et 1 (point B)
 		double renvoie_ordonnee(double t)
 		{
 			//if (t > 1) { t = 1; }
@@ -235,7 +235,7 @@ class Courbe_Bezier_Plan
 			return P0_y * t13 + 3 * tangenteA_y * t * t12 + 3 * tangenteB_y * t2 * t1 + P3_y * t3;
 		}
 
-		//Renvoie la coordonnée en x d'un point de la courbe pour une valeur de t comprise entre 0 (point A) et 1 (point B)
+		//Renvoie la coordonnÃ©e en x d'un point de la courbe pour une valeur de t comprise entre 0 (point A) et 1 (point B)
 		double renvoie_abscisse(double t)
         {
 			//if (t > 1) { t = 1; }
@@ -252,9 +252,9 @@ class Courbe_Bezier_Plan
 
 		}
 
-		//Renvoie l'ordonnée d'un point de la courbe pour une valeur de l'abscisse comprise entre P0x et P3x.
+		//Renvoie l'ordonnÃ©e d'un point de la courbe pour une valeur de l'abscisse comprise entre P0x et P3x.
 		//Il y a quelques restrictions:
-		// -P0_x doit être inférieur à P3_x
+		// -P0_x doit Ãªtre infÃ©rieur Ã  P3_x
 		//Renvoie NaN si aucune solution.
 		double renvoie_ordonnee_via_abscisse(double xt)
 		{
@@ -320,7 +320,7 @@ class Courbe_Bezier_Plan
 
         private:
 
-		//Calcul les données qui servent pour résoudre y(x):
+		//Calcul les donnÃ©es qui servent pour rÃ©soudre y(x):
         void resolution()
 		{
 			alpha = -P0_x + 3 * tangenteA_x - 3 * tangenteB_x + P3_x;
@@ -329,7 +329,7 @@ class Courbe_Bezier_Plan
 			delta = beta * beta - 4 * alpha * gamma;
 		}
 
-		//Si la courbe effectue un retour sur X, renvoie la valeur de t ou ce retour débute.
+		//Si la courbe effectue un retour sur X, renvoie la valeur de t ou ce retour dÃ©bute.
 		//Sinon renvoie 0.
         double renvoie_t1_retournement_x()
 		{
@@ -343,7 +343,7 @@ class Courbe_Bezier_Plan
 		}
 
 
-		//Si la courbe effectue un retour sur X, renvoie la valeur de t ou ce retour débute.
+		//Si la courbe effectue un retour sur X, renvoie la valeur de t ou ce retour dÃ©bute.
 		//Sinon renvoie 0.
 		double renvoie_t2_retournement_x()
 		{

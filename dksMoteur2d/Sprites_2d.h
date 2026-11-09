@@ -2,7 +2,7 @@
 #define SPRITES_2D_H_INCLUDED
 
 /*
-        Les sprites 2d sont affichés par transferts de pixels. On peut donc effectuer des
+        Les sprites 2d sont affichÃ©s par transferts de pixels. On peut donc effectuer des
         traitements graphiques au pixel dans ces tempons.
 */
 
@@ -16,10 +16,10 @@
 typedef struct
 {
     Image_TIFF* image;
-    float x;    //Position de l'image à l'écran
+    float x;    //Position de l'image Ã  l'Ã©cran
     float y;
     float zoom;
-    bool drapeau_stencil;   //Si "true", le sprite est un cache à afficher dans le tempon "stencil" d'OpenGl
+    bool drapeau_stencil;   //Si "true", le sprite est un cache Ã  afficher dans le tempon "stencil" d'OpenGl
 
 } sprite_2d;
 
@@ -88,7 +88,7 @@ public:
     }
 
     //====================================================
-    //  PAramètres des sprites:
+    //  PAramÃ¨tres des sprites:
     //====================================================
 
     void determine_resolution(uint32_t r_l, uint32_t r_h)
@@ -102,7 +102,7 @@ public:
         sprites[indice].zoom=zoom;
     }
 
-    //Le drapeau stencil ne peut être activé que si l'image est en mode 8 bits par pixel
+    //Le drapeau stencil ne peut Ãªtre activÃ© que si l'image est en mode 8 bits par pixel
     void determine_stencil(uint32_t indice,bool p_drapeau)
     {
         if (sprites[indice].image->bits_par_pixel==8)
@@ -135,7 +135,7 @@ public:
         glDisable(GL_LIGHTING);
         glEnable(GL_BLEND);
         glDisable(GL_TEXTURE_2D);
-        glDisable(GL_DEPTH_TEST); //Désactive la prise en compte de la profondeur ("z-buffer")
+        glDisable(GL_DEPTH_TEST); //DÃ©sactive la prise en compte de la profondeur ("z-buffer")
 
         Image_TIFF* image=sprites[indice].image;
         glPixelStorei (GL_UNPACK_ALIGNMENT, 1);

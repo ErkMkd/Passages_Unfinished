@@ -1,5 +1,5 @@
 //------------------------------------------------------
-//          Affichages pour le déboguage des rendus
+//          Affichages pour le dÃ©boguage des rendus
 //------------------------------------------------------
 
 

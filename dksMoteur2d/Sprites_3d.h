@@ -2,7 +2,7 @@
 #define SPRITES_3D_H_INCLUDED
 
 /*
-        Les sprites 3d peuvent être transformés par rotation ou homothétie. Leur transparence est également paramétrable.
+        Les sprites 3d peuvent Ãªtre transformÃ©s par rotation ou homothÃ©tie. Leur transparence est Ã©galement paramÃ©trable.
 */
 
 #include <vector>
@@ -15,7 +15,7 @@
 typedef struct
 {
     Image_TIFF* image;
-    float x;    //Position de l'image à l'écran
+    float x;    //Position de l'image Ã  l'Ã©cran
     float y;
     float cx;   //Centre du sprite
     float cy;
@@ -59,7 +59,7 @@ class Sprites_3d
         // Charge les images:
         for (uint32_t i=0;i<nbrImages;i++)
         {
-            sprite_3d nouveau_sprite;   //La création dans la fonction ne plante pas...Peut-être parcequ'on est dans une boucle...
+            sprite_3d nouveau_sprite;   //La crÃ©ation dans la fonction ne plante pas...Peut-Ãªtre parcequ'on est dans une boucle...
             nouveau_sprite.x=0.;
             nouveau_sprite.y=0.;
             nouveau_sprite.cx=0.;
@@ -74,7 +74,7 @@ class Sprites_3d
             sprites.push_back(nouveau_sprite);
         }
 
-        // Génère les identifiants:
+        // GÃ©nÃ¨re les identifiants:
         glGenTextures(nbrImages,textures_openGl_id); //Allocation des identifiants de textures
 
         genere_textures_openGL();
@@ -98,7 +98,7 @@ class Sprites_3d
         }
         sprites.clear();
     }
-    //=============== Génère les textures openGl à partir des images TIFF:
+    //=============== GÃ©nÃ¨re les textures openGl Ã  partir des images TIFF:
 private:
     void genere_textures_openGL()
     {
@@ -107,23 +107,23 @@ private:
             Image_TIFF* image=sprites[i].image;
             image->texture_id=textures_openGl_id[i]; //Initialise les identifiants textures pour les images.
 
-            glBindTexture(GL_TEXTURE_2D,textures_openGl_id[i]); //Sélection de la texture courante
+            glBindTexture(GL_TEXTURE_2D,textures_openGl_id[i]); //SÃ©lection de la texture courante
 
-            glTexParameterf(GL_TEXTURE_2D,      //Cible: La texture à paramétrer
-                            GL_TEXTURE_WRAP_S,  //nomparam: Le paramètre à initialiser (ici:mode débordement horizontal de la texture 2d)
-                            GL_REPEAT);          //valeur: la valeur du paramètre.
-            glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT); //Mode de débordement vertical de la texture 2d
+            glTexParameterf(GL_TEXTURE_2D,      //Cible: La texture Ã  paramÃ©trer
+                            GL_TEXTURE_WRAP_S,  //nomparam: Le paramÃ¨tre Ã  initialiser (ici:mode dÃ©bordement horizontal de la texture 2d)
+                            GL_REPEAT);          //valeur: la valeur du paramÃ¨tre.
+            glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT); //Mode de dÃ©bordement vertical de la texture 2d
 
-            glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR); //Mode d'étirement de la texture
-            glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR); //Mode de rétrécissement de la texture
+            glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR); //Mode d'Ã©tirement de la texture
+            glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR); //Mode de rÃ©trÃ©cissement de la texture
 
             glTexImage2D(GL_TEXTURE_2D, //Type de  texture
-                        0,      //level: 0 pour une texture à 1 niveau (???)
+                        0,      //level: 0 pour une texture Ã  1 niveau (???)
                         4,      //component: 1:R, 2:RA, 3:RVB, 4:RVBA
                         image->largeur,image->hauteur, //largeur et hauteur de la texture en pixels
-                        0,      //Largeur du bord. l et h sont incrémentées de 2x cette valeur
+                        0,      //Largeur du bord. l et h sont incrÃ©mentÃ©es de 2x cette valeur
                         image->format_pixels, //Format des pixels
-                        GL_UNSIGNED_BYTE, //Type des données
+                        GL_UNSIGNED_BYTE, //Type des donnÃ©es
                         image->image);
         }
     }
@@ -177,7 +177,7 @@ public:
         glDisable(GL_LIGHTING);
         glEnable(GL_BLEND);
         glEnable(GL_TEXTURE_2D);
-        glDisable(GL_DEPTH_TEST); //Désactive la prise en compte de la profondeur ("z-buffer")
+        glDisable(GL_DEPTH_TEST); //DÃ©sactive la prise en compte de la profondeur ("z-buffer")
         glDisable(GL_CULL_FACE);
         glEnable(GL_COLOR_MATERIAL);
         glColorMaterial(GL_FRONT_AND_BACK,GL_DIFFUSE);
@@ -211,7 +211,7 @@ public:
         glPopMatrix();
     }
 
-    //Résolution de l'écran pour une mise à l'échelle de l'image.
+    //RÃ©solution de l'Ã©cran pour une mise Ã  l'Ã©chelle de l'image.
     void determine_echelle(float resolution_l,float resolution_h,float distance_ecran,float hauteur_ecran)
     {
         resolution_x=resolution_l;

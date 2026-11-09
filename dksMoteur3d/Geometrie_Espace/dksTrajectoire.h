@@ -10,7 +10,7 @@
 #include "../../gestion_fichiers/gestion_fichiers.h"
 #define DKSTRAJECTOIRE_NBR_POINTS_MAX 1000
 
-//Constantes utilisées pour le tri:
+//Constantes utilisÃ©es pour le tri:
 #define DKSTRAJECTOIRE_AXE_X 0
 #define DKSTRAJECTOIRE_AXE_Y 1
 #define DKSTRAJECTOIRE_AXE_Z 2
@@ -18,7 +18,7 @@
 class tri_point_trajectoire
 {
     public:
-  float valeur;     //Coordonnées X, Y, ou Z selon l'axe de tri choisi
+  float valeur;     //CoordonnÃ©es X, Y, ou Z selon l'axe de tri choisi
   float x;
   float y;
   float z;
@@ -29,19 +29,19 @@ class dksTrajectoire
     private:
             bool drapeau_longueurs;
             float points[3*DKSTRAJECTOIRE_NBR_POINTS_MAX];
-            vector<tri_point_trajectoire> liste_tri_points;    //Indices des points triés
+            vector<tri_point_trajectoire> liste_tri_points;    //Indices des points triÃ©s
             float longueurs[DKSTRAJECTOIRE_NBR_POINTS_MAX];
             uint32_t nbrPoints;
             float facteur_lissage;
             float longueur_totale;
             float echelle;
-            float precision_calcul_longueur; //Les segments de courbe sont divisés en ce nombre de segments droits, pour un calcul approchant des longueurs des courbes
+            float precision_calcul_longueur; //Les segments de courbe sont divisÃ©s en ce nombre de segments droits, pour un calcul approchant des longueurs des courbes
     public:
 
 
         //=============================================================================================================
         //                      CONSTRUCTEUR
-        //  drapeau_longueur à false si on ne veut pas se servir des longueurs des courbes (gourmand en temps machine)
+        //  drapeau_longueur Ã  false si on ne veut pas se servir des longueurs des courbes (gourmand en temps machine)
         //=============================================================================================================
         dksTrajectoire(float* p_points=NULL, uint32_t p_nbrPoints=0,float p_facteur_lissage=.75,bool p_drapeau_longueurs=true, float p_precision_calcul_longueurs=1000. )
         {
@@ -87,7 +87,7 @@ class dksTrajectoire
         }
 
         //--------------------------------------------------------------------------------------
-        //      Calcul le vecteur unitaire tangent à deux segments (au point p2)
+        //      Calcul le vecteur unitaire tangent Ã  deux segments (au point p2)
         //--------------------------------------------------------------------------------------
 
         static void calcul_tangente_unitairef(float* p1, float* p2, float* p3, float* tangente)
@@ -132,8 +132,8 @@ class dksTrajectoire
             }
         }
         //--------------------------------------------------------------------------------------
-        //  Calcul la position du point entre l'intervalle [p2,p3] à l'instant t, 0 <= t <= 1.
-        //  La travjectoire est lissée.
+        //  Calcul la position du point entre l'intervalle [p2,p3] Ã  l'instant t, 0 <= t <= 1.
+        //  La travjectoire est lissÃ©e.
         //---------------------------------------------------------------------------------------
         private:
         static void calcul_interpolation_spline(float* p1, float* p2, float* p3, float* p4, float t,float facteur, float* resultat)
@@ -161,7 +161,7 @@ class dksTrajectoire
             t2[2]*=norme;
 
 
-            //Calcul des points de contrôle i1 et i2 et du vecteur vi=i1i2
+            //Calcul des points de contrÃ´le i1 et i2 et du vecteur vi=i1i2
             i1[0]=p2[0]+t1[0];
             i1[1]=p2[1]+t1[1];
             i1[2]=p2[2]+t1[2];
@@ -174,7 +174,7 @@ class dksTrajectoire
             vi1[1]=i2[1]-i1[1];
             vi1[2]=i2[2]-i1[2];
 
-            //Calcul des points intermédiaires
+            //Calcul des points intermÃ©diaires
             //
             //  i3=p2+t*t1
             //  i4=i1+t*vi1
@@ -191,7 +191,7 @@ class dksTrajectoire
             i5[1]=i2[1]+t*t2[1];
             i5[2]=i2[2]+t*t2[2];
 
-            //Calcul des vecteurs intermédiaires:
+            //Calcul des vecteurs intermÃ©diaires:
 
             vi2[0]=i4[0]-i3[0];
             vi2[1]=i4[1]-i3[1];
@@ -201,7 +201,7 @@ class dksTrajectoire
             vi3[1]=i5[1]-i4[1];
             vi3[2]=i5[2]-i4[2];
 
-            //Calcul des deuxièmes points intermédiaires:
+            //Calcul des deuxiÃ¨mes points intermÃ©diaires:
             //
             // i6=i3+t*vi2
             // i7=i4+t*vi3
@@ -214,7 +214,7 @@ class dksTrajectoire
             i7[1]=i4[1]+t*vi3[1];
             i7[2]=i4[2]+t*vi3[2];
 
-            //Calcul du point cherché:
+            //Calcul du point cherchÃ©:
             //
             // p(t)=i6+t*(i7-i6)
 
@@ -224,9 +224,9 @@ class dksTrajectoire
         }
 
         //--------------------------------------------------------------------------------------
-        //  Calcul la position du point entre l'intervalle [p2,p3] à l'instant t, 0 <= t <= 1.
-        //  Renvoie également la tangente à cette position
-        //  La travjectoire est lissée.
+        //  Calcul la position du point entre l'intervalle [p2,p3] Ã  l'instant t, 0 <= t <= 1.
+        //  Renvoie Ã©galement la tangente Ã  cette position
+        //  La travjectoire est lissÃ©e.
         //---------------------------------------------------------------------------------------
         static void calcul_interpolation_spline_tangente(float* p1, float* p2, float* p3, float* p4, float t,float facteur, float* position, float* tangente)
         {
@@ -253,7 +253,7 @@ class dksTrajectoire
             t2[2]*=norme;
 
 
-            //Calcul des points de contrôle i1 et i2 et du vecteur vi=i1i2
+            //Calcul des points de contrÃ´le i1 et i2 et du vecteur vi=i1i2
             i1[0]=p2[0]+t1[0];
             i1[1]=p2[1]+t1[1];
             i1[2]=p2[2]+t1[2];
@@ -266,7 +266,7 @@ class dksTrajectoire
             vi1[1]=i2[1]-i1[1];
             vi1[2]=i2[2]-i1[2];
 
-            //Calcul des points intermédiaires
+            //Calcul des points intermÃ©diaires
             //
             //  i3=p2+t*t1
             //  i4=i1+t*vi1
@@ -283,7 +283,7 @@ class dksTrajectoire
             i5[1]=i2[1]+t*t2[1];
             i5[2]=i2[2]+t*t2[2];
 
-            //Calcul des vecteurs intermédiaires:
+            //Calcul des vecteurs intermÃ©diaires:
 
             vi2[0]=i4[0]-i3[0];
             vi2[1]=i4[1]-i3[1];
@@ -293,7 +293,7 @@ class dksTrajectoire
             vi3[1]=i5[1]-i4[1];
             vi3[2]=i5[2]-i4[2];
 
-            //Calcul des deuxièmes points intermédiaires:
+            //Calcul des deuxiÃ¨mes points intermÃ©diaires:
             //
             // i6=i3+t*vi2
             // i7=i4+t*vi3
@@ -306,7 +306,7 @@ class dksTrajectoire
             i7[1]=i4[1]+t*vi3[1];
             i7[2]=i4[2]+t*vi3[2];
 
-            //Calcul du point cherché:
+            //Calcul du point cherchÃ©:
             //
             // p(t)=i6+t*(i7-i6)
 
@@ -315,7 +315,7 @@ class dksTrajectoire
             position[2]=i6[2]+t*(i7[2]-i6[2]);
 
             //Calcul de la tangente:
-            //On répète les opérations avec un t légèrement supérieur
+            //On rÃ©pÃ¨te les opÃ©rations avec un t lÃ©gÃ¨rement supÃ©rieur
             t+=0.001;
 
             i3[0]=p2[0]+t*t1[0];
@@ -403,7 +403,7 @@ class dksTrajectoire
         }
 
         //------------------------------------------------
-        //  Remet à jour les longueurs des intervalles
+        //  Remet Ã  jour les longueurs des intervalles
         //------------------------------------------------
         private:
         void maj_longueurs_intervalles()
@@ -420,10 +420,10 @@ class dksTrajectoire
         }
 
         //--------------------------------------------------------------------------------------
-        //  Calcul la position du point  à l'intervalle spécifié, à l'instant t, 0 <= t <= 1.
-        //  t=0 :départ intervalle,
+        //  Calcul la position du point  Ã  l'intervalle spÃ©cifiÃ©, Ã  l'instant t, 0 <= t <= 1.
+        //  t=0 :dÃ©part intervalle,
         //  t=1 :fin intervalle
-        //  La travjectoire est lissée.
+        //  La travjectoire est lissÃ©e.
         //---------------------------------------------------------------------------------------
         public:
         void renvoie_position_intervalle(uint32_t intervalle,float t, float* point)
@@ -518,7 +518,7 @@ class dksTrajectoire
         }
 
         //--------------------------------------------
-        //Détermine les points de la trajectoire:
+        //DÃ©termine les points de la trajectoire:
         //--------------------------------------------
         void determine_point(uint32_t i, float x, float y, float z)
         {
@@ -542,7 +542,7 @@ class dksTrajectoire
         }
 
 
-        //----- Détermine les coordonnées des points:
+        //----- DÃ©termine les coordonnÃ©es des points:
         void determine_points(float* p_points,uint32_t p_nbrPoints)
         {
             nbrPoints=p_nbrPoints;
@@ -583,7 +583,7 @@ class dksTrajectoire
             }
         }
 
-        //Fonction un peu particulière: les points en entrée sont enregistrés
+        //Fonction un peu particuliÃ¨re: les points en entrÃ©e sont enregistrÃ©s
         //dans l'ordre inverse.
         void determine_points_inverses(float* p_points,uint32_t p_nbrPoints)
         {
@@ -655,8 +655,8 @@ class dksTrajectoire
 
         }
 
-        //Le point 0 de la trajectoire est positionné selon les coordonnées spécifiées,
-        // et tout les autres points sont déplacés relativement à ce point 0.
+        //Le point 0 de la trajectoire est positionnÃ© selon les coordonnÃ©es spÃ©cifiÃ©es,
+        // et tout les autres points sont dÃ©placÃ©s relativement Ã  ce point 0.
         // Les distances ne changent pas.
         void positionne_trajectoire_point_0(float px,float py,float pz)
         {
@@ -793,7 +793,7 @@ class dksTrajectoire
         // Sens: false= descendant
         //       true= ascendant
         //---------------------------------------
-        //Le test utilisé pour le tri des points:
+        //Le test utilisÃ© pour le tri des points:
 		static bool comparaison_descendant(tri_point_trajectoire t1, tri_point_trajectoire t2) { return t1.valeur > t2.valeur; }
 		static bool comparaison_ascendant(tri_point_trajectoire t1, tri_point_trajectoire t2) { return t1.valeur < t2.valeur; }
 
@@ -850,7 +850,7 @@ class dksTrajectoire
         //------------------------------------------------------------------------------------
         //      Renvoie une position sur la trajectoire
         //  t doit varier entre 0 et 1
-        //  Cette fonction ne marche que si le calcul des longueurs de courbes est activé.
+        //  Cette fonction ne marche que si le calcul des longueurs de courbes est activÃ©.
         //------------------------------------------------------------------------------------
         void renvoie_position(float t, float* point)
         {
@@ -1038,7 +1038,7 @@ class dksTrajectoire
         //  Affiche une courbe:
         //  trajectoire: tableau de points
         //  nbr_points: le nombre de points;
-        //  nbr_etapes: le nombre de segments à afficher entre les points (précision de la courbe)
+        //  nbr_etapes: le nombre de segments Ã  afficher entre les points (prÃ©cision de la courbe)
         //--------------------------------------------------------------------------------------------
 
         void affiche_courbe(uint32_t nbr_etapes,uint32_t couleur=0xffffff00)
@@ -1055,7 +1055,7 @@ class dksTrajectoire
 
             if (nbrPoints<2) return;
 
-            //--- Affiche le point de départ:
+            //--- Affiche le point de dÃ©part:
             glPointSize(6);
             glBegin(GL_POINTS);
                 glVertex3fv(&points[0]);

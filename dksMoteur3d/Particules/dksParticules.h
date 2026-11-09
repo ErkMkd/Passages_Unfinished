@@ -7,17 +7,17 @@
 #include "../../Utiles/Bruit.h"
 #include "../../gestion_fichiers/gestion_fichiers.h"
 
-//Structure de base des ÈlÈments du champ de particules:
+//Structure de base des √©l√©ments du champ de particules:
 class Element_particule
 {
     public:
-    void* suivante;    //Null si c'est le dernier ÈlÈment de la liste
-    void* precedente;  //Null si c'est le premier ÈlÈment
+    void* suivante;    //Null si c'est le dernier √©l√©ment de la liste
+    void* precedente;  //Null si c'est le premier √©l√©ment
     uint32_t point; //L'indice du point
     double vitesse[3];
     double masse;
     double date_creation;   //La date d'activation de la particule.
-    double duree_vie;       //La durÈe de vie en secondes aprËs la date de crÈation
+    double duree_vie;       //La dur√©e de vie en secondes apr√®s la date de cr√©ation
     Bruit* perturbation_x;    //Perturbation des mouvements
     Bruit* perturbation_y;
     Bruit* perturbation_z;
@@ -33,7 +33,7 @@ class Element_particule
         perturbation_x=NULL;
         perturbation_y=NULL;
         perturbation_z=NULL;
-        perturbation_x=new Bruit(); //PrÈvoir les erreurs...
+        perturbation_x=new Bruit(); //Pr√©voir les erreurs...
         perturbation_y=new Bruit();
         perturbation_z=new Bruit();
         amplitude_perlin=2.;
@@ -50,19 +50,19 @@ class Element_particule
 
 };
 
-//Structure utilisÈe pour le tri des points:
+//Structure utilis√©e pour le tri des points:
 class tri_particules
 {   public:
-    double distance;        //Distance du point ‡ l'oeil
+    double distance;        //Distance du point √† l'oeil
     uint32_t indice_point;   //L'indice du point
 };
 
 //===================================================================================================
 //                                 Classe de base des particules
-//      Les champs de particules hÈritent des volumes. Comme Áa, on peut les ajouter ‡ la liste
-//      d'affichage d'une scËne.
+//      Les champs de particules h√©ritent des volumes. Comme √ßa, on peut les ajouter √† la liste
+//      d'affichage d'une sc√®ne.
 //
-//      Les points sont dans le repËre du conteneur.
+//      Les points sont dans le rep√®re du conteneur.
 //
 //===================================================================================================
 
@@ -76,33 +76,33 @@ class dksParticules :public dksVolume
         float epaisseur_points_luminescents; //La taille des points lors du rendu des surfaces luminescents
         uint32_t couleur_points;
         bool drapeau_vie_limitee;   //Utilisation des listes
-        bool drapeau_absolu;    //True si les points sont dÈfini dans l'espace absolu (false par dÈfaut)
+        bool drapeau_absolu;    //True si les points sont d√©fini dans l'espace absolu (false par d√©faut)
 
     protected:
-        double* points;     //Les coordonnÈes des particules
+        double* points;     //Les coordonn√©es des particules
         uint32_t nbrPoints;
-        Element_particule** particules;   //Les donnÈes propres aux particules.
+        Element_particule** particules;   //Les donn√©es propres aux particules.
 
         vector<tri_particules> indices_points;  //Pour le tri des points. Ca peut servir selon l'utilisation des particules.
 
-        Element_particule* particules_actives;  //Pointeur sur la premiËre particule active
-        Element_particule* particules_inactives;    //Pointeur sur la premiËre particule inactive
+        Element_particule* particules_actives;  //Pointeur sur la premi√®re particule active
+        Element_particule* particules_inactives;    //Pointeur sur la premi√®re particule inactive
 
         double temps_precedent; //Sert pour les calculs temporels
         double* vitesses_points;    //Vecteurs V correspondants aux points respectifs
         double* masses_points;    //Vecteurs V correspondants aux points respectifs
 
         Bruit* perturbation;    //Perturbation globale
-        bool drapeau_maj_points_auto;   //True si les paramËtres des particules sont appliquÈs aux points lors de l'appel ‡ "applique_mouvements"
+        bool drapeau_maj_points_auto;   //True si les param√®tres des particules sont appliqu√©s aux points lors de l'appel √† "applique_mouvements"
 
-        //-------- DonnÈes de gestion du mouvement selon un flux:
+        //-------- Donn√©es de gestion du mouvement selon un flux:
         double flux_xmin;
         double flux_xmax;
         double flux_ymin;
         double flux_ymax;
         double flux_zmin;
         double flux_zmax;
-        uint8_t flux_direction; //AVANT,ARRIERE,HAUT,BAS,GAUCHE,DROITE  - Les points se dÈplacent selon les axes du conteneur.
+        uint8_t flux_direction; //AVANT,ARRIERE,HAUT,BAS,GAUCHE,DROITE  - Les points se d√©placent selon les axes du conteneur.
 
         //=========================================================
         //                  CONSTRUCTEUR
@@ -139,7 +139,7 @@ class dksParticules :public dksVolume
         //======================================================
         //                   DESTRUCTEUR:
         //======================================================
-        //Le destructeur de la classe parent est appelÈ juste aprËs.
+        //Le destructeur de la classe parent est appel√© juste apr√®s.
         ~dksParticules()
         {
             indices_points.clear();
@@ -150,7 +150,7 @@ class dksParticules :public dksVolume
         }
 
         //====================================================================================================================
-        //Fonctions ‡ Ècraser par les classes hÈritiËres qui utilisent d'autres donnÈes pour les particules:
+        //Fonctions √† √©craser par les classes h√©riti√®res qui utilisent d'autres donn√©es pour les particules:
         //====================================================================================================================
         virtual void creation_particules()
         {
@@ -188,7 +188,7 @@ class dksParticules :public dksVolume
             if (points==NULL || particules==NULL)
             {
                 erreur=DKSVOLUME_ERREUR_MEMOIRE;
-                cout<<"Erreur dans dksParticule::determine_nombre_de_points() - MÈmoire insuffisante"<<endl;
+                cout<<"Erreur dans dksParticule::determine_nombre_de_points() - M√©moire insuffisante"<<endl;
                 return false;
             }
 
@@ -213,7 +213,7 @@ class dksParticules :public dksVolume
 
 
         //------------------------------------------------
-        //      DÈtermine l'Èchelle gÈomÈtrique des points
+        //      D√©termine l'√©chelle g√©om√©trique des points
         //------------------------------------------------
         public:
         virtual void determine_echelle_geometrique(double e)
@@ -229,7 +229,7 @@ class dksParticules :public dksVolume
         }
 
         //-------------------------------------------
-        //DÈtermine les coordonnÈes des points.
+        //D√©termine les coordonn√©es des points.
         //-------------------------------------------
         public:
         void determine_points(double *p_points,uint32_t p_nbrPoints)
@@ -244,7 +244,7 @@ class dksParticules :public dksVolume
             a_ete_deplace();
         }
 
-        //N'affecte que les coordonnÈes X et Z:
+        //N'affecte que les coordonn√©es X et Z:
         void determine_points_XZ(double p_points[],uint32_t p_nbrPoints)
         {
             if ( nbrPoints<p_nbrPoints ) p_nbrPoints=nbrPoints;
@@ -257,8 +257,8 @@ class dksParticules :public dksVolume
             a_ete_deplace();
         }
 
-        //DÈtermine les coordonnÈes d'un point.
-        //Renvoie true si tout s'est bien passÈ.
+        //D√©termine les coordonn√©es d'un point.
+        //Renvoie true si tout s'est bien pass√©.
         bool determine_point(uint32_t indice, double px,double py,double pz)
         {
             if (indice>=nbrPoints) return false;
@@ -269,7 +269,7 @@ class dksParticules :public dksVolume
             return true;
         }
 
-        //GÈnËre des coordonnÈes au hazard, dans les limite spÈcifiÈes en entrÈe:
+        //G√©n√®re des coordonn√©es au hazard, dans les limite sp√©cifi√©es en entr√©e:
         void random_points(double xmin, double xmax, double ymin, double ymax, double zmin, double zmax)
         {
             double random_max= double(RAND_MAX);
@@ -296,7 +296,7 @@ class dksParticules :public dksVolume
             }
         }
 
-        //DÈtermine les masses des particules au hazard, dans la fourchette dÈfinie en entrÈe:
+        //D√©termine les masses des particules au hazard, dans la fourchette d√©finie en entr√©e:
         void random_masses(float min,float max)
         {
             for (uint32_t i=0;i < nbrPoints;i++)
@@ -328,7 +328,7 @@ class dksParticules :public dksVolume
         //=========================================================================================
 
 
-		//DÈplacement des points:
+		//D√©placement des points:
 		void deplace_points(double dx,double dy, double dz, uint32_t premier=0, uint32_t p_nbrPoints=0)
 		{
 		    p_nbrPoints+=premier;
@@ -344,7 +344,7 @@ class dksParticules :public dksVolume
 		}
 
         //---------------------------------------------------------------------------------
-        //  Mis ‡ jour des positions des points en fonction  des paramËtres des particules
+        //  Mis √† jour des positions des points en fonction  des param√®tres des particules
         //---------------------------------------------------------------------------------
         virtual void maj_positions_points()
         {
@@ -408,8 +408,8 @@ class dksParticules :public dksVolume
 		}
 
 		//----------------------------------------------------------------------
-		//                  Mouvement des points par un centre de gravitÈ
-		/// Appeler APRES la mise ‡ jour de la scËne
+		//                  Mouvement des points par un centre de gravit√©
+		/// Appeler APRES la mise √† jour de la sc√®ne
 		//----------------------------------------------------------------------
 
 		void maj_gravite(double centre[3],double acceleration,double frottements=1.,double distance_min=1.)
@@ -439,8 +439,8 @@ class dksParticules :public dksVolume
         }
 
         //-----------------------------------------------------------------------
-        //       Gravite avec trajectoires perturbÈes par un bruit de Perlin
-        /// Appeler APRES la mise ‡ jour de la scËne
+        //       Gravite avec trajectoires perturb√©es par un bruit de Perlin
+        /// Appeler APRES la mise √† jour de la sc√®ne
         //-----------------------------------------------------------------------
         void maj_gravite_perturbation_Perlin(double centre[3],double acceleration,double frottements=1.,double distance_min=1., double amplitude=1.,double intervalle=1.)
         {
@@ -482,8 +482,8 @@ class dksParticules :public dksVolume
         }
 
         //-----------------------------------------------------------------------
-        //       Gestion d'un flux de particules se dÈplaÁant dans une direction
-        //          dans un espace dÈterminÈ
+        //       Gestion d'un flux de particules se d√©pla√ßant dans une direction
+        //          dans un espace d√©termin√©
         //-----------------------------------------------------------------------
         void initialise_flux(double xmin, double xmax, double ymin, double ymax, double zmin, double zmax, uint8_t p_direction )
         {
@@ -502,13 +502,13 @@ class dksParticules :public dksVolume
             flux_direction=p_direction;
         }
 
-        //--------Mise ‡ jour de la position des points
+        //--------Mise √† jour de la position des points
 
         void maj_flux(double vitesse=1.)
         {
             uint32_t i;
             double p;
-            if (vitesse<0.) return; //Permet d'optimiser le calcul des coordonnÈes - Changer la direction pour un flux inversÈ
+            if (vitesse<0.) return; //Permet d'optimiser le calcul des coordonn√©es - Changer la direction pour un flux invers√©
             if (delta_t<1e-6) return;
             vitesse*=delta_t;
             switch (flux_direction)
@@ -568,12 +568,12 @@ class dksParticules :public dksVolume
         //=========================================================
 		//              Tri les points:
         //=========================================================
-        //Le test utilisÈ pour le tri des points:
+        //Le test utilis√© pour le tri des points:
 		static bool comparaison(tri_particules t1, tri_particules t2) { return t1.distance < t2.distance; }
 
 		virtual void tri_points(dksOeil* oeil)
 		{
-		    // Calcul la position de l'oeil par rapport au repËre du champ de particules:
+		    // Calcul la position de l'oeil par rapport au rep√®re du champ de particules:
             double position_oeil[3];
             dksRepere::point_relatif(oeil->repere_absolu,this,position_oeil);
 
@@ -615,7 +615,7 @@ class dksParticules :public dksVolume
             if ( particules_inactives==NULL ) return;
             Element_particule* particule = (Element_particule*)particules_inactives;
 
-            //Initialise les paramËtres de dÈpart de la particule:
+            //Initialise les param√®tres de d√©part de la particule:
 
             particule->date_creation=date;
 
@@ -629,8 +629,8 @@ class dksParticules :public dksVolume
             deplace_noeud(particule,&particules_actives,&particules_inactives);
         }
 
-        //DÈplace un noeud d'une liste vers une autre liste.
-        //Le noeud est ajoutÈ ‡ la tÍte de la liste de destination.
+        //D√©place un noeud d'une liste vers une autre liste.
+        //Le noeud est ajout√© √† la t√™te de la liste de destination.
         void deplace_noeud(Element_particule* noeud, Element_particule** liste_source, Element_particule** liste_destination)
         {
             Element_particule* noeud_suivant=(Element_particule*)noeud->suivante;
@@ -649,7 +649,7 @@ class dksParticules :public dksVolume
             *liste_destination=noeud;
         }
 
-        //DÈsactive toutes les particules:
+        //D√©sactive toutes les particules:
         void desactive_particules()
         {
             particules_actives=NULL;
@@ -687,9 +687,9 @@ class dksParticules :public dksVolume
             }
         }
 
-        //------- Mise ‡ jour des particules selon leur durÈe de vie:
-        // Selon l'age de la particules, les classes hÈritiËres peuvent
-        // avoir diffÈrentes rÈactions. Fonction ‡ redÈfinir selon les besoins.
+        //------- Mise √† jour des particules selon leur dur√©e de vie:
+        // Selon l'age de la particules, les classes h√©riti√®res peuvent
+        // avoir diff√©rentes r√©actions. Fonction √† red√©finir selon les besoins.
         virtual void maj_ages(double date)
         {
             Element_particule* particule=particules_actives;
@@ -708,7 +708,7 @@ class dksParticules :public dksVolume
 
 
 		//==========================================================================
-        //         Prototypes des fonctions spÈcifiques aux types de particules
+        //         Prototypes des fonctions sp√©cifiques aux types de particules
         //==========================================================================
         virtual void affiche_vie_limitee()
         {
@@ -722,7 +722,7 @@ class dksParticules :public dksVolume
             glEnd();
         }
 
-        //Le rendu propre aux classes dÈrivÈes.
+        //Le rendu propre aux classes d√©riv√©es.
         virtual void affiche(dksOeil* oeil)
         {
                 uint32_t i;
@@ -762,7 +762,7 @@ class dksParticules :public dksVolume
             return Fichiers::sauve_donnees_binaires((char*)points,nbrPoints*3*sizeof(double),nom_fichier);
         }
 
-        ///Il faut que les points aient dÈj‡ ÈtÈ allouÈs!
+        ///Il faut que les points aient d√©j√† √©t√© allou√©s!
         bool charge_points(char* nom_fichier)
         {
             int32_t taille=Fichiers::charge_donnees_binaires((char*)points,nbrPoints*3*sizeof(double),nom_fichier);

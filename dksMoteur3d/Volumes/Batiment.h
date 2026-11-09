@@ -3,19 +3,19 @@
 
 #include "../Elements_Fondamentaux/Volume.h"
 
-//Drapeaux pour la libération de la mémoire lors de la destruction:
+//Drapeaux pour la libÃ©ration de la mÃ©moire lors de la destruction:
 
 #define BATIMENT_VOLUMES 0x0000001
 
 
 //===================================================================================
 //
-//      ATTENTION: Les volumes ne doivent pas faire partis d'une hiérarchie externe,
+//      ATTENTION: Les volumes ne doivent pas faire partis d'une hiÃ©rarchie externe,
 //                  Sinon la duplication ne marche pas bien.
 //
 //===================================================================================
 
-//================ Définition de la classe:
+//================ DÃ©finition de la classe:
 class Batiment :public Conteneur
 {
     public:
@@ -92,7 +92,7 @@ class Batiment :public Conteneur
                 volumes_copie[i]=volume_copie;
             }
 
-            //Copie la hiérarchie:
+            //Copie la hiÃ©rarchie:
             for(i=0;i<nbrVolumes;i++)
             {
                 if(volumes[i]->parent==this)volumes_copie[i]->parent=NULL;
@@ -109,7 +109,7 @@ class Batiment :public Conteneur
                 }
             }
 
-            //Crée le clone du batiment:
+            //CrÃ©e le clone du batiment:
             Batiment* clone= new Batiment(
                                         nom,volumes_copie,nbrVolumes,BATIMENT_VOLUMES,
                                         x,y,z,

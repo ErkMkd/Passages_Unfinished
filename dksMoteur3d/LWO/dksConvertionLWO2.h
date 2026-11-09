@@ -4,7 +4,7 @@
 /*
 *
 *
-*       Convertisseur des donnÈes LWO2 aux formats exploitables par le moteur
+*       Convertisseur des donn√©es LWO2 aux formats exploitables par le moteur
 *       LES COORDONNEES EN X SONT INVERSEES !!!
 *
 */
@@ -20,7 +20,7 @@
 #define DKSCONVERTIONLWO2_ERREUR_MEMOIRE 2
 #define DKSCONVERTIONLWO2_ERREUR_VOLUME 3
 
-//========= DÈbuguage:
+//========= D√©buguage:
 #define DKSCONVERTIONLWO2_DEBUG false
 #define DKSCONVERTIONLWO2_DEBUG_SURFACES false
 #define DKSCONVERTIONLWO2_DEBUG_FACES false
@@ -62,26 +62,26 @@ class dksConvertionLWO2
 
             if (donneesLWO2==NULL)
             {
-                cout<<"Erreur dans dksConvertionLWO2() - DonnÈes LWO2 invalides"<<endl;
+                cout<<"Erreur dans dksConvertionLWO2() - Donn√©es LWO2 invalides"<<endl;
                 erreur=DKSCONVERTIONLWO2_ERREUR_LWO2_INVALIDE;
                 return;
             }
             if (DKSCONVERTIONLWO2_DEBUG)
             {
-                cout<<endl<<"======================== Convertion des donnÈes LWO2 : "<<donneesLWO2->renvoie_nom_fichier()<<" =========================="<<endl<<endl;
+                cout<<endl<<"======================== Convertion des donn√©es LWO2 : "<<donneesLWO2->renvoie_nom_fichier()<<" =========================="<<endl<<endl;
             }
 
-            //CrÈation des volumes vides:
+            //Cr√©ation des volumes vides:
             if (!creation_volumes()) return;
-            //CrÈation des sommets:
+            //Cr√©ation des sommets:
             if (!creation_sommets()) return;
-            //CrÈation des surfaces:
+            //Cr√©ation des surfaces:
             if (!creation_surfaces()) return;
-            //CrÈation des textures:
+            //Cr√©ation des textures:
             if (!creation_textures()) return;
-            //CrÈation des polygones:
+            //Cr√©ation des polygones:
             if (!creation_polygones()) return;
-            //RÈpartition des surfaces dans les volumes:
+            //R√©partition des surfaces dans les volumes:
             if (!repartition_surfaces()) return;
 
 
@@ -89,11 +89,11 @@ class dksConvertionLWO2
 
             if (DKSCONVERTIONLWO2_DEBUG)
             {
-                cout<<endl<<"Convertion rÈussie..."<<endl;
+                cout<<endl<<"Convertion r√©ussie..."<<endl;
 
-                if (DKSCONVERTIONLWO2_DEBUG_DUREES) cout<<"DurÈe de la convertion: "<<duree_totale<<" ms"<<endl ;
+                if (DKSCONVERTIONLWO2_DEBUG_DUREES) cout<<"Dur√©e de la convertion: "<<duree_totale<<" ms"<<endl ;
 
-                cout<<"======================== Fin de convertion des donnÈes LWO2 : "<<donneesLWO2->renvoie_nom_fichier()<<" =========================="<<endl<<endl;
+                cout<<"======================== Fin de convertion des donn√©es LWO2 : "<<donneesLWO2->renvoie_nom_fichier()<<" =========================="<<endl<<endl;
             }
 
 
@@ -119,14 +119,14 @@ class dksConvertionLWO2
         }
 
         //====================================================
-        //          CrÈation des volumes vides:
+        //          Cr√©ation des volumes vides:
         //====================================================
     private:
         bool creation_volumes()
         {
             if (DKSCONVERTIONLWO2_DEBUG)
             {
-                cout<<"     - - - - - CrÈation des volumes - - - - -"<<endl;
+                cout<<"     - - - - - Cr√©ation des volumes - - - - -"<<endl;
             }
             uint32_t i;
             nbrVolumes=donneesLWO2->renvoie_nbrCalques();
@@ -136,7 +136,7 @@ class dksConvertionLWO2
                 LWO2_Calque* calque=donneesLWO2->renvoie_LWO2_calque(i);
                 if (calque==NULL)
                 {
-                    cout<<"Erreur dans dksConvertionLWO2.creation_volumes() - DonnÈes LWO2 invalides"<<endl;
+                    cout<<"Erreur dans dksConvertionLWO2.creation_volumes() - Donn√©es LWO2 invalides"<<endl;
                     erreur=DKSCONVERTIONLWO2_ERREUR_LWO2_INVALIDE;
                     return false;
                 }
@@ -148,7 +148,7 @@ class dksConvertionLWO2
                 volumes.push_back(nouveau_volume);
                 if (nouveau_volume==NULL || nouveau_volume->erreur!=DKSVOLUME_OK)
                 {
-                    cout<<"Erreur dans dksConvertionLWO2.creation_volumes() - Erreur lors de la crÈation du volume ' "<<calque->nom<<" '"<<endl;
+                    cout<<"Erreur dans dksConvertionLWO2.creation_volumes() - Erreur lors de la cr√©ation du volume ' "<<calque->nom<<" '"<<endl;
                     erreur=DKSCONVERTIONLWO2_ERREUR_MEMOIRE;
                     return false;
                 }
@@ -157,7 +157,7 @@ class dksConvertionLWO2
 
                 if (DKSCONVERTIONLWO2_DEBUG)
                 {
-                    cout<<"   --- Volume crÈÈ:"<<nouveau_volume->nom<<endl;
+                    cout<<"   --- Volume cr√©√©:"<<nouveau_volume->nom<<endl;
                 }
             }
 
@@ -165,23 +165,23 @@ class dksConvertionLWO2
         }
 
         //====================================================
-        //          CrÈation des sommets:
+        //          Cr√©ation des sommets:
         //====================================================
         bool creation_sommets()
         {
             if (DKSCONVERTIONLWO2_DEBUG)
             {
-                cout<<"     - - - - - CrÈation des sommets - - - - -"<<endl;
+                cout<<"     - - - - - Cr√©ation des sommets - - - - -"<<endl;
             }
             uint32_t i,j;
             for (i=0;i<nbrVolumes;i++)
             {
-                LWO2_Calque* calque=donneesLWO2->renvoie_LWO2_calque(i); //La validitÈ des calques ‡ dÈj‡ ÈtÈ testÈe prÈcÈdemment
+                LWO2_Calque* calque=donneesLWO2->renvoie_LWO2_calque(i); //La validit√© des calques √† d√©j√† √©t√© test√©e pr√©c√©demment
                 uint32_t nbrSommets=calque->nbrSommets;
                 GLdouble* sommets=(GLdouble*)malloc(nbrSommets*(sizeof(GLdouble))*3);
                 if (sommets==NULL)
                 {
-                    cout<<"Erreur dans dksConvertionLWO2.creation_sommets() - MÈmoire insuffisante"<<endl;
+                    cout<<"Erreur dans dksConvertionLWO2.creation_sommets() - M√©moire insuffisante"<<endl;
                     erreur=DKSCONVERTIONLWO2_ERREUR_MEMOIRE;
                     return false;
                 }
@@ -205,7 +205,7 @@ class dksConvertionLWO2
         }
 
         //====================================================
-        //          CrÈation des surfaces:
+        //          Cr√©ation des surfaces:
         //====================================================
         bool creation_surfaces()
         {
@@ -215,7 +215,7 @@ class dksConvertionLWO2
 
             if (DKSCONVERTIONLWO2_DEBUG)
             {
-                cout<<"     - - - - - CrÈation des surfaces - - - - -"<<endl;
+                cout<<"     - - - - - Cr√©ation des surfaces - - - - -"<<endl;
             }
 
             nbrSurfacesLWO2=donneesLWO2->renvoie_nbrSurfaces();
@@ -225,19 +225,19 @@ class dksConvertionLWO2
                 LWO2_Surface* surfaceLWO2=donneesLWO2->renvoie_LWO2_surface(i);
                 if (surfaceLWO2==NULL)
                 {
-                    cout<<"Erreur dans dksConvertionLWO2.creation_surfaces() - DonnÈes LWO2 invalides"<<endl;
+                    cout<<"Erreur dans dksConvertionLWO2.creation_surfaces() - Donn√©es LWO2 invalides"<<endl;
                     erreur=DKSCONVERTIONLWO2_ERREUR_LWO2_INVALIDE;
                     return false;
                 }
 
-                //-----------Surface non-texturÈe:
+                //-----------Surface non-textur√©e:
                 //if (surfaceLWO2->textures.size()==0)
                 //{
                     nouvelle_surface=new dksSurface(surfaceLWO2->nom);
                     surfaces.push_back(nouvelle_surface);
                     if (nouvelle_surface==NULL || nouvelle_surface->erreur!=DKSSURFACE_OK)
                     {
-                        cout<<"Erreur dans dksConvertionLWO2.creation_surfaces() - MÈmoire insuffisante"<<endl;
+                        cout<<"Erreur dans dksConvertionLWO2.creation_surfaces() - M√©moire insuffisante"<<endl;
                         erreur=DKSCONVERTIONLWO2_ERREUR_MEMOIRE;
                         return false;
                     }
@@ -245,9 +245,9 @@ class dksConvertionLWO2
                     copie_parametres_surface(surfaceLWO2,nouvelle_surface);
 
                 //}
-                //-----------Surface texturÈe:
-                //  Je sÈpare les coutures de texture, si il y en a, et je crÈe une nouvelle surface avec.
-                //  Les faces concernÈes sont raccordÈes ‡ cette nouvelle surface.
+                //-----------Surface textur√©e:
+                //  Je s√©pare les coutures de texture, si il y en a, et je cr√©e une nouvelle surface avec.
+                //  Les faces concern√©es sont raccord√©es √† cette nouvelle surface.
                 //else
                 //{
 
@@ -264,7 +264,7 @@ class dksConvertionLWO2
         }
 
         //--------------------------------------------------------------
-        //  Copie les paramËtres de la surface LWO2 vers la surface DKS
+        //  Copie les param√®tres de la surface LWO2 vers la surface DKS
         //--------------------------------------------------------------
         void copie_parametres_surface(LWO2_Surface* surfaceLWO2, dksSurface* nouvelle_surface)
         {
@@ -296,7 +296,7 @@ class dksConvertionLWO2
         }
 
         //===============================================================================
-        //                      CrÈation des textures:
+        //                      Cr√©ation des textures:
         //===============================================================================
 
         bool creation_textures()
@@ -311,7 +311,7 @@ class dksConvertionLWO2
             Image* image;
 
             #if DKSCONVERTIONLWO2_DEBUG
-                cout<<"     - - - - - CrÈation des textures - - - - -"<<endl;
+                cout<<"     - - - - - Cr√©ation des textures - - - - -"<<endl;
             #endif
 
             //--------- Applique les filtres des clips LWO2 aux images:
@@ -327,7 +327,7 @@ class dksConvertionLWO2
                 if (bitmapLWO2->negatif) image->negatif();
             }
 
-            //--------- CrÈation des textures au format DKS:
+            //--------- Cr√©ation des textures au format DKS:
             nbrSurfacesLWO2=donneesLWO2->renvoie_nbrSurfaces();
 
             for (i=0;i<nbrSurfacesLWO2;i++)
@@ -346,7 +346,7 @@ class dksConvertionLWO2
                 {
                     textureLWO2=surfaceLWO2->textures[j];
 
-                    //Type de texture (image, procÈdurale...)
+                    //Type de texture (image, proc√©durale...)
                     if (textureLWO2->type != ID_IMAP) continue;
 
                     //Type IMAP (image map)
@@ -366,7 +366,7 @@ class dksConvertionLWO2
                             canal_texture=DKSTEXTURE_CANAL_LUMINESCENCE;
                             break;
                         case ID_SPEC:
-                            cout<<"Avertissement - Texture de spÈcularitÈ non prise en compte"<<endl;
+                            cout<<"Avertissement - Texture de sp√©cularit√© non prise en compte"<<endl;
                             continue;
                             break;
                         case ID_GLOS:
@@ -380,11 +380,11 @@ class dksConvertionLWO2
                             canal_texture=DKSTEXTURE_CANAL_TRANSPARENCE;
                             break;
                         case ID_RIND:
-                            cout<<"Avertissement - Texture de rÈfraction non prise en compte"<<endl;
+                            cout<<"Avertissement - Texture de r√©fraction non prise en compte"<<endl;
                             continue;
                             break;
                         case ID_TRNL:
-                            cout<<"Avertissement - Texture de transluciditÈ non prise en compte"<<endl;
+                            cout<<"Avertissement - Texture de translucidit√© non prise en compte"<<endl;
                             continue;
                             break;
                         case ID_BUMP:
@@ -417,7 +417,7 @@ class dksConvertionLWO2
                             type_projection=DKSTEXTURE_PROJECTION_PLAN;
                             break;
                         case LWO2_TYPE_PROJECTION_SPHERIQUE:
-                            cout<<"Avertissement - Projection sphÈrique non prise en compte"<<endl;
+                            cout<<"Avertissement - Projection sph√©rique non prise en compte"<<endl;
                             continue;
                             break;
                         case LWO2_TYPE_PROJECTION_UV:
@@ -429,16 +429,16 @@ class dksConvertionLWO2
                             break;
                     }
 
-                    //CrÈation de la texture:
+                    //Cr√©ation de la texture:
                     textureDKS=new dksTexture();
 
-                    //DonnÈes diverses:
+                    //Donn√©es diverses:
                     textureDKS->canal=canal_texture;
                     textureDKS->type_projection=type_projection;
 
                     switch(textureLWO2->mode_debordement_largeur)
                     {
-                        case LWO2_MODE_DEBORDEMENT_BORD: textureDKS->recouvrement_s=GL_CLAMP_TO_EDGE; break;  //Voir ‡ changer avec GL_CLAMP_TO_EDGE....
+                        case LWO2_MODE_DEBORDEMENT_BORD: textureDKS->recouvrement_s=GL_CLAMP_TO_EDGE; break;  //Voir √† changer avec GL_CLAMP_TO_EDGE....
                         case LWO2_MODE_DEBORDEMENT_DECOUPAGE: textureDKS->recouvrement_s=GL_CLAMP_TO_BORDER; break;
                         case LWO2_MODE_DEBORDEMENT_REFLEXION: textureDKS->recouvrement_s=GL_MIRRORED_REPEAT; break;
                         case LWO2_MODE_DEBORDEMENT_REPETITION: textureDKS->recouvrement_s=GL_REPEAT; break;
@@ -446,7 +446,7 @@ class dksConvertionLWO2
                     }
                     switch(textureLWO2->mode_debordement_hauteur)
                     {
-                        case LWO2_MODE_DEBORDEMENT_BORD: textureDKS->recouvrement_t=GL_CLAMP_TO_EDGE; break;  //Voir ‡ changer avec GL_CLAMP_TO_EDGE....
+                        case LWO2_MODE_DEBORDEMENT_BORD: textureDKS->recouvrement_t=GL_CLAMP_TO_EDGE; break;  //Voir √† changer avec GL_CLAMP_TO_EDGE....
                         case LWO2_MODE_DEBORDEMENT_DECOUPAGE: textureDKS->recouvrement_t=GL_CLAMP_TO_BORDER; break;
                         case LWO2_MODE_DEBORDEMENT_REFLEXION: textureDKS->recouvrement_t=GL_MIRRORED_REPEAT; break;
                         case LWO2_MODE_DEBORDEMENT_REPETITION: textureDKS->recouvrement_t=GL_REPEAT; break;
@@ -463,9 +463,9 @@ class dksConvertionLWO2
                         textureDKS->type_diminution=GL_NEAREST;
                         textureDKS->type_grossissement=GL_NEAREST;
                     }
-                    //GÈnËre l'objet texture d'openGl:
+                    //G√©n√®re l'objet texture d'openGl:
                     if(bitmapLWO2!=NULL) textureDKS->determine_image(bitmapLWO2->image);
-                    //Ajoute la texture ‡ la surface:
+                    //Ajoute la texture √† la surface:
                     surfaceDKS->ajoute_texture(textureDKS);
                     //activation de la texture:
                     if (textureLWO2->active==0) surfaceDKS->desactive_texture(textureDKS);
@@ -512,7 +512,7 @@ class dksConvertionLWO2
                                 break;
                         }
 
-                        ///RÈcupÈrer les paramËtres de centrage, mise ‡ l'Èchelle et rotation !!!
+                        ///R√©cup√©rer les param√®tres de centrage, mise √† l'√©chelle et rotation !!!
                         if (textureLWO2->systeme_coordonnees==LWO2_REPERE_RELATIF)
                         {
                             textureDKS->mode_projection=GL_OBJECT_LINEAR;
@@ -525,7 +525,7 @@ class dksConvertionLWO2
                         }
                     }
 
-                    //DÈbugage:
+                    //D√©bugage:
                     #if (DKSCONVERTIONLWO2_DEBUG && DKSCONVERTIONLWO2_DEBUG_TEXTURES)
                         cout<<"                     Canal : "<<(uint32_t)textureDKS->canal<<endl;
                         cout<<"                     Wrap S: "<<textureDKS->recouvrement_s<<endl;
@@ -537,7 +537,7 @@ class dksConvertionLWO2
                             cout<<"UV"<<endl;
                             cout<<"Nom:"<<textureDKS->nom<<endl;
                             cout<<"                     Nombre de sommets UV : "<<textureDKS->nbrSommets<<endl;
-                            if (bitmapLWO2==NULL) cout<<"                           Image non dÈfinie ! "<<endl;
+                            if (bitmapLWO2==NULL) cout<<"                           Image non d√©finie ! "<<endl;
                             else
                             {
                                 cout<<"                     Image : "<<textureDKS->image->nom_image<<endl;
@@ -547,7 +547,7 @@ class dksConvertionLWO2
                         {
                             cout<<"Plan"<<endl;
                             cout<<"                     Axe: "<<"X:"<<textureDKS->axe_projection[0]<<" Y:"<<textureDKS->axe_projection[1]<<" Z:"<<textureDKS->axe_projection[2]<<" W:"<<textureDKS->axe_projection[3]<<endl;
-                            cout<<"                     RepËre:"<<textureDKS->reference_projection<<endl;
+                            cout<<"                     Rep√®re:"<<textureDKS->reference_projection<<endl;
                         }
                     #endif
                 }
@@ -556,7 +556,7 @@ class dksConvertionLWO2
             return true;
         }
 
-        //Ajoute un sommet ‡ une table de coordonnÈes UV:
+        //Ajoute un sommet √† une table de coordonn√©es UV:
 
         dksSommetUV* ajoute_sommet_UV (dksTexture* textureDKS)
         {
@@ -566,14 +566,14 @@ class dksConvertionLWO2
         }
 
         //====================================================
-        //          CrÈation des polygones:
+        //          Cr√©ation des polygones:
         //====================================================
         bool creation_polygones()
         {
             uint32_t i,j,k,nbrPolygones;
 
             #if DKSCONVERTIONLWO2_DEBUG
-                cout<<"     - - - - - CrÈation des polygones - - - - -"<<endl;
+                cout<<"     - - - - - Cr√©ation des polygones - - - - -"<<endl;
             #endif
 
             for (i=0;i<nbrVolumes;i++)
@@ -590,12 +590,12 @@ class dksConvertionLWO2
                 dksFace** tableFaces=(dksFace**)calloc(nbrPolygones,sizeof(dksFace*));
                 if (tableFaces==NULL)
                 {
-                    cout<<"Erreur dans dksConvertionLWO2.creation_polygones() - MÈmoire insuffisante pour allouer le tableau des faces"<<endl;
+                    cout<<"Erreur dans dksConvertionLWO2.creation_polygones() - M√©moire insuffisante pour allouer le tableau des faces"<<endl;
                     erreur=DKSCONVERTIONLWO2_ERREUR_MEMOIRE;
                     return false;
                 }
 
-                //CrÈation des faces:
+                //Cr√©ation des faces:
                 for (j=0;j<nbrPolygones;j++)
                 {
                     LWO2_Polygone* faceLWO2=calque->polygones[j];
@@ -604,14 +604,14 @@ class dksConvertionLWO2
                     if (sommets==NULL)
                     {
                         libere_table_faces_en_construction(tableFaces,nbrPolygones);
-                        cout<<"Erreur dans dksConvertionLWO2.creation_polygones() - MÈmoire insuffisante pour allouer le tableau des arÍtes"<<endl;
+                        cout<<"Erreur dans dksConvertionLWO2.creation_polygones() - M√©moire insuffisante pour allouer le tableau des ar√™tes"<<endl;
                         erreur=DKSCONVERTIONLWO2_ERREUR_MEMOIRE;
                         return false;
                     }
 
                     for(k=0;k<nbrSommets;k++)
                     {
-                        sommets[k]=faceLWO2->indices_sommets[k];   //Invertion de l'ordre (car lightwave est en repËre indirect
+                        sommets[k]=faceLWO2->indices_sommets[k];   //Invertion de l'ordre (car lightwave est en rep√®re indirect
                     }
 
                     sommets[k]=sommets[0];   //Bouclage:
@@ -620,7 +620,7 @@ class dksConvertionLWO2
                     if (nom_surface==NULL)
                     {
                         libere_table_faces_en_construction(tableFaces,nbrPolygones);
-                        cout<<"Erreur dans dksConvertionLWO2.creation_polygones() - Pas de surface dÈfinie pour un polygone"<<endl;
+                        cout<<"Erreur dans dksConvertionLWO2.creation_polygones() - Pas de surface d√©finie pour un polygone"<<endl;
                         erreur=DKSCONVERTIONLWO2_ERREUR_LWO2_INVALIDE;
                         return false;
                     }
@@ -630,7 +630,7 @@ class dksConvertionLWO2
                     if (face==NULL || face->erreur!=DKSFACE_OK)
                     {
                         libere_table_faces_en_construction(tableFaces,nbrPolygones);
-                        cout<<"Erreur dans dksConvertionLWO2.creation_polygones() - Impossible de crÈer les faces"<<endl;
+                        cout<<"Erreur dans dksConvertionLWO2.creation_polygones() - Impossible de cr√©er les faces"<<endl;
                         erreur=DKSCONVERTIONLWO2_ERREUR_MEMOIRE;
                         return false;
                     }
@@ -648,7 +648,7 @@ class dksConvertionLWO2
 
         }
 
-        //Au cas o˘ une erreur se produit en cours de crÈation des faces:
+        //Au cas o√π une erreur se produit en cours de cr√©ation des faces:
         void libere_table_faces_en_construction(dksFace** table,uint32_t nbrPolygones)
         {
             for(uint32_t i=0;i<nbrPolygones;i++)
@@ -660,22 +660,22 @@ class dksConvertionLWO2
 
         //==============================================================
         //
-        //          RÈpartition des surfaces dans les volumes
+        //          R√©partition des surfaces dans les volumes
         //
         //          Dans un fichier LWO2, une surface peut servir
-        //          ‡ plusieurs volumes.
+        //          √† plusieurs volumes.
         //          Dans le moteur DKS, une surface ne peut
-        //          Ítre liÈe qu'‡ un seul volume. Il faut donc
+        //          √™tre li√©e qu'√† un seul volume. Il faut donc
         //          dupliquer certaines surfaces.
         //
         //==============================================================
         bool repartition_surfaces()
         {
             uint32_t i,j,k;
-            vector<dksSurface*> surfaces_volume; //Table de stockage des surfaces liÈe au volume
+            vector<dksSurface*> surfaces_volume; //Table de stockage des surfaces li√©e au volume
 
             #if (DKSCONVERTIONLWO2_DEBUG && DKSCONVERTIONLWO2_DEBUG_REPARTITION_SURFACES)
-                cout<<"     - - - - - RÈpartition des surfaces - - - - -"<<endl;
+                cout<<"     - - - - - R√©partition des surfaces - - - - -"<<endl;
             #endif
 
 
@@ -694,7 +694,7 @@ class dksConvertionLWO2
                     {
                         cout<<"Erreur dans dksConvertionLWO2.repartition_surfaces() - Surface inconnue: "<<volume->faces[j]->nom_surface<<endl;
                         #if (DKSCONVERTIONLWO2_DEBUG&& DKSCONVERTIONLWO2_DEBUG_REPARTITION_SURFACES)
-                            cout<<"Surfaces crÈÈes:"<<endl;
+                            cout<<"Surfaces cr√©√©es:"<<endl;
                             for (i=0;i<surfaces.size();i++) cout<<surfaces[i]->nom<<endl;
                         #endif
                         erreur=DKSCONVERTIONLWO2_ERREUR_LWO2_INVALIDE;
@@ -714,7 +714,7 @@ class dksConvertionLWO2
                     cout<<"          Nombre de surfaces: "<<surfaces_volume.size()<<endl;
                 #endif
 
-                //CrÈation de la table des surfaces du volume:
+                //Cr√©ation de la table des surfaces du volume:
                 dksSurface** table_surfaces=(dksSurface**)malloc(surfaces_volume.size()*sizeof(dksSurface*));
                 if (table_surfaces==NULL)
                 {
@@ -742,7 +742,7 @@ class dksConvertionLWO2
             return true;
         }
 
-        //Renvoie une surface d'aprËs son nom:
+        //Renvoie une surface d'apr√®s son nom:
         dksSurface* renvoie_surface(char* nom_surface)
         {
             for (uint32_t i=0;i<surfaces.size();i++)
@@ -770,7 +770,7 @@ class dksConvertionLWO2
         }
 
         //===================================================================================================================
-        //                                  Fonctions de renvoie de donnÈes
+        //                                  Fonctions de renvoie de donn√©es
         //===================================================================================================================
 
     public:
@@ -803,7 +803,7 @@ class dksConvertionLWO2
 
         //---------------------------------------------------------------
         //      Renvoie les volumes convertis sous forme d'un tableau
-        //      Ce tableau est supprimÈ par la classe. Ne pas s'en occuper.
+        //      Ce tableau est supprim√© par la classe. Ne pas s'en occuper.
         //---------------------------------------------------------------
         dksVolume** renvoie_volumes_convertis()
         {
@@ -812,7 +812,7 @@ class dksConvertionLWO2
                 tableau_volumes_convertis=(dksVolume**)malloc(nbrVolumes*sizeof(dksVolume*));
                 if (tableau_volumes_convertis==NULL)
                 {
-                    cout<<"ERREUR dans dksConvertionLWO2::renvoie_volumes_convertis() - mÈmoire insuffisante"<<endl;
+                    cout<<"ERREUR dans dksConvertionLWO2::renvoie_volumes_convertis() - m√©moire insuffisante"<<endl;
                     erreur=DKSCONVERTIONLWO2_ERREUR_MEMOIRE;
                     return NULL;
                 }

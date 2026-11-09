@@ -1,15 +1,15 @@
 
 /************************************************************************************************************
 
-		Affichage des ombres portées, avec les sources lumineuses d'openGl, sans texture
-		Calcul les coordonnées UV de la texture de profondeur sur les sommets vus de la source génératrice des ombres
+		Affichage des ombres portÃ©es, avec les sources lumineuses d'openGl, sans texture
+		Calcul les coordonnÃ©es UV de la texture de profondeur sur les sommets vus de la source gÃ©nÃ©ratrice des ombres
 		
 						!!! La source des ombres est obligatoirement la source 0 !!!
 
 **************************************************************************************************************/
 
 
-//------- Données de gestion des ombres:
+//------- DonnÃ©es de gestion des ombres:
 uniform mat4 matrice_projection_vision_source;
 uniform mat4 matrice_vision_source;
 uniform mat4 matrice_source_uv;	//transformation_uv*projection*vision*matrice_volume
@@ -17,7 +17,7 @@ uniform mat4 matrice_source_uv;	//transformation_uv*projection*vision*matrice_vo
 varying vec4 coordonnees_texture_ombres;
 varying float distance_source_des_ombres;
 
-//------ Données de gestion de la lumière:
+//------ DonnÃ©es de gestion de la lumiÃ¨re:
 
 uniform int drapeaux_sources;	//Les bits d'activation des sources lumineuses
 

@@ -3,7 +3,7 @@
 //		Shader de post-rendu.
 //		Superpose deux textures avec un masque
 //		Si le texel de la texture 1 est de la couleur du masque,
-//		alors c'est le texel de la texture 2 qui est affiché
+//		alors c'est le texel de la texture 2 qui est affichÃ©
 //
 //======================================================================
 

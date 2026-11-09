@@ -3,19 +3,19 @@
 
 //**********************************************************************************************************
 //
-//      Rendu d'une scène en perspective animée -
-//      Code d'origine ActionScript 3.0 : Eric Kernin & Sébastien Saouter - 2009/2010
+//      Rendu d'une scÃ¨ne en perspective animÃ©e -
+//      Code d'origine ActionScript 3.0 : Eric Kernin & SÃ©bastien Saouter - 2009/2010
 //      Portage C++ openGl - Eric Kernin 2010 - 2011
 //      Version 2 - Mars 2011
 //
-//      Révision: Les volumes sont affichés individuellements. Leurs faces ne sont plus stockées dans une table commune,
-//                  Cela posait trop de problèmes et obligeait à un excès de calculs.
+//      RÃ©vision: Les volumes sont affichÃ©s individuellements. Leurs faces ne sont plus stockÃ©es dans une table commune,
+//                  Cela posait trop de problÃ¨mes et obligeait Ã  un excÃ¨s de calculs.
 //
 //      Version 2.:
 //                  Optimisation du rendu avec notamment l'utilisation des tableaux d'OpenGl.
-//                  Gestion des "shaders" pour divers rendus (rugosité, réflexion...)
+//                  Gestion des "shaders" pour divers rendus (rugositÃ©, rÃ©flexion...)
 //
-//      Le cube d'arrière plan peut servir à plusieurs scènes.
+//      Le cube d'arriÃ¨re plan peut servir Ã  plusieurs scÃ¨nes.
 //
 //**********************************************************************************************************
 
@@ -34,8 +34,8 @@
 
 #include <GL/glut.h>
 
-//================= Données globales:
-#define DKS_TAILLE_NOMS 128 //La taille des tempons contenants les chaînes de caractères pour les noms des éléments.
+//================= DonnÃ©es globales:
+#define DKS_TAILLE_NOMS 128 //La taille des tempons contenants les chaÃ®nes de caractÃ¨res pour les noms des Ã©lÃ©ments.
 
 //================= Debugage:
 #define DKSM3D_AFFICHE_BOITES_COLLISIONS false
@@ -43,7 +43,7 @@
 #define DKSM3D_DEBUG_INITIALISATIONS false
 #define DKSM3D_DEBUG_FACES_TRANSPARENTES false
 
-//================= Codes d'erreurs à récupérer dans .erreur:
+//================= Codes d'erreurs Ã  rÃ©cupÃ©rer dans .erreur:
 
 #define DKSM3D_OK 0
 #define DKSM3D_ERREUR_MEMOIRE 1
@@ -54,10 +54,10 @@
 
 #define DKSM3D_TEXTURES_TAILLES_DIFFERENTES false //Mipmap
 
-//Structure utilisée pour le tri des volumes (pour éviter les bugs dans l'affichage des faces transparentes)
+//Structure utilisÃ©e pour le tri des volumes (pour Ã©viter les bugs dans l'affichage des faces transparentes)
 class tri_volume
 {   public:
-    double distance;        //Distance du volume à l'oeil
+    double distance;        //Distance du volume Ã  l'oeil
     uint32_t indice_volume;   //L'indice du volume
 };
 
@@ -69,12 +69,12 @@ class dksMoteur3d : public dksConteneur
 {
     public:
 
-        uint16_t erreur; //Le code d'erreur si un problème est survenu.
-        bool drapeau_active; //True lorsque la scène est active et a la main sur openGl
+        uint16_t erreur; //Le code d'erreur si un problÃ¨me est survenu.
+        bool drapeau_active; //True lorsque la scÃ¨ne est active et a la main sur openGl
 
-        //Elements de la scène:
-        vector<dksConteneur*> elements;     //Table regroupant TOUT les éléments de la scène.
-                                            //Sert par exemple pour les calculs de mouvements cinétiques.
+        //Elements de la scÃ¨ne:
+        vector<dksConteneur*> elements;     //Table regroupant TOUT les Ã©lÃ©ments de la scÃ¨ne.
+                                            //Sert par exemple pour les calculs de mouvements cinÃ©tiques.
 
         uint32_t nbrConteneurs;
         uint16_t nbrYeux;
@@ -85,37 +85,37 @@ class dksMoteur3d : public dksConteneur
         vector<dksOeil*> yeux;
         vector<dksSourceLumineuse*> sources_lumineuses;
         vector<dksVolume*> volumes;
-        vector<tri_volume> indices_tri_volumes; //Obsolète pour le moment
+        vector<tri_volume> indices_tri_volumes; //ObsolÃ¨te pour le moment
 
         uint32_t nbr_faces_transparentes;
         vector<tri_face> faces_transparentes_triables; //Les faces triables sont celles qui appartiennent aux volumes n'utilisants pas les listes
                                                          // d'OpenGl pour leur rendu.
                                                          ///!!! ATTENTION EN MODIFIANT LE MODE DE RENDU D'UN VOLUME AVEC DES FACES TRANSPARENTES EN COURS D'ANIMATION !!!
 
-        //Données globales:
-        //dksConteneur  conteneur_principal ; //Le premier parent de la hiérarchie globale
+        //DonnÃ©es globales:
+        //dksConteneur  conteneur_principal ; //Le premier parent de la hiÃ©rarchie globale
 
-        //Arrière plan:
+        //ArriÃ¨re plan:
         dksCube* cube_arriere_plan;
 
-        //Données d'animation:
+        //DonnÃ©es d'animation:
         bool drapeau_mouvements;    //True si le moteur se charge de rafraichir les mouvements
 
         //Couleur du fond:
         GLfloat couleur_fond[4];
 
-        //Couleur de la lumière ambiante:
+        //Couleur de la lumiÃ¨re ambiante:
         GLfloat lumiere_ambiante[4];
 
         //Couleur du brouillard:
         bool drapeau_brouillard;
-        bool drapeau_brouillard_surfaces_lumineuses; //True(défaut): Pas de changement d'état du brouillard lors de l'affichage des surfaces transparentes
-                                                    //False: Désactivation du brouillard lors de l'affichage des surfaces transparentes
+        bool drapeau_brouillard_surfaces_lumineuses; //True(dÃ©faut): Pas de changement d'Ã©tat du brouillard lors de l'affichage des surfaces transparentes
+                                                    //False: DÃ©sactivation du brouillard lors de l'affichage des surfaces transparentes
         float brouillard_min;
         float brouillard_max;
         GLfloat couleur_brouillard[4];
 
-        //Durées:
+        //DurÃ©es:
         double duree_rendu;
         double duree_mouvements;
         double duree_hierarchie;
@@ -126,17 +126,17 @@ class dksMoteur3d : public dksConteneur
 
         bool drapeau_debug;
         bool drapeau_maj;
-        bool drapeau_activation_rendu;  //True si la scène est activée à chaque début d'affichage et désactivée à la fin.
+        bool drapeau_activation_rendu;  //True si la scÃ¨ne est activÃ©e Ã  chaque dÃ©but d'affichage et dÃ©sactivÃ©e Ã  la fin.
 
     private:
-        dksEcran* ecran;    //L'écran dans lequel la scène s'affiche
-        dksOeil* oeil; /// L'oeil courant est en private, car lors d'un changement de point de vue, il faut réinitialiser l'écran (taille, ouverture)
+        dksEcran* ecran;    //L'Ã©cran dans lequel la scÃ¨ne s'affiche
+        dksOeil* oeil; /// L'oeil courant est en private, car lors d'un changement de point de vue, il faut rÃ©initialiser l'Ã©cran (taille, ouverture)
 
-        uint32_t    indice_face_transparente;    //Indice utilisé lors de l'affichage des faces transparentes
+        uint32_t    indice_face_transparente;    //Indice utilisÃ© lors de l'affichage des faces transparentes
         dksSurface* surface_courante;
         dksVolume* volume_courant;
 
-        //Gestion des ombres portées
+        //Gestion des ombres portÃ©es
         bool drapeau_rendu_ombres;
         GLuint texture_ombres_id;
         GLuint frameBuffer_ombres_id;
@@ -145,14 +145,14 @@ class dksMoteur3d : public dksConteneur
         dksSourceLumineuse* source_des_ombres;
         GLfloat intensite_ombres;   //Facteur compris entre 0 et 1
 
-        //Etat d'openGl restitué à chaque rendu:
-        bool drapeau_eclairage; //Mémorise l'activation de l'éclairage
+        //Etat d'openGl restituÃ© Ã  chaque rendu:
+        bool drapeau_eclairage; //MÃ©morise l'activation de l'Ã©clairage
 
 
 
         //=====================================================================
         //                          Constructeur
-        /// Les tableaux d'éléments d'entrée ne sont pas conservés. Ils peuvent
+        /// Les tableaux d'Ã©lÃ©ments d'entrÃ©e ne sont pas conservÃ©s. Ils peuvent
         /// reservir au programme utilisateur.
         //=====================================================================
     public:
@@ -168,12 +168,12 @@ class dksMoteur3d : public dksConteneur
             drapeau_active=false;
             ecran=p_ecran;
             uint32_t i;
-            //t0=-1.; t0 initialisé par active()
+            //t0=-1.; t0 initialisÃ© par active()
             drapeau_eclairage=false;
             drapeau_maj=false;
             cube_arriere_plan=NULL;
 
-            //Ombres portées:
+            //Ombres portÃ©es:
             drapeau_rendu_ombres=false;
             texture_ombres_id=0;
             source_des_ombres=NULL;
@@ -191,7 +191,7 @@ class dksMoteur3d : public dksConteneur
 
             drapeau_mouvements=true;
 
-            //Paramètres par défaut:
+            //ParamÃ¨tres par dÃ©faut:
             couleur_brouillard[0]=0.;
             couleur_brouillard[1]=0.;
             couleur_brouillard[2]=0.;
@@ -211,8 +211,8 @@ class dksMoteur3d : public dksConteneur
             lumiere_ambiante[2]=0.2;
             lumiere_ambiante[3]=1.;
 
-            //Initialise la hiérarchie:
-            if (DKSM3D_DEBUG_INITIALISATIONS) cout<<"///////////// Moteur 3d - Initialisation de la scène  \\\\\\\\\\"<<endl;
+            //Initialise la hiÃ©rarchie:
+            if (DKSM3D_DEBUG_INITIALISATIONS) cout<<"///////////// Moteur 3d - Initialisation de la scÃ¨ne  \\\\\\\\\\"<<endl;
 
             for (i=0;i<nbrVolumes;i++)
             {
@@ -260,7 +260,7 @@ class dksMoteur3d : public dksConteneur
 
         ~dksMoteur3d()
         {
-            cout<<"Début de la destruction de l'objet dksMoteur3d: "<<nom<<endl;
+            cout<<"DÃ©but de la destruction de l'objet dksMoteur3d: "<<nom<<endl;
             desactive();
             faces_transparentes_triables.clear();
             indices_tri_volumes.clear();
@@ -268,11 +268,11 @@ class dksMoteur3d : public dksConteneur
         }
 
         //====================================================================================================
-        //                  Gestion des tables des éléments
+        //                  Gestion des tables des Ã©lÃ©ments
         //====================================================================================================
 
     private:
-        //------ Fonction appelée par le constructeur
+        //------ Fonction appelÃ©e par le constructeur
         void creation_tables_elements(dksConteneur** p_conteneurs, dksVolume** p_volumes,
                                         dksOeil** p_yeux, dksSourceLumineuse** p_sources)
         {
@@ -290,7 +290,7 @@ class dksMoteur3d : public dksConteneur
         }
 
 
-        //------- Creation ou mise à jour de la table de tri des volumes:
+        //------- Creation ou mise Ã  jour de la table de tri des volumes:
         void creation_table_tri_volumes()
         {
             indices_tri_volumes.clear();
@@ -309,7 +309,7 @@ class dksMoteur3d : public dksConteneur
         }
 
         //-----------------------------------------------------
-        //      Renvoie true si l'élément est dans la scène
+        //      Renvoie true si l'Ã©lÃ©ment est dans la scÃ¨ne
         //-----------------------------------------------------
     public:
 
@@ -359,7 +359,7 @@ class dksMoteur3d : public dksConteneur
         }
 
         //--------------------------------------------------------------
-        //          Fonctions d'ajouts et de suppression d'éléments.
+        //          Fonctions d'ajouts et de suppression d'Ã©lÃ©ments.
         //--------------------------------------------------------------
 
         bool ajoute_conteneur(dksConteneur* cont, dksConteneur* parent=NULL)
@@ -391,7 +391,7 @@ class dksMoteur3d : public dksConteneur
             return true;
         }
 
-        //------ ATTENTION: La fonction ne test pas si les volumes sont déjà dans la scène.
+        //------ ATTENTION: La fonction ne test pas si les volumes sont dÃ©jÃ  dans la scÃ¨ne.
         bool ajoute_volumes(dksVolume** table_volumes,uint32_t nombre,dksConteneur* parent=NULL)
         {
             uint32_t i;
@@ -439,7 +439,7 @@ class dksMoteur3d : public dksConteneur
         }
 
         //-------------------------------------------
-        //Gestion du volume d'arrière plan:
+        //Gestion du volume d'arriÃ¨re plan:
         //-------------------------------------------
         void determine_cube_arriere_plan(dksCube* p_cube)
         {
@@ -447,14 +447,14 @@ class dksMoteur3d : public dksConteneur
         }
 
         //---------------------------------------------------------------------------------------------------------------
-        //  Initialise l'arrière plan d'openGl pour le texturage d'environnement. Sert pour les shaders de "réflexion cube"
-        /// Un seul arrière plan peut être activé à la fois.
+        //  Initialise l'arriÃ¨re plan d'openGl pour le texturage d'environnement. Sert pour les shaders de "rÃ©flexion cube"
+        /// Un seul arriÃ¨re plan peut Ãªtre activÃ© Ã  la fois.
         ///------------------- PROVISOIRE !! -------------------------
         //---------------------------------------------------------------------------------------------------------------
         void active_arriere_plan()
         {
             if (cube_arriere_plan==NULL) return;
-            //---------- Création des textures CUBE_MAP:
+            //---------- CrÃ©ation des textures CUBE_MAP:
             Image* image;
             dksSurface* surface;
             glActiveTexture(GL_TEXTURE0);
@@ -510,10 +510,10 @@ class dksMoteur3d : public dksConteneur
 
         //==============================================================================
         //                  Gestion des faces transparentes
-        //  Les faces transparentes sont stockés dans une table globale, pour que le tri soit
+        //  Les faces transparentes sont stockÃ©s dans une table globale, pour que le tri soit
         //  propre.
-        //  Les faces des volume qui se servent entièrement des liste openGl ou qui ont
-        //  leur rendu de faces transparente activé ne sont pas inclus dans cette table.
+        //  Les faces des volume qui se servent entiÃ¨rement des liste openGl ou qui ont
+        //  leur rendu de faces transparente activÃ© ne sont pas inclus dans cette table.
         //==============================================================================
         //-------- Rafraichi la table des faces transparentes ----
         void initialise_table_faces_transparentes()
@@ -523,7 +523,7 @@ class dksMoteur3d : public dksConteneur
             for (i=0;i<nbrVolumes;i++)
             {
                 dksVolume* volume=volumes[i];
-                if (volume->renvoie_mode_rendu()==DKSVOLUME_MODE_LISTE || volume->renvoie_drapeau_rendu_faces_transparentes()) continue; //Les faces des volumes affichés par une liste openGl
+                if (volume->renvoie_mode_rendu()==DKSVOLUME_MODE_LISTE || volume->renvoie_drapeau_rendu_faces_transparentes()) continue; //Les faces des volumes affichÃ©s par une liste openGl
                 for (j=0; j< volume->nbrSurfaces;j++)
                 {
                     dksSurface* surface = volume->surfaces[j];
@@ -539,7 +539,7 @@ class dksMoteur3d : public dksConteneur
             }
             nbr_faces_transparentes=faces_transparentes_triables.size();
             #if DKSM3D_DEBUG_FACES_TRANSPARENTES
-                cout<<"Nombre de faces transparentes dans la scène"<<nom<<" : "<<nbr_faces_transparentes<<endl;
+                cout<<"Nombre de faces transparentes dans la scÃ¨ne"<<nom<<" : "<<nbr_faces_transparentes<<endl;
             #endif
         }
 
@@ -552,8 +552,8 @@ class dksMoteur3d : public dksConteneur
         }
 
         //=============================================================================================
-        //          Gestion des ombres portées
-        //  Voir la classe dksEcran pour les résolutions possibles de la texture de profondeur
+        //          Gestion des ombres portÃ©es
+        //  Voir la classe dksEcran pour les rÃ©solutions possibles de la texture de profondeur
         //=============================================================================================
         public:
         void determine_rendu_ombres(bool p_drapeau,dksSourceLumineuse* p_source_des_ombres=NULL,uint8_t tempon_profondeur_id=DKSECRAN_TEMPON_PROFONDEUR_512,GLfloat p_intensite_ombres=1.)
@@ -589,7 +589,7 @@ class dksMoteur3d : public dksConteneur
                 //source_des_ombres->determine_resolution(largeur_texture_ombres,hauteur_texture_ombres);
             }
 
-            //Initialise la source des ombres pour les volumes (sauf le volume d'arrière plan):
+            //Initialise la source des ombres pour les volumes (sauf le volume d'arriÃ¨re plan):
             for (uint32_t i=0;i<nbrVolumes;i++)
             {
                 volumes[i]->determine_recoit_ombres(drapeau_rendu_ombres&volumes[i]->recoit_ombres(),texture_ombres_id,source_des_ombres,intensite_ombres);
@@ -602,7 +602,7 @@ class dksMoteur3d : public dksConteneur
 
         void affiche_durees_calculs()
         {
-            cout<<"--------- Durées de calcul:"<<endl;
+            cout<<"--------- DurÃ©es de calcul:"<<endl;
             cout<<"mouvements"<<duree_mouvements<<endl;
             cout<<"hierarchie"<<duree_hierarchie<<endl;
             cout<<"sommets absolus"<<duree_sommets_absolus<<endl;
@@ -611,18 +611,18 @@ class dksMoteur3d : public dksConteneur
 
 
         //=============================================================================
-        //                          Initialisation générale d'openGl
-        /// Normalement cette fonction n'est appelée qu'une seule fois.
+        //                          Initialisation gÃ©nÃ©rale d'openGl
+        /// Normalement cette fonction n'est appelÃ©e qu'une seule fois.
         //=============================================================================
     public:
         static void initialise_opengl()
         {
-            //----Initialisation des paramètres de rendu des polygones:
+            //----Initialisation des paramÃ¨tres de rendu des polygones:
 
             glPolygonMode(GL_FRONT,GL_FILL);//Mode de rendu des faces avant des polygones
-            glPolygonMode(GL_BACK,GL_FILL);//Mode de rendu des faces arrière des polygones
-            glEnable(GL_CULL_FACE); //Active la distinction face avant/face arrière des polygones pour le rendu.
-            glCullFace(GL_BACK);    //Détermine quelle face des polygones n'est pas affichée.
+            glPolygonMode(GL_BACK,GL_FILL);//Mode de rendu des faces arriÃ¨re des polygones
+            glEnable(GL_CULL_FACE); //Active la distinction face avant/face arriÃ¨re des polygones pour le rendu.
+            glCullFace(GL_BACK);    //DÃ©termine quelle face des polygones n'est pas affichÃ©e.
             glPointSize(1); //La taille des sommets en mode d'affichage de sommets
 
             //----Lissage:
@@ -639,14 +639,14 @@ class dksMoteur3d : public dksConteneur
 
             dksRendu::desactive_textures();
 
-            //----Initialisation de l'éclairage:
+            //----Initialisation de l'Ã©clairage:
 
-            glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER,GL_TRUE); //Sert à définir que c'est la position de l'oeil qui sert pour le calcul de la spécularité.
-            glLightModeli(GL_LIGHT_MODEL_COLOR_CONTROL,GL_SEPARATE_SPECULAR_COLOR); //La lumière spéculaire est ajoutée par dessus le texturage, pour éviter de l'altérer.
+            glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER,GL_TRUE); //Sert Ã  dÃ©finir que c'est la position de l'oeil qui sert pour le calcul de la spÃ©cularitÃ©.
+            glLightModeli(GL_LIGHT_MODEL_COLOR_CONTROL,GL_SEPARATE_SPECULAR_COLOR); //La lumiÃ¨re spÃ©culaire est ajoutÃ©e par dessus le texturage, pour Ã©viter de l'altÃ©rer.
 
             glDisable(GL_NORMALIZE); //Convertion automatique des normales en vecteur unitaire
 
-            //---- Matériaux de base :
+            //---- MatÃ©riaux de base :
 
             const GLfloat defaut_ambiance[]    = { 0.f, 0.f, 0.f, 0.f };
             const GLfloat defaut_diffusion[]    = { 0.8f, 0.8f, 0.8f, 1.f };
@@ -654,7 +654,7 @@ class dksMoteur3d : public dksConteneur
             const GLfloat defaut_luminosite[]   = { 0.f, 0.f, 0.f, 1.f };
             const GLfloat defaut_brillance[] = { 64.0f };
 
-            glDisable(GL_COLOR_MATERIAL);   //Désactivation de l'usage de la commande glColorMaterial()
+            glDisable(GL_COLOR_MATERIAL);   //DÃ©sactivation de l'usage de la commande glColorMaterial()
 
             glMaterialfv(GL_FRONT, GL_AMBIENT,   defaut_ambiance);
             glMaterialfv(GL_FRONT, GL_DIFFUSE,   defaut_diffusion);
@@ -665,33 +665,33 @@ class dksMoteur3d : public dksConteneur
         }
 
         //====================================================================================================
-        //                            Initialisation de la scène
+        //                            Initialisation de la scÃ¨ne
         //====================================================================================================
 public:
-        //============== Active la scène et prend la main sur OpenGl:
-        // Toutes les sources sont activées (si leur nombre est inférieur au nombre max géré par OpenGl)
-        //  Donc, pour une gestion dynamique des sources, faire ça en Aval.
+        //============== Active la scÃ¨ne et prend la main sur OpenGl:
+        // Toutes les sources sont activÃ©es (si leur nombre est infÃ©rieur au nombre max gÃ©rÃ© par OpenGl)
+        //  Donc, pour une gestion dynamique des sources, faire Ã§a en Aval.
         void active()
         {
             if (drapeau_active) return ;
 
             //----Initialisation du tempon de profondeur:
-            glDepthMask(GL_TRUE);   //Accessibilité en écriture du tempon de profondeur.
+            glDepthMask(GL_TRUE);   //AccessibilitÃ© en Ã©criture du tempon de profondeur.
                                     //Cela peut servir pour afficher les surfaces transparentes.
-            glDepthFunc(GL_LESS); //Test de comparaison avec la profondeur précédente
+            glDepthFunc(GL_LESS); //Test de comparaison avec la profondeur prÃ©cÃ©dente
 
 
             //----Activation de la transparence:
             //Le calcul de transparence s'effectue comme suit:
             // Cs*FCs+Cd*FCd : C=composante(A,R,V ou B)
-            //                  s=pixel "source" (le pixel à ajouter)
-            //                  d=pixel "destination" (le pixel déjà présent dans le tempon)
+            //                  s=pixel "source" (le pixel Ã  ajouter)
+            //                  d=pixel "destination" (le pixel dÃ©jÃ  prÃ©sent dans le tempon)
             //                  F=facteur
-            // Les facteurs ne peuvent pas être déterminé arbitrairement, hélas.
-            // Il faut utiliser la fonction glBlendFunc(facteur_source,facteur_destination) avec des constantes prédéterminées.
+            // Les facteurs ne peuvent pas Ãªtre dÃ©terminÃ© arbitrairement, hÃ©las.
+            // Il faut utiliser la fonction glBlendFunc(facteur_source,facteur_destination) avec des constantes prÃ©dÃ©terminÃ©es.
 
-            //glBlendFunc(GL_SRC_ALPHA, GL_ONE ); //facteur ARVB pixel à ajouter , facteur ARVB pixel déjà présent dans le tempon;
-            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA ); //facteur ARVB pixel à ajouter , facteur ARVB pixel déjà présent dans le tempon;
+            //glBlendFunc(GL_SRC_ALPHA, GL_ONE ); //facteur ARVB pixel Ã  ajouter , facteur ARVB pixel dÃ©jÃ  prÃ©sent dans le tempon;
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA ); //facteur ARVB pixel Ã  ajouter , facteur ARVB pixel dÃ©jÃ  prÃ©sent dans le tempon;
 
             //----Couleur de fond:
             glClearColor(couleur_fond[0],couleur_fond[1],couleur_fond[2],couleur_fond[3]);
@@ -711,7 +711,7 @@ public:
 
             else glDisable(GL_FOG);
 
-            glLightModelfv(GL_LIGHT_MODEL_AMBIENT, lumiere_ambiante);  //Couleur de la lumière ambiente globale
+            glLightModelfv(GL_LIGHT_MODEL_AMBIENT, lumiere_ambiante);  //Couleur de la lumiÃ¨re ambiente globale
 
             drapeau_active=true;
 
@@ -792,7 +792,7 @@ public:
         }
 
         //---------------------------------------------------------------
-        //------- Gestion de la couleur du fond et de la lumière ambiante
+        //------- Gestion de la couleur du fond et de la lumiÃ¨re ambiante
         //---------------------------------------------------------------
 
         void determine_couleur_fond(GLfloat r,GLfloat v,GLfloat b, GLfloat a)
@@ -856,7 +856,7 @@ public:
 
 
         //====================================================================================================
-        //                       Fonctions de rendu de la scène
+        //                       Fonctions de rendu de la scÃ¨ne
         //=====================================================================================================
 
         void determine_oeil_courant(dksOeil* p_oeil)
@@ -877,9 +877,9 @@ public:
 
         //-----------------------------------------------------------------------------------------------
 		// Gestion du rendu des sources lumineuses.
-		//  Comme OpenGL limite le nombre de sources à 8,
-		//  si la scène contient plus de 8 sources, il faut activer les huit sources les plus proches.
-		/// Gérer avec les shader pour plus de huit sources.
+		//  Comme OpenGL limite le nombre de sources Ã  8,
+		//  si la scÃ¨ne contient plus de 8 sources, il faut activer les huit sources les plus proches.
+		/// GÃ©rer avec les shader pour plus de huit sources.
         //-----------------------------------------------------------------------------------------------
         void active_sources_lumineuses()
         {
@@ -940,7 +940,7 @@ public:
         }
 
         //---------------------------------------------------------------
-		// Parcours la hiérarchie pour lancer la propagation si besoin
+		// Parcours la hiÃ©rarchie pour lancer la propagation si besoin
         //---------------------------------------------------------------
 		public:
 		void maj_hierarchie(dksConteneur* cont)
@@ -966,9 +966,9 @@ public:
 		}
 
 		//---------------------------------------------------------------
-		// Calcul les matrices de transformation des conteneurs, à partir
-		//  de leurs repères absolus.
-		/// La hiérarchie doit avoir été mise à jour!
+		// Calcul les matrices de transformation des conteneurs, Ã  partir
+		//  de leurs repÃ¨res absolus.
+		/// La hiÃ©rarchie doit avoir Ã©tÃ© mise Ã  jour!
         //---------------------------------------------------------------
         void calcul_matrices_conteneurs()
         {
@@ -983,10 +983,10 @@ public:
 
         //---------------------------------------------------------------
 		//Tri les volumes
-		/// Obsolète pour le moment, car les faces transparentes doivent
-		/// être triées en globalité au sein de la scène.
+		/// ObsolÃ¨te pour le moment, car les faces transparentes doivent
+		/// Ãªtre triÃ©es en globalitÃ© au sein de la scÃ¨ne.
 		//---------------------------------------------------------------
-        //Le test utilisé pour le tri des volumes:
+        //Le test utilisÃ© pour le tri des volumes:
 		static bool comparaison_volumes(tri_volume t1, tri_volume t2) { return t1.distance > t2.distance; }
 
 		void tri_volumes() ///A ADAPTER
@@ -1008,7 +1008,7 @@ public:
 		//---------------------------------------------------------------
 		//Tri les faces transparentes:
 		//---------------------------------------------------------------
-        //Le test utilisé pour le tri des faces:
+        //Le test utilisÃ© pour le tri des faces:
 		static bool comparaison_faces(tri_face t1, tri_face t2) { return t1.distance > t2.distance; }
 
 		void tri_faces_transparentes()
@@ -1034,7 +1034,7 @@ public:
 
         //====================================================================================
         //====================================================================================
-        //                  Affichages pour le débugage
+        //                  Affichages pour le dÃ©bugage
         //====================================================================================
         //====================================================================================
 
@@ -1130,8 +1130,8 @@ public:
 		}
 
         //====================================================================================================
-        //                         Calcul les positions instantannées des objets
-        //                          Le temps est exprimé en secondes.
+        //                         Calcul les positions instantannÃ©es des objets
+        //                          Le temps est exprimÃ© en secondes.
         //====================================================================================================
 public:
         virtual void maj(double t)
@@ -1150,7 +1150,7 @@ public:
 
 
 
-            //------------- Mouvements cinétiques (lorsque la masse des conteneurs n'est pas nulle)
+            //------------- Mouvements cinÃ©tiques (lorsque la masse des conteneurs n'est pas nulle)
 
                for (i=0;i<elements.size();i++)
                {
@@ -1158,11 +1158,11 @@ public:
                }
 
 
-            //-------------Propagation de la hierarchie (calcul des repères absolus )
+            //-------------Propagation de la hierarchie (calcul des repÃ¨res absolus )
 
                 maj_hierarchie(this);
 
-            //------------- Calcul le repère absolu du volume d'arrière-plan:
+            //------------- Calcul le repÃ¨re absolu du volume d'arriÃ¨re-plan:
 
                 if (cube_arriere_plan!=NULL)
                 {
@@ -1173,10 +1173,10 @@ public:
 
                 }
 
-            //-------- Mise à jour des paramètres de la source des ombres:
+            //-------- Mise Ã  jour des paramÃ¨tres de la source des ombres:
                 if (drapeau_rendu_ombres)
                 {
-                    //Il faut que les limites en profondeur de la source des ombre soient les même que celles de l'oeil courant,
+                    //Il faut que les limites en profondeur de la source des ombre soient les mÃªme que celles de l'oeil courant,
                     //pour que les tempons de profondeur de l'oeil et de la source correspondent.
                     source_des_ombres->determine_limites_profondeur(oeil->renvoie_zmin(),oeil->renvoie_zmax());
                 }
@@ -1189,13 +1189,13 @@ public:
 
                calcul_matrices_conteneurs();
 
-            //-------- Gestion des collisions et des réaction physiques:
+            //-------- Gestion des collisions et des rÃ©action physiques:
 
                 //moteur_physique.maj_collisions();
 
 
 
-            //-------- Calculs des éclairages:
+            //-------- Calculs des Ã©clairages:
 
                 for (i=0;i<nbrSources;i++)
                 {
@@ -1214,7 +1214,7 @@ public:
         }
 
         //====================================================================================================
-        //                                       Affiche la scène
+        //                                       Affiche la scÃ¨ne
         //====================================================================================================
 public:
         virtual void affiche(dksOeil* oeil)
@@ -1226,21 +1226,21 @@ public:
             if (strcmp("Scene_Caduce",nom)==0) drapeau_debug=true;
             */
 
-            //----------------- Génère la texture de profondeur pour les ombres:
+            //----------------- GÃ©nÃ¨re la texture de profondeur pour les ombres:
             if (drapeau_rendu_ombres) affiche_profondeur(source_des_ombres);
 
             if (drapeau_eclairage) glEnable(GL_LIGHTING);
             else glDisable(GL_LIGHTING);
 
-            //------------------Active les états nécessaire au bon affichage:
+            //------------------Active les Ã©tats nÃ©cessaire au bon affichage:
             GLboolean depth_test_mem=glIsEnabled(GL_DEPTH_TEST);
             glEnable(GL_DEPTH_TEST);
 
             //if ((erreur!=DKSM3D_OK) || (!drapeau_active) || (!drapeau_maj) ) return;
             if ((erreur!=DKSM3D_OK) || (!drapeau_active) ) return;
 
-            //------------- Volume d'arrière plan:
-            //Le volume d'arrière plan n'est pas sensé avoir des faces transparentes
+            //------------- Volume d'arriÃ¨re plan:
+            //Le volume d'arriÃ¨re plan n'est pas sensÃ© avoir des faces transparentes
             glMatrixMode(GL_MODELVIEW);
 
             if (cube_arriere_plan!=NULL)
@@ -1257,7 +1257,7 @@ public:
 
             }
 
-            //----------------Volumes de la scène:
+            //----------------Volumes de la scÃ¨ne:
             //if (drapeau_debug) cout<<"T0: "<<glutGet(GLUT_ELAPSED_TIME)<<" ";
 
             for ( i=0 ; i<nbrVolumes ; i++ )
@@ -1274,14 +1274,14 @@ public:
 
             //if (drapeau_debug) cout<<"T1: "<<glutGet(GLUT_ELAPSED_TIME)<<endl;
 
-            //------------------- Faces transparentes présentes dans la table globale:
+            //------------------- Faces transparentes prÃ©sentes dans la table globale:
 
             if(nbr_faces_transparentes>0)
             {
                 rendu_faces_transparentes_scene();
             }
 
-            //---------------Affiche les boîtes de collision :
+            //---------------Affiche les boÃ®tes de collision :
             #if DKSM3D_AFFICHE_BOITES_COLLISIONS
 
             glDisable(GL_DEPTH_TEST);
@@ -1292,7 +1292,7 @@ public:
 
             #endif
 
-            //---------------Restitue les états sensibles:
+            //---------------Restitue les Ã©tats sensibles:
             if (depth_test_mem)glEnable(GL_DEPTH_TEST); else glDisable(GL_DEPTH_TEST);
 
 
@@ -1303,7 +1303,7 @@ public:
 
 
         //====================================================================================================
-        //                       Affiche les surfaces luminescentes de la scène
+        //                       Affiche les surfaces luminescentes de la scÃ¨ne
         //====================================================================================================
 
 
@@ -1335,7 +1335,7 @@ public:
         }
 
         //===============================================================================================================
-        //                       Rendu de la scène,vue de la source des ombres, pour obtenir la texture de profondeur
+        //                       Rendu de la scÃ¨ne,vue de la source des ombres, pour obtenir la texture de profondeur
         //===============================================================================================================
         virtual void affiche_profondeur(dksOeil* oeil)
         {
@@ -1353,7 +1353,7 @@ public:
             glMatrixMode(GL_PROJECTION);
             glPushMatrix();
 
-            //--------- Mémorisation du frame buffer actuel:
+            //--------- MÃ©morisation du frame buffer actuel:
             GLint frameBuffer_mem;
             glGetIntegerv(GL_DRAW_FRAMEBUFFER_BINDING,&frameBuffer_mem);
             GLint dimensions_mem[4];
@@ -1392,7 +1392,7 @@ public:
 
             glMatrixMode(GL_MODELVIEW);
 
-            //---------- Restitue les états d'openGl:
+            //---------- Restitue les Ã©tats d'openGl:
             if (lumieres_mem) glEnable(GL_LIGHTING);
             glColorMask(GL_TRUE,GL_TRUE,GL_TRUE,GL_TRUE);
             glBindFramebuffer(GL_DRAW_FRAMEBUFFER,frameBuffer_mem);
@@ -1402,7 +1402,7 @@ public:
         }
 
         //-----------------------------------------------
-        //      Désactive les unités de textures:
+        //      DÃ©sactive les unitÃ©s de textures:
         //-----------------------------------------------
         /*
         private:
@@ -1423,7 +1423,7 @@ public:
 
 		//==================================================================================================================================================
 		//==================================================================================================================================================
-        //                                      Rendu des faces transparentes de la scène
+        //                                      Rendu des faces transparentes de la scÃ¨ne
 		//==================================================================================================================================================
 		//==================================================================================================================================================
 
@@ -1507,19 +1507,19 @@ public:
         }
 
         //-------------------------------------------------------------------------
-        //          Rendu des faces transparentes de la scène en mode immédiat
+        //          Rendu des faces transparentes de la scÃ¨ne en mode immÃ©diat
         //-------------------------------------------------------------------------
 
         #include "dksMoteur3d_rendu_transparentes_immediat.h"
 
         //-------------------------------------------------------------------------
-        //          Rendu des faces transparentes de la scène en mode tableaux
+        //          Rendu des faces transparentes de la scÃ¨ne en mode tableaux
         //-------------------------------------------------------------------------
 
         #include "dksMoteur3d_rendu_transparentes_tableaux.h"
 
         //=====================================================================
-        //      Activation / Désactivation de la scène entre chaque rendu
+        //      Activation / DÃ©sactivation de la scÃ¨ne entre chaque rendu
         //=====================================================================
         virtual void init_affichage()
         {

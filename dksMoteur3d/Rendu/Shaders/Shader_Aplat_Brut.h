@@ -4,9 +4,9 @@
 #include "dksShader.h"
 
 /*
-    Un tel shader permet le rendu des surfaces en aplats sans éclairages,
-    sans avoir à toucher à l'activation/désactivation de l'éclairage, qui cause des
-    petits problèmes d'inits avec les listes OpenGl.
+    Un tel shader permet le rendu des surfaces en aplats sans Ã©clairages,
+    sans avoir Ã  toucher Ã  l'activation/dÃ©sactivation de l'Ã©clairage, qui cause des
+    petits problÃ¨mes d'inits avec les listes OpenGl.
 */
 
 class Shader_Aplat_Brut: public dksShader
@@ -18,11 +18,11 @@ class Shader_Aplat_Brut: public dksShader
     //======================================
     Shader_Aplat_Brut(char* p_nom,char* p_source_vertex,char* p_source_fragment):dksShader(p_nom,p_source_vertex,p_source_fragment)
     {
-        //--------- Création des liens avec les variables type "uniform":
+        //--------- CrÃ©ation des liens avec les variables type "uniform":
         if(erreur!=DKSSHADER_OK)
         {
             //if (erreur_openGl("ERREUR dans Shader_Aplat_Brut::Shader_Aplat_Brut() :"))erreur=DKSSHADER_ERREUR_VARIABLES;
-            cout<<"!!! ERREUR lors de la création du shader Aplat_Brut"<<endl;
+            cout<<"!!! ERREUR lors de la crÃ©ation du shader Aplat_Brut"<<endl;
         }
     }
 

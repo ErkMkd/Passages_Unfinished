@@ -3,7 +3,7 @@
 
 /*
 
-        Classe de gestion des textes en caractères 3d
+        Classe de gestion des textes en caractÃ¨res 3d
 
 */
 
@@ -20,7 +20,7 @@
 class dksTexte3d : public dksParticulesVolumes
 {
     private:
-        char* texte;    //Le texte à afficher, chaîne terminée par un 0
+        char* texte;    //Le texte Ã  afficher, chaÃ®ne terminÃ©e par un 0
         dksPolice3d* police;
         double espace;
         double curseur[3];
@@ -58,7 +58,7 @@ class dksTexte3d : public dksParticulesVolumes
     //=========================================================================
 
     //-------------------------------
-    //Détermine le texte à afficher:
+    //DÃ©termine le texte Ã  afficher:
     //-------------------------------
     bool determine_texte(char* p_texte)
     {
@@ -67,7 +67,7 @@ class dksTexte3d : public dksParticulesVolumes
         texte=(char*)malloc(taille+1);
         if (texte==NULL)
         {
-            cout<<"ERREUR dans dksText3d::determine_texte() - Impossible d'allouer la chaîne de caractères: "<<p_texte<<endl;
+            cout<<"ERREUR dans dksText3d::determine_texte() - Impossible d'allouer la chaÃ®ne de caractÃ¨res: "<<p_texte<<endl;
             erreur=DKSTEXTE3D_ERREUR_MEMOIRE;
             return false;
         }
@@ -127,7 +127,7 @@ class dksTexte3d : public dksParticulesVolumes
     }
 
     //-------------------------------
-    //Détermine la position du curseur
+    //DÃ©termine la position du curseur
     //-------------------------------
     public:
     void determine_position_curseur(double px,double py, double pz)
@@ -137,7 +137,7 @@ class dksTexte3d : public dksParticulesVolumes
 
 
     //----------------------------------------------------------------------------------------------
-    //     Taille du caractère ESPACE, proportionnel à un facteur de taille des caractère=1.
+    //     Taille du caractÃ¨re ESPACE, proportionnel Ã  un facteur de taille des caractÃ¨re=1.
     //----------------------------------------------------------------------------------------------
     void determine_espace(double p_espace)
     {

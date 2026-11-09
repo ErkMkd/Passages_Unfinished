@@ -123,13 +123,13 @@ class dksSphere : public dksVolume
     //======================================================================
     bool creation_faces_sphere()
     {
-        //Allocation des arètes:
+        //Allocation des arÃ¨tes:
         uint32_t nbrTriangles=nbrLatitudes*2;
         uint32_t nbrQuads=(nbrLongitudes-1)*nbrLatitudes;
         aretes_faces_sphere=(uint32_t*)malloc((nbrTriangles*3+nbrQuads*4)*sizeof(uint32_t));
         if (aretes_faces_sphere==NULL)
         {
-            cout<<"ERREUR dans dksSphere::creation_faces_sphere() - Impossible de créer la table des arètes"<<endl;
+            cout<<"ERREUR dans dksSphere::creation_faces_sphere() - Impossible de crÃ©er la table des arÃ¨tes"<<endl;
             erreur=DKSVOLUME_ERREUR_MEMOIRE;
             return false;
         }
@@ -138,18 +138,18 @@ class dksSphere : public dksVolume
         faces_sphere=(dksFace**)malloc(p_nbrFaces*sizeof(dksFace*));
         if (faces_sphere==NULL)
         {
-            cout<<"ERREUR dans dksSphere::creation_faces_sphere() - Impossible de créer la table des faces"<<endl;
+            cout<<"ERREUR dans dksSphere::creation_faces_sphere() - Impossible de crÃ©er la table des faces"<<endl;
             erreur=DKSVOLUME_ERREUR_MEMOIRE;
             return false;
         }
-        //Création des faces:
+        //CrÃ©ation des faces:
         uint32_t i;
         uint32_t indice_face=0;
         uint32_t indice_aretes=0;
         uint32_t indice_sommet;
         uint32_t indice_sommet_segment;
         char* nom_surface;
-        char nom_surface_haut[]={"surface_haut"};   ///les faces alignées sur Y sont inclues dans la surface du haut
+        char nom_surface_haut[]={"surface_haut"};   ///les faces alignÃ©es sur Y sont inclues dans la surface du haut
         char nom_surface_bas[]={"surface_bas"};
 
         //La calotte du haut:
@@ -170,7 +170,7 @@ class dksSphere : public dksVolume
             faces_sphere[indice_face]=new dksFace(3,&aretes_faces_sphere[indice_aretes],nom_surface,DKSFACE_LIBERE_RIEN);
             if(faces_sphere[indice_face]==NULL || faces_sphere[indice_face]->erreur!=DKSFACE_OK)
             {
-                cout<<"ERREUR dans dksSphere::creation_faces_sphere() - Impossible de créer les faces"<<endl;
+                cout<<"ERREUR dans dksSphere::creation_faces_sphere() - Impossible de crÃ©er les faces"<<endl;
                 erreur=DKSVOLUME_ERREUR_FACES;
                 return false;
             }
@@ -200,7 +200,7 @@ class dksSphere : public dksVolume
             faces_sphere[indice_face]=new dksFace(4,&aretes_faces_sphere[indice_aretes],nom_surface,DKSFACE_LIBERE_RIEN);
             if(faces_sphere[indice_face]==NULL || faces_sphere[indice_face]->erreur!=DKSFACE_OK)
             {
-                cout<<"ERREUR dans dksSphere::creation_faces_sphere() - Impossible de créer les faces"<<endl;
+                cout<<"ERREUR dans dksSphere::creation_faces_sphere() - Impossible de crÃ©er les faces"<<endl;
                 erreur=DKSVOLUME_ERREUR_FACES;
                 return false;
             }
@@ -227,7 +227,7 @@ class dksSphere : public dksVolume
             faces_sphere[indice_face]=new dksFace(3,&aretes_faces_sphere[indice_aretes],nom_surface,DKSFACE_LIBERE_RIEN);
             if(faces_sphere[indice_face]==NULL || faces_sphere[indice_face]->erreur!=DKSFACE_OK)
             {
-                cout<<"ERREUR dans dksSphere::creation_faces_sphere() - Impossible de créer les faces"<<endl;
+                cout<<"ERREUR dans dksSphere::creation_faces_sphere() - Impossible de crÃ©er les faces"<<endl;
                 erreur=DKSVOLUME_ERREUR_FACES;
                 return false;
             }
@@ -256,7 +256,7 @@ class dksSphere : public dksVolume
         surface->brillance=30.;
 
         determine_surfaces(surfaces_sphere,2);
-        //drapeaux_liberation_memoire|=DKSVOLUME_LIBERE_SURFACES; *** Les surfaces doivent être supprimée par la sphère. Sinon le volume détruit aussi le tableau des surfaces.
+        //drapeaux_liberation_memoire|=DKSVOLUME_LIBERE_SURFACES; *** Les surfaces doivent Ãªtre supprimÃ©e par la sphÃ¨re. Sinon le volume dÃ©truit aussi le tableau des surfaces.
         return true;
     }
 
@@ -266,13 +266,13 @@ class dksSphere : public dksVolume
     }
 
     //======================================================================
-    //          Paramétrages
+    //          ParamÃ©trages
     //======================================================================
 
     //--------------------------
-    //  Définition du rayon
+    //  DÃ©finition du rayon
     //--------------------------
-    ///------------------ L'échelle géométrique est réinitialisée.
+    ///------------------ L'Ã©chelle gÃ©omÃ©trique est rÃ©initialisÃ©e.
     void determine_rayon(float r)
     {
         uint32_t i;

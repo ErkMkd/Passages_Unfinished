@@ -2,13 +2,13 @@
 #define DKSEFFETSPECIAL_H_INCLUDED
 
 /*
-    Rendu d'une surface avec un effet special. Les effets spéciaux sont les mode de rendu nécessitant des
-    données plus complexes que les rendus simples (phong, ombres, bump, réflexions...)
+    Rendu d'une surface avec un effet special. Les effets spÃ©ciaux sont les mode de rendu nÃ©cessitant des
+    donnÃ©es plus complexes que les rendus simples (phong, ombres, bump, rÃ©flexions...)
 */
 class dksSurface;
 
 //============================================================================================
-//              Définition de la classe
+//              DÃ©finition de la classe
 //============================================================================================
 class dksEffetSpecial
 {

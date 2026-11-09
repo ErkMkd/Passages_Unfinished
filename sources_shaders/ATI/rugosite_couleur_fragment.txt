@@ -1,8 +1,8 @@
 //-------------------------------------------------------------------------
 //			Compatible ATI - 1 source lumineuse
-//			Caclul de la rugositÈ, avec texture de couleur.
+//			Caclul de la rugosit√©, avec texture de couleur.
 //			La couche Alpha de la texture de couleur sert pour la transparence en bascule
-//			Alpha>0.5, le pixel est affichÈ, sinon il est absent.
+//			Alpha>0.5, le pixel est affich√©, sinon il est absent.
 //-------------------------------------------------------------------------
 
 uniform sampler2D texture_couleur;

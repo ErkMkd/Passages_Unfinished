@@ -37,7 +37,7 @@
         //===========================================================================
 
         //------------------------------
-        //      Mise à jour des listes
+        //      Mise Ã  jour des listes
         //------------------------------
     public:
         void maj_listes()
@@ -73,7 +73,7 @@
 
         }
 
-        //Génère ou met à jour la liste d'affichage des surfaces luminescentes:
+        //GÃ©nÃ¨re ou met Ã  jour la liste d'affichage des surfaces luminescentes:
         ///Appeler maj_liste_xxx si besoin.
         void determine_liste_luminescences(bool d)
         {
@@ -81,7 +81,7 @@
             drapeau_liste_luminescences=d;
         }
 
-        //Génère ou met à jour la liste d'affichage des profondeurs:
+        //GÃ©nÃ¨re ou met Ã  jour la liste d'affichage des profondeurs:
         ///Appeler maj_liste_xxx si besoin.
         void determine_liste_profondeurs(bool d)
         {

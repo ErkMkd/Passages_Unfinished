@@ -8,12 +8,12 @@ class dksAffichagesDebogue
 {
     public:
         //======================================================================
-        //                        Affichages pour débugages
+        //                        Affichages pour dÃ©bugages
         //======================================================================
 
         static void affiche_point(double Ax,double Ay, double Az, uint32_t couleur)
         {
-            //Sauve les états d'opengl:
+            //Sauve les Ã©tats d'opengl:
             GLboolean GL_CULL_FACE_mem=glIsEnabled(GL_CULL_FACE);
             GLboolean GL_LIGHTING_mem=glIsEnabled(GL_LIGHTING);
             if (GL_CULL_FACE_mem==GL_TRUE) glDisable(GL_CULL_FACE);
@@ -32,7 +32,7 @@ class dksAffichagesDebogue
             glVertex3d(Ax,Ay,Az);
             glEnd();
 
-            //Restitue les états d'openGl:
+            //Restitue les Ã©tats d'openGl:
             if (GL_CULL_FACE_mem==GL_TRUE) glEnable(GL_CULL_FACE);
             if (GL_LIGHTING_mem==GL_TRUE)glEnable(GL_LIGHTING);
             glPolygonMode(GL_FRONT_AND_BACK,GL_POLYGON_MODE_mem[0]);
@@ -43,7 +43,7 @@ class dksAffichagesDebogue
         static void affiche_segment(double Ax,double Ay, double Az,
                                 double Bx,double By, double Bz, uint32_t couleur)
         {
-            //Sauve les états d'opengl:
+            //Sauve les Ã©tats d'opengl:
             GLboolean GL_CULL_FACE_mem=glIsEnabled(GL_CULL_FACE);
             GLboolean GL_LIGHTING_mem=glIsEnabled(GL_LIGHTING);
             if (GL_CULL_FACE_mem==GL_TRUE) glDisable(GL_CULL_FACE);
@@ -61,7 +61,7 @@ class dksAffichagesDebogue
             glVertex3d(Bx,By,Bz);
             glEnd();
 
-            //Affiche les extrémités:
+            //Affiche les extrÃ©mitÃ©s:
             glPolygonMode(GL_FRONT_AND_BACK,GL_POINT);
             glPointSize(4.);
             glBegin(GL_POINTS);
@@ -69,7 +69,7 @@ class dksAffichagesDebogue
             glColor3f(0,1.,0);glVertex3d(Bx,By,Bz);
             glEnd();
 
-            //Restitue les états d'openGl:
+            //Restitue les Ã©tats d'openGl:
             if (GL_CULL_FACE_mem==GL_TRUE) glEnable(GL_CULL_FACE);
             if (GL_LIGHTING_mem==GL_TRUE)glEnable(GL_LIGHTING);
             glPolygonMode(GL_FRONT_AND_BACK,GL_POLYGON_MODE_mem[0]);

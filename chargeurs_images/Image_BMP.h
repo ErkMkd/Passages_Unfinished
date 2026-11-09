@@ -68,21 +68,21 @@ class Image_BMP: public Fichiers
             return NULL;
         }
 
-        //Test si la taille écrite dans l'entête correspond à la taille calculée:
+        //Test si la taille Ã©crite dans l'entÃªte correspond Ã  la taille calculÃ©e:
         uint32_t taille_ecrite_dans_fichier;
         fichier.read((char*)&taille_ecrite_dans_fichier,4); //Pas besoin de retourner les octets
 
         if (taille_fichier!=taille_ecrite_dans_fichier)
         {
-            cout<<"ERREUR dans Image_BMP::charge() - Les données sont corrompues dans le fichier ' "<<nom_fichier<<" '"<<endl;
+            cout<<"ERREUR dans Image_BMP::charge() - Les donnÃ©es sont corrompues dans le fichier ' "<<nom_fichier<<" '"<<endl;
             delete parametres;
             return NULL;
         }
 
-        //On saute 4 octets réservés:
+        //On saute 4 octets rÃ©servÃ©s:
         fichier.seekg(4,ios::cur);
 
-        //Lecture des données de l'image:
+        //Lecture des donnÃ©es de l'image:
         fichier.read((char*)&debut_image,4);
         fichier.read((char*)&taille_entete,4);
         fichier.read((char*)&parametres->largeur,4);
@@ -100,14 +100,14 @@ class Image_BMP: public Fichiers
 
         if (DEBUG_IMAGE_BMP)
         {
-            cout<<"Début des données de l'image: "<<dec<<debut_image<<endl;
-            cout<<"taille de l'entête: "<<hex<<taille_entete<<endl;
+            cout<<"DÃ©but des donnÃ©es de l'image: "<<dec<<debut_image<<endl;
+            cout<<"taille de l'entÃªte: "<<hex<<taille_entete<<endl;
             cout<<"Dimensions: "<<dec<<parametres->largeur<<" * "<<parametres->hauteur<<endl;
             cout<<"Bits par pixel: "<<parametres->bits_par_pixel<<endl;
-            cout<<"Méthode de compression: "<<compression<<endl;
+            cout<<"MÃ©thode de compression: "<<compression<<endl;
             cout<<"Taille totale de l'image: "<<taille_totale<<endl;
-            cout<<"Résolution horizontale: "<<resolution_h<<endl;
-            cout<<"Résolution verticale: "<<resolution_v<<endl;
+            cout<<"RÃ©solution horizontale: "<<resolution_h<<endl;
+            cout<<"RÃ©solution verticale: "<<resolution_v<<endl;
             cout<<"Nombre de couleurs: "<<nbr_couleurs<<endl;
             cout<<"Nombre de couleurs importantes: "<<nbr_couleurs_importantes<<endl;
 
@@ -117,7 +117,7 @@ class Image_BMP: public Fichiers
         uint32_t i;
         if (nbr_couleurs>256)
         {
-            cout<<"Erreur dans Image_BMP::charge() - Nombre de couleurs supérieur à 256 dans l'image ' "<<nom_fichier<<" '"<<endl;
+            cout<<"Erreur dans Image_BMP::charge() - Nombre de couleurs supÃ©rieur Ã  256 dans l'image ' "<<nom_fichier<<" '"<<endl;
             free(parametres->image);
             delete parametres;
             return NULL;
@@ -133,27 +133,27 @@ class Image_BMP: public Fichiers
         uint32_t nbr_octets=parametres->largeur*parametres->hauteur*parametres->octets_par_pixel;
 
 
-        //Allocation de la mémoire:
+        //Allocation de la mÃ©moire:
         parametres->image  = (uint8_t *) malloc (nbr_octets);
 
         if (parametres->image==NULL)
         {
-            cout<<"Erreur dans Image_BMP::charge() - Impossible d'allouer la mémoire pour l'image ' "<<nom_fichier<<" '"<<endl;
+            cout<<"Erreur dans Image_BMP::charge() - Impossible d'allouer la mÃ©moire pour l'image ' "<<nom_fichier<<" '"<<endl;
             delete parametres;
             return NULL;
         }
 
 
 
-        //Lecture des données:
+        //Lecture des donnÃ©es:
 
         uint8_t* image=parametres->image;
         fichier.seekg(debut_image,ios::beg);
         fichier.read((char*)image,nbr_octets);
         fichier.close();
 
-        //Remise en ordre des données:
-        //Parce que cet incongru BMP stock ses pixels à l'envers.
+        //Remise en ordre des donnÃ©es:
+        //Parce que cet incongru BMP stock ses pixels Ã  l'envers.
         char temp_r,temp_v,temp_b,temp_a;
 
         switch (parametres->bits_par_pixel)

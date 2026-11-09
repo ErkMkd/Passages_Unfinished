@@ -3,7 +3,7 @@
 
 /*
 
-                    Rendus effectués après le rendu de scènes 3d ou 2d. (flou, profondeur de champ, fondus, halos....
+                    Rendus effectuÃ©s aprÃ¨s le rendu de scÃ¨nes 3d ou 2d. (flou, profondeur de champ, fondus, halos....
 
 */
 
@@ -13,7 +13,7 @@
 
 //==========================================================================================================
 //          Elements contenus dans les listes d'affichage
-//  Ces objets sont renvoyés par la fonction "ajoute_rendu3d()"
+//  Ces objets sont renvoyÃ©s par la fonction "ajoute_rendu3d()"
 //==========================================================================================================
 
 //Les modes d'affichage:
@@ -23,7 +23,7 @@ class Element_PostRendu
     public:
     int32_t indice_liste_affichage; //L'indice dans la liste d'affichage
     bool drapeau_affiche;
-    dksRendu* rendu;    //L'objet à afficher
+    dksRendu* rendu;    //L'objet Ã  afficher
     uint8_t mode_affichage; //Voir les modes de dksRendu3d
     uint8_t tempon_id;      //L'identifiant du tempon de sortie
     vector<Element_PostRendu*>* liste_affichage;
@@ -78,18 +78,18 @@ class dksPostRendu
     */
 
     public:
-    //--------- Paramètres du rendu des tempons:
+    //--------- ParamÃ¨tres du rendu des tempons:
     float alpha_tempon_ecran;
     float alpha_tempon_quart;
     float alpha_tempon_256;
 
-    //---------- Paramètres du floutage:
+    //---------- ParamÃ¨tres du floutage:
     float largeur_flou;
     float hauteur_flou;
     float saturation_horizontale_flou;
     float saturation_verticale_flou;
 
-    //---------- Paramètres du masquage de 2 textures:
+    //---------- ParamÃ¨tres du masquage de 2 textures:
     float couleur_masque[3];
 
     //======================================
@@ -133,7 +133,7 @@ class dksPostRendu
     //=================================================================
 
     //--------------------------------------------------
-    //  Renvoie la liste correspondant aux paramètres
+    //  Renvoie la liste correspondant aux paramÃ¨tres
     //--------------------------------------------------
     vector<Element_PostRendu*>* renvoie_liste_affichage(uint8_t tempon_id)
     {
@@ -167,7 +167,7 @@ class dksPostRendu
     }
 
     //--------------------------------------------------------------
-    //  Ajoute/supprime un élément de rendu dans la liste correspondante
+    //  Ajoute/supprime un Ã©lÃ©ment de rendu dans la liste correspondante
     //--------------------------------------------------------------
     Element_PostRendu* ajoute_rendu(dksRendu* p_rendu,uint8_t tempon_id, uint8_t mode_affichage)
     {
@@ -191,7 +191,7 @@ class dksPostRendu
     //=================================================================
 
 
-    //------- Rendu des éléménts avec leurs couleurs de base:
+    //------- Rendu des Ã©lÃ©mÃ©nts avec leurs couleurs de base:
     void rendu_elements(dksOeil* oeil, vector<Element_PostRendu*>* liste_affichage)
     {
         uint32_t i;
@@ -219,7 +219,7 @@ class dksPostRendu
     //======================================================================================================
 
     //-----------------------------------------------------------------
-    //      Affiche les éléments dans le tempon
+    //      Affiche les Ã©lÃ©ments dans le tempon
     //-----------------------------------------------------------------
     void affiche_tempon_ecran_1(dksOeil* oeil, bool drapeau_efface_sortie=true)
     {
@@ -264,7 +264,7 @@ class dksPostRendu
 
     //------------------------------------------------------------------
     //      Floutage des tempons
-    //      Le rendu à flouter doit avoir été fait dans le tempon 1
+    //      Le rendu Ã  flouter doit avoir Ã©tÃ© fait dans le tempon 1
     //------------------------------------------------------------------
     void floutage_tempon_256()
     {
@@ -411,7 +411,7 @@ class dksPostRendu
 
     //==================================================================================================
     //          Gestion de l'affichage des tempons
-    //  Une fois les rendus effectués dans les tempons, on peut les afficher dans le bitmap visible.
+    //  Une fois les rendus effectuÃ©s dans les tempons, on peut les afficher dans le bitmap visible.
     //==================================================================================================
 
     //------------------------------------------------------
@@ -446,7 +446,7 @@ class dksPostRendu
     }
 
     //-----------------------------------------------------
-    //      Superpose un tempon à l'écran par défaut:
+    //      Superpose un tempon Ã  l'Ã©cran par dÃ©faut:
     //-----------------------------------------------------
     void superpose_tempon(uint8_t tempon_id)
     {
@@ -475,7 +475,7 @@ class dksPostRendu
     }
 
     //-----------------------------------------------------------------------------
-    //      Fin de la superposition - restitution des états sensibles d'OpenGL
+    //      Fin de la superposition - restitution des Ã©tats sensibles d'OpenGL
     //-----------------------------------------------------------------------------
     void fin_superposition_tempons()
     {
@@ -489,7 +489,7 @@ class dksPostRendu
     //------------------------------------------------------
     //  Affiche une texture qui occupe tout le tempon actuel
     //------------------------------------------------------
-    //Le view port doit avoir été correctement initialisé
+    //Le view port doit avoir Ã©tÃ© correctement initialisÃ©
     void affiche_texture(float alpha=1.)
     {
         GLboolean color_material_mem=glIsEnabled(GL_COLOR_MATERIAL);
@@ -510,8 +510,8 @@ class dksPostRendu
 
     //------------------------------------------------------
     //  Affiche deux textures qui occupent tout le tempon actuel
-    ///Le view port doit avoir été correctement initialisé
-    ///Le shader éventuel utilisé doit avoir été initialisé
+    ///Le view port doit avoir Ã©tÃ© correctement initialisÃ©
+    ///Le shader Ã©ventuel utilisÃ© doit avoir Ã©tÃ© initialisÃ©
     //------------------------------------------------------
     void affiche_2_textures(float alpha=1.)
     {
@@ -536,14 +536,14 @@ class dksPostRendu
     }
 
     //====================================================================================================
-    //          Affichage de la liste des objet rendu couleurs, dans le tempon aux dimensions de l'écran
+    //          Affichage de la liste des objet rendu couleurs, dans le tempon aux dimensions de l'Ã©cran
     //====================================================================================================
     void affiche_couleur_tempon_ecran_1(dksOeil* oeil)
     {
         glReadBuffer(GL_BACK);
         glDrawBuffer(GL_BACK);
 
-        //-------- Rendu des éléments dans une texture:
+        //-------- Rendu des Ã©lÃ©ments dans une texture:
 
         affiche_tempon_ecran_1(oeil);
 
@@ -551,11 +551,11 @@ class dksPostRendu
 
         depart_superposition_tempons();
 
-        //Affiche la texture contenant la scène:
+        //Affiche la texture contenant la scÃ¨ne:
 
         superpose_tempon(DKSECRAN_TEMPON_ECRAN_1);
 
-        //Restitution des états sensibles...
+        //Restitution des Ã©tats sensibles...
 
         fin_superposition_tempons();
     }
@@ -566,7 +566,7 @@ class dksPostRendu
         glReadBuffer(GL_BACK);
         glDrawBuffer(GL_BACK);
 
-        //-------- Rendu des éléments dans une texture:
+        //-------- Rendu des Ã©lÃ©ments dans une texture:
 
         affiche_tempon_ecran_2(oeil);
 
@@ -574,33 +574,33 @@ class dksPostRendu
 
         depart_superposition_tempons();
 
-        //Affiche la texture contenant la scène:
+        //Affiche la texture contenant la scÃ¨ne:
 
         superpose_tempon(DKSECRAN_TEMPON_ECRAN_2);
 
-        //Restitution des états sensibles...
+        //Restitution des Ã©tats sensibles...
 
         fin_superposition_tempons();
     }
 
     //====================================================================================================
     //              Rendu avec une aura autour des surfaces luminescentes
-    //              La texture de rendu du floutage doit être un carré.
-    ///             La scène doit avoir été mise à jour!
+    //              La texture de rendu du floutage doit Ãªtre un carrÃ©.
+    ///             La scÃ¨ne doit avoir Ã©tÃ© mise Ã  jour!
     //====================================================================================================
     void affiche_flou_256(dksOeil* oeil,uint8_t id_tempon_a_flouter=DKSECRAN_TEMPON_ECRAN_1, uint8_t id_tempon_sortie=DKSECRAN_TEMPON_DEFAUT)
     {
-        //Réglages d'OpenGL:
+        //RÃ©glages d'OpenGL:
         glReadBuffer(GL_BACK);
         glDrawBuffer(GL_BACK);
 
-        //---------------- Premier rendu: Les surfaces à flouter:
+        //---------------- Premier rendu: Les surfaces Ã  flouter:
         affiche_tempon_256(oeil);
 
         //---------------- Floutage:
         floutage_tempon_256();
 
-        //---------------- Rendu de la scène:
+        //---------------- Rendu de la scÃ¨ne:
         if(id_tempon_a_flouter==DKSECRAN_TEMPON_ECRAN_1) affiche_tempon_ecran_1(oeil);
         else if(id_tempon_a_flouter==DKSECRAN_TEMPON_ECRAN_2) affiche_tempon_ecran_2(oeil);
 
@@ -613,17 +613,17 @@ class dksPostRendu
 
     void affiche_flou_quart(dksOeil* oeil,uint8_t id_tempon_a_flouter=DKSECRAN_TEMPON_ECRAN_1, uint8_t id_tempon_sortie=DKSECRAN_TEMPON_DEFAUT)
     {
-        //Réglages d'OpenGL:
+        //RÃ©glages d'OpenGL:
         glReadBuffer(GL_BACK);
         glDrawBuffer(GL_BACK);
 
-        //---------------- Premier rendu: Les surfaces à flouter:
+        //---------------- Premier rendu: Les surfaces Ã  flouter:
         affiche_tempon_quart(oeil);
 
         //---------------- Floutage:
         floutage_tempon_quart();
 
-        //---------------- Rendu de la scène:
+        //---------------- Rendu de la scÃ¨ne:
         if(id_tempon_a_flouter==DKSECRAN_TEMPON_ECRAN_1) affiche_tempon_ecran_1(oeil);
         else if(id_tempon_a_flouter==DKSECRAN_TEMPON_ECRAN_2) affiche_tempon_ecran_2(oeil);
 

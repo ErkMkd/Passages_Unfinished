@@ -42,7 +42,7 @@ class Matrice4x4
             matrice[15]=p;
         }
 
-        //Matrice identité:
+        //Matrice identitÃ©:
         void identite()
         {
             matrice[0]=1.;matrice[4]=0.; matrice[8]=0.;matrice[12]=0.;
@@ -98,7 +98,7 @@ class Matrice4x4
             matrice[3]=0.;matrice[7]=0.; matrice[11]=0.;matrice[15]=1.;
         }
 
-        //La matrice d'entrée m est située à droite:
+        //La matrice d'entrÃ©e m est situÃ©e Ã  droite:
         void multiplication_droite(Matrice4x4& m, Matrice4x4& res)
         {
             res.matrice[0]=matrice[0]*m.matrice[0]+matrice[4]*m.matrice[1]+matrice[8]*m.matrice[2]+matrice[12]*m.matrice[3];
@@ -124,7 +124,7 @@ class Matrice4x4
 
         }
 
-        //Le vecteur d'entrée [x,y,z,w] est situé à droite:
+        //Le vecteur d'entrÃ©e [x,y,z,w] est situÃ© Ã  droite:
         void multiplication_droite(double* vect,double* res)
         {
             res[0]=vect[0]*matrice[0]+vect[1]*matrice[4]+vect[2]*matrice[8]+vect[3]*matrice[12];
@@ -133,7 +133,7 @@ class Matrice4x4
             res[3]=vect[0]*matrice[3]+vect[1]*matrice[7]+vect[2]*matrice[11]+vect[3]*matrice[15];
         }
 
-        //La matrice d'entrée m est située à gauche:
+        //La matrice d'entrÃ©e m est situÃ©e Ã  gauche:
         void multiplication_gauche(Matrice4x4& m, Matrice4x4& res)
         {
             res.matrice[0]=m.matrice[0]*matrice[0]+m.matrice[4]*matrice[1]+m.matrice[8]*matrice[2]+m.matrice[12]*matrice[3];

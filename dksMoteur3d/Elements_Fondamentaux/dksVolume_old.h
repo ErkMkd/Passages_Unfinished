@@ -6,13 +6,13 @@
 //
 //                                              Gestion des volumes DKS
 //
-//  Un volume peut être rendu de 3 manières:
-//      1-En mode immédiat,
+//  Un volume peut Ãªtre rendu de 3 maniÃ¨res:
+//      1-En mode immÃ©diat,
 //      2-Avec les tableaux,
 //      3-Par les listes d'affichage.
-//          Dans ce dernier cas, il y a deux possibilités:
+//          Dans ce dernier cas, il y a deux possibilitÃ©s:
 //                  1-Ne stocker en liste que les surfaces opaques,
-//                  2-Stocker les surfacess opaques et les surfaces transparentes, auquel cas il peut y avoir des bugs d'afficache dus à l'abscence de tri.
+//                  2-Stocker les surfacess opaques et les surfaces transparentes, auquel cas il peut y avoir des bugs d'afficache dus Ã  l'abscence de tri.
 //
 //
 //*****************************************************************************************************************************************
@@ -31,13 +31,13 @@
 #define DKSCONTENEUR_CLASSE_VOLUME "Volume"
 #define DKSCONTENEUR_CLASSE_VOLUME_ID 1
 
-//Codes d'erreurs, à récupérer dans dksVolume.erreur:
+//Codes d'erreurs, Ã  rÃ©cupÃ©rer dans dksVolume.erreur:
 #define DKSVOLUME_OK 0
 #define DKSVOLUME_ERREUR_VOLUME 1
 #define DKSVOLUME_ERREUR_MEMOIRE 2
 #define DKSVOLUME_ERREUR_LISTE_OPENGL 3
 
-//Drapeaux pour la libération de la mémoire lors de la destruction:
+//Drapeaux pour la libÃ©ration de la mÃ©moire lors de la destruction:
 #define DKSVOLUME_LIBERE_ARETES_FACES    0x00000001
 #define DKSVOLUME_LIBERE_FACES           0x00000002
 #define DKSVOLUME_LIBERE_NOM             0x00000004
@@ -48,7 +48,7 @@
 #define DKSVOLUME_LISTE_SURFACES_OPAQUES 1
 #define DKSVOLUME_LISTE_SURFACES_OPAQUES_ET_TRANSPARENTES 2
 
-//Drapeau de débogage:
+//Drapeau de dÃ©bogage:
 
 #define DKSVOLUME_DEBUG_DUREES false
 
@@ -62,23 +62,23 @@ class dksTexture;
 class dksFace
 {
     public:
-        //Données fournies à la création du volume:
+        //DonnÃ©es fournies Ã  la crÃ©ation du volume:
         uint16_t nbrSommets;
-        uint32_t* aretes;   //Les aretes doivent boucler (dernier sommets lié au premier)
-        dksSurface* surface;   //La surface à laquelle est affectée la face
-        //Données initialisées automatiquement:
+        uint32_t* aretes;   //Les aretes doivent boucler (dernier sommets liÃ© au premier)
+        dksSurface* surface;   //La surface Ã  laquelle est affectÃ©e la face
+        //DonnÃ©es initialisÃ©es automatiquement:
         uint32_t    indice; //L'indice de la face dans le volume
         dksVolume*  volume; //Le volume auquel appartient la face
 
         GLdouble normale_relative[3];
         GLdouble normale_absolue[3];
 
-        double centre_gravite_relatif[3]; //Le centre de gravité de la face
+        double centre_gravite_relatif[3]; //Le centre de gravitÃ© de la face
         double centre_gravite_absolu[3];  //Le centre dans l'espace absolu
 
-        uint32_t* liens_aretes; //Indices des arêtes de la face dans la table des arêtes du volume.
+        uint32_t* liens_aretes; //Indices des arÃªtes de la face dans la table des arÃªtes du volume.
 
-        GLdouble* normales_relatives_sommets; //Ces normales ne servent que si la surface est non-uniformément adoucie.
+        GLdouble* normales_relatives_sommets; //Ces normales ne servent que si la surface est non-uniformÃ©ment adoucie.
         GLdouble* normales_absolues_sommets;
 
         dksFace()
@@ -106,14 +106,14 @@ class dksFace
 //  Structure des surfaces:
 //
 //  Si la surface est opaque, il n'y a pas de tri des faces.
-//  Si la surface est transparente, ses faces sont stockées dans la table des faces transparentes du volume.
-//     Une surface est considérée comme transparente si:
+//  Si la surface est transparente, ses faces sont stockÃ©es dans la table des faces transparentes du volume.
+//     Une surface est considÃ©rÃ©e comme transparente si:
 //                  -son niveau de transparence > 0,
 //                  -la texture de couleur a une couche alpha non uniforme ou <> 0xff
 //                  -il y a une texture de transparence
 //
-//          a priori, la transparence d'un fragment est calculé comme suit:
-//                  Tf=transparence+Af+Tt avec une limitation à 1. Af=Alpha, Tt=transparence de la texture de transparence
+//          a priori, la transparence d'un fragment est calculÃ© comme suit:
+//                  Tf=transparence+Af+Tt avec une limitation Ã  1. Af=Alpha, Tt=transparence de la texture de transparence
 //
 //----------------------------------
 class dksSurface
@@ -121,15 +121,15 @@ class dksSurface
     public:
         char* nom;
         dksVolume* volume;  //Le volume auquel appartient la surface
-        bool double_face;   //Affiche les deux côtés des faces
+        bool double_face;   //Affiche les deux cÃ´tÃ©s des faces
         bool drapeau_adoucissement; //True si les faces sont adoucies
         bool drapeau_transparence;  //True si la surface est transparente.
-        bool drpaeau_partiellement_adoucie; //True si certaines arêtes ne sont pas adoucies (angle>angle_limite_adoucissement)
+        bool drpaeau_partiellement_adoucie; //True si certaines arÃªtes ne sont pas adoucies (angle>angle_limite_adoucissement)
         float angle_limite_adoucissement;
 
         float couleur_diffusion[3];
         float couleur_speculaire[3];
-        float couleur_ambiance[3]; //Réflexion de la lumière ambiante
+        float couleur_ambiance[3]; //RÃ©flexion de la lumiÃ¨re ambiante
         float couleur_luminescence[3]; //Luminescence de la surface
 
         float luminescence;
@@ -138,14 +138,14 @@ class dksSurface
         float specularite;
         float brillance;    //=Shininess
         float transparence;
-        float translucidite; //Comment le gérer?
-        float reflexion;// Gérée par les shaders
-        float rugosite; //"Bump", géré par les shaders
+        float translucidite; //Comment le gÃ©rer?
+        float reflexion;// GÃ©rÃ©e par les shaders
+        float rugosite; //"Bump", gÃ©rÃ© par les shaders
 
         //Textures:
         vector<dksTexture*> textures;
 
-        //faces liées à la surface:
+        //faces liÃ©es Ã  la surface:
         uint32_t nbr_faces;
         vector<dksFace*> faces;
 
@@ -177,9 +177,9 @@ class dksSurface
 class dksTexture
 {
     public:
-    uint8_t type;   //Couleur, diffusion, réflexion...
+    uint8_t type;   //Couleur, diffusion, rÃ©flexion...
     bool drapeau_active; //True si la texture est active
-    GLfloat* coordonnees_UV;    //Attention à la gestion des tables de coordonnées UV!
+    GLfloat* coordonnees_UV;    //Attention Ã  la gestion des tables de coordonnÃ©es UV!
     Image* image;
 
     dksTexture()
@@ -189,7 +189,7 @@ class dksTexture
 };
 
 //Structure d'une liaison de faces:
-//La liaison peut servir pour les sommets ou les arêtes.
+//La liaison peut servir pour les sommets ou les arÃªtes.
 
 class liaison_faces
 {
@@ -197,17 +197,17 @@ class liaison_faces
         vector<uint32_t> faces;
 };
 
-//Structure utilisée pour le tri des faces transparentes:
+//Structure utilisÃ©e pour le tri des faces transparentes:
 class tri_face
 {   public:
-    double distance;        //Distance de la face à l'oeil
+    double distance;        //Distance de la face Ã  l'oeil
     uint32_t indice_face;   //L'indice de la face
 };
 
 //===========================================================================================
 //                          DEFINITION DE LA CLASSE VOLUME
 //
-//  Prévoir un mode simple précision (float) pour optimiser.
+//  PrÃ©voir un mode simple prÃ©cision (float) pour optimiser.
 //
 //===========================================================================================
 
@@ -215,24 +215,24 @@ class dksVolume :public dksConteneur
 {
 
     public:
-        uint16_t erreur; //Code d'erreur en cas de problème
+        uint16_t erreur; //Code d'erreur en cas de problÃ¨me
         //Sommets relatifs au volume:
         GLdouble* sommets_relatifs;
-        //Sommets dans l'espace absolu. Ces sommets ne sont pas systématiquement calculés, car pour le rendu, ce sont les matrices d'OpenGl qui servent.
-        //Les sommets absolus servent pour des traitements spécifiques (collisions, debuggages...).
+        //Sommets dans l'espace absolu. Ces sommets ne sont pas systÃ©matiquement calculÃ©s, car pour le rendu, ce sont les matrices d'OpenGl qui servent.
+        //Les sommets absolus servent pour des traitements spÃ©cifiques (collisions, debuggages...).
 		GLdouble* sommets_absolus;
 
-		GLdouble* sommets;      //Pointe sur la table de sommets utilisée pour le rendu.
+		GLdouble* sommets;      //Pointe sur la table de sommets utilisÃ©e pour le rendu.
                                 //Si le moteur est en mode TRANSFORMATIONS_MATRICES, ce sont les sommets
-                                //relatifs qui sont utilisés. Si le moteur est en mode TRANSFORMATIONS_REPERES, les
-                                //sommets absolus sont utilisés.
-                                //Par défaut, ce sont les sommets relatifs qui sont utilisés.
+                                //relatifs qui sont utilisÃ©s. Si le moteur est en mode TRANSFORMATIONS_REPERES, les
+                                //sommets absolus sont utilisÃ©s.
+                                //Par dÃ©faut, ce sont les sommets relatifs qui sont utilisÃ©s.
 
-        bool volume_a_change; //True lorsque le volume a bougé. Ses sommets sont alors rafraichis par la hiérarchie.
+        bool volume_a_change; //True lorsque le volume a bougÃ©. Ses sommets sont alors rafraichis par la hiÃ©rarchie.
 
     private:
 		double echelle_geometrique; //Facteur multiplicateur des sommets du volume
-		double epsilon; //Sert pour le calcul de planitude des faces. Il est différent de la constante globale EPSILON
+		double epsilon; //Sert pour le calcul de planitude des faces. Il est diffÃ©rent de la constante globale EPSILON
 
     public:
 
@@ -241,13 +241,13 @@ class dksVolume :public dksConteneur
 		uint32_t nbrAretes;
 		dksFace** faces;
 
-        //Tableau utilisé pour le tri des faces transparentes
+        //Tableau utilisÃ© pour le tri des faces transparentes
         uint32_t nbrFaces_transparentes;
         vector<dksFace*> faces_transparentes;
 		vector<tri_face> indices_faces_transparentes;
 
         //Tables de liaisons. Ces informations peuvent servir.
-		vector<uint32_t> aretes; //Tableau qui peut être généré à partir des faces avec "initialisation_aretes()"
+		vector<uint32_t> aretes; //Tableau qui peut Ãªtre gÃ©nÃ©rÃ© Ã  partir des faces avec "initialisation_aretes()"
         vector<liaison_faces> liaisons_aretes_faces; //Vecteur de vecteurs d'indices de faces
         vector<liaison_faces> liaisons_sommets_faces; //Vecteur de vecteurs d'indices de faces
         vector<dksVecteurUnitaire> normales_relatives_sommets; //Normales relatives au volume des sommets
@@ -257,27 +257,27 @@ class dksVolume :public dksConteneur
 		uint32_t nbrSurfaces;
 		vector<dksSurface*> surfaces;
 
-        //La boite déterminant les limites de collision du volume:
+        //La boite dÃ©terminant les limites de collision du volume:
         dksBoiteCollision* boite_collision;
 
-        //Données géométriques:
+        //DonnÃ©es gÃ©omÃ©triques:
         dksVecteur centre_geometrique_relatif;
         dksVecteur centre_geometrique_absolu;
 
 
     private:
-        //Gestion mémoire:
+        //Gestion mÃ©moire:
         uint32_t drapeaux_liberation_memoire;
 
-        //Couleur des matériaux:
-        //(Réinitialisées à chaque changement de surface)
+        //Couleur des matÃ©riaux:
+        //(RÃ©initialisÃ©es Ã  chaque changement de surface)
         GLfloat couleur_ambiance[4];
         GLfloat couleur_diffusion[4];
         GLfloat couleur_specularite[4];
         GLfloat couleur_luminescence[4];
 
         //Gestion des listes OpenGl:
-        //Les liste d'openGl ne peuvent être utilisées que si les matrices d'OpenGl sont activées (voir dksMoteur3d.h)
+        //Les liste d'openGl ne peuvent Ãªtre utilisÃ©es que si les matrices d'OpenGl sont activÃ©es (voir dksMoteur3d.h)
         //
 
 
@@ -298,9 +298,9 @@ class dksVolume :public dksConteneur
                 uint32_t p_nbrFaces=0)
                 :dksConteneur(p_nom,px,py,pz,axe1,axe2,axe3)
 		{
-		    //std::cout<<"------- Création du volume: "<<p_nom<<std::endl;
+		    //std::cout<<"------- CrÃ©ation du volume: "<<p_nom<<std::endl;
 
-            //--------- Initialise les variables par défaut:
+            //--------- Initialise les variables par dÃ©faut:
             classe = DKSCONTENEUR_CLASSE_VOLUME;
             classe_id=DKSCONTENEUR_CLASSE_VOLUME_ID;
 		    erreur=0;
@@ -323,7 +323,7 @@ class dksVolume :public dksConteneur
 		    nbrSommets=p_nbrSommets;
 		    sommets_relatifs=psommets;
 		    sommets_absolus=(double*)malloc(sizeof(double)*nbrSommets*3);
-		    if (sommets_absolus==0){std::cout<<"Mémoire insuffisante"<<std::endl;erreur=DKSVOLUME_ERREUR_MEMOIRE;return;}
+		    if (sommets_absolus==0){std::cout<<"MÃ©moire insuffisante"<<std::endl;erreur=DKSVOLUME_ERREUR_MEMOIRE;return;}
 
             //---------Initialise les faces:
 
@@ -364,7 +364,7 @@ class dksVolume :public dksConteneur
                 duree = glutGet(GLUT_ELAPSED_TIME);
                 initialise_faces();
                 duree = glutGet(GLUT_ELAPSED_TIME)-duree;
-                if (DKSVOLUME_DEBUG_DUREES) cout<<"Paramètres des faces : "<<duree<<endl;
+                if (DKSVOLUME_DEBUG_DUREES) cout<<"ParamÃ¨tres des faces : "<<duree<<endl;
 
                 duree = glutGet(GLUT_ELAPSED_TIME);
                 calcul_normales_relatives_sommets();
@@ -374,7 +374,7 @@ class dksVolume :public dksConteneur
                 duree = glutGet(GLUT_ELAPSED_TIME);
                 initialise_liens_faces_aretes();
                 duree = glutGet(GLUT_ELAPSED_TIME)-duree;
-                if (DKSVOLUME_DEBUG_DUREES) cout<<"Liens faces-arêtes : "<<duree<<endl;
+                if (DKSVOLUME_DEBUG_DUREES) cout<<"Liens faces-arÃªtes : "<<duree<<endl;
 
                 duree = glutGet(GLUT_ELAPSED_TIME);
                 calcul_normales_relatives_sommets_faces();
@@ -389,7 +389,7 @@ class dksVolume :public dksConteneur
 
             duree_faces=glutGet(GLUT_ELAPSED_TIME)-duree_faces;
             if (DKSVOLUME_DEBUG_DUREES)
-            cout<<"**** Durée d'initialisation des faces du volume "<<nom<<" : "<<duree_faces<<endl<<endl;;
+            cout<<"**** DurÃ©e d'initialisation des faces du volume "<<nom<<" : "<<duree_faces<<endl<<endl;;
 
             //--------- Initialise les surfaces:
             double duree_surfaces=glutGet(GLUT_ELAPSED_TIME);
@@ -398,9 +398,9 @@ class dksVolume :public dksConteneur
 
             duree_surfaces=glutGet(GLUT_ELAPSED_TIME)-duree_surfaces;
             if (DKSVOLUME_DEBUG_DUREES)
-            cout<<"Durée d'initialisation des surfaces du volume "<<nom<<" : "<<duree_surfaces<<endl;
+            cout<<"DurÃ©e d'initialisation des surfaces du volume "<<nom<<" : "<<duree_surfaces<<endl;
 
-            //----------- Initialise les données géométriques:
+            //----------- Initialise les donnÃ©es gÃ©omÃ©triques:
             calcul_centre_geometrique_relatif();
 		}
 
@@ -418,13 +418,13 @@ class dksVolume :public dksConteneur
             unsigned int i;
 
 
-            //Libère la boite de collision:
+            //LibÃ¨re la boite de collision:
             if ((drapeaux_liberation_memoire & DKSVOLUME_LIBERE_BOITE_COLLISION)!=0)
             {
                 if ( boite_collision!=NULL) delete boite_collision;
             }
 
-            //Libère les tableaux d'arêtes des faces:
+            //LibÃ¨re les tableaux d'arÃªtes des faces:
 
             if ((drapeaux_liberation_memoire & DKSVOLUME_LIBERE_ARETES_FACES)!=0)
             {
@@ -434,15 +434,15 @@ class dksVolume :public dksConteneur
                 }
             }
 
-            //Libère les faces:
+            //LibÃ¨re les faces:
 
             if ((drapeaux_liberation_memoire & DKSVOLUME_LIBERE_FACES)!=0) free(faces);
 
-            //Libère la mémoire utilisée pour nom:
+            //LibÃ¨re la mÃ©moire utilisÃ©e pour nom:
 
             if ((drapeaux_liberation_memoire & DKSVOLUME_LIBERE_NOM)!=0) free(nom);
 
-            //Libère la table des liaisons des arêtes et des faces:
+            //LibÃ¨re la table des liaisons des arÃªtes et des faces:
             /*
             if ( liaisons_aretes_faces!=NULL)
             {
@@ -455,11 +455,11 @@ class dksVolume :public dksConteneur
         }
 
         //=========================================================================================
-        //                          Gestion des données géométriques
+        //                          Gestion des donnÃ©es gÃ©omÃ©triques
         //=========================================================================================
 
         //--------------------------------------------------------------------------------------
-        //              Calcul du centre géométrique du volume
+        //              Calcul du centre gÃ©omÃ©trique du volume
         //--------------------------------------------------------------------------------------
         void calcul_centre_geometrique_relatif()
         {
@@ -489,18 +489,18 @@ class dksVolume :public dksConteneur
             double cy = centre_geometrique_relatif.y;
             double cz = centre_geometrique_relatif.z;
 
-            // coordonnées de l'objet enfant dans le repère de l'objet parent
+            // coordonnÃ©es de l'objet enfant dans le repÃ¨re de l'objet parent
             centre_geometrique_absolu.x =  repere_absolu->x + cx * ax_x + cy * ay_x + cz * az_x;
             centre_geometrique_absolu.y =  repere_absolu->y + cx * ax_y + cy * ay_y + cz * az_y;
             centre_geometrique_absolu.z =  repere_absolu->z + cx * ax_z + cy * ay_z + cz * az_z;
         }
 
         //=========================================================================================
-        //                          Gestion des arêtes
+        //                          Gestion des arÃªtes
         //=========================================================================================
 
         //--------------------------------------------------------------------------------------
-        //              Création de la table des arêtes à partir des faces:
+        //              CrÃ©ation de la table des arÃªtes Ã  partir des faces:
         //--------------------------------------------------------------------------------------
 
         void initialise_aretes()
@@ -532,7 +532,7 @@ class dksVolume :public dksConteneur
 		}
 
 		//--------------------------------------------------------------------------------------
-        //             Création de la table de correspondance entre les arêtes et les faces
+        //             CrÃ©ation de la table de correspondance entre les arÃªtes et les faces
         //--------------------------------------------------------------------------------------
         void initialise_liaisons_aretes_faces()
         {
@@ -563,7 +563,7 @@ class dksVolume :public dksConteneur
         }
 
 
-        //Affiche la table des liaisons des arêtes avec les faces:
+        //Affiche la table des liaisons des arÃªtes avec les faces:
         void affiche_liaison_aretes_faces()
         {
             for (uint32_t i=0;i<liaisons_aretes_faces.size();i++)
@@ -583,8 +583,8 @@ class dksVolume :public dksConteneur
 
         //---------------------------------------------------------
         //Initialise le tableau de tri des faces transparentes
-        //Les faces transparentes étant triées, elle ne peuvent pas
-        //être affichées par surface. Il faut une table spécifique.
+        //Les faces transparentes Ã©tant triÃ©es, elle ne peuvent pas
+        //Ãªtre affichÃ©es par surface. Il faut une table spÃ©cifique.
         //---------------------------------------------------------
 
 
@@ -608,9 +608,9 @@ class dksVolume :public dksConteneur
         }
 
         //--------------------------------------------------------------------------------------
-        //Réorganise l'ordre des sommets de manière à ne pas avoir 3 point alignés au départ.
+        //RÃ©organise l'ordre des sommets de maniÃ¨re Ã  ne pas avoir 3 point alignÃ©s au dÃ©part.
         //--------------------------------------------------------------------------------------
-		//Ces trois points servent pour le calcul de la normale. Il ne faut pas qu'ils soient alignés.
+		//Ces trois points servent pour le calcul de la normale. Il ne faut pas qu'ils soient alignÃ©s.
 		//ATTENTION!!! IL FAUT QUE LES ARETES FACES AIENT ETE ALLOUEES DYNAMIQUEMENT.
         //Renvoie false si une erreur s'est produite.
 
@@ -682,7 +682,7 @@ class dksVolume :public dksConteneur
 
 
         //---------------------------------------------------------------------
-        // Crée les liens avec les arêtes dans la table des arêtes du volume
+        // CrÃ©e les liens avec les arÃªtes dans la table des arÃªtes du volume
         //---------------------------------------------------------------------
 
         void  initialise_liens_faces_aretes()
@@ -712,7 +712,7 @@ class dksVolume :public dksConteneur
 
 		//---------------------------------------------------------
         // Calcul les normales relatives des faces
-        // Fonction d'initialisation, à n'appeler que lors de la construction du volume.
+        // Fonction d'initialisation, Ã  n'appeler que lors de la construction du volume.
         //---------------------------------------------------------
 
 		void normales_relatives_faces()
@@ -764,7 +764,7 @@ class dksVolume :public dksConteneur
 		}
 
 		//---------------------------------------------------------
-        // Calcul les centres de gravité relatifs des faces
+        // Calcul les centres de gravitÃ© relatifs des faces
         //---------------------------------------------------------
         void calcul_centres_gravite_relatifs_faces()
         {
@@ -792,7 +792,7 @@ class dksVolume :public dksConteneur
         //---------------------------------------------------------
         // Calcul les normales relatives des sommets des faces
         // Ces normales ne servent que si l'adoucissement de la surface
-        // à laquelle est liée la face est activé.
+        // Ã  laquelle est liÃ©e la face est activÃ©.
         //---------------------------------------------------------
         void calcul_normales_relatives_sommets_faces()
         {
@@ -816,7 +816,7 @@ class dksVolume :public dksConteneur
 
                             //std::cout<<"Angle entre la face "<<faces[i].indice<<" et la face "<<face_B->indice<<" : "<<angle<<" / "<<faces[i].surface->angle_limite_adoucissement<<std::endl;
 
-                            //Si l'angle limite n'est pas atteint, calcul la normale des sommets de l'arête:
+                            //Si l'angle limite n'est pas atteint, calcul la normale des sommets de l'arÃªte:
                             if (faces[i]->surface->angle_limite_adoucissement > angle)
                             {
                                 faces[i]->normales_relatives_sommets[j].x+=face_B->normale_relative.x;
@@ -841,13 +841,13 @@ class dksVolume :public dksConteneur
 
 
         //---------------------------------------------------------
-        //Initialise les données nécessaires au rendu des faces
+        //Initialise les donnÃ©es nÃ©cessaires au rendu des faces
         //---------------------------------------------------------
         void initialise_faces()
         {
             for (uint32_t i=0;i<nbrFaces;i++)
             {
-                //Initialisations des données de travail:
+                //Initialisations des donnÃ©es de travail:
                 faces[i]->volume=this;
                 faces[i]->indice=i;
             }
@@ -861,19 +861,19 @@ class dksVolume :public dksConteneur
         //====================================================================================================
 
         //---------------------------------------------------------------
-        //              Création de la table des liens faces<->surfaces
+        //              CrÃ©ation de la table des liens faces<->surfaces
         //---------------------------------------------------------------
         bool creation_surfaces()
         {
             nbrSurfaces=0;
             surfaces.clear();
-            //Création de la table des surfaces et des tables des faces dans les surfaces :)
+            //CrÃ©ation de la table des surfaces et des tables des faces dans les surfaces :)
             Face* face;
             uint32_t i,k;
             for (i=0;i<nbrFaces;i++)
             {
                 face=faces[i];
-                //Test si la surface est déjà répertoirée:
+                //Test si la surface est dÃ©jÃ  rÃ©pertoirÃ©e:
                 for (k=0;k<nbrSurfaces;k++)
                 {
                     if(surfaces[k].surface==face->surface)
@@ -886,7 +886,7 @@ class dksVolume :public dksConteneur
                         break;
                     }
                 }
-                // Si la surface n'est pas répertoriée, on l'ajoute à la table:
+                // Si la surface n'est pas rÃ©pertoriÃ©e, on l'ajoute Ã  la table:
                 if (k==nbrSurfaces)
                 {
                     Surface_faces nouvelle_surface;
@@ -910,7 +910,7 @@ class dksVolume :public dksConteneur
 
 
         //--------------------------------------------------------------------------------------
-        //             Création de la table de correspondance entre les sommets et les faces
+        //             CrÃ©ation de la table de correspondance entre les sommets et les faces
         //--------------------------------------------------------------------------------------
         void initialise_liaisons_sommets_faces()
         {
@@ -945,7 +945,7 @@ class dksVolume :public dksConteneur
         //Calcul les normales relatives des sommets:
         //--------------------------------------------------------------------------------------
 
-        //Appeler cette fonction après avoir créé les liaisons.
+        //Appeler cette fonction aprÃ¨s avoir crÃ©Ã© les liaisons.
         void calcul_normales_relatives_sommets()
         {
             for(uint32_t i=0 ; i< nbrSommets;i++)
@@ -954,7 +954,7 @@ class dksVolume :public dksConteneur
                 ajoute_normale_sommet();
                 for (uint32_t j=0;j<liaisons_sommets_faces[i].faces.size();j++)
                 {
-                    //Calcul la somme des normales des faces liées au sommet:
+                    //Calcul la somme des normales des faces liÃ©es au sommet:
                     Vecteur_Unitaire* normale_relative_face=&faces[liaisons_sommets_faces[i].faces[j]]->normale_relative;
                     normales_relatives_sommets[i].x+=normale_relative_face->x;
                     normales_relatives_sommets[i].y+=normale_relative_face->y;
@@ -989,7 +989,7 @@ class dksVolume :public dksConteneur
         }
 
          //=========================================================================================
-        //                         Gestion des coordonnées dans l'espace absolu
+        //                         Gestion des coordonnÃ©es dans l'espace absolu
         //=========================================================================================
 
         //---------------------------------------------------------
@@ -1009,14 +1009,14 @@ class dksVolume :public dksConteneur
 					xt = sommets_relatifs[i];
 					yt = sommets_relatifs[i+1];
 					zt = sommets_relatifs[i+2];
-					// coordonnées de l'objet enfant dans le repère de l'objet parent
+					// coordonnÃ©es de l'objet enfant dans le repÃ¨re de l'objet parent
 					sommets_absolus[i++] =  repere_absolu->x + xt * ax_x + yt * ay_x + zt * az_x;
 					sommets_absolus[i++] =  repere_absolu->y + xt * ax_y + yt * ay_y + zt * az_y;
 					sommets_absolus[i++] =  repere_absolu->z + xt * ax_z + yt * ay_z + zt * az_z;
 
 				}
 
-				//Calculs des données des faces:
+				//Calculs des donnÃ©es des faces:
 
 				calcul_donnees_faces();
 
@@ -1030,7 +1030,7 @@ class dksVolume :public dksConteneur
 		}
 
         //-------------------------------------------------------------------
-        //  Calcul les données géométriques des faces dans l'espace absolus:
+        //  Calcul les donnÃ©es gÃ©omÃ©triques des faces dans l'espace absolus:
         //-------------------------------------------------------------------
 
         void calcul_donnees_faces()
@@ -1137,8 +1137,8 @@ class dksVolume :public dksConteneur
         //                          Gestion des collisions
         //=========================================================================================
 
-        //Génère le pavé circonscrit au volume:
-        //Renvoie true si la boîte a bien été créée.
+        //GÃ©nÃ¨re le pavÃ© circonscrit au volume:
+        //Renvoie true si la boÃ®te a bien Ã©tÃ© crÃ©Ã©e.
         bool initialise_boite_collisions(double facteur_x=1.0,double facteur_y=1.0, double facteur_z=1.0)
         {
             double xmin=sommets_relatifs[0];
@@ -1158,7 +1158,7 @@ class dksVolume :public dksConteneur
                 if (zt<zmin)zmin=zt; else if (zt>zmax)zmax=zt;
             }
 
-            //Mise à l'échelle:
+            //Mise Ã  l'Ã©chelle:
             xmin=(xmin-centre_geometrique_relatif.x)*facteur_x+centre_geometrique_relatif.x;
             xmax=(xmax-centre_geometrique_relatif.x)*facteur_x+centre_geometrique_relatif.x;
 
@@ -1168,19 +1168,19 @@ class dksVolume :public dksConteneur
             zmin=(zmin-centre_geometrique_relatif.z)*facteur_z+centre_geometrique_relatif.z;
             zmax=(zmax-centre_geometrique_relatif.z)*facteur_z+centre_geometrique_relatif.z;
 
-            //Création de la boite:
+            //CrÃ©ation de la boite:
             boite_collision=new Boite_Collision(xmin,xmax,ymin,ymax,zmin,zmax);
 
             if (boite_collision==NULL)
             {
-                cout<<"ERREUR dans Volume.initialise_boite_collision()- Impossible de créer la boîte de collision: "<<nom<<endl;
+                cout<<"ERREUR dans Volume.initialise_boite_collision()- Impossible de crÃ©er la boÃ®te de collision: "<<nom<<endl;
                 return false;
             }
             drapeaux_liberation_memoire|=LIBERE_BOITE_COLLISION;
             return true;
         }
 
-        //----Pour définir une boite de collision:
+        //----Pour dÃ©finir une boite de collision:
         void determine_boite_collision( dksBoiteCollision* p_boite)
         {
             if ( (drapeaux_liberation_memoire & DKSVOLUME_LIBERE_BOITE_COLLISION)!=0)
@@ -1197,7 +1197,7 @@ class dksVolume :public dksConteneur
         //=========================================================================================
 
         //---------- Duplique les faces du volume:
-        //!!! Attention à libérer la mémoire utilisée pour les copies des faces !!!
+        //!!! Attention Ã  libÃ©rer la mÃ©moire utilisÃ©e pour les copies des faces !!!
 
         dksFace** duplique_faces()
         {
@@ -1233,9 +1233,9 @@ class dksVolume :public dksConteneur
         }
 
         //------------------- Duplique le volume:
-        //Pour le moment les sommets relatifs ne sont pas dupliqués.
+        //Pour le moment les sommets relatifs ne sont pas dupliquÃ©s.
         //Il faut faire attention, lors des modifications sur ces sommets,
-        //Tout les duplicatats seront affectés.
+        //Tout les duplicatats seront affectÃ©s.
 
         dksVolume* duplique()
         {
@@ -1258,7 +1258,7 @@ class dksVolume :public dksConteneur
 
 
          //=========================================================================================
-        //                          Paramètres du volume
+        //                          ParamÃ¨tres du volume
         //=========================================================================================
 
     public:
@@ -1275,7 +1275,7 @@ class dksVolume :public dksConteneur
             return sommets_absolus;
         }
 
-        //Renvoie la Face correspondant à l'indice:
+        //Renvoie la Face correspondant Ã  l'indice:
         dksFace* renvoie_face(uint32_t indice)
         {
             if (indice>=nbrFaces) return NULL;
@@ -1320,7 +1320,7 @@ private:
 
 
             //Gestion de l'affichage double-face:
-            //Attention, les normales ne sont pas recalculées selon l'orientation de la face par rapport à l'oeil.
+            //Attention, les normales ne sont pas recalculÃ©es selon l'orientation de la face par rapport Ã  l'oeil.
             GLuint face_materiaux;
 
             if(surface->double_face)
@@ -1331,7 +1331,7 @@ private:
             }
             else
             {
-                glEnable(GL_CULL_FACE); //Active la distinction face avant/face arrière des polygones pour le rendu.
+                glEnable(GL_CULL_FACE); //Active la distinction face avant/face arriÃ¨re des polygones pour le rendu.
                 face_materiaux=GL_FRONT;
                 glLightModeli(GL_LIGHT_MODEL_TWO_SIDE,GL_FALSE);
             }
@@ -1347,7 +1347,7 @@ private:
 		//---------------------------------------------------------------
 		//Tri les faces transparentes:
 		//---------------------------------------------------------------
-        //Le test utilisé pour le tri des faces:
+        //Le test utilisÃ© pour le tri des faces:
 		static bool comparaison(tri_face t1, tri_face t2) { return t1.distance < t2.distance; }
 
 		void tri_faces_transparentes(dksOeil* oeil) ///A ADAPTER
@@ -1356,7 +1356,7 @@ private:
 		    //Calcul les distances avec l'oeil:
 		    for (uint32_t i=0;i<nbrFaces_transparentes;i++)
 		    {
-                Face* face=faces[indices_faces_transparentes[i].indice_face]; //Au besoin créer une table.
+                Face* face=faces[indices_faces_transparentes[i].indice_face]; //Au besoin crÃ©er une table.
                 calcul_centre_gravite_absolu_face(face);
                 double dx=oeil->repere_absolu->x-face->centre_gravite.x;
                 double dy=oeil->repere_absolu->y-face->centre_gravite.y;
@@ -1370,14 +1370,14 @@ private:
         //              Affichage
         //========================================================================
  public:
-        //Sert dans le cas où le moteur caulcul les coordonnées absolues des sommets:
+        //Sert dans le cas oÃ¹ le moteur caulcul les coordonnÃ©es absolues des sommets:
         void affiche_absolu(dksOeil* oeil)
         {
             sommets=sommets_absolus;
             affiche(oeil);
         }
 
-        //Sert dans le cas où le moteur se sert des matrices de transformation d'OpenGl:
+        //Sert dans le cas oÃ¹ le moteur se sert des matrices de transformation d'OpenGl:
         //La liste openGl peut alors servir.
         void affiche_relatif(dksOeil* oeil)
         {
@@ -1532,7 +1532,7 @@ private:
                 //Adoucie:
                 if (surfaces[i].surface->adoucissement)
                 {
-                    //Faces texturées:
+                    //Faces texturÃ©es:
                     glEnable(GL_TEXTURE_2D);
                     for (j=0;j<surfaces[i].faces_texturees.size();j++)
                     {
@@ -1573,7 +1573,7 @@ private:
                 //Non adoucie:
                 else
                 {
-                    //Faces texturées:
+                    //Faces texturÃ©es:
                     glEnable(GL_TEXTURE_2D);
 
                     for (j=0;j<surfaces[i].faces_texturees.size();j++)
@@ -1618,7 +1618,7 @@ private:
         //              Gestion de la liste d'affichage d'OpenGl
         //
         // !!!! ATTENTIION !!!!
-        //  Le volume ne peut être affiché par sa liste que si le moteur utilise les matrices
+        //  Le volume ne peut Ãªtre affichÃ© par sa liste que si le moteur utilise les matrices
         //  d'OpenGl (voir Moteur.h).
         //
         //======================================================================================
@@ -1627,9 +1627,9 @@ private:
         //  Cette fonction effectue un rendu de l'objet pour le stocker dans une
         //  liste d'affichage d'OpenGL. Le rendu est plus rapide par la suite.
         //  Il y a des contraintes:
-        //      -Les faces transparentes ne sont plus triées,
-        //      -Le volume ne doit pas changer de forme ou de matériaux.
-        //  Renvoie false si la liste n'a pas pu être créée.
+        //      -Les faces transparentes ne sont plus triÃ©es,
+        //      -Le volume ne doit pas changer de forme ou de matÃ©riaux.
+        //  Renvoie false si la liste n'a pas pu Ãªtre crÃ©Ã©e.
         //---------------------------------------------------------------------------
 public:
         bool enregistre_liste_OpenGl()
@@ -1664,7 +1664,7 @@ public:
         }
 
         //----------------------------------------------
-        //          Génère la liste du volume
+        //          GÃ©nÃ¨re la liste du volume
         //----------------------------------------------
 private:
         void rendu_volume()
@@ -1695,7 +1695,7 @@ private:
                 //Adoucie:
                 if (surfaces[i].surface->adoucissement)
                 {
-                    //Faces texturées:
+                    //Faces texturÃ©es:
                     if (surfaces[i].faces_texturees.size()>0)
                     {
                         glEnable(GL_TEXTURE_2D);
@@ -1743,7 +1743,7 @@ private:
                 //Non adoucie:
                 else
                 {
-                    //Faces texturées:
+                    //Faces texturÃ©es:
                     if (surfaces[i].faces_texturees.size()>0)
                     {
                         glEnable(GL_TEXTURE_2D);

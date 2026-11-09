@@ -2,7 +2,7 @@
 #define DKSAFFICHEIMAGE_H_INCLUDED
 
 /*
-    Gestion de l'affichage d'une image en arrière-plan, avec rotation, zoom, scroll...
+    Gestion de l'affichage d'une image en arriÃ¨re-plan, avec rotation, zoom, scroll...
 */
 
 #include "../chargeurs_images/Image.h"
@@ -27,7 +27,7 @@ class dksAfficheImage :public dksRendu
         float couleur_fond[3];
         float couleur_teinte[3];
         float angle_rotation;
-        bool drapeau_proportions;   //True si le zoom commun aux deux dimension est utilisé (l'image garde alors ses proportions)
+        bool drapeau_proportions;   //True si le zoom commun aux deux dimension est utilisÃ© (l'image garde alors ses proportions)
         float zoom;
         float zoom_x;
         float zoom_y;
@@ -35,7 +35,7 @@ class dksAfficheImage :public dksRendu
         float ypos;
     private:
         dksEcran* ecran;
-        //Paramètres de rendu:
+        //ParamÃ¨tres de rendu:
         GLint recouvrement_s;   //GL_CLAMP, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_BORDER, GL_REPEAT, GL_MIRRORED_REPEAT
         GLint recouvrement_t;
         GLint type_grossissement;    //GL_LINEAR, GL_NEAREST
@@ -85,7 +85,7 @@ class dksAfficheImage :public dksRendu
         }
 
     //===============================
-    //      Paramétrage
+    //      ParamÃ©trage
     //===============================
     public:
         void determine_position(float* pos)
@@ -165,7 +165,7 @@ class dksAfficheImage :public dksRendu
                 glLoadIdentity();
                 glTranslatef(xpos+0.5,ypos+0.5,0.);
                 if(drapeau_proportions) glScalef(zoom,zoom,1.); else glScalef(zoom_x,zoom_y,1.); //Zoom utilisateur
-                glScalef(zix,ziy,1.);       //Mise à l'échelle
+                glScalef(zix,ziy,1.);       //Mise Ã  l'Ã©chelle
                 glRotatef(angle_rotation,0.,0.,1.);
 
 
@@ -191,7 +191,7 @@ class dksAfficheImage :public dksRendu
 
 
 
-            //Restitue l'état d'openGl:
+            //Restitue l'Ã©tat d'openGl:
             glPopMatrix();  //Matrice de texture
             glMatrixMode(GL_MODELVIEW);
             glDisable(GL_BLEND);

@@ -7,21 +7,21 @@
 #include "../../Utiles/OrganisationCouleurs.h"
 // Erreurs:
 #define DKSJONGLEURVECTORBALLS_OK 0
-#define DKSJONGLEURVECTORBALLS_ERREUR_NBR_VECTORBALLS 1 //Pas assez de vectorballs dans la bibliothèque
+#define DKSJONGLEURVECTORBALLS_ERREUR_NBR_VECTORBALLS 1 //Pas assez de vectorballs dans la bibliothÃ¨que
 
 /*
-            Matérialisation d'un jongleur avec des sphères
-            Le nombre de sphères par partie de membre est spécifié avec l'articulation supérieure exclue.
-            Ex: 3 sphères pour la jambe: sphère 1 située au niveau du genou, 2ème au tiers, 3ème au 2 tiers. L'articulation au niveau de la hanche n'est pas matérialisé.
+            MatÃ©rialisation d'un jongleur avec des sphÃ¨res
+            Le nombre de sphÃ¨res par partie de membre est spÃ©cifiÃ© avec l'articulation supÃ©rieure exclue.
+            Ex: 3 sphÃ¨res pour la jambe: sphÃ¨re 1 situÃ©e au niveau du genou, 2Ã¨me au tiers, 3Ã¨me au 2 tiers. L'articulation au niveau de la hanche n'est pas matÃ©rialisÃ©.
             -Sauf pour les pieds (de la plante au talon)
 
 */
 
-#define DKSJONGLEURVECTORBALLS_VB_MAX 16 //Le nombre maximum de sphères par section de membre.
+#define DKSJONGLEURVECTORBALLS_VB_MAX 16 //Le nombre maximum de sphÃ¨res par section de membre.
 
 //===========================================================================================================
-//                  Définition de la classe
-//          Les sphères doivent être des enfants du jongleur.
+//                  DÃ©finition de la classe
+//          Les sphÃ¨res doivent Ãªtre des enfants du jongleur.
 //===========================================================================================================
 class dksJongleurVectorBalls: public dksJongleur
 {
@@ -30,8 +30,8 @@ class dksJongleurVectorBalls: public dksJongleur
         uint16_t nbrVectorBalls;
 
         uint16_t nbrVectorBalls_utilisees;
-        uint16_t nbrBalles_max; //Calculé en fonction de ce qui reste dans la bibliothèque de départ après formation du corps.
-        uint16_t indice_balles; //Indice de départ des balles
+        uint16_t nbrBalles_max; //CalculÃ© en fonction de ce qui reste dans la bibliothÃ¨que de dÃ©part aprÃ¨s formation du corps.
+        uint16_t indice_balles; //Indice de dÃ©part des balles
 
         //Structure des membres:
         uint16_t indices_pieds[DKSJONGLEURVECTORBALLS_VB_MAX*2];
@@ -100,7 +100,7 @@ class dksJongleurVectorBalls: public dksJongleur
         float couleur_oeil_droit[3];
         float couleur_oeil_gauche[3];
 
-        float couleurs_balles[JONGLEUR_BALLES_MAX][3];    //Couleurs par défaut des 9 premières balles de jonglage
+        float couleurs_balles[JONGLEUR_BALLES_MAX][3];    //Couleurs par dÃ©faut des 9 premiÃ¨res balles de jonglage
 
     //==============================================
     //          Constructeur
@@ -111,7 +111,7 @@ class dksJongleurVectorBalls: public dksJongleur
             vectorBalls=p_vectorBalls;
             nbrVectorBalls=p_nbrVectorBalls;
 
-            //Valeurs par défaut:
+            //Valeurs par dÃ©faut:
 
             rayons_vectorBalls_pieds={0.09/2.,0.11/2.};
             rayons_vectorBalls_jambes_anterieures={0.17/2.,0.13/2.};
@@ -176,7 +176,7 @@ class dksJongleurVectorBalls: public dksJongleur
 
         }
     //=========================================
-    //      Paramétrages
+    //      ParamÃ©trages
     //=========================================
     public:
         bool determine_nbrVectorBalls(uint16_t p_nbr_pieds,uint16_t p_nbr_jambes_anterieures,uint16_t p_nbr_jambes,
@@ -187,12 +187,12 @@ class dksJongleurVectorBalls: public dksJongleur
             if(total_requis>nbrVectorBalls)
             {
                 erreur=DKSJONGLEURVECTORBALLS_ERREUR_NBR_VECTORBALLS;
-                cout<<"ERREUR - dksJongleurVectorBalls::determine_nbrVectorBalls - Nombre de vectorsBalls insuffisant dans la bibliothèque!"<<endl;
+                cout<<"ERREUR - dksJongleurVectorBalls::determine_nbrVectorBalls - Nombre de vectorsBalls insuffisant dans la bibliothÃ¨que!"<<endl;
                 return false;
             }
             nbrVectorBalls_utilisees=total_requis;
             nbrBalles_max=nbrVectorBalls-total_requis;
-            cout<<"Nombre de sphères utilisées: "<<nbrVectorBalls_utilisees<<endl;
+            cout<<"Nombre de sphÃ¨res utilisÃ©es: "<<nbrVectorBalls_utilisees<<endl;
             cout<<"Nombre de balles disponibles: "<<nbrBalles_max<<endl;
 
             nbrVectorBalls_pieds=               (p_nbr_pieds<=DKSJONGLEURVECTORBALLS_VB_MAX)                ? p_nbr_pieds:DKSJONGLEURVECTORBALLS_VB_MAX;
@@ -205,7 +205,7 @@ class dksJongleurVectorBalls: public dksJongleur
             nbrVectorBalls_avant_bras=          (p_nbr_avant_bras<=DKSJONGLEURVECTORBALLS_VB_MAX)           ? p_nbr_avant_bras:DKSJONGLEURVECTORBALLS_VB_MAX;
             nbrVectorBalls_mains=               (p_nbr_mains<=DKSJONGLEURVECTORBALLS_VB_MAX)                ? p_nbr_mains:DKSJONGLEURVECTORBALLS_VB_MAX;
 
-            //Répartition des indices:
+            //RÃ©partition des indices:
             uint16_t indice=0;
             uint16_t i;
             for(i=0;i<nbrVectorBalls_pieds*2;i++) indices_pieds[i]=indice++;
@@ -234,7 +234,7 @@ class dksJongleurVectorBalls: public dksJongleur
         }
 
     //------------------------------------
-    //      Mise à l'échelle des sphères:
+    //      Mise Ã  l'Ã©chelle des sphÃ¨res:
     //------------------------------------
     private:
         void maj_echelles_vectorballs()
@@ -314,7 +314,7 @@ class dksJongleurVectorBalls: public dksJongleur
         }
 
         //-----------------------------------------
-        //      Mise à jour des couleurs
+        //      Mise Ã  jour des couleurs
         //-----------------------------------------
         void maj_couleurs_vectorBalls()
         {
@@ -377,7 +377,7 @@ class dksJongleurVectorBalls: public dksJongleur
         }
 
         //------------------------------------
-        // Mise à l'échelle géométrique
+        // Mise Ã  l'Ã©chelle gÃ©omÃ©trique
         //------------------------------------
     public:
         virtual void determine_echelle_geometrique(double p_echelle)
@@ -393,7 +393,7 @@ class dksJongleurVectorBalls: public dksJongleur
             }
 
         //-----------------------------------------
-        //      Détermine la séquence de jonglage
+        //      DÃ©termine la sÃ©quence de jonglage
         //-----------------------------------------
         virtual void determine_siteswap(uint8_t p_siteswap)
         {

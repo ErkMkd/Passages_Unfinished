@@ -1,5 +1,5 @@
 //----------------------------------------------------------------------------
-//      Initialise les pointeurs sur les fonctions de rendu en immédiat
+//      Initialise les pointeurs sur les fonctions de rendu en immÃ©diat
 //----------------------------------------------------------------------------
         void initialise_pointeurs_rendus_immediat()
         {
@@ -20,7 +20,7 @@
             rendus_immediats_opaques[DKSSURFACE_RENDU_PHONG]=&dksVolume::rendu_opaque_immediat_couleur;
             rendus_immediats_opaques[DKSSURFACE_RENDU_PHONG_OMBRES]=&dksVolume::rendu_opaque_immediat_ombres;
 
-            //Effets spéciaux:
+            //Effets spÃ©ciaux:
             rendus_immediats_opaques[DKSSURFACE_RENDU_EFFET_SPECIAL]=&dksVolume::rendu_opaque_immediat_effet_special;
 
             rendus_immediats_opaques[DKSSURFACE_RENDU_TRANSITION_TEXTURES_COULEUR]=&dksVolume::rendu_opaque_immediat_transition_textures_couleur;
@@ -43,7 +43,7 @@
             rendus_immediats_transparentes[DKSSURFACE_RENDU_PHONG]=&dksVolume::rendu_transparente_immediat_couleur;
             rendus_immediats_transparentes[DKSSURFACE_RENDU_PHONG_OMBRES]=&dksVolume::rendu_transparente_immediat_ombres;
 
-            //Effets spéciaux:
+            //Effets spÃ©ciaux:
             rendus_immediats_transparentes[DKSSURFACE_RENDU_EFFET_SPECIAL]=&dksVolume::rendu_transparente_immediat_effet_special;
 
             rendus_immediats_transparentes[DKSSURFACE_RENDU_TRANSITION_TEXTURES_COULEUR]=&dksVolume::rendu_transparente_immediat_transition_textures_couleur;
@@ -53,7 +53,7 @@
 //      Fonctions de rendu des surfaces opaques
 //----------------------------------------------------------------
         //---------------------------------------------------
-        // Rendu de surface opaque avec effet spécial
+        // Rendu de surface opaque avec effet spÃ©cial
         //---------------------------------------------------
 
         void rendu_opaque_immediat_effet_special()
@@ -63,7 +63,7 @@
         //------------------------------------------------------------------------------
         //Rendu en aplats de couleurs:
         //Cette fonction n'est pas dans la table des fonctions de rendu des surfaces.
-        //Elle est appelée lorsque le mode de remplissage du volume = COULEUR
+        //Elle est appelÃ©e lorsque le mode de remplissage du volume = COULEUR
         //------------------------------------------------------------------------------
 
         void rendu_aplats_couleur()
@@ -86,7 +86,7 @@
                 couleur_diffusion[1]=surface_courante->couleur_diffusion[1]*surface_courante->diffusion;
                 couleur_diffusion[2]=surface_courante->couleur_diffusion[2]*surface_courante->diffusion;
                 couleur_diffusion[3]=1.;
-                glColor3fv(couleur_diffusion);  //Au cas où les éclairages sont désactivés
+                glColor3fv(couleur_diffusion);  //Au cas oÃ¹ les Ã©clairages sont dÃ©sactivÃ©s
                 glMaterialfv(GL_FRONT,GL_DIFFUSE, couleur_diffusion);
 
                 for (j=0;j<surface_courante->nbr_faces;j++)
@@ -893,7 +893,7 @@
         }
 
         //-------------------------------------------------------------------------------
-        //Transition entre deux textures, avec une texture supplémentaire pour le facteur de transition.
+        //Transition entre deux textures, avec une texture supplÃ©mentaire pour le facteur de transition.
         //-------------------------------------------------------------------------------
         void rendu_opaque_immediat_transition_textures_couleur()
         {
@@ -972,7 +972,7 @@
 //================================================================
 
         //---------------------------------------------------
-        // Rendu de surface transparente avec effet spécial
+        // Rendu de surface transparente avec effet spÃ©cial
         //---------------------------------------------------
 
         void rendu_transparente_immediat_effet_special(dksFace* face)
@@ -1369,8 +1369,8 @@
         }
 
 //============================================================================================
-//          Rendu des surfaces opaques en mode immédiat:
-//          Le booléen en entrée est à usage interne. Il sert
+//          Rendu des surfaces opaques en mode immÃ©diat:
+//          Le boolÃ©en en entrÃ©e est Ã  usage interne. Il sert
 //          pour un rendu des faces transparentes sans tri.
 //============================================================================================
 
@@ -1409,7 +1409,7 @@
         }
 
         //======================================================================
-        //  Rendu des surfaces transparentes en mode immédiat
+        //  Rendu des surfaces transparentes en mode immÃ©diat
         //======================================================================
 
         virtual void rendu_transparentes_mode_immediat(dksOeil* oeil)
@@ -1432,7 +1432,7 @@
                 for (i=0;i<nbrFaces_transparentes;i++)
                 {
                     face=indices_faces_transparentes[i].face;
-                    //Au besoin, définir le matériau:
+                    //Au besoin, dÃ©finir le matÃ©riau:
                     if(face->surface!=surface_courante)
                     {
                         surface_courante=face->surface;
@@ -1448,8 +1448,8 @@
         }
 
         //----------------------------------------------------------------------------
-        //          Rendu des surfaces transparentes en mode immédiat, sans tri:
-        //          Sert surtout pour générer la liste openGl
+        //          Rendu des surfaces transparentes en mode immÃ©diat, sans tri:
+        //          Sert surtout pour gÃ©nÃ©rer la liste openGl
         //----------------------------------------------------------------------------
 
         virtual void rendu_transparentes_mode_immediat_sans_tri()
@@ -1458,7 +1458,7 @@
         }
 
         //----------------------------------------------------------------
-        //  Rendu des surfaces luminescentes en mode immédiat
+        //  Rendu des surfaces luminescentes en mode immÃ©diat
         //  Pas de texturage
         //  Pas de transparence
         //----------------------------------------------------------------
@@ -1480,11 +1480,11 @@
             for (i=0;i<nbrSurfaces;i++)
             {
                 surface=surfaces[i];
-                //if(surface->luminescence>0.)   //Décommenter si les surfaces opaques ne recouvrent pas les surfaces luminescentes
+                //if(surface->luminescence>0.)   //DÃ©commenter si les surfaces opaques ne recouvrent pas les surfaces luminescentes
                 //{
                     initialise_materiau_luminescent(surface);
 
-                    //========================= Rendu à plat sans texture:
+                    //========================= Rendu Ã  plat sans texture:
 
                     for (j=0;j<surface->nbr_faces;j++)
                     {
@@ -1528,7 +1528,7 @@
                 //{
                     initialise_materiau_profondeur(surface);
 
-                    //========================= Rendu à plat sans texture:
+                    //========================= Rendu Ã  plat sans texture:
 
                     for (j=0;j<surface->nbr_faces;j++)
                     {

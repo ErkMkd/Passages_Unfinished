@@ -3,7 +3,7 @@
 
 /*
 
-        Fonctions de base pour la création des shaders.
+        Fonctions de base pour la crÃ©ation des shaders.
 
 */
 
@@ -35,12 +35,12 @@ class Gestion_Shaders
             #if GESTION_SHADERS_DEBUG
             cout<<"Taille du fichier: "<<taille_fichier<<endl;
             #endif
-            //--- Pointeur au début du fichier:
+            //--- Pointeur au dÃ©but du fichier:
             fichier_flux.seekg(0,ios::beg);
             GLchar* texte =(GLchar*)malloc((taille_fichier+1)*sizeof(GLchar));
             if (texte==NULL)
             {
-                cout<<"ERREUR - Mémoire insuffisante pour charger le fichier "<<nom_fichier<<endl;
+                cout<<"ERREUR - MÃ©moire insuffisante pour charger le fichier "<<nom_fichier<<endl;
                 fichier_flux.close();
                 return NULL;
             }
@@ -72,7 +72,7 @@ class Gestion_Shaders
                 return false;
             }
             #if GESTION_SHADERS_DEBUG
-            cout<<"Shader "<<shader_id<<" compilé avec succès"<<endl;
+            cout<<"Shader "<<shader_id<<" compilÃ© avec succÃ¨s"<<endl;
             #endif
             return true;
         }
@@ -99,7 +99,7 @@ class Gestion_Shaders
             }
 
             #if GESTION_SHADERS_DEBUG
-            cout<<"Programme de shaders "<<programme_id<<" lié avec succès"<<endl;
+            cout<<"Programme de shaders "<<programme_id<<" liÃ© avec succÃ¨s"<<endl;
             #endif
             return true;
         }
@@ -118,7 +118,7 @@ class Gestion_Shaders
                 return false;
             }
             #if GESTION_SHADERS_DEBUG
-            cout<<"Le programme de shader "<<programme_id<<" est opérationnel"<<endl;
+            cout<<"Le programme de shader "<<programme_id<<" est opÃ©rationnel"<<endl;
             #endif
             return true;
         }

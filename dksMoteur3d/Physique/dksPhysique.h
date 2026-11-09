@@ -6,27 +6,27 @@
 #include "Volumes/Boite_Collision.h"
 
 //=================================================================================
-//              Définition de la classe
+//              DÃ©finition de la classe
 //=================================================================================
 
 class Physique
 {
     public:
-        uint32_t collision_face;    //Numéro de la face sur laquelle une collision a été détectée
-        uint16_t collision_arete;   //Numéro de l'arête coupant la face
-        double facteur; //paramètre d'intersection entre l'arête et la face
+        uint32_t collision_face;    //NumÃ©ro de la face sur laquelle une collision a Ã©tÃ© dÃ©tectÃ©e
+        uint16_t collision_arete;   //NumÃ©ro de l'arÃªte coupant la face
+        double facteur; //paramÃ¨tre d'intersection entre l'arÃªte et la face
 
-        double t0;          //La date de l'image précédente
+        double t0;          //La date de l'image prÃ©cÃ©dente
         double delta_t;     //L'intervalle de temps actuel
     private:
         double t_collision; //Date de collision entre deux volumes
         Vecteur point_collision; //Point de collision entre deux volumes
 
-        Vecteur tangente;   //Trajectoire tengante à la rotation d'un conteneur
+        Vecteur tangente;   //Trajectoire tengante Ã  la rotation d'un conteneur
 
         Vecteur A,B,O,U,V;    //Vecteurs de travail.
 
-        //Plan de la scène:
+        //Plan de la scÃ¨ne:
         uint32_t nbr_systemes_immobiles;
         uint32_t nbr_systemes_mobiles;
         Conteneur** systemes_immobiles;
@@ -73,7 +73,7 @@ class Physique
         //                          Gestion des collisions
         //======================================================================
         //Test si le systeme A touche le systeme B :
-        //Collision simple: En cas de contact, la date de collision n'est pas recherchée.
+        //Collision simple: En cas de contact, la date de collision n'est pas recherchÃ©e.
 
         bool collision_simple(Conteneur* systeme_A, Conteneur* systeme_B,Vecteur* point_collision=NULL)
         {
@@ -107,9 +107,9 @@ class Physique
         }
 
 
-       //Test si le système A touche le système B,
-       //Calcul la date de collision le cas échéant.
-       //Pour récupérer la date: renvoie_date_collision().
+       //Test si le systÃ¨me A touche le systÃ¨me B,
+       //Calcul la date de collision le cas Ã©chÃ©ant.
+       //Pour rÃ©cupÃ©rer la date: renvoie_date_collision().
         bool collision_avec_date(Conteneur* systeme_A, Conteneur* systeme_B,Vecteur* point_collision=NULL)
         {
             Volume* volume_A;
@@ -148,7 +148,7 @@ class Physique
         }
 
         //======================================================================
-        //                Calculs de collisions et des réactions
+        //                Calculs de collisions et des rÃ©actions
         //======================================================================
         void maj_collisions()
         {
@@ -172,9 +172,9 @@ class Physique
         //                          Fonctions de base
         //======================================================================
         //Test si les aretes du systeme A interceptent les faces du systeme B:
-        //Si il y a une collsiion, les indexes de la face et de l'arête sont
-        //stockés dans collision_face et collision_arete.
-        //Le point est stocké dans le vecteur d'entrée si il y en a un.
+        //Si il y a une collsiion, les indexes de la face et de l'arÃªte sont
+        //stockÃ©s dans collision_face et collision_arete.
+        //Le point est stockÃ© dans le vecteur d'entrÃ©e si il y en a un.
         //Renvoie false si il n'y a pas d'intersection:
         bool test_intersection_aretes_volume(Boite_Collision* volume_A, Boite_Collision* volume_B,Vecteur* point_collision=NULL)
         {

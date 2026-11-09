@@ -28,7 +28,7 @@ class Shader_Ondes_Texture_Couleur: public dksShader
         {
             if(erreur==DKSSHADER_OK)
             {
-                //--------- Création des liens avec les variables type "uniform":
+                //--------- CrÃ©ation des liens avec les variables type "uniform":
                 drapeaux_sources=glGetUniformLocation(programme_id,"drapeaux_sources");
                 intensite=glGetUniformLocation(programme_id,"intensite_ondes");
                 frequence=glGetUniformLocation(programme_id,"frequence_ondes");

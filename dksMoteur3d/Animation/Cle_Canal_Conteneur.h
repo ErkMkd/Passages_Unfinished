@@ -3,7 +3,7 @@
 
 #include "Cle_Animation.h"
 
-//Indices des paramètres:
+//Indices des paramÃ¨tres:
 typedef enum
 {
     XPOS=0,
@@ -23,12 +23,12 @@ typedef enum
     ROT_DIRZ,
 
     ROT_ANGLE,
-		//Pas besoin de conserver le sens et le nombre de tours. Seul l'angle de rotation est nécessaire.
-		//Pour la compatibilité avec Perspective_DKS, les identifiants sont tout de même créés.
-	ROT_TOURS, //Nombre de tours à ajouter à la rotation
-    ROT_SENS, //true=même sens que le calcul, false=sens inverse
+		//Pas besoin de conserver le sens et le nombre de tours. Seul l'angle de rotation est nÃ©cessaire.
+		//Pour la compatibilitÃ© avec Perspective_DKS, les identifiants sont tout de mÃªme crÃ©Ã©s.
+	ROT_TOURS, //Nombre de tours Ã  ajouter Ã  la rotation
+    ROT_SENS, //true=mÃªme sens que le calcul, false=sens inverse
 
-    AXEX_X, //axes du repère
+    AXEX_X, //axes du repÃ¨re
     AXEX_Y,
     AXEX_Z,
 
@@ -44,7 +44,7 @@ typedef enum
 }PARAMETRES_CANAL_CONTENEUR;
 
 //===============================================================================
-//                  Définition des clés d'animation d'un canal de conteneur
+//                  DÃ©finition des clÃ©s d'animation d'un canal de conteneur
 //===============================================================================
 class Cle_Canal_Conteneur :public Cle_Animation
 {
@@ -92,7 +92,7 @@ class Cle_Canal_Conteneur :public Cle_Animation
         {
         }
 
-        //--------------------Initialise les paramètres
+        //--------------------Initialise les paramÃ¨tres
         virtual void initialise_parametres()
         {
             xpos.initialise_identite("xpos",XPOS);
@@ -127,7 +127,7 @@ class Cle_Canal_Conteneur :public Cle_Animation
         }
 
         //==============================================================
-        //      Affiche le contenu de la clé, pour les débugages:
+        //      Affiche le contenu de la clÃ©, pour les dÃ©bugages:
         //==============================================================
         virtual void toString()
         {

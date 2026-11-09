@@ -13,9 +13,9 @@
 /*
 ==================================================================================================================
 
-                                    Génère un ver.
+                                    GÃ©nÃ¨re un ver.
                 Terminologie:
-                    Section:tranche circulaire formée par des sommets
+                    Section:tranche circulaire formÃ©e par des sommets
                     Anneau=intervalle entre deux sections
 
 ==================================================================================================================
@@ -31,20 +31,20 @@ class Annelide :public dksVolume
         double rayon_max;
         double nombre_bulbes;
 
-        bool drapeau_double_faces;  //True si les faces sont affichées des deux côtés
+        bool drapeau_double_faces;  //True si les faces sont affichÃ©es des deux cÃ´tÃ©s
 
-        double* colonne_fixe; //Les centres des sections, qui servent à l'ondulation
+        double* colonne_fixe; //Les centres des sections, qui servent Ã  l'ondulation
         double* colonne;
 
         double* sommets_fixes;
 
         uint32_t* tables_aretes;
-        bool drapeau_triangles; //True si les faces sont des triangles. False si ce sont des quadrilatères.
+        bool drapeau_triangles; //True si les faces sont des triangles. False si ce sont des quadrilatÃ¨res.
 
         dksSurface* surfaces_annelide[4]; //surface_tete, surface_dos, surface_ventre, surface_queue
 
-        double vecteur_generateur_position[3];   //Le vecteur qui génère l'ondulation (mouvement de la tête)
-        double vecteur_generateur_orientation[3];   //Le vecteur qui génère l'ondulation (mouvement de la tête)
+        double vecteur_generateur_position[3];   //Le vecteur qui gÃ©nÃ¨re l'ondulation (mouvement de la tÃªte)
+        double vecteur_generateur_orientation[3];   //Le vecteur qui gÃ©nÃ¨re l'ondulation (mouvement de la tÃªte)
 
         Bruit vecteur_generateur_x;
         Bruit vecteur_generateur_y;
@@ -53,13 +53,13 @@ class Annelide :public dksVolume
         double taille_section;
 
         //Uvs:
-        uint32_t premier_sommet_dos; //dans une section, l'indice relatif du premier sommet ou démarre le dos
-        uint32_t premier_sommet_ventre; //dans une section, l'indice relatif du premier sommet ou démarre le ventre
+        uint32_t premier_sommet_dos; //dans une section, l'indice relatif du premier sommet ou dÃ©marre le dos
+        uint32_t premier_sommet_ventre; //dans une section, l'indice relatif du premier sommet ou dÃ©marre le ventre
         uint32_t nbr_cotes_ventre;
         uint32_t nbr_cotes_dos;
 
-        float* uvs_texture_sections_dos;    //Les coordonnées UV pour les textures se répétant à chaque section
-        float* uvs_texture_sections_ventre;    //Les coordonnées UV pour les textures se répétant à chaque section
+        float* uvs_texture_sections_dos;    //Les coordonnÃ©es UV pour les textures se rÃ©pÃ©tant Ã  chaque section
+        float* uvs_texture_sections_ventre;    //Les coordonnÃ©es UV pour les textures se rÃ©pÃ©tant Ã  chaque section
         float* uvs_texture_tete;
         float* uvs_texture_queue;
 
@@ -124,7 +124,7 @@ class Annelide :public dksVolume
 
                     if (!creation_faces())
                     {
-                        cout<<"Erreur dans Annelide::creation_faces()- mémoire insuffisante"<<endl; //Le message est ici, pour alléger creation_faces()
+                        cout<<"Erreur dans Annelide::creation_faces()- mÃ©moire insuffisante"<<endl; //Le message est ici, pour allÃ©ger creation_faces()
                         return;
                     }
                     drapeaux_liberation_memoire|=DKSVOLUME_LIBERE_FACES;
@@ -144,7 +144,7 @@ class Annelide :public dksVolume
                     vecteur_generateur_orientation[1]=0.;
                     vecteur_generateur_orientation[2]=1.;
 
-                    //Paramètres de l'ondulation par défaut:
+                    //ParamÃ¨tres de l'ondulation par dÃ©faut:
                     amplitude_perturbation_x=2.;
                     amplitude_perturbation_y=2.;
                     intervalle_perturbation_x=0.5;
@@ -171,8 +171,8 @@ class Annelide :public dksVolume
         if (tables_aretes!=NULL) free(tables_aretes);
         if (uvs_texture_sections_dos!=NULL) free(uvs_texture_sections_dos);
         if  (indices_uvs_dos!=NULL) free(indices_uvs_dos);
-        ///Ne pas laisser le destructeur du volume détruire les surfaces, car il libère également la table
-        /// des surfaces, qui ici est allouée à la construction !!!
+        ///Ne pas laisser le destructeur du volume dÃ©truire les surfaces, car il libÃ¨re Ã©galement la table
+        /// des surfaces, qui ici est allouÃ©e Ã  la construction !!!
         if (surfaces_annelide[0]!=NULL) delete surfaces_annelide[0];
 
     }
@@ -188,7 +188,7 @@ class Annelide :public dksVolume
 
         if (colonne_fixe==NULL)
         {
-            cout<<"Erreur dans Annelide::creation_colonne()- mémoire insuffisante"<<endl;
+            cout<<"Erreur dans Annelide::creation_colonne()- mÃ©moire insuffisante"<<endl;
             erreur=DKSVOLUME_ERREUR_MEMOIRE;
             return false;
         }
@@ -202,7 +202,7 @@ class Annelide :public dksVolume
             colonne_fixe[i*3+1]=0.;
             colonne_fixe[i*3+2]=longueur/2.-i*taille_section;
 
-            //Recopiage de la colonne fixe dans la colonne animée:
+            //Recopiage de la colonne fixe dans la colonne animÃ©e:
             colonne[3*i]=colonne_fixe[3*i];
             colonne[3*i+1]=colonne_fixe[3*i+1];
             colonne[3*i+2]=colonne_fixe[3*i+2];
@@ -217,18 +217,18 @@ class Annelide :public dksVolume
         uint16_t i;
         uint32_t j;
         uint32_t p_nbrSommets=nbrSections*nbrCotes+2;
-        sommets_fixes=(double*)calloc((p_nbrSommets)*3,sizeof(double)); //+2 pour les deux sommets aux extrémités du ver.
-        double* p_sommets=(double*)calloc((p_nbrSommets)*3,sizeof(double)); //+2 pour les deux sommets aux extrémités du ver.
+        sommets_fixes=(double*)calloc((p_nbrSommets)*3,sizeof(double)); //+2 pour les deux sommets aux extrÃ©mitÃ©s du ver.
+        double* p_sommets=(double*)calloc((p_nbrSommets)*3,sizeof(double)); //+2 pour les deux sommets aux extrÃ©mitÃ©s du ver.
 
         if (p_sommets==NULL || sommets_fixes==NULL)
         {
-            cout<<"Erreur dans Annelide::creation_sommets()- mémoire insuffisante"<<endl;
+            cout<<"Erreur dans Annelide::creation_sommets()- mÃ©moire insuffisante"<<endl;
             erreur=DKSVOLUME_ERREUR_MEMOIRE;
             return false;
         }
 
-        //-------------Calcul les coordonnées:
-        //Tête:
+        //-------------Calcul les coordonnÃ©es:
+        //TÃªte:
         sommets_fixes[0]=0.;sommets_fixes[1]=0.;sommets_fixes[2]=0.;//longueur/2.;
 
         //Queue:
@@ -275,8 +275,8 @@ class Annelide :public dksVolume
     }
 
     //------------------------------------------------------------------------
-    //      Génère les faces
-    //      Eu égard aux déformations, toutes les faces sont triangulaires
+    //      GÃ©nÃ¨re les faces
+    //      Eu Ã©gard aux dÃ©formations, toutes les faces sont triangulaires
     //------------------------------------------------------------------------
     bool creation_faces()
     {
@@ -285,7 +285,7 @@ class Annelide :public dksVolume
     }
 
     //-----------------------------------------------------------
-    //      Les anneaux sont constitués de faces trianglulaires
+    //      Les anneaux sont constituÃ©s de faces trianglulaires
     //-----------------------------------------------------------
     bool faces_triangulaires()
     {
@@ -377,7 +377,7 @@ class Annelide :public dksVolume
     }
 
     //-----------------------------------------------------------
-    //      Les anneaux sont constitués de quadrilatères
+    //      Les anneaux sont constituÃ©s de quadrilatÃ¨res
     //-----------------------------------------------------------
     bool faces_quadrangulaires()
     {
@@ -498,7 +498,7 @@ class Annelide :public dksVolume
     }
 
     //-----------------------------------------------------------
-    //      Renvoie la surface via son identifiant (cf entête)
+    //      Renvoie la surface via son identifiant (cf entÃªte)
     //-----------------------------------------------------------
     public:
     dksSurface* renvoie_surface_id(uint8_t id)
@@ -508,7 +508,7 @@ class Annelide :public dksVolume
     }
 
     //-----------------------------------------------------------
-    //      Détermine si les surfaces sont affichées en double-face
+    //      DÃ©termine si les surfaces sont affichÃ©es en double-face
     //-----------------------------------------------------------
     void determine_double_faces(bool p_drapeau)
     {
@@ -556,7 +556,7 @@ class Annelide :public dksVolume
         indices_uvs_tete=indices_uvs_ventre+nbrSommets_dos;
         indices_uvs_queue=indices_uvs_tete+nbrCotes+1;
 
-        //------ Détermine le nombre de sommets recouverts par la texture du dos (donc du ventre aussi):
+        //------ DÃ©termine le nombre de sommets recouverts par la texture du dos (donc du ventre aussi):
         nbr_cotes_dos=0;
         nbr_cotes_ventre=0;
         double x0,x1,ny;
@@ -589,8 +589,8 @@ class Annelide :public dksVolume
         cout<<"premier sommet ventre: "<<premier_sommet_ventre<<endl;
 
 
-        //------ Génère les coordonnées UV du dos et du ventre:
-        uint32_t i2; //Indice du sommet relativement à la section
+        //------ GÃ©nÃ¨re les coordonnÃ©es UV du dos et du ventre:
+        uint32_t i2; //Indice du sommet relativement Ã  la section
         float u,v;
         uint32_t i_dos=0;
         uint32_t i_ventre=0;
@@ -651,10 +651,10 @@ class Annelide :public dksVolume
                 uvs_texture_sections_dos[i_dos*2+1]=v;
                 i_dos++;
             }
-            //Et voilà, i2 est recallé !
+            //Et voilÃ , i2 est recallÃ© !
         }
 
-        //--------- UVs de la tête et de la queue:
+        //--------- UVs de la tÃªte et de la queue:
         indices_uvs_tete[0]=0;
         uvs_texture_tete[0]=0.5;
         uvs_texture_tete[1]=0.5;
@@ -696,7 +696,7 @@ class Annelide :public dksVolume
             cout<<"sommet:"<<indices_uvs_ventre[i]<<" U="<<uvs_texture_sections_ventre[2*i]<<" V="<<uvs_texture_sections_ventre[2*i+1]<<endl;
         }
 
-        cout<<"-------- Annelide - uvs tête:"<<endl;
+        cout<<"-------- Annelide - uvs tÃªte:"<<endl;
 
         for(i=0;i<nbrCotes+1;i++)
         {
@@ -717,8 +717,8 @@ class Annelide :public dksVolume
 
     public:
     //-----------------------------------------------------------------------
-    // Ajoute une texture de couleur, qui se répète à chaque section
-    /// Appeler initialise_textures() après avoir ajouter la ou les texture(s) à l'Annelide !!!
+    // Ajoute une texture de couleur, qui se rÃ©pÃ¨te Ã  chaque section
+    /// Appeler initialise_textures() aprÃ¨s avoir ajouter la ou les texture(s) Ã  l'Annelide !!!
     //-----------------------------------------------------------------------
     bool ajoute_texture_couleur_sections(Image* image,uint16_t surface_id)
     {
@@ -727,7 +727,7 @@ class Annelide :public dksVolume
         {
             if (!genere_uvs_texture_sections())
             {
-                cout<<"ERREUR dans Annelide::ajoute_texture_couleur_sections - Impossible de générer les UVs"<<endl;
+                cout<<"ERREUR dans Annelide::ajoute_texture_couleur_sections - Impossible de gÃ©nÃ©rer les UVs"<<endl;
                return false;
             }
         }
@@ -770,8 +770,8 @@ class Annelide :public dksVolume
         */
     }
     //-----------------------------------------------------------------------
-    // Ajoute une texture de luminescence, qui se répète à chaque section
-    // L'image doit être en niveaux de gris
+    // Ajoute une texture de luminescence, qui se rÃ©pÃ¨te Ã  chaque section
+    // L'image doit Ãªtre en niveaux de gris
     //-----------------------------------------------------------------------
     bool ajoute_texture_luminescence_sections(Image* image,uint8_t surface_id)
     {
@@ -813,8 +813,8 @@ class Annelide :public dksVolume
         double ABx,ABy,ABz;
         double n;
 
-        //répercution de l'ondulation sur la colonne:
-        ///Pas très bon, si l'ordi rame, l'ondulation n'est plus du tout la même.
+        //rÃ©percution de l'ondulation sur la colonne:
+        ///Pas trÃ¨s bon, si l'ordi rame, l'ondulation n'est plus du tout la mÃªme.
         /*
         for (i=nbrSections+1;i>0;i--)
         {
@@ -825,7 +825,7 @@ class Annelide :public dksVolume
         */
 
 
-        //Position du vecteur générateur:
+        //Position du vecteur gÃ©nÃ©rateur:
         vecteur_generateur_orientation[0]=(vecteur_generateur_x.valeur_aleatoire_temporelle(position_temps,intervalle_perturbation_x)*2.-1.)*amplitude_perturbation_x;
         vecteur_generateur_orientation[1]=(vecteur_generateur_y.valeur_aleatoire_temporelle(position_temps,intervalle_perturbation_y)*2-1.)*amplitude_perturbation_y;
         vecteur_generateur_orientation[2]=1.;//vecteur_generateur_z.valeur_aleatoire_temporelle(t,1.);
@@ -838,7 +838,7 @@ class Annelide :public dksVolume
         colonne[1]=vecteur_generateur_position[1];
         colonne[2]=vecteur_generateur_position[2];
 
-        //Calcul les points de la colonne vertébrale:
+        //Calcul les points de la colonne vertÃ©brale:
 
         pA={colonne[0],colonne[1]};
 
@@ -869,7 +869,7 @@ class Annelide :public dksVolume
 
         for (i=0;i<nbrSections+2;i++)
         {
-            //Tête:
+            //TÃªte:
             if (i==0)
             {
                 //x+=colonne[0];
@@ -924,7 +924,7 @@ class Annelide :public dksVolume
             phase_x-=frequence_ondulatoire_x/(nbrSections+1);
             phase_y-=frequence_ondulatoire_y/(nbrSections+1);
 
-            //Tête:
+            //TÃªte:
             if (i==0)
             {
                 sommets[0]=sommets_fixes[0]+colonne[0];

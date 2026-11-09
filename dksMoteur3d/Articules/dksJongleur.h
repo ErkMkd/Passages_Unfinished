@@ -3,15 +3,15 @@
 
 /*
         Animation d'un personnage, pour en faire un jongleur.
-        Une période est la durée entre deux lancé d'une main.
-        Une période contient donc 2 temps de siteswap.
+        Une pÃ©riode est la durÃ©e entre deux lancÃ© d'une main.
+        Une pÃ©riode contient donc 2 temps de siteswap.
 
 */
 
 #include "dksPersonnage.h"
 #include "../../Utiles/Interpolations.h"
 
-//Drapeaux de débuguage:
+//Drapeaux de dÃ©buguage:
 #define DKSJONGLEUR_DEBUG_LIGNES false
 // Erreurs:
 #define DKSJONGLEUR_OK 0
@@ -23,15 +23,15 @@
 #define JONGLEUR_PHASE_RECEPTION 3
 #define JONGLEUR_PHASE_POS_LANCE 4
 
-//Données des balles:
+//DonnÃ©es des balles:
 #define JONGLEUR_BALLES_MAX 27
 
-//Données du séquenceur:
-#define JONGLEUR_SEQ_OCTETS_LIGNE 6 //Taille en mémoire d'une ligne
-#define JONGLEUR_TAILLE_SEQUENCE_MAX 256    //Nombre max de lignes dans une séquence
-#define JONGLEUR_NBR_PHASES 4   //Nombre de phases entre deux lancés d'une même main
+//DonnÃ©es du sÃ©quenceur:
+#define JONGLEUR_SEQ_OCTETS_LIGNE 6 //Taille en mÃ©moire d'une ligne
+#define JONGLEUR_TAILLE_SEQUENCE_MAX 256    //Nombre max de lignes dans une sÃ©quence
+#define JONGLEUR_NBR_PHASES 4   //Nombre de phases entre deux lancÃ©s d'une mÃªme main
 
-#define JONGLEUR_SEQ_PHASE_ANIM_DROIT 0 //Numéros des octets dans une phase du séquenceur
+#define JONGLEUR_SEQ_PHASE_ANIM_DROIT 0 //NumÃ©ros des octets dans une phase du sÃ©quenceur
 #define JONGLEUR_SEQ_BALLE_ID_DROIT 1
 #define JONGLEUR_SEQ_DUREE_VOL_DROIT 2
 #define JONGLEUR_SEQ_PHASE_ANIM_GAUCHE 3
@@ -63,16 +63,16 @@ class balle_jonglage
         float rayon;
         uint8_t phase_id;
         uint8_t duree_vol; //Nombre de temps durant la phase de vol
-        float t_depart_vol;    //La date du dernier lancé
+        float t_depart_vol;    //La date du dernier lancÃ©
         uint32_t couleur;
 };
 //=================================================================================================================================
-//                          Définition de la classe
+//                          DÃ©finition de la classe
 //=================================================================================================================================
 class dksJongleur:public dksPersonnage
 {
     protected:
-        //Animations du lancé main droite:
+        //Animations du lancÃ© main droite:
         Suite_Interpolations* lance_poignet_droit;
         Suite_Interpolations* lance_coude_droit;
         Suite_Interpolations* lance_epaule_droite_a;
@@ -100,7 +100,7 @@ class dksJongleur:public dksPersonnage
         bool drapeau_lance_main_droite;
         bool drapeau_lance_main_gauche;
 
-        //Animation du positionnement pour la réception:
+        //Animation du positionnement pour la rÃ©ception:
         Suite_Interpolations* pos_reception_poignet_droit;
         Suite_Interpolations* pos_reception_coude_droit;
         Suite_Interpolations* pos_reception_epaule_droite_a;
@@ -124,7 +124,7 @@ class dksJongleur:public dksPersonnage
         bool drapeau_pos_reception_main_gauche;
 
 
-        //Animations de la réception main droite:
+        //Animations de la rÃ©ception main droite:
         Suite_Interpolations* reception_poignet_droit;
         Suite_Interpolations* reception_coude_droit;
         Suite_Interpolations* reception_epaule_droite_a;
@@ -147,7 +147,7 @@ class dksJongleur:public dksPersonnage
         bool drapeau_reception_main_droite;
         bool drapeau_reception_main_gauche;
 
-        //Animation du positionnement pour le lancé:
+        //Animation du positionnement pour le lancÃ©:
         Suite_Interpolations* pos_lance_poignet_droit;
         Suite_Interpolations* pos_lance_coude_droit;
         Suite_Interpolations* pos_lance_epaule_droite_a;
@@ -170,7 +170,7 @@ class dksJongleur:public dksPersonnage
         bool drapeau_pos_lance_main_droite;
         bool drapeau_pos_lance_main_gauche;
 
-        //Animations de la flexion des jambes pour l'élan lors du lancé:
+        //Animations de la flexion des jambes pour l'Ã©lan lors du lancÃ©:
         Suite_Interpolations* flexion_chevilles;
         Suite_Interpolations* flexion_genoux;
         Suite_Interpolations* flexion_hanches;
@@ -196,27 +196,27 @@ class dksJongleur:public dksPersonnage
         //Sequenceur:
         //Une ligne du sequenceur a le format suivant:
         //  octet 0: id de la phase d'animation du bras droit
-        //  octet 1: numéro de la balle à lancer de la main droite
-        //  octet 2: durée de vol de la balle lancée par la main droite (en temps)
+        //  octet 1: numÃ©ro de la balle Ã  lancer de la main droite
+        //  octet 2: durÃ©e de vol de la balle lancÃ©e par la main droite (en temps)
         //  octet 3: id de la phase d'animation du bras gauche
-        //  octet 4: numéro de la balle à lancer de la main gauche
-        //  octet 5: durée de vol de la balle lancée par la main gauche
+        //  octet 4: numÃ©ro de la balle Ã  lancer de la main gauche
+        //  octet 5: durÃ©e de vol de la balle lancÃ©e par la main gauche
         bool drapeau_jonglage_en_cours;
         double jonglage_t0;
-        float duree_temps;      //Durée(en s) entre deux lancés. La durée d'une phase est: duree_temps/2
-        uint16_t taille_sequence; //Nombre de lignes dans la séquence (nombre de temps*2)
-        uint16_t ligne_courante; //pointeur de phase dans la séquence
+        float duree_temps;      //DurÃ©e(en s) entre deux lancÃ©s. La durÃ©e d'une phase est: duree_temps/2
+        uint16_t taille_sequence; //Nombre de lignes dans la sÃ©quence (nombre de temps*2)
+        uint16_t ligne_courante; //pointeur de phase dans la sÃ©quence
         uint8_t phase_courante_droite;
         uint8_t phase_courante_gauche;
-        uint8_t balle_id_droite;  //Balles courantes parées pour le lancé
+        uint8_t balle_id_droite;  //Balles courantes parÃ©es pour le lancÃ©
         uint8_t balle_id_gauche;
         bool drapeau_depart_balle_droite;
         bool drapeau_depart_balle_gauche;
         uint8_t sequence[JONGLEUR_TAILLE_SEQUENCE_MAX*JONGLEUR_SEQ_OCTETS_LIGNE];
 
     public:
-        double hauteur_pieds;   //Sert à calculer la position du personnage par rapport au pliage des jambes.
-        float hauteur_balles_temps;   //Hauteur à laquelle vont les balles durant un temps. Valeur multipliée par la durée de vol des balles, -1 (une balle à 1 temps ne s'élève pas)
+        double hauteur_pieds;   //Sert Ã  calculer la position du personnage par rapport au pliage des jambes.
+        float hauteur_balles_temps;   //Hauteur Ã  laquelle vont les balles durant un temps. Valeur multipliÃ©e par la durÃ©e de vol des balles, -1 (une balle Ã  1 temps ne s'Ã©lÃ¨ve pas)
 
     //=====================================
     //      Constructeur
@@ -280,14 +280,14 @@ class dksJongleur:public dksPersonnage
             courbe_lance=NULL;
             courbe_reception=NULL;
 
-            //Courbe d'accélération des lancés:
+            //Courbe d'accÃ©lÃ©ration des lancÃ©s:
             courbe_lance=new Courbe_Bezier_Plan(0.,0., 0.5,0., .75,1.-0.5, 1.,1.);
             tableau_courbes_lances={courbe_lance,NULL};
-            //Courbe d'accélération des réceptions:
+            //Courbe d'accÃ©lÃ©ration des rÃ©ceptions:
             courbe_reception=new Courbe_Bezier_Plan(0.,0., 0.25,0.5, 0.5,1., 1.,1.);
             tableau_courbes_receptions={courbe_reception,NULL};
 
-            //Creation lancé main droite:
+            //Creation lancÃ© main droite:
 
             valeurs_lance_poignets={-20,0.2,-35,0.2};
             valeurs_lance_coudes={-50,0.2,-80,0.2};
@@ -321,7 +321,7 @@ class dksJongleur:public dksPersonnage
             drapeau_lance_main_droite=false;
             drapeau_lance_main_gauche=false;
 
-            //Creation positionnement réception main droite:
+            //Creation positionnement rÃ©ception main droite:
 
             valeurs_pos_reception_poignets={-35,0.2,-35,0.2};
             valeurs_pos_reception_coudes={-80,0.2,-60,0.2};
@@ -355,7 +355,7 @@ class dksJongleur:public dksPersonnage
             drapeau_pos_reception_main_droite=false;
             drapeau_pos_reception_main_gauche=false;
 
-            //Creation réception main droite:
+            //Creation rÃ©ception main droite:
 
             valeurs_reception_poignets={-35,0.2,-55,0.2};
             valeurs_reception_coudes={-60,0.2,-20,0.2};
@@ -389,7 +389,7 @@ class dksJongleur:public dksPersonnage
             drapeau_reception_main_droite=false;
             drapeau_reception_main_gauche=false;
 
-            //Creation positionnement lancé main droite:
+            //Creation positionnement lancÃ© main droite:
 
             valeurs_pos_lance_poignets={-55,0.2,-20,0.2};
             valeurs_pos_lance_coudes={-20,0.2,-50,0.2};
@@ -423,7 +423,7 @@ class dksJongleur:public dksPersonnage
             drapeau_pos_lance_main_droite=false;
             drapeau_pos_lance_main_gauche=false;
 
-            //Création flexion des jambes:
+            //CrÃ©ation flexion des jambes:
             valeurs_flexion_hanches={0.,0.2,-15,0.2};
             valeurs_abduction_hanches={8.,0.2,9.,0.25};
             valeurs_flexion_genoux={0.,0.2,30,0.2};
@@ -521,7 +521,7 @@ class dksJongleur:public dksPersonnage
         }
 
     //=========================================================
-    //      Paramétrages
+    //      ParamÃ©trages
     //=========================================================
     public:
         void determine_duree_temps(float t)
@@ -553,7 +553,7 @@ class dksJongleur:public dksPersonnage
             valeurs_reception_epaules_e[1]=t;
             valeurs_reception_epaules_r[1]=t;
 
-            //Rafraichissement des durées:
+            //Rafraichissement des durÃ©es:
             lance_poignet_droit->maj_duree_totale();
             lance_poignet_gauche->maj_duree_totale();
             lance_coude_droit->maj_duree_totale();
@@ -629,7 +629,7 @@ class dksJongleur:public dksPersonnage
         }
 
         //------------------------------------------------------------------------
-        //  Fonction qui initialise le séquenceur en fonction du code SiteSwap
+        //  Fonction qui initialise le sÃ©quenceur en fonction du code SiteSwap
         /// Pour le moment, siteswap 333
         //------------------------------------------------------------------------
         virtual void determine_siteswap(uint8_t p_siteswap)
@@ -640,7 +640,7 @@ class dksJongleur:public dksPersonnage
             switch(p_siteswap)
             {
                 case JONGLEUR_SITESWAP_3:
-                    taille_sequence=3*JONGLEUR_NBR_PHASES/2 *2; //Multiplication par deux des mouvements assymétriques
+                    taille_sequence=3*JONGLEUR_NBR_PHASES/2 *2; //Multiplication par deux des mouvements assymÃ©triques
                         sequence={  JONGLEUR_PHASE_LANCE,1,3,JONGLEUR_PHASE_RECEPTION,0,0,
                                     JONGLEUR_PHASE_POS_RECEPTION,0,0,JONGLEUR_PHASE_POS_LANCE,0,0,
 
@@ -667,7 +667,7 @@ class dksJongleur:public dksPersonnage
                     break;
 
                 case JONGLEUR_SITESWAP_5:
-                    taille_sequence=5*JONGLEUR_NBR_PHASES/2 *2; //Multiplication par deux des mouvements assymétriques
+                    taille_sequence=5*JONGLEUR_NBR_PHASES/2 *2; //Multiplication par deux des mouvements assymÃ©triques
                         sequence={
                                     JONGLEUR_PHASE_LANCE,1,5,JONGLEUR_PHASE_RECEPTION,0,0,
                                     JONGLEUR_PHASE_POS_RECEPTION,0,0,JONGLEUR_PHASE_POS_LANCE,0,0,
@@ -711,7 +711,7 @@ class dksJongleur:public dksPersonnage
                         break;
 
                     case JONGLEUR_SITESWAP_9:
-                        taille_sequence=9*JONGLEUR_NBR_PHASES/2 *2; //Multiplication par deux des mouvements assymétriques
+                        taille_sequence=9*JONGLEUR_NBR_PHASES/2 *2; //Multiplication par deux des mouvements assymÃ©triques
                         sequence={
                                     JONGLEUR_PHASE_LANCE,1,9,JONGLEUR_PHASE_RECEPTION,0,0,
                                     JONGLEUR_PHASE_POS_RECEPTION,0,0,JONGLEUR_PHASE_POS_LANCE,0,0,
@@ -782,7 +782,7 @@ class dksJongleur:public dksPersonnage
                     break;
 
                 case JONGLEUR_SITESWAP_75300:
-                    taille_sequence=5*JONGLEUR_NBR_PHASES/2 *2; //Multiplication par deux des mouvements assymétriques
+                    taille_sequence=5*JONGLEUR_NBR_PHASES/2 *2; //Multiplication par deux des mouvements assymÃ©triques
                         sequence={
                                     JONGLEUR_PHASE_LANCE,1,7,JONGLEUR_PHASE_RECEPTION,0,0,
                                     JONGLEUR_PHASE_POS_RECEPTION,0,0,JONGLEUR_PHASE_POS_LANCE,0,0,
@@ -871,14 +871,14 @@ class dksJongleur:public dksPersonnage
             determine_position(x,hauteur_pieds-hauteur_min,z);
         }
     //----------------------------------------------------------
-    //  Lecture des donnée de la ligne actuelle du séquenceur:
+    //  Lecture des donnÃ©e de la ligne actuelle du sÃ©quenceur:
     //----------------------------------------------------------
     private:
         void lecture_ligne_actuelle()
         {
-            //Déclenchement des lancés:
-            if((phase_courante_droite==JONGLEUR_PHASE_LANCE) && (balle_id_droite!=0)) drapeau_depart_balle_droite=true;   //Drapeaux utilisés par l'animation des balles
-            if((phase_courante_gauche==JONGLEUR_PHASE_LANCE) && (balle_id_gauche!=0)) drapeau_depart_balle_gauche=true;   //Rabaissés par l'animateur des balles.
+            //DÃ©clenchement des lancÃ©s:
+            if((phase_courante_droite==JONGLEUR_PHASE_LANCE) && (balle_id_droite!=0)) drapeau_depart_balle_droite=true;   //Drapeaux utilisÃ©s par l'animation des balles
+            if((phase_courante_gauche==JONGLEUR_PHASE_LANCE) && (balle_id_gauche!=0)) drapeau_depart_balle_gauche=true;   //RabaissÃ©s par l'animateur des balles.
 
             //Lecture ligne courante:
             uint8_t* ligne_sequence=&sequence[ligne_courante*JONGLEUR_SEQ_OCTETS_LIGNE];
@@ -907,7 +907,7 @@ class dksJongleur:public dksPersonnage
             cout<<endl;
             #endif
 
-            //Interprétation:
+            //InterprÃ©tation:
             switch(phase_courante_droite)
             {
                 case JONGLEUR_PHASE_LANCE:
@@ -952,7 +952,7 @@ class dksJongleur:public dksPersonnage
                         if(flexion_chevilles->drapeau_terminee)drapeau_flexion_jambes=false;
                     }
 
-                    //Animation du lancé main droite:
+                    //Animation du lancÃ© main droite:
                     if(drapeau_lance_main_droite)
                     {
                         angle_Pda=lance_poignet_droit->renvoie_valeur(t);
@@ -974,7 +974,7 @@ class dksJongleur:public dksPersonnage
                         if(pos_reception_poignet_droit->drapeau_terminee) drapeau_pos_reception_main_droite=false;
                     }
 
-                    //Animation de la réception main droite:
+                    //Animation de la rÃ©ception main droite:
                     if(drapeau_reception_main_droite)
                     {
                         angle_Pda=reception_poignet_droit->renvoie_valeur(t);
@@ -985,7 +985,7 @@ class dksJongleur:public dksPersonnage
                         if(reception_poignet_droit->drapeau_terminee)drapeau_reception_main_droite=false;
                     }
 
-                    //Animation du positionnement du lancé main droite:
+                    //Animation du positionnement du lancÃ© main droite:
                     if(drapeau_pos_lance_main_droite)
                     {
                         angle_Pda=pos_lance_poignet_droit->renvoie_valeur(t);
@@ -996,7 +996,7 @@ class dksJongleur:public dksPersonnage
                         if(pos_lance_poignet_droit->drapeau_terminee) drapeau_pos_lance_main_droite=false;
                     }
 
-                    //Animation du lancé main gauche:
+                    //Animation du lancÃ© main gauche:
                     if(drapeau_lance_main_gauche)
                     {
                         angle_Pga=lance_poignet_gauche->renvoie_valeur(t);
@@ -1018,7 +1018,7 @@ class dksJongleur:public dksPersonnage
                         if(pos_reception_poignet_gauche->drapeau_terminee) drapeau_pos_reception_main_gauche=false;
                     }
 
-                    //Animation de la réception main gauche:
+                    //Animation de la rÃ©ception main gauche:
                     if(drapeau_reception_main_gauche)
                     {
                         angle_Pga=reception_poignet_gauche->renvoie_valeur(t);
@@ -1029,7 +1029,7 @@ class dksJongleur:public dksPersonnage
                         if(reception_poignet_gauche->drapeau_terminee)drapeau_reception_main_gauche=false;
                     }
 
-                    //Animation du positionnement du lancé main gauche:
+                    //Animation du positionnement du lancÃ© main gauche:
                     if(drapeau_pos_lance_main_gauche)
                     {
                         angle_Pga=pos_lance_poignet_gauche->renvoie_valeur(t);
@@ -1169,7 +1169,7 @@ class dksJongleur:public dksPersonnage
         }
 
     //======================================================================
-    //          Contrôls des mouvements élémentaires
+    //          ContrÃ´ls des mouvements Ã©lÃ©mentaires
     //======================================================================
     private:
         void depart_flexion_jambes()
@@ -1278,7 +1278,7 @@ class dksJongleur:public dksPersonnage
         }
 
     //======================================================================
-    //          Contrôls de l'enchaînement des phases
+    //          ContrÃ´ls de l'enchaÃ®nement des phases
     //======================================================================
     public:
 

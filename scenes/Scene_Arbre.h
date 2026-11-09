@@ -3,7 +3,7 @@
 
 /*
 
-            Scène bucolique, avec un arbre à vector balls, un papillon...
+            ScÃ¨ne bucolique, avec un arbre Ã  vector balls, un papillon...
 
 */
 
@@ -67,7 +67,7 @@ class Scene_Arbre : public Scene
             };
     bool etapes[1];
 
-    //============= Données de l'éditeur:
+    //============= DonnÃ©es de l'Ã©diteur:
 
         double vitesse_rotation;
         double vitesse_deplacement;
@@ -132,7 +132,7 @@ class Scene_Arbre : public Scene
 
 
 
-        //----------------- Création des textures
+        //----------------- CrÃ©ation des textures
         sol_relief=new Image("textures/arbre/sol_relief.tif");
         sol_couleur=new Image("textures/arbre/sol_couleur.tif");
         //sol_relief->determine_contraste(-0.8);
@@ -147,7 +147,7 @@ class Scene_Arbre : public Scene
             erreur=SCENE_ERREUR_INIT;
             return;
         }
-        //----------------- Création des éléments de la scène:
+        //----------------- CrÃ©ation des Ã©lÃ©ments de la scÃ¨ne:
         //Conteneurs:
 
             conteneur_oeil_1=new dksConteneur("conteneur_travelling",0.,0.,0.);
@@ -159,7 +159,7 @@ class Scene_Arbre : public Scene
             oeil_courant=oeil_1;
             conteneur_oeil_1->ajoute_enfant(oeil_1);
 
-        //Création des sources:
+        //CrÃ©ation des sources:
             source_1=new dksSourceLumineuse("Soleil",100.,100.,-10.);
             source_1->determine_attenuation(1.,0.,0.);
             source_2=new dksSourceLumineuse("Clair_obscure",-100.,-100.,-10.);
@@ -180,7 +180,7 @@ class Scene_Arbre : public Scene
                                     );
             if(sol_arbre==NULL || sol_arbre->erreur!=DKSPLAN_OK)
             {
-                cout<<"ERREUR Lors de la création du sol de la scène: "<<nom<<endl;
+                cout<<"ERREUR Lors de la crÃ©ation du sol de la scÃ¨ne: "<<nom<<endl;
                 erreur=SCENE_ERREUR_INIT;
                 return;
             }
@@ -194,7 +194,7 @@ class Scene_Arbre : public Scene
             papillon=new Papillon("Papy","LWO2/papillon.lwo",NULL,-1.37773, 8.84183, -6.80747);
             if(papillon==NULL || papillon->erreur!=PAPILLON_OK)
             {
-                cout<<"ERREUR Lors de la création du papillon "<<endl;
+                cout<<"ERREUR Lors de la crÃ©ation du papillon "<<endl;
                 erreur=SCENE_ERREUR_INIT;
                 return;
             }
@@ -208,7 +208,7 @@ class Scene_Arbre : public Scene
                                    0xffff4040);
                 if(vectorBalls[i]==NULL || vectorBalls[i]->erreur!=DKSVOLUME_OK)
                 {
-                    cout<<"ERREUR lors de la création des vectorBalls"<<endl;
+                    cout<<"ERREUR lors de la crÃ©ation des vectorBalls"<<endl;
                     erreur=SCENE_ERREUR_INIT;
                     return ;
                 }
@@ -232,7 +232,7 @@ class Scene_Arbre : public Scene
             sources[1]=source_2;
             yeux[0]=oeil_1;
 
-        //--------------- Arrière plan:
+        //--------------- ArriÃ¨re plan:
 
             cube_arriere_plan=new dksCube(*scene_starfield->cube_arriere_plan_scene_arbre);
 
@@ -253,7 +253,7 @@ class Scene_Arbre : public Scene
             cube_arriere_plan->determine_affecte_tempon_profondeur(false);
             */
 
-        //------------------Création de la scene:
+        //------------------CrÃ©ation de la scene:
 
             scene=new dksMoteur3d("Arbre",ecran,
                             conteneurs,2,
@@ -346,7 +346,7 @@ class Scene_Arbre : public Scene
     //========================================================================================================================================
     //========================================================================================================================================
     //----------------------------------------------------------------------------
-    //                  Initialise les données d'animation
+    //                  Initialise les donnÃ©es d'animation
     //----------------------------------------------------------------------------
     void initialise_animations()
     {
@@ -358,7 +358,7 @@ class Scene_Arbre : public Scene
     public:
 
     //----------------------------------------------------------------------------
-    //                  Etat de la scène au départ de l'animation
+    //                  Etat de la scÃ¨ne au dÃ©part de l'animation
     //----------------------------------------------------------------------------
     virtual void initialise_t0(double t0)
     {
@@ -422,7 +422,7 @@ class Scene_Arbre : public Scene
     //======================================================================================================================================
 
     //============================================================================
-    //                     Initialisations de l'éditeur
+    //                     Initialisations de l'Ã©diteur
     //============================================================================
 
         virtual void initialise_editeur()
@@ -457,7 +457,7 @@ class Scene_Arbre : public Scene
         }
 
         //===================================================
-        //          Affiche la trajectoire éditée
+        //          Affiche la trajectoire Ã©ditÃ©e
         //===================================================
         void affiche_trajectoire()
         {
@@ -491,22 +491,22 @@ class Scene_Arbre : public Scene
             switch (key)
             {
                  case 101:
-                //flèche haut
+                //flÃ¨che haut
                 conteneur_selectionne->deplace(AVANT,vitesse_deplacement);
                 cout<<conteneur_selectionne->x<<" "<<conteneur_selectionne->y<<" "<<conteneur_selectionne->z<<endl;
                 break;
                 case 100:
-                    //flèche gauche
+                    //flÃ¨che gauche
                     conteneur_selectionne->deplace(GAUCHE,vitesse_deplacement);
                     cout<<conteneur_selectionne->x<<" "<<conteneur_selectionne->y<<" "<<conteneur_selectionne->z<<endl;
                     break;
                 case 103:
-                    //flèche bas
+                    //flÃ¨che bas
                     conteneur_selectionne->deplace(ARRIERE,vitesse_deplacement);
                     cout<<conteneur_selectionne->x<<" "<<conteneur_selectionne->y<<" "<<conteneur_selectionne->z<<endl;
                     break;
                 case 102:
-                    //flèche droite
+                    //flÃ¨che droite
                     conteneur_selectionne->deplace(DROITE,vitesse_deplacement);
                     cout<<conteneur_selectionne->x<<" "<<conteneur_selectionne->y<<" "<<conteneur_selectionne->z<<endl;
                     break;
@@ -525,13 +525,13 @@ class Scene_Arbre : public Scene
 
                 //Touches F..
                 case 1:
-                    if (ma_trajectoire.sauve_trajectoire(fichier_trajectoire)) cout<<"Trajectoire "<<fichier_trajectoire<<" sauvée avec succès!"<<endl;
+                    if (ma_trajectoire.sauve_trajectoire(fichier_trajectoire)) cout<<"Trajectoire "<<fichier_trajectoire<<" sauvÃ©e avec succÃ¨s!"<<endl;
                     break;
 
                 case 2:
                     if (ma_trajectoire.charge_trajectoire(fichier_trajectoire))
                     {
-                        cout<<"Trajectoire "<<fichier_trajectoire<<" chargée avec succès!"<<endl;
+                        cout<<"Trajectoire "<<fichier_trajectoire<<" chargÃ©e avec succÃ¨s!"<<endl;
                         point_actuel=0;
                     }
                 default:
@@ -567,7 +567,7 @@ class Scene_Arbre : public Scene
         virtual void touche_appuyee(unsigned char key, int x, int y)
         {
             dksRepere* rep=conteneur_selectionne->repere_absolu;
-            float pas_angle=1.; //Sert pour l'éditeur d'animation du papillon
+            float pas_angle=1.; //Sert pour l'Ã©diteur d'animation du papillon
             switch (key)
             {
                 case 27 :
@@ -611,7 +611,7 @@ class Scene_Arbre : public Scene
                         {
                             if (i==conteneurs_selectionnables.size()-1) conteneur_selectionne=conteneurs_selectionnables[0];
                             else conteneur_selectionne=conteneurs_selectionnables[i+1];
-                            cout<<"Conteneur sélectionné: "<<conteneur_selectionne->nom<<endl;
+                            cout<<"Conteneur sÃ©lectionnÃ©: "<<conteneur_selectionne->nom<<endl;
                             break;
                         }
                     }
@@ -678,21 +678,21 @@ class Scene_Arbre : public Scene
                     cout<<"Position trajectoire t="<<position_trajectoire;
                     ma_trajectoire.renvoie_position(position_trajectoire,coordonnees_trajectoire);
                     conteneur_selectionne->determine_position(coordonnees_trajectoire);
-                    cout<<" Coordonnées X:"<<coordonnees_trajectoire[0]<<" Y:"<<coordonnees_trajectoire[1]<<" Z:"<<coordonnees_trajectoire[2]<<endl;
+                    cout<<" CoordonnÃ©es X:"<<coordonnees_trajectoire[0]<<" Y:"<<coordonnees_trajectoire[1]<<" Z:"<<coordonnees_trajectoire[2]<<endl;
                     break;
-                case 233: //²
+                case 233: //Â²
                     position_trajectoire+=pas_position_trajectoire;
                     cout<<"Position trajectoire t="<<position_trajectoire;
                     ma_trajectoire.renvoie_position(position_trajectoire,coordonnees_trajectoire);
                     conteneur_selectionne->determine_position(coordonnees_trajectoire);
-                    cout<<" Coordonnées X:"<<coordonnees_trajectoire[0]<<" Y:"<<coordonnees_trajectoire[1]<<" Z:"<<coordonnees_trajectoire[2]<<endl;
+                    cout<<" CoordonnÃ©es X:"<<coordonnees_trajectoire[0]<<" Y:"<<coordonnees_trajectoire[1]<<" Z:"<<coordonnees_trajectoire[2]<<endl;
                     break;
                 case 'r':
-                    cout<<"Repère relatif: "<<conteneur_selectionne->axe_x->x<<","<<conteneur_selectionne->axe_x->y<<","<<conteneur_selectionne->axe_x->z<<","
+                    cout<<"RepÃ¨re relatif: "<<conteneur_selectionne->axe_x->x<<","<<conteneur_selectionne->axe_x->y<<","<<conteneur_selectionne->axe_x->z<<","
                                             <<conteneur_selectionne->axe_y->x<<","<<conteneur_selectionne->axe_y->y<<","<<conteneur_selectionne->axe_y->z<<","
                                             <<conteneur_selectionne->axe_z->x<<","<<conteneur_selectionne->axe_z->y<<","<<conteneur_selectionne->axe_z->z<<endl;
 
-                    cout<<"Repère absolu: "<<rep->axe_x->x<<","<<rep->axe_x->y<<","<<rep->axe_x->z<<","
+                    cout<<"RepÃ¨re absolu: "<<rep->axe_x->x<<","<<rep->axe_x->y<<","<<rep->axe_x->z<<","
                                             <<rep->axe_y->x<<","<<rep->axe_y->y<<","<<rep->axe_y->z<<","
                                             <<rep->axe_z->x<<","<<rep->axe_z->y<<","<<rep->axe_z->z<<endl;
                     break;

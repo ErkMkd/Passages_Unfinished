@@ -6,18 +6,18 @@
  * 					Canal d'animation de conteneur
  * 					------------------------------
  *
- * Un canal de conteneur n'est pas forcément lié à un conteneur.
+ * Un canal de conteneur n'est pas forcÃ©ment liÃ© Ã  un conteneur.
  * Le lien avec un conteneur peut se faire via le pointeur public "conteneur".
  *
- * La création des clés est dynamique:
+ * La crÃ©ation des clÃ©s est dynamique:
  *
- * 1-Création d'une clé avec "creation_cle()" qui renvoie une cle sans l'ajouter au canal.
- *   Les clés crééent avec cette fonction sont supprimées par le destructeur du canal.
- * 2-On peut initialiser la clé soit en passant par "Canal_Animation.determine_valeur()" et autres...
- * 								soit en appelant "initialise_valeurs_cle()" auquel cas il faut que la canal soit lié à un conteneur
- * 3-On ajoute la clé au canal "via ajoute_cle()"
+ * 1-CrÃ©ation d'une clÃ© avec "creation_cle()" qui renvoie une cle sans l'ajouter au canal.
+ *   Les clÃ©s crÃ©Ã©ent avec cette fonction sont supprimÃ©es par le destructeur du canal.
+ * 2-On peut initialiser la clÃ© soit en passant par "Canal_Animation.determine_valeur()" et autres...
+ * 								soit en appelant "initialise_valeurs_cle()" auquel cas il faut que la canal soit liÃ© Ã  un conteneur
+ * 3-On ajoute la clÃ© au canal "via ajoute_cle()"
  *
- * Les raccords entre les clés (notamment pour les trajectoires courbes) sont effectués automatiquement.
+ * Les raccords entre les clÃ©s (notamment pour les trajectoires courbes) sont effectuÃ©s automatiquement.
  *
 */
 
@@ -25,7 +25,7 @@
 #include "Canal_Animation.h"
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//                      Indices des paramètres:
+//                      Indices des paramÃ¨tres:
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 typedef enum
@@ -47,10 +47,10 @@ typedef enum
     ROT_DIRZ,
 
     ROT_ANGLE,
-	ROT_TOURS, //Nombre de tours à ajouter à la rotation de base
-    ROT_SENS, //true=même sens que le calcul, false=sens inverse
+	ROT_TOURS, //Nombre de tours Ã  ajouter Ã  la rotation de base
+    ROT_SENS, //true=mÃªme sens que le calcul, false=sens inverse
 
-    AXEZ_Z, //axes du repère
+    AXEZ_Z, //axes du repÃ¨re
     AXEZ_X,
     AXEZ_Y,
 
@@ -72,13 +72,13 @@ typedef enum
 class Canal_Animation_Conteneur :public Canal_Animation
 {
     public:
-		//Paramètres propres au canal:
+		//ParamÃ¨tres propres au canal:
 		Conteneur* conteneur;
     private:
 		vec3d position_trajectoire; //Position sur les trajectoires courbes.
-		AxeRotation axeRotation ; //L'axe utilisé pour les rotations du conteneur entre deux clés
+		AxeRotation axeRotation ; //L'axe utilisÃ© pour les rotations du conteneur entre deux clÃ©s
 
-        Repere repOrg; //Repères utilisés pour les calculs des axes de rotation
+        Repere repOrg; //RepÃ¨res utilisÃ©s pour les calculs des axes de rotation
 		Repere repDest;
     public:
 
@@ -92,25 +92,25 @@ class Canal_Animation_Conteneur :public Canal_Animation
 			if (p_conteneur != NULL) determine_conteneur(p_conteneur);
 		}
 
-        //--------- Détermine le conteneur qu'anime le canal:
+        //--------- DÃ©termine le conteneur qu'anime le canal:
 		void determine_conteneur(Conteneur* cont)
 		{
 			conteneur = cont;
-			//Clé de départ:
+			//ClÃ© de dÃ©part:
 			if (cles.size() == 0)
 			{
-			    Cle_Animation* cle=creation_cle(0.,"Cle de départ");
+			    Cle_Animation* cle=creation_cle(0.,"Cle de dÃ©part");
 			    cles.push_back(cle);
 			    initialise_valeurs_cle(cle);
 			}
 		}
 
         //=================================================================================
-		//                   Gestion des clés du canal de conteneur:
+		//                   Gestion des clÃ©s du canal de conteneur:
         //=================================================================================
 
         //---------------------------------------------
-		//      Initialisation des clés du canal:
+		//      Initialisation des clÃ©s du canal:
         //---------------------------------------------
 
 		virtual void initialise_cle(Cle_Animation* cle)
@@ -138,7 +138,7 @@ class Canal_Animation_Conteneur :public Canal_Animation
 			cle->ajoute_parametre("rot_sens",ROT_SENS,bool(true));
 			cle->ajoute_parametre("rot_angle",ROT_ANGLE,double(0.f));
 
-			//Le repère momentané, qui sert à calculer le mouvement de rotation:
+			//Le repÃ¨re momentanÃ©, qui sert Ã  calculer le mouvement de rotation:
 			cle->ajoute_parametre("axeX_x",AXEX_X,double(0.f));
 			cle->ajoute_parametre("axeX_y",AXEX_Y,double(0.f));
 			cle->ajoute_parametre("axeX_z",AXEX_Z,double(0.f));
@@ -153,10 +153,10 @@ class Canal_Animation_Conteneur :public Canal_Animation
         }
 
         //------------------------------------------------
-        //  Interpolation du conteneur à l'instant t:
+        //  Interpolation du conteneur Ã  l'instant t:
         //------------------------------------------------
         // Il n'y a pas de test d'activation du canal, cela permet
-        // d'initialiser le conteneur à n'importe quel moment de son animation.
+        // d'initialiser le conteneur Ã  n'importe quel moment de son animation.
 		virtual void initialise_objet(double t)
 		{
 		    if ( (conteneur==NULL) )return;
@@ -170,7 +170,7 @@ class Canal_Animation_Conteneur :public Canal_Animation
 			/*
 			if (cles.length > 1)
 			{
-				trace("Cléfs:");
+				trace("ClÃ©fs:");
 				for each (var clef:Cle_Animation in cles)
 				{trace("cle:", clef.t);}
 			}
@@ -213,7 +213,7 @@ class Canal_Animation_Conteneur :public Canal_Animation
 				double tOrg = cle_prec->t;
 				double tprop = (t - tOrg) / (cle_suiv->t - tOrg);
 
-				//---------- Déplacement:
+				//---------- DÃ©placement:
 				uint16_t trajectoire_type = cle_prec->renvoie_type_trajectoire(TRAJECTOIRE); //p_org[TRAJECTOIRE].methodeInterpolation;
 				if ( trajectoire_type == TRAJECTOIRE_RECTILIGNE)
 				{
@@ -278,14 +278,14 @@ class Canal_Animation_Conteneur :public Canal_Animation
 		}
 
         //---------------------------------------------------------------------------------------
-		//Initialisation des valeurs de la clé en fonction des paramètres actuels du conteneur
-		//  Les paramètres ROT_TOURS et ROT_SENS ne sont pas modifiés, mais ils sont pris en compte
+		//Initialisation des valeurs de la clÃ© en fonction des paramÃ¨tres actuels du conteneur
+		//  Les paramÃ¨tres ROT_TOURS et ROT_SENS ne sont pas modifiÃ©s, mais ils sont pris en compte
 		//  pour le calcul de l'angle.
         //---------------------------------------------------------------------------------------
 		virtual void initialise_valeurs_cle(Cle_Animation* cle)
 		{
 		    if (conteneur==NULL)return;
-		    //Enregistrement de la position et du repère:
+		    //Enregistrement de la position et du repÃ¨re:
 
 			cle->determine_valeur(XPOS,&conteneur->x);
 			cle->determine_valeur(YPOS,&conteneur->y);
@@ -309,7 +309,7 @@ class Canal_Animation_Conteneur :public Canal_Animation
 
 			//cout<<"AXE_X x="<<conteneur->axe_x->x<<" y="<<conteneur->axe_x->y<<" z="<<conteneur->axe_x->z<<endl;
 
-			//Mise à jour de la courbe de la trajectoire:
+			//Mise Ã  jour de la courbe de la trajectoire:
 			CourbeBezier_Espace* trajectoire=cle->renvoie_courbe_trajectoire(TRAJECTOIRE);
 			if (trajectoire!=NULL)
 			{
@@ -331,17 +331,17 @@ class Canal_Animation_Conteneur :public Canal_Animation
 
 			//Calcul la rotation de base:
 
-			//rafraichi_rotation(cle); //Rafraichissement de l'axe à chaque init d'objet.
+			//rafraichi_rotation(cle); //Rafraichissement de l'axe Ã  chaque init d'objet.
 		}
 
-		// Calcul de la rotation si il y a une clé suivante.
+		// Calcul de la rotation si il y a une clÃ© suivante.
 		void rafraichi_rotation(Cle_Animation* cle)
 		{
 			Cle_Animation* cle_suiv = renvoie_cle_suivante(cle);
 			if (cle_suiv != NULL) calcul_rotation(cle, cle_suiv);
 		}
 
-		//Détermine le nombre de tours et le sens dans une interpolation de rotation:
+		//DÃ©termine le nombre de tours et le sens dans une interpolation de rotation:
 		void determine_parametres_rotation(Cle_Animation* cle,int32_t p_tours,bool p_sens)
 		{
 		    cle->determine_valeur(ROT_TOURS,&p_tours);
@@ -350,8 +350,8 @@ class Canal_Animation_Conteneur :public Canal_Animation
 		}
 
     protected:
-		//Calcul l'axe de rotation entre deux clés.
-		//Les paramètres de la clé d'origine sont réinitialisés.
+		//Calcul l'axe de rotation entre deux clÃ©s.
+		//Les paramÃ¨tres de la clÃ© d'origine sont rÃ©initialisÃ©s.
 		void calcul_rotation(Cle_Animation* cle_org, Cle_Animation* cle_dest)
 		{
 			Vecteur_Unitaire* vtemp = repOrg.axe_x;
@@ -408,8 +408,8 @@ class Canal_Animation_Conteneur :public Canal_Animation
 		}
 
     public:
-		//Raccord entre deux clés, après suppression ou insertion d'autres clés:
-		//La trajectoire et la rotation sont mises à jour.
+		//Raccord entre deux clÃ©s, aprÃ¨s suppression ou insertion d'autres clÃ©s:
+		//La trajectoire et la rotation sont mises Ã  jour.
 		virtual void raccorde_cles(Cle_Animation* cle_prec, Cle_Animation* cle_suiv)
 		{
 			if ((cle_prec != NULL) && (cle_suiv != NULL))

@@ -4,7 +4,7 @@
 #include "dksShader.h"
 
 /*
-    Sert aussi bien pour le flou horizontal que vertical (seules les sources changent, les paramètres sont les mêmes)
+    Sert aussi bien pour le flou horizontal que vertical (seules les sources changent, les paramÃ¨tres sont les mÃªmes)
 */
 
 class Shader_Floutage: public dksShader
@@ -19,10 +19,10 @@ class Shader_Floutage: public dksShader
     //======================================
     Shader_Floutage(char* p_nom,char* p_source_vertex,char* p_source_fragment):dksShader(p_nom,p_source_vertex,p_source_fragment)
     {
-        //--------- Création des liens avec les variables type "uniform":
+        //--------- CrÃ©ation des liens avec les variables type "uniform":
         if(erreur==DKSSHADER_OK)
         {
-            //--------- Création des liens avec les variables type "uniform":
+            //--------- CrÃ©ation des liens avec les variables type "uniform":
 
             texture=glGetUniformLocation(programme_id,"texture");
             taille=glGetUniformLocation(programme_id,"taille_flou");

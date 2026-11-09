@@ -12,7 +12,7 @@
 //*******************************************************************
 */
 
-//------------- Compatibilité:
+//------------- CompatibilitÃ©:
 #define DKSSHADERS_FABRIQUANT_ATI 1
 #define DKSSHADERS_FABRIQUANT_NVIDIA 2
 
@@ -37,22 +37,22 @@ class dksInitialiseShaders: public Gestion_Shaders
         uint16_t erreur;
         uint8_t id_fabriquant;  //La marque de la carte graphique
 
-        //Rendu des éclairages simples:
+        //Rendu des Ã©clairages simples:
         GLuint programme_eclairage;
         GLint eclairage_drapeaux_sources;
 
-        //Rendu des éclairges en Phong:
+        //Rendu des Ã©clairges en Phong:
         GLuint programme_phong;
         GLint phong_drapeaux_sources;
 
-        // Rendu avec texture de couleur + texture de rugosité:
+        // Rendu avec texture de couleur + texture de rugositÃ©:
         GLuint programme_rugosite_couleur;
         GLint rugosite_couleur_texture_couleur; //Variables "uniform"
         GLint rugosite_couleur_texture_rugosite;
         GLint rugosite_couleur_tangente;        //Variables "attribute"
         GLint rugosite_couleur_binormale;
 
-        // Rendu avec texture de rugosité seule:
+        // Rendu avec texture de rugositÃ© seule:
         GLuint programme_rugosite;
         GLint rugosite_texture_rugosite;
         GLint rugosite_tangente;        //Variables "attribute"
@@ -91,7 +91,7 @@ class dksInitialiseShaders: public Gestion_Shaders
         GLint phong_ombres_seuil;
         GLint phong_ombres_intensite;
 
-        // Décallage de sommets:
+        // DÃ©callage de sommets:
         GLuint programme_decallage_sommets;
         GLint decallage_sommets_tangente_face;  //Variables "attribute"
         GLint decallage_sommets_normale_face;
@@ -100,7 +100,7 @@ class dksInitialiseShaders: public Gestion_Shaders
         GLint decallage_sommets_deplacement;   //Variables "uniform"
         GLint decallage_sommets_niveau_eclairage;
 
-        //Réflexion du cube d'arrière-plan sans texture:
+        //RÃ©flexion du cube d'arriÃ¨re-plan sans texture:
         GLuint programme_reflexion_couleur_cube;
         GLint   reflexion_couleur_cube_matrice_volume;
         GLint   reflexion_couleur_cube_texture;
@@ -128,7 +128,7 @@ class dksInitialiseShaders: public Gestion_Shaders
         GLint ondes_tangente;
         GLint ondes_binormale;
 
-        //Rendu des ondes sans textures avec réflexion du cube d'arrière-plan:
+        //Rendu des ondes sans textures avec rÃ©flexion du cube d'arriÃ¨re-plan:
         GLuint programme_reflexion_couleur_cube_ondes;
         GLint reflexion_couleur_cube_ondes_drapeaux_sources;
 
@@ -151,17 +151,17 @@ class dksInitialiseShaders: public Gestion_Shaders
         GLint reflexion_couleur_cube_ondes_tangente;
         GLint reflexion_couleur_cube_ondes_binormale;
 
-        // Fondu entre deux textures de couleur, avec une troisième qui sert de facteur de transition
-        //La texture de transformation doit être en niveaux de gris.
+        // Fondu entre deux textures de couleur, avec une troisiÃ¨me qui sert de facteur de transition
+        //La texture de transformation doit Ãªtre en niveaux de gris.
         GLuint programme_transition_textures_couleur;
-        GLint transition_textures_couleur_texture_depart; //La texture de départ
+        GLint transition_textures_couleur_texture_depart; //La texture de dÃ©part
         GLint transition_textures_couleur_texture_destination; //La texture de destination
         GLint transition_textures_couleur_texture_transition; //La texture de transition.
         GLint transition_textures_couleur_niveau;
 
          // Fondu entre deux textures de couleur, le long de l'axe Z du volume
         GLuint programme_transition_textures_couleur_axe;
-        GLint transition_textures_couleur_axe_texture_depart; //La texture de départ
+        GLint transition_textures_couleur_axe_texture_depart; //La texture de dÃ©part
         GLint transition_textures_couleur_axe_texture_destination; //La texture de destination
         GLint transition_textures_couleur_axe_zmin;
         GLint transition_textures_couleur_axe_zmax;
@@ -183,14 +183,14 @@ class dksInitialiseShaders: public Gestion_Shaders
         GLuint phong_vertex_shader_id;
         GLuint phong_fragment_shader_id;
 
-        //Rugosité + couleur:
+        //RugositÃ© + couleur:
         char* source_rugosite_couleur_vertex;
         char* source_rugosite_couleur_fragment;
 
         GLuint rugosite_couleur_vertex_shader_id;
         GLuint rugosite_couleur_fragment_shader_id;
 
-        //Rugosité seule:
+        //RugositÃ© seule:
         char* source_rugosite_vertex;
         char* source_rugosite_fragment;
 
@@ -216,14 +216,14 @@ class dksInitialiseShaders: public Gestion_Shaders
         GLuint phong_ombres_vertex_shader_id;
         GLuint phong_ombres_fragment_shader_id;
 
-        //Décallage de sommets:
+        //DÃ©callage de sommets:
         char* source_decallage_sommets_vertex;
         char* source_decallage_sommets_fragment;
 
         GLuint decallage_sommets_vertex_shader_id;
         GLuint decallage_sommets_fragment_shader_id;
 
-        //Réflexion du cube d'arrière-plan:
+        //RÃ©flexion du cube d'arriÃ¨re-plan:
         char* source_reflexion_couleur_cube_vertex;
         char* source_reflexion_couleur_cube_fragment;
 
@@ -237,7 +237,7 @@ class dksInitialiseShaders: public Gestion_Shaders
         GLuint ondes_fragment_shader_id;
         uint8_t ondes_tampon_texture_bruit[TAILLE_ONDES_TEXTURE_BRUIT*TAILLE_ONDES_TEXTURE_BRUIT];
 
-        //Réflexion du cube d'arrière-plan et ondes aqueuses:
+        //RÃ©flexion du cube d'arriÃ¨re-plan et ondes aqueuses:
         char *source_reflexion_couleur_cube_ondes_vertex;
         char *source_reflexion_couleur_cube_ondes_fragment;
         GLuint reflexion_couleur_cube_ondes_vertex_shader_id;
@@ -465,13 +465,13 @@ class dksInitialiseShaders: public Gestion_Shaders
         }
 
         //=============================================================================
-        //                          Création du programme de rendu
-        //                          des éclairages simples
+        //                          CrÃ©ation du programme de rendu
+        //                          des Ã©clairages simples
         //=============================================================================
         bool creation_eclairage()
         {
 
-            if (DKSSHADERS_DEBUG) cout<<"############# Création du programme de rendu des éclairages #############"<<endl;
+            if (DKSSHADERS_DEBUG) cout<<"############# CrÃ©ation du programme de rendu des Ã©clairages #############"<<endl;
 
             source_eclairage_vertex=charge_source_shader(renvoie_nom_fichier("eclairage_base_vertex.txt"));
             source_eclairage_fragment=charge_source_shader(renvoie_nom_fichier("eclairage_base_fragment.txt"));
@@ -482,13 +482,13 @@ class dksInitialiseShaders: public Gestion_Shaders
                 return false;
             }
 
-            //---------- Création des shaders:
-            if (DKSSHADERS_DEBUG) cout<<"Création des objets shaders...";
+            //---------- CrÃ©ation des shaders:
+            if (DKSSHADERS_DEBUG) cout<<"CrÃ©ation des objets shaders...";
             eclairage_vertex_shader_id=glCreateShader(GL_VERTEX_SHADER);
             eclairage_fragment_shader_id=glCreateShader(GL_FRAGMENT_SHADER);
             if (eclairage_vertex_shader_id==0 || eclairage_fragment_shader_id == 0)
             {
-                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de créer les objets Shader de rendu des éclairages"<<endl;
+                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de crÃ©er les objets Shader de rendu des Ã©clairages"<<endl;
                 erreur=DKSSHADERS_ERREUR_OBJETS;
                 return false;
             }
@@ -519,13 +519,13 @@ class dksInitialiseShaders: public Gestion_Shaders
 
             if (DKSSHADERS_DEBUG) cout<<"OK"<<endl;
 
-            //----------- Création des programmes
-            if (DKSSHADERS_DEBUG) cout<<"Création du programme de rendu des éclairages...";
+            //----------- CrÃ©ation des programmes
+            if (DKSSHADERS_DEBUG) cout<<"CrÃ©ation du programme de rendu des Ã©clairages...";
 
             programme_eclairage=glCreateProgram();
             if (programme_eclairage==0)
             {
-                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de créer le programme de rendu des éclairages"<<endl;
+                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de crÃ©er le programme de rendu des Ã©clairages"<<endl;
                 erreur=DKSSHADERS_ERREUR_PROGRAMME;
                 return false;
             }
@@ -537,29 +537,29 @@ class dksInitialiseShaders: public Gestion_Shaders
             glAttachShader(programme_eclairage,eclairage_fragment_shader_id);
             //----------- Liaisons des programmes de shaders:
 
-            if (DKSSHADERS_DEBUG) cout<<"Liaison du programme de rendu des éclairages...";
+            if (DKSSHADERS_DEBUG) cout<<"Liaison du programme de rendu des Ã©clairages...";
 
             if (!relie_programme_shader(programme_eclairage))
             {
-                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de lier le programme de rendu des éclairages"<<endl;
+                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de lier le programme de rendu des Ã©clairages"<<endl;
                 erreur=DKSSHADERS_ERREUR_LIAISON;
                 return false;
             }
 
             if (DKSSHADERS_DEBUG) cout<<"OK"<<endl;
 
-            //----------- Vérifie la validité des shaders:
-            if (DKSSHADERS_DEBUG) cout<<"Validation du programme de rendu des éclairages...";
+            //----------- VÃ©rifie la validitÃ© des shaders:
+            if (DKSSHADERS_DEBUG) cout<<"Validation du programme de rendu des Ã©clairages...";
             if (!valide_programme_shader(programme_eclairage))
             {
-                cout<<"ERREUR dans dksShaders::dksShaders() - Le programme de rendu des éclairages est invalide sur cette machine!"<<endl;
+                cout<<"ERREUR dans dksShaders::dksShaders() - Le programme de rendu des Ã©clairages est invalide sur cette machine!"<<endl;
                 erreur=DKSSHADERS_ERREUR_VALIDATION;
                 return false;
             }
             if (DKSSHADERS_DEBUG) cout<<"OK"<<endl;
 
 
-            //--------- Création des liens avec les variables type "uniform":
+            //--------- CrÃ©ation des liens avec les variables type "uniform":
             eclairage_drapeaux_sources=glGetUniformLocation(programme_eclairage,"drapeaux_sources");
 
             if (erreur_openGl("ERREUR dans dksShaders::creation_eclairage() :")) return false;
@@ -567,12 +567,12 @@ class dksInitialiseShaders: public Gestion_Shaders
         }
 
         //=============================================================================
-        //                          Création du programme de rendu
-        //                   Des éclairages en Phong (précision au pixel) sans texture
+        //                          CrÃ©ation du programme de rendu
+        //                   Des Ã©clairages en Phong (prÃ©cision au pixel) sans texture
         //=============================================================================
         bool creation_eclairage_phong()
         {
-            if (DKSSHADERS_DEBUG) cout<<"############# Création du programme de rendu des éclairages Phong #############"<<endl;
+            if (DKSSHADERS_DEBUG) cout<<"############# CrÃ©ation du programme de rendu des Ã©clairages Phong #############"<<endl;
 
             source_phong_vertex=charge_source_shader(renvoie_nom_fichier("eclairage_phong_vertex.txt"));
             source_phong_fragment=charge_source_shader(renvoie_nom_fichier("eclairage_phong_fragment.txt"));
@@ -583,13 +583,13 @@ class dksInitialiseShaders: public Gestion_Shaders
                 return false;
             }
 
-            //---------- Création des shaders:
-            if (DKSSHADERS_DEBUG) cout<<"Création des objets shaders...";
+            //---------- CrÃ©ation des shaders:
+            if (DKSSHADERS_DEBUG) cout<<"CrÃ©ation des objets shaders...";
             phong_vertex_shader_id=glCreateShader(GL_VERTEX_SHADER);
             phong_fragment_shader_id=glCreateShader(GL_FRAGMENT_SHADER);
             if (phong_vertex_shader_id==0 || phong_fragment_shader_id == 0)
             {
-                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de créer les objets Shader de rendu des eclairages en Phong"<<endl;
+                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de crÃ©er les objets Shader de rendu des eclairages en Phong"<<endl;
                 erreur=DKSSHADERS_ERREUR_OBJETS;
                 return false;
             }
@@ -620,13 +620,13 @@ class dksInitialiseShaders: public Gestion_Shaders
 
             if (DKSSHADERS_DEBUG) cout<<"OK"<<endl;
 
-            //----------- Création des programmes
-            if (DKSSHADERS_DEBUG) cout<<"Création du programme de rendu des éclairages en Phong...";
+            //----------- CrÃ©ation des programmes
+            if (DKSSHADERS_DEBUG) cout<<"CrÃ©ation du programme de rendu des Ã©clairages en Phong...";
 
             programme_phong=glCreateProgram();
             if (programme_phong==0)
             {
-                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de créer le programme de rendu des éclairages en Phong"<<endl;
+                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de crÃ©er le programme de rendu des Ã©clairages en Phong"<<endl;
                 erreur=DKSSHADERS_ERREUR_PROGRAMME;
                 return false;
             }
@@ -638,28 +638,28 @@ class dksInitialiseShaders: public Gestion_Shaders
             glAttachShader(programme_phong,phong_fragment_shader_id);
             //----------- Liaisons des programmes de shaders:
 
-            if (DKSSHADERS_DEBUG) cout<<"Liaison du programme de rendu des éclairages en Phong...";
+            if (DKSSHADERS_DEBUG) cout<<"Liaison du programme de rendu des Ã©clairages en Phong...";
 
             if (!relie_programme_shader(programme_phong))
             {
-                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de lier le programme de rendu des éclairages en Phong"<<endl;
+                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de lier le programme de rendu des Ã©clairages en Phong"<<endl;
                 erreur=DKSSHADERS_ERREUR_LIAISON;
                 return false;
             }
 
             if (DKSSHADERS_DEBUG) cout<<"OK"<<endl;
 
-            //----------- Vérifie la validité des shaders:
-            if (DKSSHADERS_DEBUG) cout<<"Validation du programme de rendu des éclairages en Phong...";
+            //----------- VÃ©rifie la validitÃ© des shaders:
+            if (DKSSHADERS_DEBUG) cout<<"Validation du programme de rendu des Ã©clairages en Phong...";
             if (!valide_programme_shader(programme_phong))
             {
-                cout<<"ERREUR dans dksShaders::dksShaders() - Le programme de rendu des éclairages en Phong est invalide sur cette machine!"<<endl;
+                cout<<"ERREUR dans dksShaders::dksShaders() - Le programme de rendu des Ã©clairages en Phong est invalide sur cette machine!"<<endl;
                 erreur=DKSSHADERS_ERREUR_VALIDATION;
                 return false;
             }
             if (DKSSHADERS_DEBUG) cout<<"OK"<<endl;
 
-            //--------- Création des liens avec les variables type "uniform":
+            //--------- CrÃ©ation des liens avec les variables type "uniform":
             phong_drapeaux_sources=glGetUniformLocation(programme_phong,"drapeaux_sources");
 
             if (erreur_openGl("ERREUR dans dksShaders::creation_eclairage_phong() :")) return false;
@@ -668,13 +668,13 @@ class dksInitialiseShaders: public Gestion_Shaders
 
 
         //=============================================================================
-        //                          Création du programme de rendu
-        //              avec textures de rugosité + couleur
+        //                          CrÃ©ation du programme de rendu
+        //              avec textures de rugositÃ© + couleur
         //=============================================================================
         bool creation_rugosite_couleur()
         {
 
-            if (DKSSHADERS_DEBUG) cout<<"############# Création du programme de rendu de rugosité + couleur #############"<<endl;
+            if (DKSSHADERS_DEBUG) cout<<"############# CrÃ©ation du programme de rendu de rugositÃ© + couleur #############"<<endl;
 
             source_rugosite_couleur_vertex=charge_source_shader(renvoie_nom_fichier("rugosite_couleur_vertex.txt"));
             source_rugosite_couleur_fragment=charge_source_shader(renvoie_nom_fichier("rugosite_couleur_fragment.txt"));
@@ -685,13 +685,13 @@ class dksInitialiseShaders: public Gestion_Shaders
                 return false;
             }
 
-            //---------- Création des shaders:
-            if (DKSSHADERS_DEBUG) cout<<"Création des objets shaders...";
+            //---------- CrÃ©ation des shaders:
+            if (DKSSHADERS_DEBUG) cout<<"CrÃ©ation des objets shaders...";
             rugosite_couleur_vertex_shader_id=glCreateShader(GL_VERTEX_SHADER);
             rugosite_couleur_fragment_shader_id=glCreateShader(GL_FRAGMENT_SHADER);
             if (rugosite_couleur_vertex_shader_id==0 || rugosite_couleur_fragment_shader_id == 0)
             {
-                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de créer les objets Shader de rugosité/couleur"<<endl;
+                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de crÃ©er les objets Shader de rugositÃ©/couleur"<<endl;
                 erreur=DKSSHADERS_ERREUR_OBJETS;
                 return false;
             }
@@ -723,13 +723,13 @@ class dksInitialiseShaders: public Gestion_Shaders
 
             if (DKSSHADERS_DEBUG) cout<<"OK"<<endl;
 
-            //----------- Création des programmes
-            if (DKSSHADERS_DEBUG) cout<<"Création du programme de rugosité/couleur...";
+            //----------- CrÃ©ation des programmes
+            if (DKSSHADERS_DEBUG) cout<<"CrÃ©ation du programme de rugositÃ©/couleur...";
 
             programme_rugosite_couleur=glCreateProgram();
             if (programme_rugosite_couleur==0)
             {
-                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de créer le programme de rugosité/couleur"<<endl;
+                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de crÃ©er le programme de rugositÃ©/couleur"<<endl;
                 erreur=DKSSHADERS_ERREUR_PROGRAMME;
                 return false;
             }
@@ -742,34 +742,34 @@ class dksInitialiseShaders: public Gestion_Shaders
             glAttachShader(programme_rugosite_couleur,rugosite_couleur_fragment_shader_id);
             //----------- Liaisons des programmes de shaders:
 
-            if (DKSSHADERS_DEBUG) cout<<"Liaison du programme de rugosité/couleur...";
+            if (DKSSHADERS_DEBUG) cout<<"Liaison du programme de rugositÃ©/couleur...";
 
             if (!relie_programme_shader(programme_rugosite_couleur))
             {
-                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de lier le programme de rugosité/couleur"<<endl;
+                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de lier le programme de rugositÃ©/couleur"<<endl;
                 erreur=DKSSHADERS_ERREUR_LIAISON;
                 return false;
             }
 
             if (DKSSHADERS_DEBUG) cout<<"OK"<<endl;
 
-            //----------- Vérifie la validité des shaders:
-            if (DKSSHADERS_DEBUG) cout<<"Validation du programme de rugosité/couleur...";
+            //----------- VÃ©rifie la validitÃ© des shaders:
+            if (DKSSHADERS_DEBUG) cout<<"Validation du programme de rugositÃ©/couleur...";
             if (!valide_programme_shader(programme_rugosite_couleur))
             {
-                cout<<"ERREUR dans dksShaders::dksShaders() - Le programme de rugosité/couleur est invalide sur cette machine!"<<endl;
+                cout<<"ERREUR dans dksShaders::dksShaders() - Le programme de rugositÃ©/couleur est invalide sur cette machine!"<<endl;
                 erreur=DKSSHADERS_ERREUR_VALIDATION;
                 return false;
             }
             if (DKSSHADERS_DEBUG) cout<<"OK"<<endl;
 
 
-            //--------- Création des liens avec les variables type "uniform":
+            //--------- CrÃ©ation des liens avec les variables type "uniform":
 
             rugosite_couleur_texture_couleur=glGetUniformLocation(programme_rugosite_couleur,"texture_couleur");
             rugosite_couleur_texture_rugosite=glGetUniformLocation(programme_rugosite_couleur,"texture_rugosite");
 
-            //--------- Création des liens avec les variables type "attribute":
+            //--------- CrÃ©ation des liens avec les variables type "attribute":
 
             rugosite_couleur_tangente=glGetAttribLocation(programme_rugosite_couleur,"tangente");
             rugosite_couleur_binormale=glGetAttribLocation(programme_rugosite_couleur,"binormale");
@@ -783,13 +783,13 @@ class dksInitialiseShaders: public Gestion_Shaders
         }
 
         //=============================================================================
-        //                          Création du programme de rendu
-        //                          avec texture de rugosité seule
+        //                          CrÃ©ation du programme de rendu
+        //                          avec texture de rugositÃ© seule
         //=============================================================================
         bool creation_rugosite()
         {
 
-            if (DKSSHADERS_DEBUG) cout<<"############# Création du programme de rendu de rugosité #############"<<endl;
+            if (DKSSHADERS_DEBUG) cout<<"############# CrÃ©ation du programme de rendu de rugositÃ© #############"<<endl;
 
             source_rugosite_vertex=charge_source_shader(renvoie_nom_fichier("rugosite_vertex.txt"));
             source_rugosite_fragment=charge_source_shader(renvoie_nom_fichier("rugosite_fragment.txt"));
@@ -800,13 +800,13 @@ class dksInitialiseShaders: public Gestion_Shaders
                 return false;
             }
 
-            //---------- Création des shaders:
-            if (DKSSHADERS_DEBUG) cout<<"Création des objets shaders...";
+            //---------- CrÃ©ation des shaders:
+            if (DKSSHADERS_DEBUG) cout<<"CrÃ©ation des objets shaders...";
             rugosite_vertex_shader_id=glCreateShader(GL_VERTEX_SHADER);
             rugosite_fragment_shader_id=glCreateShader(GL_FRAGMENT_SHADER);
             if (rugosite_vertex_shader_id==0 || rugosite_fragment_shader_id == 0)
             {
-                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de créer les objets Shader de rugosité"<<endl;
+                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de crÃ©er les objets Shader de rugositÃ©"<<endl;
                 erreur=DKSSHADERS_ERREUR_OBJETS;
                 return false;
             }
@@ -838,13 +838,13 @@ class dksInitialiseShaders: public Gestion_Shaders
 
             if (DKSSHADERS_DEBUG) cout<<"OK"<<endl;
 
-            //----------- Création des programmes
-            if (DKSSHADERS_DEBUG) cout<<"Création du programme de rugosité...";
+            //----------- CrÃ©ation des programmes
+            if (DKSSHADERS_DEBUG) cout<<"CrÃ©ation du programme de rugositÃ©...";
 
             programme_rugosite=glCreateProgram();
             if (programme_rugosite==0)
             {
-                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de créer le programme de rugosité"<<endl;
+                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de crÃ©er le programme de rugositÃ©"<<endl;
                 erreur=DKSSHADERS_ERREUR_PROGRAMME;
                 return false;
             }
@@ -857,33 +857,33 @@ class dksInitialiseShaders: public Gestion_Shaders
             glAttachShader(programme_rugosite,rugosite_fragment_shader_id);
             //----------- Liaisons des programmes de shaders:
 
-            if (DKSSHADERS_DEBUG) cout<<"Liaison du programme de rugosité...";
+            if (DKSSHADERS_DEBUG) cout<<"Liaison du programme de rugositÃ©...";
 
             if (!relie_programme_shader(programme_rugosite))
             {
-                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de lier le programme de rugosité"<<endl;
+                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de lier le programme de rugositÃ©"<<endl;
                 erreur=DKSSHADERS_ERREUR_LIAISON;
                 return false;
             }
 
             if (DKSSHADERS_DEBUG) cout<<"OK"<<endl;
 
-            //----------- Vérifie la validité des shaders:
-            if (DKSSHADERS_DEBUG) cout<<"Validation du programme de rugosité...";
+            //----------- VÃ©rifie la validitÃ© des shaders:
+            if (DKSSHADERS_DEBUG) cout<<"Validation du programme de rugositÃ©...";
             if (!valide_programme_shader(programme_rugosite))
             {
-                cout<<"ERREUR dans dksShaders::dksShaders() - Le programme de rugosité est invalide sur cette machine!"<<endl;
+                cout<<"ERREUR dans dksShaders::dksShaders() - Le programme de rugositÃ© est invalide sur cette machine!"<<endl;
                 erreur=DKSSHADERS_ERREUR_VALIDATION;
                 return false;
             }
             if (DKSSHADERS_DEBUG) cout<<"OK"<<endl;
 
 
-            //--------- Création des liens avec les variables type "uniform":
+            //--------- CrÃ©ation des liens avec les variables type "uniform":
 
             rugosite_texture_rugosite=glGetUniformLocation(programme_rugosite,"texture_rugosite");
 
-            //--------- Création des liens avec les variables type "attribute":
+            //--------- CrÃ©ation des liens avec les variables type "attribute":
 
             rugosite_tangente=glGetAttribLocation(programme_rugosite,"tangente");
             rugosite_binormale=glGetAttribLocation(programme_rugosite,"binormale");
@@ -898,12 +898,12 @@ class dksInitialiseShaders: public Gestion_Shaders
 
 
         //=============================================================================
-        //                          Création des programmes de floutage
+        //                          CrÃ©ation des programmes de floutage
         //=============================================================================
         bool creation_floutage()
         {
 
-            if (DKSSHADERS_DEBUG) cout<<"############# Création du programme de rendu de floutage #############"<<endl;
+            if (DKSSHADERS_DEBUG) cout<<"############# CrÃ©ation du programme de rendu de floutage #############"<<endl;
             source_flou_x=charge_source_shader(renvoie_nom_fichier("flou_x.txt"));
             source_flou_y=charge_source_shader(renvoie_nom_fichier("flou_y.txt"));
 
@@ -913,13 +913,13 @@ class dksInitialiseShaders: public Gestion_Shaders
                 return false;
             }
 
-            //---------- Création des shaders:
-            if (DKSSHADERS_DEBUG) cout<<"Création des objets shaders...";
+            //---------- CrÃ©ation des shaders:
+            if (DKSSHADERS_DEBUG) cout<<"CrÃ©ation des objets shaders...";
             flou_x_shader_id=glCreateShader(GL_FRAGMENT_SHADER);
             flou_y_shader_id=glCreateShader(GL_FRAGMENT_SHADER);
             if (flou_x_shader_id==0 || flou_y_shader_id == 0)
             {
-                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de créer les objets Shader de floutage"<<endl;
+                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de crÃ©er les objets Shader de floutage"<<endl;
                 erreur=DKSSHADERS_ERREUR_OBJETS;
                 return false;
             }
@@ -950,15 +950,15 @@ class dksInitialiseShaders: public Gestion_Shaders
 
             if (DKSSHADERS_DEBUG) cout<<"OK"<<endl;
 
-            //----------- Création des programmes
-            if (DKSSHADERS_DEBUG) cout<<"Création des programmes de floutage...";
+            //----------- CrÃ©ation des programmes
+            if (DKSSHADERS_DEBUG) cout<<"CrÃ©ation des programmes de floutage...";
 
             programme_flou_x=glCreateProgram();
             programme_flou_y=glCreateProgram();
 
             if (programme_flou_x==0 || programme_flou_y==0)
             {
-                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de créer les programmes de floutage"<<endl;
+                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de crÃ©er les programmes de floutage"<<endl;
                 erreur=DKSSHADERS_ERREUR_PROGRAMME;
                 return false;
             }
@@ -982,7 +982,7 @@ class dksInitialiseShaders: public Gestion_Shaders
 
             if (DKSSHADERS_DEBUG) cout<<"OK"<<endl;
 
-            //----------- Vérifie la validité des shaders:
+            //----------- VÃ©rifie la validitÃ© des shaders:
             if (DKSSHADERS_DEBUG) cout<<"Validation des programmes de floutage...";
             if (!valide_programme_shader(programme_flou_x) || !valide_programme_shader(programme_flou_y))
             {
@@ -993,7 +993,7 @@ class dksInitialiseShaders: public Gestion_Shaders
             if (DKSSHADERS_DEBUG) cout<<"OK"<<endl;
 
 
-            //--------- Création des liens avec les variables type "uniform":
+            //--------- CrÃ©ation des liens avec les variables type "uniform":
 
             flou_x_texture=glGetUniformLocation(programme_flou_x,"texture");
             flou_x_taille=glGetUniformLocation(programme_flou_x,"taille_flou");
@@ -1013,12 +1013,12 @@ class dksInitialiseShaders: public Gestion_Shaders
 
 
         //=============================================================================
-        //                 Création du programme de rendu des ombres
+        //                 CrÃ©ation du programme de rendu des ombres
         //=============================================================================
         bool creation_ombres()
         {
 
-            if (DKSSHADERS_DEBUG) cout<<"############# Création du programme de rendu des ombres #############"<<endl;
+            if (DKSSHADERS_DEBUG) cout<<"############# CrÃ©ation du programme de rendu des ombres #############"<<endl;
             source_ombres_vertex=charge_source_shader(renvoie_nom_fichier("ombres_vertex.txt"));
             source_ombres_fragment=charge_source_shader(renvoie_nom_fichier("ombres_fragment.txt"));
 
@@ -1028,14 +1028,14 @@ class dksInitialiseShaders: public Gestion_Shaders
                 return false;
             }
 
-            //---------- Création des shaders:
-            if (DKSSHADERS_DEBUG) cout<<"Création des objets shaders...";
+            //---------- CrÃ©ation des shaders:
+            if (DKSSHADERS_DEBUG) cout<<"CrÃ©ation des objets shaders...";
             ombres_vertex_shader_id=glCreateShader(GL_VERTEX_SHADER);
             ombres_fragment_shader_id=glCreateShader(GL_FRAGMENT_SHADER);
 
             if (ombres_fragment_shader_id==0 || ombres_vertex_shader_id==0)
             {
-                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de créer les objets Shader des rendu des ombres"<<endl;
+                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de crÃ©er les objets Shader des rendu des ombres"<<endl;
                 erreur=DKSSHADERS_ERREUR_OBJETS;
                 return false;
             }
@@ -1061,14 +1061,14 @@ class dksInitialiseShaders: public Gestion_Shaders
 
             if (DKSSHADERS_DEBUG) cout<<"OK"<<endl;
 
-            //----------- Création du programme
-            if (DKSSHADERS_DEBUG) cout<<"Création du programme de rendu des ombres ...";
+            //----------- CrÃ©ation du programme
+            if (DKSSHADERS_DEBUG) cout<<"CrÃ©ation du programme de rendu des ombres ...";
 
             programme_ombres=glCreateProgram();
 
             if (programme_ombres==0 )
             {
-                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de créer les programmes de rendu des ombres"<<endl;
+                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de crÃ©er les programmes de rendu des ombres"<<endl;
                 erreur=DKSSHADERS_ERREUR_PROGRAMME;
                 return false;
             }
@@ -1093,7 +1093,7 @@ class dksInitialiseShaders: public Gestion_Shaders
 
             if (DKSSHADERS_DEBUG) cout<<"OK"<<endl;
 
-            //----------- Vérifie la validité des shaders:
+            //----------- VÃ©rifie la validitÃ© des shaders:
             if (DKSSHADERS_DEBUG) cout<<"Validation du programme de rendu des ombres...";
             if (!valide_programme_shader(programme_ombres) )
             {
@@ -1103,7 +1103,7 @@ class dksInitialiseShaders: public Gestion_Shaders
             }
             if (DKSSHADERS_DEBUG) cout<<"OK"<<endl;
 
-            //--------- Création des liens avec les variables type "uniform":
+            //--------- CrÃ©ation des liens avec les variables type "uniform":
 
             ombres_drapeaux_sources=glGetUniformLocation(programme_ombres,"drapeaux_sources");
             ombres_texture_profondeur=glGetUniformLocation(programme_ombres,"texture_profondeur");
@@ -1123,12 +1123,12 @@ class dksInitialiseShaders: public Gestion_Shaders
         }
 
         //========================================================================================
-        //                 Création du programme de rendu éclairage phong avec ombres portées
+        //                 CrÃ©ation du programme de rendu Ã©clairage phong avec ombres portÃ©es
         //========================================================================================
         bool creation_phong_ombres()
         {
 
-            if (DKSSHADERS_DEBUG) cout<<"############# Création du programme de rendu phong + ombres #############"<<endl;
+            if (DKSSHADERS_DEBUG) cout<<"############# CrÃ©ation du programme de rendu phong + ombres #############"<<endl;
             source_phong_ombres_vertex=charge_source_shader(renvoie_nom_fichier("phong_ombres_vertex.txt"));
             source_phong_ombres_fragment=charge_source_shader(renvoie_nom_fichier("phong_ombres_fragment.txt"));
 
@@ -1138,14 +1138,14 @@ class dksInitialiseShaders: public Gestion_Shaders
                 return false;
             }
 
-            //---------- Création des shaders:
-            if (DKSSHADERS_DEBUG) cout<<"Création des objets shaders...";
+            //---------- CrÃ©ation des shaders:
+            if (DKSSHADERS_DEBUG) cout<<"CrÃ©ation des objets shaders...";
             phong_ombres_vertex_shader_id=glCreateShader(GL_VERTEX_SHADER);
             phong_ombres_fragment_shader_id=glCreateShader(GL_FRAGMENT_SHADER);
 
             if (phong_ombres_fragment_shader_id==0 || phong_ombres_vertex_shader_id==0)
             {
-                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de créer les objets Shader des rendu phong + ombres"<<endl;
+                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de crÃ©er les objets Shader des rendu phong + ombres"<<endl;
                 erreur=DKSSHADERS_ERREUR_OBJETS;
                 return false;
             }
@@ -1171,14 +1171,14 @@ class dksInitialiseShaders: public Gestion_Shaders
 
             if (DKSSHADERS_DEBUG) cout<<"OK"<<endl;
 
-            //----------- Création du programme
-            if (DKSSHADERS_DEBUG) cout<<"Création du programme de rendu phong + ombres ...";
+            //----------- CrÃ©ation du programme
+            if (DKSSHADERS_DEBUG) cout<<"CrÃ©ation du programme de rendu phong + ombres ...";
 
             programme_phong_ombres=glCreateProgram();
 
             if (programme_phong_ombres==0 )
             {
-                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de créer les programmes de rendu phong + ombres"<<endl;
+                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de crÃ©er les programmes de rendu phong + ombres"<<endl;
                 erreur=DKSSHADERS_ERREUR_PROGRAMME;
                 return false;
             }
@@ -1203,7 +1203,7 @@ class dksInitialiseShaders: public Gestion_Shaders
 
             if (DKSSHADERS_DEBUG) cout<<"OK"<<endl;
 
-            //----------- Vérifie la validité des shaders:
+            //----------- VÃ©rifie la validitÃ© des shaders:
             if (DKSSHADERS_DEBUG) cout<<"Validation du programme de rendu phong + ombres...";
             if (!valide_programme_shader(programme_phong_ombres) )
             {
@@ -1213,7 +1213,7 @@ class dksInitialiseShaders: public Gestion_Shaders
             }
             if (DKSSHADERS_DEBUG) cout<<"OK"<<endl;
 
-            //--------- Création des liens avec les variables type "uniform":
+            //--------- CrÃ©ation des liens avec les variables type "uniform":
 
             phong_ombres_drapeaux_sources=glGetUniformLocation(programme_ombres,"drapeaux_sources");
             phong_ombres_texture_profondeur=glGetUniformLocation(programme_ombres,"texture_profondeur");
@@ -1235,12 +1235,12 @@ class dksInitialiseShaders: public Gestion_Shaders
 
 
         //=============================================================================
-        //                          Création du programme de rendu
-        //                          avec décallage des sommets
+        //                          CrÃ©ation du programme de rendu
+        //                          avec dÃ©callage des sommets
         //=============================================================================
         bool creation_decallage_sommets()
         {
-            if (DKSSHADERS_DEBUG) cout<<"############# Création du programme de rendu avec décallage de sommets #############"<<endl;
+            if (DKSSHADERS_DEBUG) cout<<"############# CrÃ©ation du programme de rendu avec dÃ©callage de sommets #############"<<endl;
 
             source_decallage_sommets_vertex=charge_source_shader(renvoie_nom_fichier("decallage_sommets_vertex.txt"));
             source_decallage_sommets_fragment=charge_source_shader(renvoie_nom_fichier("decallage_sommets_fragment.txt"));
@@ -1251,13 +1251,13 @@ class dksInitialiseShaders: public Gestion_Shaders
                 return false;
             }
 
-            //---------- Création des shaders:
-            if (DKSSHADERS_DEBUG) cout<<"Création des objets shaders...";
+            //---------- CrÃ©ation des shaders:
+            if (DKSSHADERS_DEBUG) cout<<"CrÃ©ation des objets shaders...";
             decallage_sommets_vertex_shader_id=glCreateShader(GL_VERTEX_SHADER);
             decallage_sommets_fragment_shader_id=glCreateShader(GL_FRAGMENT_SHADER);
             if (decallage_sommets_vertex_shader_id==0 || decallage_sommets_fragment_shader_id == 0)
             {
-                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de créer les objets Shader de décallage de sommets"<<endl;
+                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de crÃ©er les objets Shader de dÃ©callage de sommets"<<endl;
                 erreur=DKSSHADERS_ERREUR_OBJETS;
                 return false;
             }
@@ -1289,13 +1289,13 @@ class dksInitialiseShaders: public Gestion_Shaders
 
             if (DKSSHADERS_DEBUG) cout<<"OK"<<endl;
 
-            //----------- Création des programmes
-            if (DKSSHADERS_DEBUG) cout<<"Création du programme de décallage de sommets...";
+            //----------- CrÃ©ation des programmes
+            if (DKSSHADERS_DEBUG) cout<<"CrÃ©ation du programme de dÃ©callage de sommets...";
 
             programme_decallage_sommets=glCreateProgram();
             if (programme_decallage_sommets==0)
             {
-                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de créer le programme de décallage de sommets"<<endl;
+                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de crÃ©er le programme de dÃ©callage de sommets"<<endl;
                 erreur=DKSSHADERS_ERREUR_PROGRAMME;
                 return false;
             }
@@ -1308,34 +1308,34 @@ class dksInitialiseShaders: public Gestion_Shaders
             glAttachShader(programme_decallage_sommets,decallage_sommets_fragment_shader_id);
             //----------- Liaisons des programmes de shaders:
 
-            if (DKSSHADERS_DEBUG) cout<<"Liaison du programme de décallage de sommets...";
+            if (DKSSHADERS_DEBUG) cout<<"Liaison du programme de dÃ©callage de sommets...";
 
             if (!relie_programme_shader(programme_decallage_sommets))
             {
-                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de lier le programme de décallage de sommets"<<endl;
+                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de lier le programme de dÃ©callage de sommets"<<endl;
                 erreur=DKSSHADERS_ERREUR_LIAISON;
                 return false;
             }
 
             if (DKSSHADERS_DEBUG) cout<<"OK"<<endl;
 
-            //----------- Vérifie la validité des shaders:
-            if (DKSSHADERS_DEBUG) cout<<"Validation du programme de décallage de sommets...";
+            //----------- VÃ©rifie la validitÃ© des shaders:
+            if (DKSSHADERS_DEBUG) cout<<"Validation du programme de dÃ©callage de sommets...";
             if (!valide_programme_shader(programme_decallage_sommets))
             {
-                cout<<"ERREUR dans dksShaders::dksShaders() - Le programme de décallage de sommets est invalide sur cette machine!"<<endl;
+                cout<<"ERREUR dans dksShaders::dksShaders() - Le programme de dÃ©callage de sommets est invalide sur cette machine!"<<endl;
                 erreur=DKSSHADERS_ERREUR_VALIDATION;
                 return false;
             }
             if (DKSSHADERS_DEBUG) cout<<"OK"<<endl;
 
 
-            //--------- Création des liens avec les variables type "uniform":
+            //--------- CrÃ©ation des liens avec les variables type "uniform":
 
             decallage_sommets_deplacement=glGetUniformLocation(programme_decallage_sommets,"deplacement");
             decallage_sommets_niveau_eclairage=glGetUniformLocation(programme_decallage_sommets,"niveau_eclairage");
 
-            //--------- Création des liens avec les variables type "attribute":
+            //--------- CrÃ©ation des liens avec les variables type "attribute":
 
             decallage_sommets_tangente_face=glGetAttribLocation(programme_decallage_sommets,"tangente_face");
             decallage_sommets_normale_face=glGetAttribLocation(programme_decallage_sommets,"normale_face");
@@ -1352,12 +1352,12 @@ class dksInitialiseShaders: public Gestion_Shaders
         }
 
         //===================================================================================
-        //                          Création du programme de rendu
-        //                          de la réflexion du cube d'arrière plan sans texture
+        //                          CrÃ©ation du programme de rendu
+        //                          de la rÃ©flexion du cube d'arriÃ¨re plan sans texture
         //===================================================================================
         bool creation_reflexion_couleur_cube()
         {
-            if (DKSSHADERS_DEBUG) cout<<"############# Création du programme de rendu de la réflexion du cube d'arrière-plan sans texture #############"<<endl;
+            if (DKSSHADERS_DEBUG) cout<<"############# CrÃ©ation du programme de rendu de la rÃ©flexion du cube d'arriÃ¨re-plan sans texture #############"<<endl;
 
             source_reflexion_couleur_cube_vertex=charge_source_shader(renvoie_nom_fichier("reflexion_couleur_cube_vertex.txt"));
             source_reflexion_couleur_cube_fragment=charge_source_shader(renvoie_nom_fichier("reflexion_couleur_cube_fragment.txt"));
@@ -1368,13 +1368,13 @@ class dksInitialiseShaders: public Gestion_Shaders
                 return false;
             }
 
-            //---------- Création des shaders:
-            if (DKSSHADERS_DEBUG) cout<<"Création des objets shaders...";
+            //---------- CrÃ©ation des shaders:
+            if (DKSSHADERS_DEBUG) cout<<"CrÃ©ation des objets shaders...";
             reflexion_couleur_cube_vertex_shader_id=glCreateShader(GL_VERTEX_SHADER);
             reflexion_couleur_cube_fragment_shader_id=glCreateShader(GL_FRAGMENT_SHADER);
             if (reflexion_couleur_cube_vertex_shader_id==0 || reflexion_couleur_cube_fragment_shader_id == 0)
             {
-                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de créer les objets Shader de la réflexion du cube d'arrière-plan sans texture"<<endl;
+                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de crÃ©er les objets Shader de la rÃ©flexion du cube d'arriÃ¨re-plan sans texture"<<endl;
                 erreur=DKSSHADERS_ERREUR_OBJETS;
                 return false;
             }
@@ -1405,13 +1405,13 @@ class dksInitialiseShaders: public Gestion_Shaders
 
             if (DKSSHADERS_DEBUG) cout<<"OK"<<endl;
 
-            //----------- Création des programmes
-            if (DKSSHADERS_DEBUG) cout<<"Création du programme de la réflexion du cube d'arrière-plan sans texture...";
+            //----------- CrÃ©ation des programmes
+            if (DKSSHADERS_DEBUG) cout<<"CrÃ©ation du programme de la rÃ©flexion du cube d'arriÃ¨re-plan sans texture...";
 
             programme_reflexion_couleur_cube=glCreateProgram();
             if (programme_reflexion_couleur_cube==0)
             {
-                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de créer le programme de rendu de la réflexion du cube d'arrière-plan sans texture"<<endl;
+                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de crÃ©er le programme de rendu de la rÃ©flexion du cube d'arriÃ¨re-plan sans texture"<<endl;
                 erreur=DKSSHADERS_ERREUR_PROGRAMME;
                 return false;
             }
@@ -1423,29 +1423,29 @@ class dksInitialiseShaders: public Gestion_Shaders
             glAttachShader(programme_reflexion_couleur_cube,reflexion_couleur_cube_fragment_shader_id);
             //----------- Liaisons des programmes de shaders:
 
-            if (DKSSHADERS_DEBUG) cout<<"Liaison du programme de rendu de la réflexion du cube d'arrière-plan sans texture...";
+            if (DKSSHADERS_DEBUG) cout<<"Liaison du programme de rendu de la rÃ©flexion du cube d'arriÃ¨re-plan sans texture...";
 
             if (!relie_programme_shader(programme_reflexion_couleur_cube))
             {
-                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de lier le programme de rendu de la réflexion du cube d'arrière-plan sans texture"<<endl;
+                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de lier le programme de rendu de la rÃ©flexion du cube d'arriÃ¨re-plan sans texture"<<endl;
                 erreur=DKSSHADERS_ERREUR_LIAISON;
                 return false;
             }
 
             if (DKSSHADERS_DEBUG) cout<<"OK"<<endl;
 
-            //----------- Vérifie la validité des shaders:
-            if (DKSSHADERS_DEBUG) cout<<"Validation du programme de rendu de la réflexion du cube d'arrière-plan sans texture...";
+            //----------- VÃ©rifie la validitÃ© des shaders:
+            if (DKSSHADERS_DEBUG) cout<<"Validation du programme de rendu de la rÃ©flexion du cube d'arriÃ¨re-plan sans texture...";
             if (!valide_programme_shader(programme_reflexion_couleur_cube))
             {
-                cout<<"ERREUR dans dksShaders::dksShaders() - Le programme de rendu de la réflexion du cube d'arrière-plan sans texture est invalide sur cette machine!"<<endl;
+                cout<<"ERREUR dans dksShaders::dksShaders() - Le programme de rendu de la rÃ©flexion du cube d'arriÃ¨re-plan sans texture est invalide sur cette machine!"<<endl;
                 erreur=DKSSHADERS_ERREUR_VALIDATION;
                 return false;
             }
             if (DKSSHADERS_DEBUG) cout<<"OK"<<endl;
 
 
-            //--------- Création des liens avec les variables type "uniform":
+            //--------- CrÃ©ation des liens avec les variables type "uniform":
 
             reflexion_couleur_cube_matrice_volume=glGetUniformLocation(programme_reflexion_couleur_cube,"matrice_volume");
             reflexion_couleur_cube_texture=glGetUniformLocation(programme_reflexion_couleur_cube,"cube_arriere_plan");
@@ -1462,12 +1462,12 @@ class dksInitialiseShaders: public Gestion_Shaders
         }
 
         //=============================================================================
-        //                          Création du programme de rendu
-        //           d'ondes aqueuses avec éclairage - sans texture de couleur
+        //                          CrÃ©ation du programme de rendu
+        //           d'ondes aqueuses avec Ã©clairage - sans texture de couleur
         //=============================================================================
         bool creation_ondes()
         {
-            if (DKSSHADERS_DEBUG) cout<<"############# Création du programme de rendu des ondes aqueuses simples #############"<<endl;
+            if (DKSSHADERS_DEBUG) cout<<"############# CrÃ©ation du programme de rendu des ondes aqueuses simples #############"<<endl;
 
             source_ondes_vertex=charge_source_shader(renvoie_nom_fichier("ondes_vertex.txt"));
             source_ondes_fragment=charge_source_shader(renvoie_nom_fichier("ondes_fragment.txt"));
@@ -1478,13 +1478,13 @@ class dksInitialiseShaders: public Gestion_Shaders
                 return false;
             }
 
-            //---------- Création des shaders:
-            if (DKSSHADERS_DEBUG) cout<<"Création des objets shaders...";
+            //---------- CrÃ©ation des shaders:
+            if (DKSSHADERS_DEBUG) cout<<"CrÃ©ation des objets shaders...";
             ondes_vertex_shader_id=glCreateShader(GL_VERTEX_SHADER);
             ondes_fragment_shader_id=glCreateShader(GL_FRAGMENT_SHADER);
             if (ondes_vertex_shader_id==0 || ondes_fragment_shader_id == 0)
             {
-                cout<<"ERREUR dans dksShaders::creation_ondes() - Impossible de créer les objets Shader de rendu des ondes aqueuses"<<endl;
+                cout<<"ERREUR dans dksShaders::creation_ondes() - Impossible de crÃ©er les objets Shader de rendu des ondes aqueuses"<<endl;
                 erreur=DKSSHADERS_ERREUR_OBJETS;
                 return false;
             }
@@ -1515,13 +1515,13 @@ class dksInitialiseShaders: public Gestion_Shaders
 
             if (DKSSHADERS_DEBUG) cout<<"OK"<<endl;
 
-            //----------- Création des programmes
-            if (DKSSHADERS_DEBUG) cout<<"Création du programme de rendu des ondes aqueuses...";
+            //----------- CrÃ©ation des programmes
+            if (DKSSHADERS_DEBUG) cout<<"CrÃ©ation du programme de rendu des ondes aqueuses...";
 
             programme_ondes=glCreateProgram();
             if (programme_ondes==0)
             {
-                cout<<"ERREUR dans dksShaders::creation_ondes() - Impossible de créer le programme de rendu des ondes aqueuses"<<endl;
+                cout<<"ERREUR dans dksShaders::creation_ondes() - Impossible de crÃ©er le programme de rendu des ondes aqueuses"<<endl;
                 erreur=DKSSHADERS_ERREUR_PROGRAMME;
                 return false;
             }
@@ -1544,7 +1544,7 @@ class dksInitialiseShaders: public Gestion_Shaders
 
             if (DKSSHADERS_DEBUG) cout<<"OK"<<endl;
 
-            //----------- Vérifie la validité des shaders:
+            //----------- VÃ©rifie la validitÃ© des shaders:
             if (DKSSHADERS_DEBUG) cout<<"Validation du programme de rendu des ondes aqueuses...";
             if (!valide_programme_shader(programme_ondes))
             {
@@ -1554,7 +1554,7 @@ class dksInitialiseShaders: public Gestion_Shaders
             }
             if (DKSSHADERS_DEBUG) cout<<"OK"<<endl;
 
-            //--------- Création des liens avec les variables type "uniform":
+            //--------- CrÃ©ation des liens avec les variables type "uniform":
             ondes_drapeaux_sources=glGetUniformLocation(programme_ondes,"drapeaux_sources");
             ondes_intensite=glGetUniformLocation(programme_ondes,"intensite_ondes");
             ondes_frequence=glGetUniformLocation(programme_ondes,"frequence_ondes");
@@ -1569,10 +1569,10 @@ class dksInitialiseShaders: public Gestion_Shaders
             ondes_tangente=glGetUniformLocation(programme_ondes,"tangente");
             ondes_binormale=glGetUniformLocation(programme_ondes,"binormale");
 
-            //---------- Génère la texture de bruit:
+            //---------- GÃ©nÃ¨re la texture de bruit:
             if (!Bruit::genere_bruit_de_Perlin_2D_8bits(4,4,TAILLE_ONDES_TEXTURE_BRUIT,TAILLE_ONDES_TEXTURE_BRUIT,12,0.75,ondes_tampon_texture_bruit))
             {
-                cout<<"ERREUR dans dksShaders::creation_ondes() - Impossible de créer la texture de bruit"<<endl;
+                cout<<"ERREUR dans dksShaders::creation_ondes() - Impossible de crÃ©er la texture de bruit"<<endl;
                 erreur=DKSSHADERS_ERREUR_VALIDATION;
                 return false;
             }
@@ -1583,7 +1583,7 @@ class dksInitialiseShaders: public Gestion_Shaders
             glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
             glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
             glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
-            glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);    //Il semble que ce paramètre active la texture.....
+            glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);    //Il semble que ce paramÃ¨tre active la texture.....
             glTexImage2D(GL_TEXTURE_2D,0,GL_LUMINANCE,TAILLE_ONDES_TEXTURE_BRUIT,TAILLE_ONDES_TEXTURE_BRUIT,0,GL_LUMINANCE,GL_UNSIGNED_BYTE,ondes_tampon_texture_bruit);
 
             //glTexEnvf(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);
@@ -1595,12 +1595,12 @@ class dksInitialiseShaders: public Gestion_Shaders
         }
 
         //=====================================================================================================
-        //                          Création du programme de rendu
-        //                          de la réflexion du cube d'arrière plan sans texture avec ondes aqueuses
+        //                          CrÃ©ation du programme de rendu
+        //                          de la rÃ©flexion du cube d'arriÃ¨re plan sans texture avec ondes aqueuses
         //=====================================================================================================
         bool creation_reflexion_couleur_cube_ondes()
         {
-            if (DKSSHADERS_DEBUG) cout<<"############# Création du programme de rendu de la réflexion du cube d'arrière-plan sans texture avec ondes aqueuses #############"<<endl;
+            if (DKSSHADERS_DEBUG) cout<<"############# CrÃ©ation du programme de rendu de la rÃ©flexion du cube d'arriÃ¨re-plan sans texture avec ondes aqueuses #############"<<endl;
 
             source_reflexion_couleur_cube_ondes_vertex=charge_source_shader(renvoie_nom_fichier("reflexion_couleur_cube_ondes_vertex.txt"));
             source_reflexion_couleur_cube_ondes_fragment=charge_source_shader(renvoie_nom_fichier("reflexion_couleur_cube_ondes_fragment.txt"));
@@ -1611,13 +1611,13 @@ class dksInitialiseShaders: public Gestion_Shaders
                 return false;
             }
 
-            //---------- Création des shaders:
-            if (DKSSHADERS_DEBUG) cout<<"Création des objets shaders...";
+            //---------- CrÃ©ation des shaders:
+            if (DKSSHADERS_DEBUG) cout<<"CrÃ©ation des objets shaders...";
             reflexion_couleur_cube_ondes_vertex_shader_id=glCreateShader(GL_VERTEX_SHADER);
             reflexion_couleur_cube_ondes_fragment_shader_id=glCreateShader(GL_FRAGMENT_SHADER);
             if (reflexion_couleur_cube_ondes_vertex_shader_id==0 || reflexion_couleur_cube_ondes_fragment_shader_id == 0)
             {
-                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de créer les objets Shader de la réflexion du cube d'arrière-plan sans texture avec ondes aqueuses"<<endl;
+                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de crÃ©er les objets Shader de la rÃ©flexion du cube d'arriÃ¨re-plan sans texture avec ondes aqueuses"<<endl;
                 erreur=DKSSHADERS_ERREUR_OBJETS;
                 return false;
             }
@@ -1648,13 +1648,13 @@ class dksInitialiseShaders: public Gestion_Shaders
 
             if (DKSSHADERS_DEBUG) cout<<"OK"<<endl;
 
-            //----------- Création des programmes
-            if (DKSSHADERS_DEBUG) cout<<"Création du programme de la réflexion du cube d'arrière-plan sans texture avec ondes aqueuses...";
+            //----------- CrÃ©ation des programmes
+            if (DKSSHADERS_DEBUG) cout<<"CrÃ©ation du programme de la rÃ©flexion du cube d'arriÃ¨re-plan sans texture avec ondes aqueuses...";
 
             programme_reflexion_couleur_cube_ondes=glCreateProgram();
             if (programme_reflexion_couleur_cube_ondes==0)
             {
-                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de créer le programme de rendu de la réflexion du cube d'arrière-plan sans texture avec ondes aqueuses"<<endl;
+                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de crÃ©er le programme de rendu de la rÃ©flexion du cube d'arriÃ¨re-plan sans texture avec ondes aqueuses"<<endl;
                 erreur=DKSSHADERS_ERREUR_PROGRAMME;
                 return false;
             }
@@ -1666,29 +1666,29 @@ class dksInitialiseShaders: public Gestion_Shaders
             glAttachShader(programme_reflexion_couleur_cube_ondes,reflexion_couleur_cube_ondes_fragment_shader_id);
             //----------- Liaisons des programmes de shaders:
 
-            if (DKSSHADERS_DEBUG) cout<<"Liaison du programme de rendu de la réflexion du cube d'arrière-plan sans texture avec ondes aqueuses...";
+            if (DKSSHADERS_DEBUG) cout<<"Liaison du programme de rendu de la rÃ©flexion du cube d'arriÃ¨re-plan sans texture avec ondes aqueuses...";
 
             if (!relie_programme_shader(programme_reflexion_couleur_cube_ondes))
             {
-                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de lier le programme de rendu de la réflexion du cube d'arrière-plan sans texture avec ondes aqueuses"<<endl;
+                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de lier le programme de rendu de la rÃ©flexion du cube d'arriÃ¨re-plan sans texture avec ondes aqueuses"<<endl;
                 erreur=DKSSHADERS_ERREUR_LIAISON;
                 return false;
             }
 
             if (DKSSHADERS_DEBUG) cout<<"OK"<<endl;
 
-            //----------- Vérifie la validité des shaders:
-            if (DKSSHADERS_DEBUG) cout<<"Validation du programme de rendu de la réflexion du cube d'arrière-plan sans texture avec ondes aqueuses...";
+            //----------- VÃ©rifie la validitÃ© des shaders:
+            if (DKSSHADERS_DEBUG) cout<<"Validation du programme de rendu de la rÃ©flexion du cube d'arriÃ¨re-plan sans texture avec ondes aqueuses...";
             if (!valide_programme_shader(programme_reflexion_couleur_cube_ondes))
             {
-                cout<<"ERREUR dans dksShaders::dksShaders() - Le programme de rendu de la réflexion du cube d'arrière-plan sans texture avec ondes aqueuses est invalide sur cette machine!"<<endl;
+                cout<<"ERREUR dans dksShaders::dksShaders() - Le programme de rendu de la rÃ©flexion du cube d'arriÃ¨re-plan sans texture avec ondes aqueuses est invalide sur cette machine!"<<endl;
                 erreur=DKSSHADERS_ERREUR_VALIDATION;
                 return false;
             }
             if (DKSSHADERS_DEBUG) cout<<"OK"<<endl;
 
 
-            //--------- Création des liens avec les variables type "uniform":
+            //--------- CrÃ©ation des liens avec les variables type "uniform":
 
             reflexion_couleur_cube_ondes_matrice_volume=glGetUniformLocation(programme_reflexion_couleur_cube_ondes,"matrice_volume");
             reflexion_couleur_cube_ondes_texture_cube=glGetUniformLocation(programme_reflexion_couleur_cube_ondes,"cube_arriere_plan");
@@ -1718,14 +1718,14 @@ class dksInitialiseShaders: public Gestion_Shaders
         }
 
         //=============================================================================
-        //                          Création du programme de rendu
+        //                          CrÃ©ation du programme de rendu
         //                   de transition entre deux textures de couleur
-        //                  Pas d'éclairage pour le moment.
+        //                  Pas d'Ã©clairage pour le moment.
         //                  A ajouter ici quand il y en aura besoin.
         //=============================================================================
         bool creation_transition_textures_couleur()
         {
-            if (DKSSHADERS_DEBUG) cout<<"############# Création du programme de rendu de transition entre deux textures de couleur #############"<<endl;
+            if (DKSSHADERS_DEBUG) cout<<"############# CrÃ©ation du programme de rendu de transition entre deux textures de couleur #############"<<endl;
 
             source_transition_textures_couleur_vertex=charge_source_shader(renvoie_nom_fichier("transition_textures_couleur_vertex.txt"));
             source_transition_textures_couleur_fragment=charge_source_shader(renvoie_nom_fichier("transition_textures_couleur_fragment.txt"));
@@ -1736,14 +1736,14 @@ class dksInitialiseShaders: public Gestion_Shaders
                 return false;
             }
 
-            //---------- Création des shaders:
-            if (DKSSHADERS_DEBUG) cout<<"Création des objets shaders...";
+            //---------- CrÃ©ation des shaders:
+            if (DKSSHADERS_DEBUG) cout<<"CrÃ©ation des objets shaders...";
             transition_textures_couleur_vertex_shader_id=glCreateShader(GL_VERTEX_SHADER);
             transition_textures_couleur_fragment_shader_id=glCreateShader(GL_FRAGMENT_SHADER);
 
             if (transition_textures_couleur_fragment_shader_id==0 || transition_textures_couleur_vertex_shader_id == 0)
             {
-                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de créer les objets Shader de rendu de transition des textures de couleur"<<endl;
+                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de crÃ©er les objets Shader de rendu de transition des textures de couleur"<<endl;
                 erreur=DKSSHADERS_ERREUR_OBJETS;
                 return false;
             }
@@ -1774,13 +1774,13 @@ class dksInitialiseShaders: public Gestion_Shaders
 
             if (DKSSHADERS_DEBUG) cout<<"OK"<<endl;
 
-            //----------- Création des programmes
-            if (DKSSHADERS_DEBUG) cout<<"Création du programme de rendu de transition entre les textures de couleur...";
+            //----------- CrÃ©ation des programmes
+            if (DKSSHADERS_DEBUG) cout<<"CrÃ©ation du programme de rendu de transition entre les textures de couleur...";
 
             programme_transition_textures_couleur=glCreateProgram();
             if (programme_transition_textures_couleur==0)
             {
-                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de créer le programme de rendu de transition entre les textures de couleur"<<endl;
+                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de crÃ©er le programme de rendu de transition entre les textures de couleur"<<endl;
                 erreur=DKSSHADERS_ERREUR_PROGRAMME;
                 return false;
             }
@@ -1803,7 +1803,7 @@ class dksInitialiseShaders: public Gestion_Shaders
 
             if (DKSSHADERS_DEBUG) cout<<"OK"<<endl;
 
-            //----------- Vérifie la validité des shaders:
+            //----------- VÃ©rifie la validitÃ© des shaders:
             if (DKSSHADERS_DEBUG) cout<<"Validation du programme de rendu des transitions entre les textures de couleur...";
             if (!valide_programme_shader(programme_transition_textures_couleur))
             {
@@ -1813,7 +1813,7 @@ class dksInitialiseShaders: public Gestion_Shaders
             }
             if (DKSSHADERS_DEBUG) cout<<"OK"<<endl;
 
-            //--------- Création des liens avec les variables type "uniform":
+            //--------- CrÃ©ation des liens avec les variables type "uniform":
             transition_textures_couleur_texture_depart=glGetUniformLocation(programme_transition_textures_couleur,"texture_depart");
             transition_textures_couleur_texture_destination=glGetUniformLocation(programme_transition_textures_couleur,"texture_destination");
             transition_textures_couleur_texture_transition=glGetUniformLocation(programme_transition_textures_couleur,"texture_transition");
@@ -1824,13 +1824,13 @@ class dksInitialiseShaders: public Gestion_Shaders
         }
 
         //=============================================================================
-        //                          Création du programme de rendu
+        //                          CrÃ©ation du programme de rendu
         //                          de transition entre deux textures de couleur
         //                          le long de l'axe Z
         //=============================================================================
         bool creation_transition_textures_couleur_axe()
         {
-            if (DKSSHADERS_DEBUG) cout<<"############# Création du programme de rendu de transition entre deux textures de couleur le long de l'axe Z #############"<<endl;
+            if (DKSSHADERS_DEBUG) cout<<"############# CrÃ©ation du programme de rendu de transition entre deux textures de couleur le long de l'axe Z #############"<<endl;
 
             source_transition_textures_couleur_axe_vertex=charge_source_shader(renvoie_nom_fichier("transition_textures_couleur_axe_vertex.txt"));
             source_transition_textures_couleur_axe_fragment=charge_source_shader(renvoie_nom_fichier("transition_textures_couleur_axe_fragment.txt"));
@@ -1841,14 +1841,14 @@ class dksInitialiseShaders: public Gestion_Shaders
                 return false;
             }
 
-            //---------- Création des shaders:
-            if (DKSSHADERS_DEBUG) cout<<"Création des objets shaders...";
+            //---------- CrÃ©ation des shaders:
+            if (DKSSHADERS_DEBUG) cout<<"CrÃ©ation des objets shaders...";
             transition_textures_couleur_axe_vertex_shader_id=glCreateShader(GL_VERTEX_SHADER);
             transition_textures_couleur_axe_fragment_shader_id=glCreateShader(GL_FRAGMENT_SHADER);
 
             if (transition_textures_couleur_axe_fragment_shader_id==0 || transition_textures_couleur_axe_vertex_shader_id == 0)
             {
-                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de créer les objets Shader de rendu de transition des textures de couleur axeZ"<<endl;
+                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de crÃ©er les objets Shader de rendu de transition des textures de couleur axeZ"<<endl;
                 erreur=DKSSHADERS_ERREUR_OBJETS;
                 return false;
             }
@@ -1879,13 +1879,13 @@ class dksInitialiseShaders: public Gestion_Shaders
 
             if (DKSSHADERS_DEBUG) cout<<"OK"<<endl;
 
-            //----------- Création des programmes
-            if (DKSSHADERS_DEBUG) cout<<"Création du programme de rendu de transition entre les textures de couleur axeZ...";
+            //----------- CrÃ©ation des programmes
+            if (DKSSHADERS_DEBUG) cout<<"CrÃ©ation du programme de rendu de transition entre les textures de couleur axeZ...";
 
             programme_transition_textures_couleur_axe=glCreateProgram();
             if (programme_transition_textures_couleur_axe==0)
             {
-                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de créer le programme de rendu de transition entre les textures de couleur axeZ"<<endl;
+                cout<<"ERREUR dans dksShaders::dksShaders() - Impossible de crÃ©er le programme de rendu de transition entre les textures de couleur axeZ"<<endl;
                 erreur=DKSSHADERS_ERREUR_PROGRAMME;
                 return false;
             }
@@ -1908,7 +1908,7 @@ class dksInitialiseShaders: public Gestion_Shaders
 
             if (DKSSHADERS_DEBUG) cout<<"OK"<<endl;
 
-            //----------- Vérifie la validité des shaders:
+            //----------- VÃ©rifie la validitÃ© des shaders:
             if (DKSSHADERS_DEBUG) cout<<"Validation du programme de rendu des transitions entre les textures de couleur axeZ...";
             if (!valide_programme_shader(programme_transition_textures_couleur_axe))
             {
@@ -1918,7 +1918,7 @@ class dksInitialiseShaders: public Gestion_Shaders
             }
             if (DKSSHADERS_DEBUG) cout<<"OK"<<endl;
 
-            //--------- Création des liens avec les variables type "uniform":
+            //--------- CrÃ©ation des liens avec les variables type "uniform":
             transition_textures_couleur_axe_texture_depart=glGetUniformLocation(programme_transition_textures_couleur_axe,"texture_depart");
             transition_textures_couleur_axe_texture_destination=glGetUniformLocation(programme_transition_textures_couleur_axe,"texture_destination");
             transition_textures_couleur_axe_niveau=glGetUniformLocation(programme_transition_textures_couleur_axe,"niveau_transition");

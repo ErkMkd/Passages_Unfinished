@@ -4,7 +4,7 @@
 #include "dksShader.h"
 
 /*
-    Sert aussi pour les ombres avec éclairage en Phong
+    Sert aussi pour les ombres avec Ã©clairage en Phong
 */
 
 class Shader_Ombres: public dksShader
@@ -24,10 +24,10 @@ class Shader_Ombres: public dksShader
     //======================================
     Shader_Ombres(char* p_nom,char* p_source_vertex,char* p_source_fragment):dksShader(p_nom,p_source_vertex,p_source_fragment)
     {
-        //--------- Création des liens avec les variables type "uniform":
+        //--------- CrÃ©ation des liens avec les variables type "uniform":
         if(erreur==DKSSHADER_OK)
         {
-            //--------- Création des liens avec les variables type "uniform":
+            //--------- CrÃ©ation des liens avec les variables type "uniform":
 
             drapeaux_sources=glGetUniformLocation(programme_id,"drapeaux_sources");
             texture_profondeur=glGetUniformLocation(programme_id,"texture_profondeur");

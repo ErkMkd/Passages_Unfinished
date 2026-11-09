@@ -3,7 +3,7 @@
 
 /*
 *
-*       A chaque point est associé un volume
+*       A chaque point est associÃ© un volume
 *
 */
 
@@ -12,7 +12,7 @@
 #include <vector>
 
 //-------------------------------------------------------
-//Structure de gestion des paramètres des volumes:
+//Structure de gestion des paramÃ¨tres des volumes:
 //-------------------------------------------------------
 class Particule_Volume : public Element_particule
 {
@@ -63,7 +63,7 @@ class Particule_Volume : public Element_particule
 
     void init_perturbations_RTL()
     {
-        perturbation_roulis=new Bruit(); //Prévoir les erreurs...
+        perturbation_roulis=new Bruit(); //PrÃ©voir les erreurs...
         perturbation_tangage=new Bruit();
         perturbation_lacet=new Bruit();
         amplitude_perlin_RTL=2.;
@@ -105,7 +105,7 @@ class dksParticulesVolumes : public dksParticules
     {
         if (!determine_volumes(p_volumes,p_nbrVolumes))
         {
-            cout<<"ERREUR dans dksParticulesVolumes() - Impossible de créer les particules"<<endl;
+            cout<<"ERREUR dans dksParticulesVolumes() - Impossible de crÃ©er les particules"<<endl;
         }
     }
 
@@ -318,7 +318,7 @@ class dksParticulesVolumes : public dksParticules
 
     }
 
-    ///Il faut que les points aient déjà été alloués!
+    ///Il faut que les points aient dÃ©jÃ  Ã©tÃ© allouÃ©s!
     bool charge_orientations(char* nom_fichier)
     {
         //cout<<"CHARGEMENT"<<endl<<endl;
@@ -366,7 +366,7 @@ class dksParticulesVolumes : public dksParticules
 
     }
 
-    ///Il faut que les points aient déjà été alloués!
+    ///Il faut que les points aient dÃ©jÃ  Ã©tÃ© allouÃ©s!
     bool charge_rotations(char* nom_fichier)
     {
         //cout<<"CHARGEMENT"<<endl<<endl;
