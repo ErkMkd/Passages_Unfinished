@@ -1684,13 +1684,11 @@ class Scene_Starfield : public Scene
 
 
 
-            /*
             else
             {
                 drapeau_scene_terminee=true;
 
             }
-            */
 
 
 

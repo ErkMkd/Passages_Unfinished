@@ -196,9 +196,9 @@ static void affichage_principal(void)
 
     if (banc->scene_depart<0)
     {
-    scene_logoGp->drapeau_scene_terminee=true;
-    scene_tunnel->drapeau_scene_terminee=true;
-    scene_caduce->drapeau_scene_terminee=true;
+    //scene_logoGp->drapeau_scene_terminee=true;
+    //scene_tunnel->drapeau_scene_terminee=true;
+    //scene_caduce->drapeau_scene_terminee=true;
     //scene_starfield->drapeau_scene_terminee=true;
     //scene_arbre->drapeau_scene_terminee=true;
     //scene_greets->drapeau_scene_terminee=true;
