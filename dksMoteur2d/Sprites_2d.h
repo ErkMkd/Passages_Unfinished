@@ -119,13 +119,13 @@ public:
     void affiche_sprite_2d(uint32_t indice)
     {
 
-        glMatrixMode(GL_PROJECTION);
-        glPushMatrix();
-        glLoadIdentity();
-        glOrtho(0., (float)resolution_x,0. ,(float)resolution_y,-1.,100.);
-        glMatrixMode(GL_MODELVIEW);
-        glPushMatrix();
-        glLoadIdentity();
+        dksMatrices::mode(GL_PROJECTION);
+        dksMatrices::empile();
+        dksMatrices::identite();
+        dksMatrices::ortho(0., (float)resolution_x,0. ,(float)resolution_y,-1.,100.);
+        dksMatrices::mode(GL_MODELVIEW);
+        dksMatrices::empile();
+        dksMatrices::identite();
 
 
         bool lighting_mem=glIsEnabled(GL_LIGHTING);
@@ -149,10 +149,10 @@ public:
         if (!texture_mem) glDisable(GL_TEXTURE_2D);
 
 
-        glPopMatrix();
-        glMatrixMode(GL_PROJECTION);
-        glPopMatrix();
-        glMatrixMode(GL_MODELVIEW);
+        dksMatrices::depile();
+        dksMatrices::mode(GL_PROJECTION);
+        dksMatrices::depile();
+        dksMatrices::mode(GL_MODELVIEW);
 
     }
 };

@@ -32,18 +32,18 @@ class dksRendu
     static void desactive_textures()
     {
         uint16_t i;
-        //glMatrixMode(GL_TEXTURE);
-        //glLoadIdentity();
+        //dksMatrices::mode(GL_TEXTURE);
+        //dksMatrices::identite();
         for (i=0;i<nbr_unites_textures_max;i++)
             {
                 glActiveTexture(GL_TEXTURE0+i);
-                //glMatrixMode(GL_TEXTURE0+i);
-                //glLoadIdentity();
+                //dksMatrices::mode(GL_TEXTURE0+i);
+                //dksMatrices::identite();
                 glDisable(GL_TEXTURE_2D);
                 glClientActiveTexture(GL_TEXTURE0+i);
                 glDisableClientState(GL_TEXTURE_COORD_ARRAY);
             }
-        glMatrixMode(GL_MODELVIEW);
+        dksMatrices::mode(GL_MODELVIEW);
     }
 
     //=====================================

@@ -2431,11 +2431,11 @@ public:
             applique_mouvements();
             calcul_repere_absolu();
 
-            glPushMatrix();
+            dksMatrices::empile();
             calcul_matrice();
-            glPopMatrix();
+            dksMatrices::depile();
 
-            glMultMatrixd(matrice.matrice);
+            dksMatrices::multiplie(matrice.matrice);
 
             //t0=t;
         }

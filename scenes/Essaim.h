@@ -143,8 +143,8 @@ class Essaim :public Scene
     {
         if (t_prec<0.) { t_prec=t; return;}
         double dt=t-t_prec;
-        //glMatrixMode(GL_MODELVIEW);
-        //glLoadIdentity();
+        //dksMatrices::mode(GL_MODELVIEW);
+        //dksMatrices::identite();
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         glColor3ub(0xff,0xff,0xff);

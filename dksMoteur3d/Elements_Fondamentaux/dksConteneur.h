@@ -527,13 +527,13 @@ class dksConteneur :public dksRepere
         void calcul_matrice(dksRepere* repere_espace=NULL)
         {
             if(repere_espace==NULL)repere_espace=&repere_reference;
-            glLoadIdentity();
+            dksMatrices::identite();
             axe_rotation_matrice.calcul_rotation_entre_deux_reperes(repere_espace,repere_absolu);
             axe_rotation_matrice.calcul_rotation_entre_deux_reperes(repere_espace,repere_absolu);
-            glTranslated(repere_absolu->x,repere_absolu->y,repere_absolu->z);
-            glRotated(axe_rotation_matrice.angle*180./M_PI,axe_rotation_matrice.x,axe_rotation_matrice.y,axe_rotation_matrice.z);
-            glScaled(repere_absolu->echelle_x,repere_absolu->echelle_y,repere_absolu->echelle_z);
-            glGetDoublev(GL_MODELVIEW_MATRIX,matrice.matrice);
+            dksMatrices::translation(repere_absolu->x,repere_absolu->y,repere_absolu->z);
+            dksMatrices::rotation(axe_rotation_matrice.angle*180./M_PI,axe_rotation_matrice.x,axe_rotation_matrice.y,axe_rotation_matrice.z);
+            dksMatrices::echelle(repere_absolu->echelle_x,repere_absolu->echelle_y,repere_absolu->echelle_z);
+            dksMatrices::lit(GL_MODELVIEW_MATRIX,matrice.matrice);
 
         }
 
@@ -545,13 +545,13 @@ class dksConteneur :public dksRepere
         void calcul_matrice_relative(dksRepere* repere_parent=NULL)
         {
             if(repere_parent==NULL)repere_parent=&repere_reference;
-            glLoadIdentity();
+            dksMatrices::identite();
             axe_rotation_matrice.calcul_rotation_entre_deux_reperes(repere_parent,this);
             axe_rotation_matrice.calcul_rotation_entre_deux_reperes(repere_parent,this);
-            glTranslated(x,y,z);
-            glRotated(axe_rotation_matrice.angle*180./M_PI,axe_rotation_matrice.x,axe_rotation_matrice.y,axe_rotation_matrice.z);
-            glScaled(echelle_x,echelle_y,echelle_z);
-            glGetDoublev(GL_MODELVIEW_MATRIX,matrice.matrice);
+            dksMatrices::translation(x,y,z);
+            dksMatrices::rotation(axe_rotation_matrice.angle*180./M_PI,axe_rotation_matrice.x,axe_rotation_matrice.y,axe_rotation_matrice.z);
+            dksMatrices::echelle(echelle_x,echelle_y,echelle_z);
+            dksMatrices::lit(GL_MODELVIEW_MATRIX,matrice.matrice);
 
         }
 
@@ -935,9 +935,9 @@ class dksConteneur :public dksRepere
             applique_mouvements();
             calcul_repere_absolu();
 
-            glPushMatrix();
+            dksMatrices::empile();
             calcul_matrice();
-            glPopMatrix();
+            dksMatrices::depile();
 
             //t0=t;
         }

@@ -972,13 +972,13 @@ public:
         //---------------------------------------------------------------
         void calcul_matrices_conteneurs()
         {
-            glMatrixMode(GL_MODELVIEW);
-            glPushMatrix();
+            dksMatrices::mode(GL_MODELVIEW);
+            dksMatrices::empile();
             for (uint32_t i=0;i<elements.size();i++)
             {
                 elements[i]->calcul_matrice(this);
             }
-            glPopMatrix();
+            dksMatrices::depile();
         }
 
         //---------------------------------------------------------------
@@ -1241,17 +1241,17 @@ public:
 
             //------------- Volume d'arrière plan:
             //Le volume d'arrière plan n'est pas sensé avoir des faces transparentes
-            glMatrixMode(GL_MODELVIEW);
+            dksMatrices::mode(GL_MODELVIEW);
 
             if (cube_arriere_plan!=NULL)
             {
                 if (drapeau_brouillard) glDisable(GL_FOG);
                 glDisable(GL_LIGHTING);
-                glPushMatrix();
-                glMultMatrixd(cube_arriere_plan->matrice.matrice);
+                dksMatrices::empile();
+                dksMatrices::multiplie(cube_arriere_plan->matrice.matrice);
 
                 cube_arriere_plan->affiche(oeil);
-                glPopMatrix();
+                dksMatrices::depile();
                 if (drapeau_brouillard) glEnable(GL_FOG);
                 if (drapeau_eclairage) glEnable(GL_LIGHTING);
 
@@ -1265,11 +1265,11 @@ public:
                 //dksVolume* vol=volumes[indices_tri_volumes[i].indice_volume];
                 dksVolume* vol=volumes[i];
 
-                glPushMatrix();
-                glMultMatrixd(vol->matrice.matrice);
+                dksMatrices::empile();
+                dksMatrices::multiplie(vol->matrice.matrice);
                     //if(drapeau_debug)cout<<"Volume: "<<i<<" - "<<vol->nom<<endl;
                 vol->affiche(oeil);
-                glPopMatrix();
+                dksMatrices::depile();
             }
 
             //if (drapeau_debug) cout<<"T1: "<<Horloge::temps_reel_ms()<<endl;
@@ -1310,7 +1310,7 @@ public:
         virtual void affiche_couleurs_luminescentes(dksOeil* oeil)
         {
             if ((erreur!=DKSM3D_OK) || (!drapeau_active)) return;
-            glMatrixMode(GL_MODELVIEW);
+            dksMatrices::mode(GL_MODELVIEW);
             glDisable(GL_LIGHTING);
             //glDisableClientState(GL_NORMAL_ARRAY);
             //desactive_textures();
@@ -1323,10 +1323,10 @@ public:
             {
                 //dksVolume* vol=volumes[indices_tri_volumes[i-1].indice_volume];
                 dksVolume* vol=volumes[i];
-                glPushMatrix();
-                glMultMatrixd(vol->matrice.matrice);
+                dksMatrices::empile();
+                dksMatrices::multiplie(vol->matrice.matrice);
                 vol->affiche_couleurs_luminescentes(oeil);
-                glPopMatrix();
+                dksMatrices::depile();
             }
 
             if (brouillard_mem) glEnable(GL_FOG);
@@ -1350,8 +1350,8 @@ public:
 
             //--------- Calcul la matrice de transformation vue de la source:
 
-            glMatrixMode(GL_PROJECTION);
-            glPushMatrix();
+            dksMatrices::mode(GL_PROJECTION);
+            dksMatrices::empile();
 
             //--------- Mémorisation du frame buffer actuel:
             GLint frameBuffer_mem;
@@ -1365,8 +1365,8 @@ public:
             source_des_ombres->maj_projection_source(largeur_texture_ombres,hauteur_texture_ombres);
             glViewport(0,0,largeur_texture_ombres,hauteur_texture_ombres);
 
-            glMatrixMode(GL_MODELVIEW);
-            glPushMatrix();
+            dksMatrices::mode(GL_MODELVIEW);
+            dksMatrices::empile();
 
             glClear(GL_DEPTH_BUFFER_BIT);
 
@@ -1378,19 +1378,19 @@ public:
             {
                 //dksVolume* vol=volumes[indices_tri_volumes[i-1].indice_volume];
                 dksVolume* vol=volumes[i];
-                glPushMatrix();
-                glMultMatrixd(vol->matrice.matrice);
+                dksMatrices::empile();
+                dksMatrices::multiplie(vol->matrice.matrice);
                 vol->affiche_profondeur(oeil);
-                glPopMatrix();
+                dksMatrices::depile();
             }
 
             //---------- Restitue les matrices
-            glMatrixMode(GL_MODELVIEW);
-            glPopMatrix();
-            glMatrixMode(GL_PROJECTION);
-            glPopMatrix();
+            dksMatrices::mode(GL_MODELVIEW);
+            dksMatrices::depile();
+            dksMatrices::mode(GL_PROJECTION);
+            dksMatrices::depile();
 
-            glMatrixMode(GL_MODELVIEW);
+            dksMatrices::mode(GL_MODELVIEW);
 
             //---------- Restitue les états d'openGl:
             if (lumieres_mem) glEnable(GL_LIGHTING);
@@ -1432,8 +1432,8 @@ public:
             GLint blend_mem=glIsEnabled(GL_BLEND);
             glEnable(GL_BLEND);
             glDepthMask(GL_FALSE);
-            glMatrixMode(GL_MODELVIEW);
-            glPushMatrix();
+            dksMatrices::mode(GL_MODELVIEW);
+            dksMatrices::empile();
             indice_face_transparente=0;
             dksRendu::desactive_textures();
             glUseProgram(0);
@@ -1444,9 +1444,9 @@ public:
                 surface_courante=face->surface;
                 volume_courant=face->volume;
                 initialise_mode_rendu_volume();
-                glPopMatrix();
-                glPushMatrix();
-                glMultMatrixd(volume_courant->matrice.matrice);
+                dksMatrices::depile();
+                dksMatrices::empile();
+                dksMatrices::multiplie(volume_courant->matrice.matrice);
                 volume_courant->initialise_materiau(surface_courante);
                 switch(volume_courant->mode_rendu)
                 {
@@ -1465,8 +1465,8 @@ public:
 
 
             glUseProgram(0);
-            glMatrixMode(GL_MODELVIEW);
-            glPopMatrix();
+            dksMatrices::mode(GL_MODELVIEW);
+            dksMatrices::depile();
             if(!blend_mem)glDisable(GL_BLEND);
         }
 

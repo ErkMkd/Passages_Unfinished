@@ -97,13 +97,13 @@ class dksSourceLumineuse :public dksOeil
             determine_couleur_speculaire(p_couleur_speculaire);
 
             //Initialise la matrice de correction pour la projection des ombres:
-            glMatrixMode(GL_MODELVIEW);
-            glPushMatrix();
-            glLoadIdentity();
-            glTranslatef(.5,.5,.5); //...des coordonnées déplacées vers la droite et vers le haut
-            glScalef(0.5,0.5,.5);   //Division par deux...
-            glGetDoublev(GL_MODELVIEW_MATRIX,matrice_correction_UV.matrice);
-            glPopMatrix();
+            dksMatrices::mode(GL_MODELVIEW);
+            dksMatrices::empile();
+            dksMatrices::identite();
+            dksMatrices::translation(.5,.5,.5); //...des coordonnées déplacées vers la droite et vers le haut
+            dksMatrices::echelle(0.5,0.5,.5);   //Division par deux...
+            dksMatrices::lit(GL_MODELVIEW_MATRIX,matrice_correction_UV.matrice);
+            dksMatrices::depile();
         }
 
     //===============================================================================================
@@ -421,10 +421,10 @@ public:
         void maj_projection_source(uint32_t resX,uint32_t resY)
         {
                 glViewport(0,0,resX,resY);
-                glMatrixMode(GL_PROJECTION);
-                glLoadIdentity();
-                gluPerspective(ouverture,rapport_xy,zmin,zmax);
-                glMatrixMode(GL_MODELVIEW);
+                dksMatrices::mode(GL_PROJECTION);
+                dksMatrices::identite();
+                dksMatrices::perspective(ouverture,rapport_xy,zmin,zmax);
+                dksMatrices::mode(GL_MODELVIEW);
         }
 
         //Renvoie la matrice de projection de la scène vue de la source, pour une projection sur les volumes (uv)

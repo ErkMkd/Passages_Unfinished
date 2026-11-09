@@ -1178,11 +1178,11 @@ class Scene_Starfield : public Scene
 
                         scene->drapeau_affiche=false;
                         surface_passage->drapeau_affiche=true;
-                        glMatrixMode(GL_MODELVIEW);
-                        glPushMatrix();
-                        glMultMatrixd(surface_passage->matrice.matrice);
+                        dksMatrices::mode(GL_MODELVIEW);
+                        dksMatrices::empile();
+                        dksMatrices::multiplie(surface_passage->matrice.matrice);
                         post_rendu->affiche_tempon_ecran_1(oeil_courant,false);
-                        glPopMatrix();
+                        dksMatrices::depile();
                     }
                     else
                     {
@@ -1782,7 +1782,7 @@ class Scene_Starfield : public Scene
         //===================================================
         void affiche_trajectoire()
         {
-            //glLoadIdentity();
+            //dksMatrices::identite();
             glDisable(GL_FOG);
             glDisable(GL_LIGHTING);
             glDisable(GL_TEXTURE_2D);
@@ -1800,7 +1800,7 @@ class Scene_Starfield : public Scene
 
         void affiche_trajectoire_vaisseau()
         {
-            //glLoadIdentity();
+            //dksMatrices::identite();
             glDisable(GL_FOG);
             glDisable(GL_LIGHTING);
             glDisable(GL_TEXTURE_2D);
@@ -1818,7 +1818,7 @@ class Scene_Starfield : public Scene
 
         void affiche_trajectoire_poursuite()
         {
-            //glLoadIdentity();
+            //dksMatrices::identite();
             glDisable(GL_FOG);
             glDisable(GL_LIGHTING);
             glDisable(GL_TEXTURE_2D);
@@ -1836,7 +1836,7 @@ class Scene_Starfield : public Scene
 
         void affiche_conteneur_selectionne()
         {
-            //glLoadIdentity();
+            //dksMatrices::identite();
             glDisable(GL_LIGHTING);
             glDisable(GL_TEXTURE_2D);
             glEnable(GL_BLEND);

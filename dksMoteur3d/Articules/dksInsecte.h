@@ -534,8 +534,8 @@ class dksInsecte:public dksConteneur
     public:
         virtual void affiche(dksOeil* oeil)
         {
-            glPushMatrix();
-            glMultMatrixd(matrice.matrice);
+            dksMatrices::empile();
+            dksMatrices::multiplie(matrice.matrice);
 
             desactive_textures();
             glUseProgram(0);
@@ -637,7 +637,7 @@ class dksInsecte:public dksConteneur
 
             if (lum_mem)glEnable(GL_LIGHTING);
 
-            glPopMatrix();
+            dksMatrices::depile();
         }
 };
 #endif // DKSINSECTE_H_INCLUDED

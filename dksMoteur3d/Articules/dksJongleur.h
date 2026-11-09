@@ -1311,8 +1311,8 @@ class dksJongleur:public dksPersonnage
             glDisable(GL_LIGHTING);
             bool point_smooth_mem=glIsEnabled(GL_POINT_SMOOTH);
 
-            glPushMatrix();
-            glMultMatrixd(matrice.matrice);
+            dksMatrices::empile();
+            dksMatrices::multiplie(matrice.matrice);
             //Centres des balles:
 
             glPointSize(10.);
@@ -1327,7 +1327,7 @@ class dksJongleur:public dksPersonnage
 
             if (lum_mem)glEnable(GL_LIGHTING);
             if (!point_smooth_mem) glDisable(GL_POINT_SMOOTH);
-            glPopMatrix();
+            dksMatrices::depile();
         }
 
 };

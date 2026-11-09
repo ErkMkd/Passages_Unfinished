@@ -126,9 +126,9 @@ class dksOeil :public dksConteneur
 
             ///Pas besoin pour le moment:
             /*
-            glPushMatrix();
+            dksMatrices::empile();
             calcul_matrice();
-            glPopMatrix();
+            dksMatrices::depile();
             */
 
             positionne_scene();
@@ -165,8 +165,8 @@ class dksOeil :public dksConteneur
 
         virtual void positionne_scene()
         {
-            glMatrixMode(GL_MODELVIEW);
-            glLoadIdentity();
+            dksMatrices::mode(GL_MODELVIEW);
+            dksMatrices::identite();
             switch (mode_visee)
             {
                 case DKSOEIL_VISEE_LIBRE: visee(); break;
@@ -190,17 +190,17 @@ class dksOeil :public dksConteneur
             //Sauvegarde la matrice de la fenêtre de représentation:
 
             /*
-            glGetDoublev(GL_MODELVIEW_MATRIX,projection.matrice);
-            glMatrixMode(GL_PROJECTION);
-            glPushMatrix();
-            glMultMatrixd(projection.matrice);
-            glGetDoublev(GL_PROJECTION_MATRIX,projection.matrice);
-            glPopMatrix();
-            glMatrixMode(GL_MODELVIEW);
+            dksMatrices::lit(GL_MODELVIEW_MATRIX,projection.matrice);
+            dksMatrices::mode(GL_PROJECTION);
+            dksMatrices::empile();
+            dksMatrices::multiplie(projection.matrice);
+            dksMatrices::lit(GL_PROJECTION_MATRIX,projection.matrice);
+            dksMatrices::depile();
+            dksMatrices::mode(GL_MODELVIEW);
             */
 
-            glGetDoublev(GL_PROJECTION_MATRIX,matrice_projection.matrice);
-            glGetDoublev(GL_MODELVIEW_MATRIX,matrice_vision.matrice);
+            dksMatrices::lit(GL_PROJECTION_MATRIX,matrice_projection.matrice);
+            dksMatrices::lit(GL_MODELVIEW_MATRIX,matrice_vision.matrice);
             matrice_projection.multiplication_droite(matrice_vision,matrice_projection_vision);
         }
 
@@ -225,7 +225,7 @@ class dksOeil :public dksConteneur
         //------------------------------------------------------
         void visee()
         {
-            gluLookAt(repere_absolu->x,repere_absolu->y,repere_absolu->z,
+            dksMatrices::regarde(repere_absolu->x,repere_absolu->y,repere_absolu->z,
                     repere_absolu->x+direction_regard->x,
                     repere_absolu->y+direction_regard->y,
                     repere_absolu->z+direction_regard->z,
@@ -433,10 +433,10 @@ class dksOeil :public dksConteneur
         {
             if (drapeau_actif)
             {
-                glMatrixMode(GL_PROJECTION);
-                glLoadIdentity();
-                gluPerspective(ouverture,rapport_xy,zmin,zmax);
-                glMatrixMode(GL_MODELVIEW);
+                dksMatrices::mode(GL_PROJECTION);
+                dksMatrices::identite();
+                dksMatrices::perspective(ouverture,rapport_xy,zmin,zmax);
+                dksMatrices::mode(GL_MODELVIEW);
             }
         }
 

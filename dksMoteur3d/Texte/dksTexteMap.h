@@ -388,14 +388,14 @@ class dksTextMap : public dksConteneur
         glDisable(GL_DEPTH_TEST);
         glDepthMask(GL_FALSE);
 
-        glMatrixMode(GL_PROJECTION);
-        glPushMatrix();
-        glLoadIdentity();
-        gluOrtho2D(0.,1.,0.,rapport_ecran);
-        glMatrixMode(GL_MODELVIEW);
-        glPushMatrix();
-        glLoadIdentity();
-        glTranslatef(curseur_x,curseur_y*rapport_ecran,0.);
+        dksMatrices::mode(GL_PROJECTION);
+        dksMatrices::empile();
+        dksMatrices::identite();
+        dksMatrices::ortho2D(0.,1.,0.,rapport_ecran);
+        dksMatrices::mode(GL_MODELVIEW);
+        dksMatrices::empile();
+        dksMatrices::identite();
+        dksMatrices::translation(curseur_x,curseur_y*rapport_ecran,0.);
 
         affiche_texte(texte);
 
@@ -404,10 +404,10 @@ class dksTextMap : public dksConteneur
         glEnable(GL_DEPTH_TEST);
         glDepthMask(GL_TRUE);
 
-        glPopMatrix();
-        glMatrixMode(GL_PROJECTION);
-        glPopMatrix();
-        glMatrixMode(GL_MODELVIEW);
+        dksMatrices::depile();
+        dksMatrices::mode(GL_PROJECTION);
+        dksMatrices::depile();
+        dksMatrices::mode(GL_MODELVIEW);
         if(eclairage_mem)glEnable(GL_LIGHTING);
     }
 
@@ -431,11 +431,11 @@ class dksTextMap : public dksConteneur
         glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 
 
-        glMatrixMode(GL_MODELVIEW);
-        glPushMatrix();
-        glMultMatrixd(matrice.matrice);
+        dksMatrices::mode(GL_MODELVIEW);
+        dksMatrices::empile();
+        dksMatrices::multiplie(matrice.matrice);
         affiche_texte(texte);
-        glPopMatrix();
+        dksMatrices::depile();
 
         glDisable(GL_TEXTURE_2D);
         glDisable(GL_BLEND);
@@ -455,8 +455,8 @@ class dksTextMap : public dksConteneur
         float largeur_texte;
         float position_depart_ligne;
 
-        glPushMatrix();
-        glScalef(echelle,echelle,1.);
+        dksMatrices::empile();
+        dksMatrices::echelle(echelle,echelle,1.);
         uint16_t ligne_actuelle=pointeur_ligne;
 
         //Lecture des lignes:
@@ -479,14 +479,14 @@ class dksTextMap : public dksConteneur
             }
 
             //Affiche la phrase:
-            glPushMatrix();
-            glTranslatef(position_depart_ligne,-base,0.);
+            dksMatrices::empile();
+            dksMatrices::translation(position_depart_ligne,-base,0.);
             for (i=0;i<tailles_lignes[ligne_actuelle];i++)
             {
                 c=uint32_t(texte[j+i]);
                 if (c==' ')
                 {
-                    glTranslatef(espace,0.,0.);
+                    dksMatrices::translation(espace,0.,0.);
                 }
                 else
                 {
@@ -502,15 +502,15 @@ class dksTextMap : public dksConteneur
                     glTexCoord2fv(&coordonnees_lettres[c*8+0]);
                     glVertex3fv(&rectangle[9]);
                     glEnd();
-                    glTranslatef(espaces_lettres[c]+espace_lettres,0.,0.);
+                    dksMatrices::translation(espaces_lettres[c]+espace_lettres,0.,0.);
                 }
             }
-            glPopMatrix();
-            glTranslatef(0.,-1.-espace_lignes,0.);   //Ligne suivante
+            dksMatrices::depile();
+            dksMatrices::translation(0.,-1.-espace_lignes,0.);   //Ligne suivante
             ligne_actuelle++;
         }
 
-        glPopMatrix();
+        dksMatrices::depile();
     }
 
     //-------------------------------------------------------

@@ -24,9 +24,9 @@
                             volume_courant=face->volume;
                             sommets=volume_courant->sommets;
                             initialise_mode_rendu_volume();
-                            glPopMatrix();
-                            glPushMatrix();
-                            glMultMatrixd(volume_courant->matrice.matrice);
+                            dksMatrices::depile();
+                            dksMatrices::empile();
+                            dksMatrices::multiplie(volume_courant->matrice.matrice);
                         }
                         //Si le volume a changé et qu'il est en mode de rendu immédiat, on retourne à la boucle principale
                         else return;

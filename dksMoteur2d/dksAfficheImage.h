@@ -108,16 +108,16 @@ class dksAfficheImage :public dksRendu
             desactive_textures();
             glUseProgram(0);
 
-            glMatrixMode(GL_PROJECTION);
-            glPushMatrix();
-            glLoadIdentity();
+            dksMatrices::mode(GL_PROJECTION);
+            dksMatrices::empile();
+            dksMatrices::identite();
             float ecran_xdim=float(ecran->resolution_x)/2.;
             float ecran_ydim=float(ecran->resolution_y)/2.;
 
-            gluOrtho2D(-ecran_xdim,ecran_xdim,-ecran_ydim,ecran_ydim);
-            glMatrixMode(GL_MODELVIEW);
-            glPushMatrix();
-            glLoadIdentity();
+            dksMatrices::ortho2D(-ecran_xdim,ecran_xdim,-ecran_ydim,ecran_ydim);
+            dksMatrices::mode(GL_MODELVIEW);
+            dksMatrices::empile();
+            dksMatrices::identite();
 
 
             glDepthMask(GL_FALSE);
@@ -160,13 +160,13 @@ class dksAfficheImage :public dksRendu
             }
 
             //------- Application des transformations:
-                glMatrixMode(GL_TEXTURE);
-                glPushMatrix();
-                glLoadIdentity();
-                glTranslatef(xpos+0.5,ypos+0.5,0.);
-                if(drapeau_proportions) glScalef(zoom,zoom,1.); else glScalef(zoom_x,zoom_y,1.); //Zoom utilisateur
-                glScalef(zix,ziy,1.);       //Mise à l'échelle
-                glRotatef(angle_rotation,0.,0.,1.);
+                dksMatrices::mode(GL_TEXTURE);
+                dksMatrices::empile();
+                dksMatrices::identite();
+                dksMatrices::translation(xpos+0.5,ypos+0.5,0.);
+                if(drapeau_proportions) dksMatrices::echelle(zoom,zoom,1.); else dksMatrices::echelle(zoom_x,zoom_y,1.); //Zoom utilisateur
+                dksMatrices::echelle(zix,ziy,1.);       //Mise à l'échelle
+                dksMatrices::rotation(angle_rotation,0.,0.,1.);
 
 
             //Affiche la texture:
@@ -192,13 +192,13 @@ class dksAfficheImage :public dksRendu
 
 
             //Restitue l'état d'openGl:
-            glPopMatrix();  //Matrice de texture
-            glMatrixMode(GL_MODELVIEW);
+            dksMatrices::depile();  //Matrice de texture
+            dksMatrices::mode(GL_MODELVIEW);
             glDisable(GL_BLEND);
-            glPopMatrix();
-            glMatrixMode(GL_PROJECTION);
-            glPopMatrix();
-            glMatrixMode(GL_MODELVIEW);
+            dksMatrices::depile();
+            dksMatrices::mode(GL_PROJECTION);
+            dksMatrices::depile();
+            dksMatrices::mode(GL_MODELVIEW);
             glDepthMask(depth_mask_mem);
             if(depth_mem)glEnable(GL_DEPTH_TEST);
         }

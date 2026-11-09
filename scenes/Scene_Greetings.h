@@ -631,7 +631,7 @@ class Scene_Greetings : public Scene
         //===================================================
         void affiche_trajectoire()
         {
-            //glLoadIdentity();
+            //dksMatrices::identite();
             glDisable(GL_LIGHTING);
             glDisable(GL_TEXTURE_2D);
             glEnable(GL_BLEND);

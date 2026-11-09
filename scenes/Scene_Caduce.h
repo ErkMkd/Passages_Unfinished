@@ -1026,7 +1026,7 @@ class Scene_Caduce: public Scene
         //===================================================
         void affiche_trajectoire(dksTrajectoire* trajectoire)
         {
-            //glLoadIdentity();
+            //dksMatrices::identite();
             glDisable(GL_LIGHTING);
             glDisable(GL_TEXTURE_2D);
             glEnable(GL_BLEND);
@@ -1050,14 +1050,14 @@ class Scene_Caduce: public Scene
             glDisable(GL_TEXTURE_2D);
 
             glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-            glPushMatrix();
-            glMultMatrixd(cont->matrice.matrice);
+            dksMatrices::empile();
+            dksMatrices::multiplie(cont->matrice.matrice);
             glPointSize(6);
             glColor3f(1.,0.,0.);
             glBegin(GL_POINTS);
                 glVertex3d(0.,0.,0.);
             glEnd();
-            glPopMatrix();
+            dksMatrices::depile();
             glEnable(GL_LIGHTING);
         }
 

@@ -637,13 +637,13 @@ class dksPersonnage:public dksConteneur
 
             /*
             repere_absolu->copie_repere(this);
-            glPushMatrix();
+            dksMatrices::empile();
             calcul_matrice();
-            glPopMatrix();
+            dksMatrices::depile();
             */
 
-            glPushMatrix();
-            glMultMatrixd(matrice.matrice);
+            dksMatrices::empile();
+            dksMatrices::multiplie(matrice.matrice);
 
             uint16_t i;
             GLboolean lum_mem=glIsEnabled(GL_LIGHTING);
@@ -705,7 +705,7 @@ class dksPersonnage:public dksConteneur
 
             if (lum_mem)glEnable(GL_LIGHTING);
 
-            glPopMatrix();
+            dksMatrices::depile();
         }
 
 

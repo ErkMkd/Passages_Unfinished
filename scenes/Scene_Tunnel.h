@@ -525,10 +525,10 @@ class Scene_Tunnel: public Scene
         //glClear(GL_DEPTH_BUFFER_BIT);
         //texte_GP->affiche(oeil_1);
         glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-        glPushMatrix();
+        dksMatrices::empile();
         logo2_GP->maj(position_temps);
         logo2_GP->affiche(oeil_1);
-        glPopMatrix();
+        dksMatrices::depile();
 
         texte_Presents->affiche(oeil_1);
         texte_Passages->affiche(oeil_1);
@@ -881,7 +881,7 @@ class Scene_Tunnel: public Scene
         void affiche_trajectoire()
         {
 
-            //glLoadIdentity();
+            //dksMatrices::identite();
             glDisable(GL_LIGHTING);
             glDisable(GL_TEXTURE_2D);
             glDisable(GL_BLEND);

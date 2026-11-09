@@ -165,7 +165,7 @@ public:
 
     void affiche_sprite_3d(uint32_t indice,float alpha=1.0)
     {
-        glPushMatrix();
+        dksMatrices::empile();
 
         bool lighting_mem=glIsEnabled(GL_LIGHTING);
         bool blend_mem=glIsEnabled(GL_BLEND);
@@ -182,10 +182,10 @@ public:
         glEnable(GL_COLOR_MATERIAL);
         glColorMaterial(GL_FRONT_AND_BACK,GL_DIFFUSE);
 
-        glLoadIdentity();
+        dksMatrices::identite();
         float xp=sprites[indice].x-sprites[indice].cx*sprites[indice].zoom;
         float yp=sprites[indice].y-sprites[indice].cy*sprites[indice].zoom;
-        glTranslatef(xp-resolution_x/2,-yp+resolution_y/2,-echelle);
+        dksMatrices::translation(xp-resolution_x/2,-yp+resolution_y/2,-echelle);
 
         Image_TIFF* image=sprites[indice].image;
         glBindTexture(GL_TEXTURE_2D,image->texture_id);
@@ -208,7 +208,7 @@ public:
         if (cull_mem) glEnable(GL_CULL_FACE);
         if (!colorMat_mem) glDisable(GL_COLOR_MATERIAL);
 
-        glPopMatrix();
+        dksMatrices::depile();
     }
 
     //Résolution de l'écran pour une mise à l'échelle de l'image.

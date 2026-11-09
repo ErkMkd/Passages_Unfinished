@@ -194,16 +194,16 @@ class dksTexte3d : public dksParticulesVolumes
                     //cout<<lettre->nom;
                     lettre->determine_position(curseur[0]-centrage[0],curseur[1]+centrage[1],curseur[2]+centrage[2]);
                     lettre->determine_RTL(particule->roulis,particule->tangage,particule->lacet);
-                    glPushMatrix();
+                    dksMatrices::empile();
 
                     //dksRepere::translation_repere(repere_absolu,lettre,lettre->repere_absolu);
                     lettre->calcul_matrice_relative();
 
-                    glPopMatrix();
-                    glPushMatrix();
-                    glMultMatrixd(lettre->matrice.matrice);
+                    dksMatrices::depile();
+                    dksMatrices::empile();
+                    dksMatrices::multiplie(lettre->matrice.matrice);
                     lettre->affiche(oeil);
-                    glPopMatrix();
+                    dksMatrices::depile();
                     double largeur_lettre=lettre->boite_collision->xmax-lettre->boite_collision->xmin;
                     pas=largeur_lettre+double(police->espace_lettres);
                     curseur[0]+=vecteur_curseur[0]*pas;

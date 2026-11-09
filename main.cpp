@@ -31,6 +31,7 @@ using namespace std;
 #include "Utiles/Horloge.h"
 #include "Utiles/Panneau_Developpement.h"
 #include "Utiles/Banc_Essai.h"
+#include "dksMoteur3d/Rendu/dksMatrices.h"
 #include "dksMoteur2d/dksEcran.h"
 #include "dksMoteur3d/LWO/dksChargeLWO2.h"
 #include "dksMoteur3d/LWO/dksConvertionLWO2.h"
@@ -144,8 +145,8 @@ static void redimensionne_fenetre(int width, int height)
     mon_ecran->determine_dimensions(width,height);
     scene_actuelle->oeil_courant->determine_resolution(width,height);
     scene_actuelle->maj_dimensions_fenetre();
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity() ;
+    dksMatrices::mode(GL_MODELVIEW);
+    dksMatrices::identite() ;
 }
 
 //-------------------------------------------------------
@@ -188,8 +189,8 @@ static void affichage_principal(void)
 
     //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
+    dksMatrices::mode(GL_MODELVIEW);
+    dksMatrices::identite();
 
     //Pour sauter des scènes (sauf si la scène de départ est donnée en paramètre: --scene):
 

@@ -197,14 +197,14 @@ class Tunnel : public dksConteneur
 
 
         //Affiche les sections:
-        glMatrixMode(GL_MODELVIEW);
+        dksMatrices::mode(GL_MODELVIEW);
         for (uint32_t i=0;i<nbrSections;i++)
         {
-            glPushMatrix();
-                glTranslatef(positions_sections[3*i],positions_sections[3*i+1],positions_sections[3*i+2]);
-                glRotatef(rotations_sections[i*4],rotations_sections[i*4+1],rotations_sections[i*4+2],rotations_sections[i*4+3]);
+            dksMatrices::empile();
+                dksMatrices::translation(positions_sections[3*i],positions_sections[3*i+1],positions_sections[3*i+2]);
+                dksMatrices::rotation(rotations_sections[i*4],rotations_sections[i*4+1],rotations_sections[i*4+2],rotations_sections[i*4+3]);
                 volumes_sections[i]->affiche(oeil);
-            glPopMatrix();
+            dksMatrices::depile();
         }
 
         drapeau_maj=false;
@@ -213,14 +213,14 @@ class Tunnel : public dksConteneur
     //N'affiche que les surfaces luminescentes:
     virtual void affiche_couleurs_luminescentes(dksOeil* oeil)
     {
-        glMatrixMode(GL_MODELVIEW);
+        dksMatrices::mode(GL_MODELVIEW);
         for (uint32_t i=0;i<nbrSections;i++)
         {
-            glPushMatrix();
-                glTranslatef(positions_sections[3*i],positions_sections[3*i+1],positions_sections[3*i+2]);
-                glRotatef(rotations_sections[i*4],rotations_sections[i*4+1],rotations_sections[i*4+2],rotations_sections[i*4+3]);
+            dksMatrices::empile();
+                dksMatrices::translation(positions_sections[3*i],positions_sections[3*i+1],positions_sections[3*i+2]);
+                dksMatrices::rotation(rotations_sections[i*4],rotations_sections[i*4+1],rotations_sections[i*4+2],rotations_sections[i*4+3]);
                 volumes_sections[i]->affiche_couleurs_luminescentes(oeil);
-            glPopMatrix();
+            dksMatrices::depile();
         }
     }
 

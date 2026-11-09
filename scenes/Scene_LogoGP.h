@@ -393,7 +393,7 @@ class Scene_LogoGP: public Scene
         {
             desactive_textures();
             glUseProgram(0);
-            //glLoadIdentity();
+            //dksMatrices::identite();
             glDisable(GL_LIGHTING);
             trajectoire->affiche_courbe(20,0x40ffff00);
             trajectoire->affiche_points(0x80ff0000,5);

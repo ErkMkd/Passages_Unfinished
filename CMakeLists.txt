@@ -15,6 +15,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 find_package(OpenGL REQUIRED)
 find_package(GLEW REQUIRED)
 find_package(glfw3 CONFIG REQUIRED)
+find_package(glm CONFIG REQUIRED)
 find_package(imgui CONFIG REQUIRED)
 find_package(Stb REQUIRED)
 find_package(TIFF REQUIRED)
@@ -39,7 +40,7 @@ set_target_properties(bass PROPERTIES
 add_executable(Passages main.cpp Passages.manifest)
 
 target_link_libraries(Passages PRIVATE
-    OpenGL::GL OpenGL::GLU GLEW::GLEW glfw imgui::imgui TIFF::TIFF JPEG::JPEG bass)
+    OpenGL::GL OpenGL::GLU GLEW::GLEW glfw glm::glm imgui::imgui TIFF::TIFF JPEG::JPEG bass)
 
 target_compile_definitions(Passages PRIVATE
     _CRT_SECURE_NO_WARNINGS

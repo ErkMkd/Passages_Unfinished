@@ -274,14 +274,14 @@ class dksPostRendu
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER,ecran->frame_buffers[FB_256_2]);
         glViewport(0,0,256,256);
 
-        glMatrixMode(GL_PROJECTION);
-        glPushMatrix();
-        glLoadIdentity();
-        gluOrtho2D(-0.5,0.5,-0.5,0.5);
+        dksMatrices::mode(GL_PROJECTION);
+        dksMatrices::empile();
+        dksMatrices::identite();
+        dksMatrices::ortho2D(-0.5,0.5,-0.5,0.5);
 
-        glMatrixMode(GL_MODELVIEW);
-        glPushMatrix();
-        glLoadIdentity();
+        dksMatrices::mode(GL_MODELVIEW);
+        dksMatrices::empile();
+        dksMatrices::identite();
 
         glDisable(GL_CULL_FACE);
         glDisable(GL_LIGHTING);
@@ -311,10 +311,10 @@ class dksPostRendu
         affiche_texture();
 
         glUseProgram(0);
-        glPopMatrix();
-        glMatrixMode(GL_PROJECTION);
-        glPopMatrix();
-        glMatrixMode(GL_MODELVIEW);
+        dksMatrices::depile();
+        dksMatrices::mode(GL_PROJECTION);
+        dksMatrices::depile();
+        dksMatrices::mode(GL_MODELVIEW);
     }
 
 
@@ -326,14 +326,14 @@ class dksPostRendu
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER,ecran->frame_buffers[FB_QUART_2]);
         glViewport(0,0,ecran->largeur_texture_quart,ecran->hauteur_texture_quart);
 
-        glMatrixMode(GL_PROJECTION);
-        glPushMatrix();
-        glLoadIdentity();
-        gluOrtho2D(-0.5,0.5,-0.5,0.5);
+        dksMatrices::mode(GL_PROJECTION);
+        dksMatrices::empile();
+        dksMatrices::identite();
+        dksMatrices::ortho2D(-0.5,0.5,-0.5,0.5);
 
-        glMatrixMode(GL_MODELVIEW);
-        glPushMatrix();
-        glLoadIdentity();
+        dksMatrices::mode(GL_MODELVIEW);
+        dksMatrices::empile();
+        dksMatrices::identite();
 
         glDisable(GL_CULL_FACE);
         glDisable(GL_LIGHTING);
@@ -363,10 +363,10 @@ class dksPostRendu
         affiche_texture();
 
         glUseProgram(0);
-        glPopMatrix();
-        glMatrixMode(GL_PROJECTION);
-        glPopMatrix();
-        glMatrixMode(GL_MODELVIEW);
+        dksMatrices::depile();
+        dksMatrices::mode(GL_PROJECTION);
+        dksMatrices::depile();
+        dksMatrices::mode(GL_MODELVIEW);
     }
 
     //-----------------------------------------------------
@@ -426,14 +426,14 @@ class dksPostRendu
         dksRendu::desactive_textures();
         if(drapeau_efface_sortie) glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        glMatrixMode(GL_PROJECTION);
-        glPushMatrix();
-        glLoadIdentity();
-        gluOrtho2D(-0.5,0.5,-0.5,0.5);
+        dksMatrices::mode(GL_PROJECTION);
+        dksMatrices::empile();
+        dksMatrices::identite();
+        dksMatrices::ortho2D(-0.5,0.5,-0.5,0.5);
 
-        glMatrixMode(GL_MODELVIEW);
-        glPushMatrix();
-        glLoadIdentity();
+        dksMatrices::mode(GL_MODELVIEW);
+        dksMatrices::empile();
+        dksMatrices::identite();
 
         glDisable(GL_CULL_FACE);
         glDisable(GL_LIGHTING);
@@ -480,10 +480,10 @@ class dksPostRendu
     void fin_superposition_tempons()
     {
         glDisable(GL_BLEND);
-        glPopMatrix();
-        glMatrixMode(GL_PROJECTION);
-        glPopMatrix();
-        glMatrixMode(GL_MODELVIEW);
+        dksMatrices::depile();
+        dksMatrices::mode(GL_PROJECTION);
+        dksMatrices::depile();
+        dksMatrices::mode(GL_MODELVIEW);
     }
 
     //------------------------------------------------------
