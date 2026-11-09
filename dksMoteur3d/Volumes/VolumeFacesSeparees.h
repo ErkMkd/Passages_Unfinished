@@ -461,7 +461,7 @@ class VolumeFacesSeparees : public dksParticules
             GLdouble* nml;
             Particule_Face_Separee* particule;
 
-            duree_rendu=glutGet(GLUT_ELAPSED_TIME);
+            duree_rendu=Horloge::temps_reel_ms();
 
             //**************** Surfaces opaques:
             glDisable(GL_BLEND);

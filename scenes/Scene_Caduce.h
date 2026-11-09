@@ -1125,7 +1125,6 @@ class Scene_Caduce: public Scene
                     break;
 
             }
-            glutPostRedisplay();
         }
 
         virtual void touche_speciale_relachee(int key, int x, int y)
@@ -1148,7 +1147,6 @@ class Scene_Caduce: public Scene
             conteneur_selectionne->stop_propulsion();
             conteneur_selectionne->stop_propulsion_angulaire();
 
-            glutPostRedisplay();
         }
 
         virtual void touche_appuyee(unsigned char key, int x, int y)
@@ -1316,7 +1314,6 @@ class Scene_Caduce: public Scene
                 default:
                     break;
             }
-            glutPostRedisplay();
         }
 
 
@@ -1344,7 +1341,6 @@ class Scene_Caduce: public Scene
             }
             conteneur_selectionne->stop_propulsion();
             conteneur_selectionne->stop_propulsion_angulaire();
-            glutPostRedisplay();
         }
 };
 #endif // SCENE_CADUCE_H_INCLUDED

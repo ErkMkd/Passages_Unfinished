@@ -134,7 +134,7 @@
             GLdouble* sommet;
             GLdouble* nml;
 
-            duree_rendu=glutGet(GLUT_ELAPSED_TIME);
+            duree_rendu=Horloge::temps_reel_ms();
 
             //**************** Surfaces opaques:
             glDisable(GL_BLEND);
@@ -173,7 +173,7 @@
             GLdouble* sommet;
             GLdouble* nml;
 
-            duree_rendu=glutGet(GLUT_ELAPSED_TIME);
+            duree_rendu=Horloge::temps_reel_ms();
 
             //**************** Surfaces opaques:
 

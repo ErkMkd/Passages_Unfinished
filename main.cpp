@@ -19,13 +19,17 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include <map>
 #include <GL/glew.h>
-#include <GL/glut.h>
+#include <GL/glu.h>
+#include <GLFW/glfw3.h>
 
 using namespace std;
 
 #include "Utiles/Tableaux.h"
 #include "Utiles/Rapport_Assertions.h"
+#include "Utiles/Horloge.h"
+#include "Utiles/Panneau_Developpement.h"
 #include "dksMoteur2d/dksEcran.h"
 #include "dksMoteur3d/LWO/dksChargeLWO2.h"
 #include "dksMoteur3d/LWO/dksConvertionLWO2.h"
@@ -42,7 +46,6 @@ using namespace std;
 #include "scenes/Scene_Jungler_Credits.h"
 #include "scenes/Scene_Fin.h"
 
-#include "Utiles/Texte.h"
 #include "Utiles/Musique.h"
 
 #include <stdlib.h>
@@ -83,7 +86,11 @@ Musique* musique_fin=NULL;
 
 //============ Gestion du temps:
 
-double t_depart=-1.;
+Horloge horloge;
+
+//============ Fenêtre:
+GLFWwindow* fenetre=NULL;
+Panneau_Developpement* panneau=NULL;
 
 //============ Objets:
 dksEcran* mon_ecran=NULL;
@@ -107,9 +114,7 @@ bool drapeau_debug=false;
 
 uint32_t cptr_images=0;
 uint32_t beat=0;
-float fps;
-float fps_affiche;
-float temps_calcul_image; //temps mis pour le rendu de l'image (en s)
+double temps_calcul_image; //temps mis pour le rendu de l'image (en s)
 //****************************************
 //      Renvoie une erreur OpenGl
 //****************************************
@@ -141,36 +146,6 @@ static void redimensionne_fenetre(int width, int height)
     glLoadIdentity() ;
 }
 
-//=================================================
-//====================================================================
-//                      Affichage
-//====================================================================
-//=================================================
-static void affiche_fps()
-{
-    glDisable(GL_COLOR_MATERIAL);
-    glColor3f(1.,1.,0.);
-    Texte::affiche_nombre(-0.9,0.8,fps_affiche,3);
-    //Texte::affiche_nombre(-0.7,0.8,beat,3);
-    //Texte::affiche_nombre(-0.7,0.8,temps_calcul_image,3);
-}
-
-static void affiche_contexte()
-{
-    glDisable(GL_COLOR_MATERIAL);
-    glColor3f(1.,1.,0.);
-    Texte::affiche_texte(-0.9,0.6,(char*)glGetString(GL_VERSION));
-    Texte::affiche_texte(-0.9,0.5,(char*)glGetString(GL_RENDERER));
-    Texte::affiche_texte(-0.9,0.4,(char*)glGetString(GL_VENDOR));
-}
-
-static void affiche_t(double t)
-{
-    glDisable(GL_COLOR_MATERIAL);
-    glColor3f(1.,1.,0.);
-    Texte::affiche_nombre(-0.9,0.7,t,2);
-}
-
 //-------------------------------------------------------
 //  Ralentissement pour simuler les cartes plus lentes
 //-------------------------------------------------------
@@ -194,15 +169,16 @@ static void affichage_principal(void)
 {
     if (drapeau_debug) return;
 
-    double t = glutGet(GLUT_ELAPSED_TIME) / 1000.0; //t en secondes
-    if (t_depart<0.)
+    double debut_image=Horloge::temps_reel();
+    double t=horloge.avance(); //t en secondes, 0 à la première image
+    static bool premiere_image=true;
+    if (premiere_image)
     {
-        t_depart=t;
+        premiere_image=false;
          #if JOUE_MUSIQUE
         la_musique->joue(true);
         #endif
     }
-    t-=t_depart;
 
     dksRendu::delta_t=t-dksRendu::position_temps;
     dksRendu::position_temps=t;
@@ -375,15 +351,11 @@ static void affichage_principal(void)
         dksRendu::desactive_textures();
         glUseProgram(0);
         //glBindBuffer(GL_PIXEL_UNPACK_BUFFER,0);
-        temps_calcul_image=glutGet(GLUT_ELAPSED_TIME)/1000.-t_depart-t;
-        fps=1./temps_calcul_image;
-
-        affiche_fps();
-        //affiche_contexte();
-        affiche_t(t);
+        temps_calcul_image=Horloge::temps_reel()-debut_image;
+        if (panneau!=NULL) panneau->affiche(&horloge,scene_actuelle->nom,temps_calcul_image);
     #endif
 
-    glutSwapBuffers();
+    glfwSwapBuffers(fenetre);
 
     //if (cptr_images++==1)drapeau_debug=true;
     //ralenti();
@@ -391,40 +363,25 @@ static void affichage_principal(void)
 
 
 
-//---------------------------
-//Pour éviter les oscillations du compteur:
-//---------------------------
-
-static void rafraichi_affiche_fps(int num)
-{
-        fps_affiche=fps;
-        glutTimerFunc(100,&rafraichi_affiche_fps,0);
-}
-
 //=================================================
 //                      Fin du programme
+//  Appelée à la fermeture de la fenêtre, ou par exit() (erreur, touche Échap)
 //=================================================
-
-//Le temps des inits de fin, les fonctions de rafraîchissement sont désactivées:
-static void fin_redimensionne_fenetre(int width, int height){}
-static void fin_affichage_principal(void){}
-static void fin_attente_retour_faisceau(void){glutPostRedisplay();}
-
 
 static void fin_du_programme()
 {
-    scene_logoGp->drapeau_scene_terminee=true;
-    scene_tunnel->drapeau_scene_terminee=true;
-    scene_caduce->drapeau_scene_terminee=true;
-    scene_starfield->drapeau_scene_terminee=true;
-    scene_arbre->drapeau_scene_terminee=true;
-    scene_greets->drapeau_scene_terminee=true;
-    scene_credits->drapeau_scene_terminee=true;
-    scene_fin->drapeau_scene_terminee=true;
+    static bool drapeau_fin=false;
+    if (drapeau_fin) return;
+    drapeau_fin=true;
 
-    glutReshapeFunc(fin_redimensionne_fenetre);
-    glutDisplayFunc(fin_affichage_principal);
-    glutIdleFunc(fin_attente_retour_faisceau);
+    Scene* scenes[]={scene_logoGp,scene_tunnel,scene_caduce,scene_starfield,scene_arbre,scene_greets,scene_credits,scene_fin};
+    for (Scene* scene:scenes) if (scene!=NULL) scene->drapeau_scene_terminee=true;
+
+    if (panneau!=NULL)
+    {
+        delete panneau;
+        panneau=NULL;
+    }
 
     dksRendu::desactive_textures();
     glUseProgram(0);
@@ -462,7 +419,6 @@ static void fin_du_programme()
 static void attente_retour_faisceau(void)
 {
     scene_actuelle->attente_retour_faisceau();
-    glutPostRedisplay();
 }
 
 //============================================================================
@@ -554,24 +510,20 @@ static void touche_speciale_appuyee(int key, int x, int y)
 {
 
     scene_actuelle->touche_speciale_appuyee(key,x,y);
-    glutPostRedisplay();
 }
 
 void touche_speciale_relachee(int key, int x, int y)
 {
     scene_actuelle->touche_speciale_relachee(key,x,y);
-    glutPostRedisplay();
 }
 void touche_appuyee(unsigned char key, int x, int y)
 {
     scene_actuelle->touche_appuyee(key,x,y);
-    glutPostRedisplay();
 }
 
 void touche_relachee(unsigned char key, int x, int y)
 {
     scene_actuelle->touche_relachee(key,x,y);
-    glutPostRedisplay();
 }
 
 void mouvement_souris(int x, int y)
@@ -589,7 +541,107 @@ void quitte_demo(unsigned char key, int x, int y)
                 exit(0);
                 break;
     }
-    glutPostRedisplay();
+}
+
+//============================================================================
+//      Traduction des événements GLFW pour les scènes, qui reçoivent les codes
+//      de GLUT: caractères Latin-1, et codes GLUT_KEY_xxx pour les touches spéciales.
+//============================================================================
+static int code_glut_special(int touche)
+{
+    if (touche>=GLFW_KEY_F1 && touche<=GLFW_KEY_F12) return 1+touche-GLFW_KEY_F1; //GLUT_KEY_F1 à GLUT_KEY_F12
+    switch (touche)
+    {
+        case GLFW_KEY_LEFT: return 100;         //GLUT_KEY_LEFT
+        case GLFW_KEY_UP: return 101;           //GLUT_KEY_UP
+        case GLFW_KEY_RIGHT: return 102;        //GLUT_KEY_RIGHT
+        case GLFW_KEY_DOWN: return 103;         //GLUT_KEY_DOWN
+        case GLFW_KEY_PAGE_UP: return 104;      //GLUT_KEY_PAGE_UP
+        case GLFW_KEY_PAGE_DOWN: return 105;    //GLUT_KEY_PAGE_DOWN
+        case GLFW_KEY_HOME: return 106;         //GLUT_KEY_HOME
+        case GLFW_KEY_END: return 107;          //GLUT_KEY_END
+        case GLFW_KEY_INSERT: return 108;       //GLUT_KEY_INSERT
+        default: return -1;
+    }
+}
+
+//Touches de contrôle que GLUT transmet comme des caractères:
+static int code_glut_controle(int touche)
+{
+    switch (touche)
+    {
+        case GLFW_KEY_ESCAPE: return 27;
+        case GLFW_KEY_ENTER: case GLFW_KEY_KP_ENTER: return 13;
+        case GLFW_KEY_BACKSPACE: return 8;
+        case GLFW_KEY_TAB: return 9;
+        case GLFW_KEY_DELETE: return 127;
+        default: return -1;
+    }
+}
+
+static int touche_du_caractere=GLFW_KEY_UNKNOWN;   //Touche dont GLFW va transmettre le caractère
+static map<int,unsigned char> caracteres_appuyes;  //Caractère transmis à l'appui de chaque touche, pour son relâchement
+
+static void clavier(GLFWwindow* f,int touche,int code_physique,int action,int modificateurs)
+{
+    if (Panneau_Developpement::utilise_clavier()) return;
+    double x,y;
+    glfwGetCursorPos(f,&x,&y);
+
+    #if EDITEUR_ACTIF
+    int code=code_glut_special(touche);
+    if (code>=0)
+    {
+        if (action==GLFW_RELEASE) touche_speciale_relachee(code,int(x),int(y));
+        else touche_speciale_appuyee(code,int(x),int(y));     //Appui ou répétition
+        return;
+    }
+    code=code_glut_controle(touche);
+    if (action==GLFW_RELEASE)
+    {
+        if (code>=0) touche_relachee(code,int(x),int(y));
+        else
+        {
+            map<int,unsigned char>::iterator c=caracteres_appuyes.find(touche);
+            if (c!=caracteres_appuyes.end())
+            {
+                touche_relachee(c->second,int(x),int(y));
+                caracteres_appuyes.erase(c);
+            }
+        }
+    }
+    else if (code>=0) touche_appuyee(code,int(x),int(y));
+    else touche_du_caractere=touche;    //Le caractère arrive ensuite dans caractere()
+    #else
+    if (touche==GLFW_KEY_ESCAPE && action==GLFW_PRESS) quitte_demo(27,int(x),int(y));
+    #endif
+}
+
+static void caractere(GLFWwindow* f,unsigned int point_de_code)
+{
+    #if EDITEUR_ACTIF
+    if (Panneau_Developpement::utilise_clavier() || point_de_code>255) return;
+    double x,y;
+    glfwGetCursorPos(f,&x,&y);
+    caracteres_appuyes[touche_du_caractere]=(unsigned char)point_de_code;
+    touche_appuyee((unsigned char)point_de_code,int(x),int(y));
+    #endif
+}
+
+//La souris n'est transmise que bouton enfoncé, comme avec glutMotionFunc().
+static void souris(GLFWwindow* f,double x,double y)
+{
+    #if EDITEUR_ACTIF
+    if (Panneau_Developpement::utilise_souris()) return;
+    if (glfwGetMouseButton(f,GLFW_MOUSE_BUTTON_LEFT)==GLFW_PRESS
+        || glfwGetMouseButton(f,GLFW_MOUSE_BUTTON_RIGHT)==GLFW_PRESS
+        || glfwGetMouseButton(f,GLFW_MOUSE_BUTTON_MIDDLE)==GLFW_PRESS) mouvement_souris(int(x),int(y));
+    #endif
+}
+
+static void taille_fenetre(GLFWwindow* f,int largeur,int hauteur)
+{
+    if (largeur>0 && hauteur>0) redimensionne_fenetre(largeur,hauteur);   //0 quand la fenêtre est réduite
 }
 
 //============================================================================
@@ -602,28 +654,24 @@ int main(int argc, char *argv[])
     musique_fin=NULL;
     atexit(fin_du_programme);
     //--------------- Initialise l'écran:
-    uint32_t le=640;
     mon_ecran=new dksEcran(640,384,PLEIN_ECRAN);
     //mon_ecran=new dksEcran(800,600,true);
-    //--------------- Initialise GLUT:
-    glutInit(&argc, argv);
-    glutInitWindowSize(mon_ecran->resolution_x,mon_ecran->resolution_y);
-    glutInitWindowPosition(10,10);
-    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
-    glutCreateWindow("Genesis ¤ Project - Passages");
-    glutReshapeFunc(redimensionne_fenetre);
-    glutDisplayFunc(affichage_principal);
-    glutIdleFunc(attente_retour_faisceau);
-
-#if EDITEUR_ACTIF
-    glutKeyboardFunc(touche_appuyee);
-    glutKeyboardUpFunc(touche_relachee);
-    glutSpecialFunc(touche_speciale_appuyee);
-    glutSpecialUpFunc(touche_speciale_relachee);
-    glutMotionFunc(mouvement_souris);
-#else
-    glutKeyboardFunc(quitte_demo);
-#endif
+    //--------------- Initialise GLFW et crée la fenêtre:
+    if (!glfwInit())
+    {
+        cout<<"ERREUR dans glfwInit()"<<endl;
+        drapeau_erreur=true;
+        exit(EXIT_FAILURE);
+    }
+    fenetre=glfwCreateWindow(mon_ecran->resolution_x,mon_ecran->resolution_y,"Genesis ¤ Project - Passages",NULL,NULL);
+    if (fenetre==NULL)
+    {
+        cout<<"ERREUR dans glfwCreateWindow() - Impossible de créer la fenêtre OpenGL"<<endl;
+        drapeau_erreur=true;
+        exit(EXIT_FAILURE);
+    }
+    glfwMakeContextCurrent(fenetre);
+    glfwSwapInterval(1);    //Synchronisation verticale
 
     //------------------ Initialise Glew (gestionnaire d'extensions OpenGl):
     GLenum erreur_glew=glewInit();
@@ -656,14 +704,38 @@ int main(int argc, char *argv[])
     //------------ Initialise les données:
     initialisations();
 
-    //------------ Initialise les timers:
+    //------------ Clavier, souris et fenêtre:
+    glfwSetKeyCallback(fenetre,clavier);
+    glfwSetCharCallback(fenetre,caractere);
+    glfwSetCursorPosCallback(fenetre,souris);
+    glfwSetFramebufferSizeCallback(fenetre,taille_fenetre);
+
+    //------------ Panneau de développement (après les fonctions ci-dessus, qu'il appelle en chaîne):
     #if AFFICHE_FPS
-        glutTimerFunc(500, &rafraichi_affiche_fps, 0);
+        panneau=new Panneau_Developpement(fenetre);
     #endif
-    //------------ Chargement de la musique:
 
     //------------ Lancement:
-    if (mon_ecran->est_en_plein_ecran()) glutFullScreen();
-    glutMainLoop();
+    if (mon_ecran->est_en_plein_ecran())
+    {
+        //dksEcran a déjà réglé la résolution de l'écran: la fenêtre le recouvre.
+        GLFWmonitor* moniteur=glfwGetPrimaryMonitor();
+        const GLFWvidmode* mode=glfwGetVideoMode(moniteur);
+        glfwSetWindowMonitor(fenetre,moniteur,0,0,mode->width,mode->height,mode->refreshRate);
+    }
+    int largeur,hauteur;
+    glfwGetFramebufferSize(fenetre,&largeur,&hauteur);
+    redimensionne_fenetre(largeur,hauteur);
+
+    while (!glfwWindowShouldClose(fenetre))
+    {
+        glfwPollEvents();
+        attente_retour_faisceau();
+        affichage_principal();
+    }
+
+    fin_du_programme();
+    glfwTerminate();
+    return 0;
 }
 

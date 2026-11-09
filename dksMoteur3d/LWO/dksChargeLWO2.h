@@ -21,7 +21,6 @@
 #include <windows.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <GL/glut.h>
 #include "../../gestion_fichiers/gestion_fichiers.h"
 #include <vector>
 #include <iostream>
@@ -29,7 +28,6 @@
 #include <string>
 
 #include "..\..\chargeurs_images\Image.h"
-#include "GL/glut.h"
 
 using namespace std;
 
@@ -615,11 +613,11 @@ class dksChargeLWO2: public Fichiers
 
         erreur=DKSCHARGELWO2_OK;
 
-        duree_chargement=glutGet(GLUT_ELAPSED_TIME);
+        duree_chargement=Horloge::temps_reel_ms();
 
         analyse(); //Traduction du verbe anglais "to parse"
 
-        duree_chargement=glutGet(GLUT_ELAPSED_TIME)-duree_chargement;
+        duree_chargement=Horloge::temps_reel_ms()-duree_chargement;
 
         if (DKSCHARGELWO2_DEBUG && DKSCHARGELWO2_DEBUG_DUREES) cout<<"=======>Durée du chargement de l'objet "<<chemin_fichier<<" : "<<((float)duree_chargement)/1000.<<" s"<<endl;
     }

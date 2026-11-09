@@ -58,7 +58,7 @@ class dksConvertionLWO2
             nbrVolumes=0;
             tableau_volumes_convertis=NULL;
 
-            duree_totale=glutGet(GLUT_ELAPSED_TIME);
+            duree_totale=Horloge::temps_reel_ms();
 
             if (donneesLWO2==NULL)
             {
@@ -85,7 +85,7 @@ class dksConvertionLWO2
             if (!repartition_surfaces()) return;
 
 
-            duree_totale=glutGet(GLUT_ELAPSED_TIME)-duree_totale;
+            duree_totale=Horloge::temps_reel_ms()-duree_totale;
 
             if (DKSCONVERTIONLWO2_DEBUG)
             {

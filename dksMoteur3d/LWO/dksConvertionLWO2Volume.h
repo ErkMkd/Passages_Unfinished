@@ -234,7 +234,7 @@ private:
         //===================================================================================
         static Surface** convertion_surfaces(Charge_LWO2* donnees_lwo)
         {
-            float duree_surfaces=glutGet(GLUT_ELAPSED_TIME);
+            float duree_surfaces=Horloge::temps_reel_ms();
 
             if ( DEBUG_CONVERTION_LWO2 )
             cout<<"+++++ Convertion des surfaces LWO2 +++++"<<endl;
@@ -287,7 +287,7 @@ private:
                 }
             }
 
-            duree_surfaces=glutGet(GLUT_ELAPSED_TIME)-duree_surfaces;
+            duree_surfaces=Horloge::temps_reel_ms()-duree_surfaces;
             if (DEBUG_DUREES_CONVERTION_LWO2)
             cout<<"Durée de création des surfaces : "<<duree_surfaces<<endl;
             return surfaces;

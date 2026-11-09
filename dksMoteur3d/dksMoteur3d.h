@@ -32,7 +32,6 @@
 #include "Elements_Fondamentaux/dksSourceLumineuse.h"
 
 
-#include <GL/glut.h>
 
 //================= Données globales:
 #define DKS_TAILLE_NOMS 128 //La taille des tempons contenants les chaînes de caractères pour les noms des éléments.
@@ -1259,7 +1258,7 @@ public:
             }
 
             //----------------Volumes de la scène:
-            //if (drapeau_debug) cout<<"T0: "<<glutGet(GLUT_ELAPSED_TIME)<<" ";
+            //if (drapeau_debug) cout<<"T0: "<<Horloge::temps_reel_ms()<<" ";
 
             for ( i=0 ; i<nbrVolumes ; i++ )
             {
@@ -1273,7 +1272,7 @@ public:
                 glPopMatrix();
             }
 
-            //if (drapeau_debug) cout<<"T1: "<<glutGet(GLUT_ELAPSED_TIME)<<endl;
+            //if (drapeau_debug) cout<<"T1: "<<Horloge::temps_reel_ms()<<endl;
 
             //------------------- Faces transparentes présentes dans la table globale:
 

@@ -447,7 +447,6 @@ class Scene_Jungler_Credits : public Scene
                     break;
 
             }
-            glutPostRedisplay();
         }
 
         virtual void touche_speciale_relachee(int key, int x, int y)
@@ -470,7 +469,6 @@ class Scene_Jungler_Credits : public Scene
             conteneur_selectionne->stop_propulsion();
             conteneur_selectionne->stop_propulsion_angulaire();
 
-            glutPostRedisplay();
         }
 
         virtual void touche_appuyee(unsigned char key, int x, int y)
@@ -756,7 +754,6 @@ class Scene_Jungler_Credits : public Scene
                 default:
                     break;
             }
-            glutPostRedisplay();
         }
 
 
@@ -784,7 +781,6 @@ class Scene_Jungler_Credits : public Scene
             }
         conteneur_selectionne->stop_propulsion();
         conteneur_selectionne->stop_propulsion_angulaire();
-            glutPostRedisplay();
         }
 
 };

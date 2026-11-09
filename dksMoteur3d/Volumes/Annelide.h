@@ -788,7 +788,7 @@ class Annelide :public dksVolume
 
         uint32_t i,j,k;
 
-        //double tm0=glutGet(GLUT_ELAPSED_TIME);
+        //double tm0=Horloge::temps_reel_ms();
 
         dksVolume::applique_mouvements();
 
@@ -800,7 +800,7 @@ class Annelide :public dksVolume
         else calcul_normales_faces_CCW();
         calcul_normales_sommets();
 
-        //tm0-=glutGet(GLUT_ELAPSED_TIME);
+        //tm0-=Horloge::temps_reel_ms();
         //cout<<-tm0<<endl;
     }
 

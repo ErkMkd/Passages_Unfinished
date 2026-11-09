@@ -1,8 +1,15 @@
 {
   "dependencies": [
-    "freeglut",
+    "glfw3",
     "glew",
     "tiff",
-    "libjpeg-turbo"
+    "libjpeg-turbo",
+    {
+      "name": "imgui",
+      "features": [
+        "glfw-binding",
+        "opengl3-binding"
+      ]
+    }
   ]
 }
