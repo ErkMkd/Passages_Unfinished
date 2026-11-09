@@ -727,13 +727,11 @@ int main(int argc, char *argv[])
     GLint profil=0;
     glGetIntegerv(GL_CONTEXT_PROFILE_MASK,&profil);
     cout<<"Version OpenGL: "<<glGetString(GL_VERSION)<<((profil&GL_CONTEXT_CORE_PROFILE_BIT) ? " (profil Core)" : " (profil de compatibilité)")<<endl;
-    //Le jeu de shaders NVIDIA est le seul complet: il est utilisé quelle que soit la carte.
-    uint8_t id_fabriquant=DKSSHADERS_FABRIQUANT_NVIDIA;
     //------------ Vérifiacation de l'implémentation d'OpenGL:
     dksRendu::nbr_unites_textures_max=DKSETAT_NBR_UNITES_PIPELINE_FIXE;
 
     //------------ Création des variables statiques qui nécessitent les initialisation précédentes:
-     dksShaders::bibliotheque= new dksInitialiseShaders(id_fabriquant);
+     dksShaders::bibliotheque= new dksInitialiseShaders();
      if (dksShaders::bibliotheque->erreur!=DKSSHADERS_OK)
      {
          drapeau_erreur=true;

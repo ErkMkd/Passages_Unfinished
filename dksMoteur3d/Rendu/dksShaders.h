@@ -27,17 +27,12 @@
 #include "shaders/Shader_Masque_2_Textures.h"
 #include "shaders/Shader_Aplat_Brut.h"
 
-//------------- Compatibilité:
-#define DKSSHADERS_FABRIQUANT_ATI 1
-#define DKSSHADERS_FABRIQUANT_NVIDIA 2
-
 //------------ Codes d'erreur:
 
 #define DKSSHADERS_DEBUG true
 
 #define DKSSHADERS_OK 0
 #define DKSSHADERS_ERREUR_SHADER 1
-#define DKSSHADERS_ERREUR_FABRICANT 2
 #define DKSSHADERS_ERREUR_TEXTURES 3
 
 
@@ -45,7 +40,6 @@ class dksInitialiseShaders: public Gestion_Shaders
 {
     public:
         uint16_t erreur;
-        uint8_t id_fabriquant;  //La marque de la carte graphique
 
         GLuint texture_bruit_id;    //La texture de bruit est utile pour certains shaders
 
@@ -87,7 +81,7 @@ class dksInitialiseShaders: public Gestion_Shaders
     //=================================================================
 
     public:
-        dksInitialiseShaders(uint8_t p_id_fabriquant)
+        dksInitialiseShaders()
         {
             erreur=DKSSHADERS_OK;
 
@@ -111,16 +105,8 @@ class dksInitialiseShaders: public Gestion_Shaders
             masque_2_textures=NULL;
             pipeline_fixe=NULL;
 
-            //Gestion carte graphique:
-            id_fabriquant=p_id_fabriquant;
-            if (id_fabriquant==DKSSHADERS_FABRIQUANT_ATI) strcpy(chemin_sources,"sources_shaders/ATI/");
-            else if (id_fabriquant==DKSSHADERS_FABRIQUANT_NVIDIA) strcpy(chemin_sources,"sources_shaders/NVIDIA/");
-            else
-            {
-                erreur=DKSSHADERS_ERREUR_FABRICANT;
-                cout<<"ERREUR dans dksInitialiseShaders::dksInitialiseShaders() - Carte graphique inconnue!"<<endl;
-                return;
-            }
+            //Les shaders (GLSL 4.60 core) conviennent à toutes les cartes graphiques:
+            strcpy(chemin_sources,"sources_shaders/NVIDIA/");
 
             //Création des shaders:
             if(!creation_shaders())
