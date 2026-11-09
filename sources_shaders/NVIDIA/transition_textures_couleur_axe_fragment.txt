@@ -12,12 +12,12 @@ uniform int drapeaux_textures;
 uniform float niveau_transition; //Varie entre 0 et 1
 uniform float largeur_fondu;	//Varie entre 0 et 1
 
-varying vec2 coordonnees_texture_depart;
-varying vec2 coordonnees_texture_destination;
-varying float position_axe;	//La position du fragement le long de l'axe, varie entre 0 et 1
+in vec2 coordonnees_texture_depart;
+in vec2 coordonnees_texture_destination;
+in float position_axe;	//La position du fragement le long de l'axe, varie entre 0 et 1
 
-varying vec4 couleur;
-varying vec3 couleur_speculaire; //Spérarée pour apparaître par dessus les textures
+in vec4 couleur;
+in vec3 couleur_speculaire; //Spérarée pour apparaître par dessus les textures
 
 void main( void )
 {
@@ -27,9 +27,9 @@ void main( void )
 	
 	vec4 couleur_transition=vec4(0.,1.,1.,1.);
 	
-	if((drapeaux_textures & 1)!=0) texel_depart=texture2D( texture_depart, coordonnees_texture_depart );
+	if((drapeaux_textures & 1)!=0) texel_depart=texture( texture_depart, coordonnees_texture_depart );
 	else texel_depart=vec4(1.,1.,1.,1.);
-	if((drapeaux_textures & 2)!=0)texel_destination=texture2D( texture_destination, coordonnees_texture_destination );
+	if((drapeaux_textures & 2)!=0)texel_destination=texture( texture_destination, coordonnees_texture_destination );
 	else texel_destination=vec4(1.,1.,1.,1.);
 	
 	//if (texel_depart.a<0.5 && texel_destination.a<0.5) discard;	//Transparence
@@ -71,5 +71,5 @@ void main( void )
 		}
 	}
 
-    gl_FragColor =  couleur_texel*clamp(couleur+vec4(couleur_speculaire,0.),0.,1.);
+    couleur_fragment =  couleur_texel*clamp(couleur+vec4(couleur_speculaire,0.),0.,1.);
 }

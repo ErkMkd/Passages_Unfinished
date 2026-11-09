@@ -2,8 +2,8 @@
 //				Eclairage de base avec deux sources et sans texture
 //======================================================================
 
-varying vec4 couleur;
-varying vec3 couleur_speculaire; //Spérarée pour apparaître par dessus les textures
+out vec4 couleur;
+out vec3 couleur_speculaire; //Spérarée pour apparaître par dessus les textures
 
 uniform vec3 deplacement;
 uniform float niveau_eclairage;	//Sert surtout pour le rendu des auras.
@@ -17,7 +17,7 @@ layout(location=7) in vec3 binormale_face;
 void main( void )
 {
 	//------------ Calcul la position du sommet dans le repère TNB:
-	vec3 sommet_relatif = gl_Vertex.xyz - centre_gravite_face;
+	vec3 sommet_relatif = sommet_position.xyz - centre_gravite_face;
 	vec3 sommet_TNB = vec3 (
 							dot(tangente_face,sommet_relatif),
 							dot(normale_face,sommet_relatif),
@@ -38,7 +38,7 @@ void main( void )
 	vec3 position_sommet = (matrice_modele_vue * sommet_decalle).xyz;
    
    //--------- Calcul de l'éclairage:
-    vec3 normale 				= matrice_normale * gl_Normal;
+    vec3 normale 				= matrice_normale * sommet_normale;
 	vec3 position_source_1 		= (sources[0].position).xyz;
 	vec3 position_source_2 		= (sources[1].position).xyz;
 	vec3 direction_source_1 	= position_source_1-position_sommet;

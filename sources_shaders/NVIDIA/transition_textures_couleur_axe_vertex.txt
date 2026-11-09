@@ -7,8 +7,8 @@
 //Données d'éclairage:
 uniform int drapeaux_sources;	//Les bits d'activation des sources lumineuses
 
-varying vec4 couleur;
-varying vec3 couleur_speculaire; //Spérarée pour apparaître par dessus les textures
+out vec4 couleur;
+out vec3 couleur_speculaire; //Spérarée pour apparaître par dessus les textures
 
 // Données de transition:
 uniform float zmin;
@@ -16,24 +16,24 @@ uniform float zmax;
 
 uniform int drapeaux_textures;
 
-varying vec2 coordonnees_texture_depart;
-varying vec2 coordonnees_texture_destination;
-varying float position_axe; //Varie de 0 à 1
+out vec2 coordonnees_texture_depart;
+out vec2 coordonnees_texture_destination;
+out float position_axe; //Varie de 0 à 1
 
 void main( void )
 {
 	//----------Calculs pour la transition de textures:
-    gl_Position =  matrice_modele_vue_projection * gl_Vertex;
-	position_axe=(gl_Vertex.z-zmin)/(zmax-zmin);
+    gl_Position =  matrice_modele_vue_projection * sommet_position;
+	position_axe=(sommet_position.z-zmin)/(zmax-zmin);
 	
-	if((drapeaux_textures&0x1)!=0) coordonnees_texture_depart     	= gl_MultiTexCoord0.xy;
-	if((drapeaux_textures&0x2)!=0) coordonnees_texture_destination   = gl_MultiTexCoord1.xy;
+	if((drapeaux_textures&0x1)!=0) coordonnees_texture_depart     	= sommet_texture0.xy;
+	if((drapeaux_textures&0x2)!=0) coordonnees_texture_destination   = sommet_texture1.xy;
 	
 	//------------ Eclairage:
 	
 			//Données de l'observateur:
-			vec3 position_sommet = (matrice_modele_vue * gl_Vertex).xyz;
-			vec3 normale 				= matrice_normale * gl_Normal;
+			vec3 position_sommet = (matrice_modele_vue * sommet_position).xyz;
+			vec3 normale 				= matrice_normale * sommet_normale;
 			vec3 direction_oeil 	= -normalize(position_sommet);
 			
 			//Sources lumineuses:

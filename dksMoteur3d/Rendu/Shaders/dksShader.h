@@ -82,22 +82,25 @@ class dksShader: public Gestion_Shaders
             //---------- Lie les sources avec les objets shader:
             if (DKSSHADER_DEBUG) cout<<"Liaisons des sources aux shaders...";
 
-            //L'en-tête commun (version de GLSL, blocs d'uniforms) précède chaque source:
+            //L'en-tête commun (version de GLSL, blocs d'uniforms) précède chaque source, suivi des
+            //attributs des sommets (vertex shaders) ou de la sortie des fragments (fragment shaders):
             static const char* entete=charge_source_shader((char*)"sources_shaders/communs.glsl");
-            if (entete==NULL)
+            static const char* entete_sommets=charge_source_shader((char*)"sources_shaders/sommets.glsl");
+            static const char* entete_fragments=charge_source_shader((char*)"sources_shaders/fragments.glsl");
+            if (entete==NULL || entete_sommets==NULL || entete_fragments==NULL)
             {
                 erreur=DKSSHADER_ERREUR_SOURCE;
                 return;
             }
             if(drapeau_vertex)
             {
-                const GLchar* sources[3]={entete,"\n#line 1\n",source_vertex};
-                glShaderSource(vertex_id,3,sources,NULL);
+                const GLchar* sources[4]={entete,entete_sommets,"\n#line 1\n",source_vertex};
+                glShaderSource(vertex_id,4,sources,NULL);
             }
             if(drapeau_fragment)
             {
-                const GLchar* sources[3]={entete,"\n#line 1\n",source_fragment};
-                glShaderSource(fragment_id,3,sources,NULL);
+                const GLchar* sources[4]={entete,entete_fragments,"\n#line 1\n",source_fragment};
+                glShaderSource(fragment_id,4,sources,NULL);
             }
 
             if (DKSSHADER_DEBUG) cout<<"OK"<<endl;

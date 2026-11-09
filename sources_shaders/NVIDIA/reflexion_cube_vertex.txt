@@ -4,28 +4,28 @@
 
 **************************************************************************************************************/
 uniform int drapeaux_sources;	//Les bits d'activation des sources lumineuses
-varying vec4 couleur;
-varying vec3 couleur_speculaire; //Spérarée pour apparaître par dessus les textures
+out vec4 couleur;
+out vec3 couleur_speculaire; //Spérarée pour apparaître par dessus les textures
 
 uniform mat4 matrice_volume;	//Pour avoir les coordonnées du sommet dans l'espace absolu
 uniform vec3 position_oeil;
-varying vec3 vecteur_reflet;
+out vec3 vecteur_reflet;
 
 void main( void )
 {
-	gl_Position =  matrice_modele_vue_projection * gl_Vertex;
+	gl_Position =  matrice_modele_vue_projection * sommet_position;
 	//---------- Réflexion --------------------
 	vec3 position_volume=vec3(matrice_volume[3][0],matrice_volume[3][1],matrice_volume[3][2]);
-	vec3 position_sommet=(matrice_volume*gl_Vertex).xyz;
-	vec3 normale_absolue = (matrice_volume * vec4(gl_Normal,1.)).xyz-position_volume;
+	vec3 position_sommet=(matrice_volume*sommet_position).xyz;
+	vec3 normale_absolue = (matrice_volume * vec4(sommet_normale,1.)).xyz-position_volume;
 	vecteur_reflet=reflect(position_sommet-position_oeil,normale_absolue);
 	
 	
 	//--------- Eclairages ------------------
 	
 	//Données de l'observateur:
-	position_sommet=(matrice_modele_vue*gl_Vertex).xyz;
-    vec3 normale 				= matrice_normale * gl_Normal;
+	position_sommet=(matrice_modele_vue*sommet_position).xyz;
+    vec3 normale 				= matrice_normale * sommet_normale;
 	vec3 direction_oeil 	= -normalize(position_sommet);
 	
 	// Calcul des sources:

@@ -15,20 +15,20 @@ uniform mat4 matrice_projection_vision_source;
 uniform mat4 matrice_vision_source;
 uniform mat4 matrice_source_uv;	//transformation_uv*projection*vision*matrice_volume
 
-varying vec4 coordonnees_texture_ombres;
-varying float distance_source_des_ombres;
+out vec4 coordonnees_texture_ombres;
+out float distance_source_des_ombres;
 
 //------ Données de gestion de la lumière:
 //	Couleur spéculaire séparée pour apparaître au-dessus des textures
 
 
-varying vec4 couleur;
-varying vec3 couleur_speculaire;
-varying vec3 couleur_source_des_ombres;
-varying vec3 couleur_speculaire_source_des_ombres;
+out vec4 couleur;
+out vec3 couleur_speculaire;
+out vec3 couleur_source_des_ombres;
+out vec3 couleur_speculaire_source_des_ombres;
 
-varying vec3 direction_source_des_ombres;
-varying vec3 normale;
+out vec3 direction_source_des_ombres;
+out vec3 normale;
 
 //====================================
 //			Main
@@ -37,13 +37,13 @@ varying vec3 normale;
 void main( void )
 {	
 	//-------------- Calculs ombre:
-		distance_source_des_ombres=-(matrice_vision_source * gl_Vertex).z;
-		coordonnees_texture_ombres=(matrice_source_uv*gl_Vertex);
+		distance_source_des_ombres=-(matrice_vision_source * sommet_position).z;
+		coordonnees_texture_ombres=(matrice_source_uv*sommet_position);
 	
 	//--------------- Position du sommet:
-		gl_Position 			=  matrice_modele_vue_projection * gl_Vertex;
-		vec3 position_sommet 	= (matrice_modele_vue * gl_Vertex).xyz;
-		normale 			= matrice_normale * gl_Normal;
+		gl_Position 			=  matrice_modele_vue_projection * sommet_position;
+		vec3 position_sommet 	= (matrice_modele_vue * sommet_position).xyz;
+		normale 			= matrice_normale * sommet_normale;
 		vec3 direction_oeil 	= -normalize(position_sommet);
    
    //--------- Calcul de l'éclairage:

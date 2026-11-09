@@ -6,10 +6,10 @@
 
 uniform int drapeaux_sources;
 
-varying vec3 direction_sommet_oeil;
-varying vec3 directions_sources[8];
-varying float distances_sources[8];
-varying vec3 normale_face;
+in vec3 direction_sommet_oeil;
+in vec3 directions_sources[8];
+in float distances_sources[8];
+in vec3 normale_face;
 
 void main( void )
 {
@@ -46,5 +46,5 @@ void main( void )
 	}
 	vec3 couleur_ambiante_globale = materiau_ambiante.rgb*ambiante_globale.rgb;
 	vec4 couleur=vec4(materiau_emission.rgb + couleur_ambiante_globale + couleur_rgb , materiau_diffuse.a);	
-    gl_FragColor =  clamp(vec4(couleur_speculaire,0.) + couleur,0.,1.);
+    couleur_fragment =  clamp(vec4(couleur_speculaire,0.) + couleur,0.,1.);
 }

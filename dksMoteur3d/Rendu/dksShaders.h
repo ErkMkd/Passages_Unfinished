@@ -207,9 +207,9 @@ class dksInitialiseShaders: public Gestion_Shaders
             transition_textures_couleur_axe=new Shader_Transition_Textures_Couleur_Axe("transition_textures_couleur_axe",renvoie_nom_fichier("transition_textures_couleur_axe_vertex.txt"),renvoie_nom_fichier("transition_textures_couleur_axe_fragment.txt"));
             if(transition_textures_couleur_axe->erreur!=DKSSHADER_OK) return false;
 
-            floutage_x=new Shader_Floutage("floutage_x",NULL,renvoie_nom_fichier("flou_x.txt"));
+            floutage_x=new Shader_Floutage("floutage_x",renvoie_nom_fichier("flou_vertex.txt"),renvoie_nom_fichier("flou_x.txt"));
             if(floutage_x->erreur!=DKSSHADER_OK) return false;
-            floutage_y=new Shader_Floutage("floutage_y",NULL,renvoie_nom_fichier("flou_y.txt"));
+            floutage_y=new Shader_Floutage("floutage_y",renvoie_nom_fichier("flou_vertex.txt"),renvoie_nom_fichier("flou_y.txt"));
             if(floutage_y->erreur!=DKSSHADER_OK) return false;
 
             decallage_sommets=new Shader_Decallage_Sommets("decallage_sommets",renvoie_nom_fichier("decallage_sommets_vertex.txt"),renvoie_nom_fichier("decallage_sommets_fragment.txt"));

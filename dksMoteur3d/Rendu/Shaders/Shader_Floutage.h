@@ -24,7 +24,7 @@ class Shader_Floutage: public dksShader
         {
             //--------- Création des liens avec les variables type "uniform":
 
-            texture=glGetUniformLocation(programme_id,"texture");
+            texture=glGetUniformLocation(programme_id,"texture_source");
             taille=glGetUniformLocation(programme_id,"taille_flou");
             saturation=glGetUniformLocation(programme_id,"saturation_flou");
 

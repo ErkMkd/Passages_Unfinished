@@ -13,26 +13,26 @@ uniform float position_temps;
 uniform vec3 tangente;
 uniform vec3 binormale;
 
-varying vec3 tangente_sommet;
-varying vec3 binormale_sommet;
-varying vec2 position_sommet_2d;
-varying vec2 texture_bruit_coord;
-varying vec2 texture_couleur_coord;
+out vec3 tangente_sommet;
+out vec3 binormale_sommet;
+out vec2 position_sommet_2d;
+out vec2 texture_bruit_coord;
+out vec2 texture_couleur_coord;
 
-varying vec3 direction_sommet_oeil;
-varying vec3 directions_sources[4];
-varying float distances_sources[4];
-varying vec3 normale_face;
+out vec3 direction_sommet_oeil;
+out vec3 directions_sources[4];
+out float distances_sources[4];
+out vec3 normale_face;
 
 
 void main( void )
 {
-	gl_Position 			=  matrice_modele_vue_projection * gl_Vertex;
+	gl_Position 			=  matrice_modele_vue_projection * sommet_position;
 	
 	//Position du sommet dans le plan de la face:
 	tangente_sommet			= tangente;
 	binormale_sommet		= binormale;
-	vec3 position_sommet	= gl_Vertex.xyz;//-centre_gravite_face;
+	vec3 position_sommet	= sommet_position.xyz;//-centre_gravite_face;
 	position_sommet_2d.x 	= dot(position_sommet,tangente);
 	position_sommet_2d.y 	= dot(position_sommet,binormale);
 	
@@ -40,11 +40,11 @@ void main( void )
 	float pas_texture=(vitesse_ondes*position_temps);
 	texture_bruit_coord			=	(position_sommet_2d+vec2(-pas_texture,-pas_texture))/echelle_texture_bruit_ondes;
 	//texture_bruit_coord			=	(position_sommet_2d+vec2(pas_texture,0.))/echelle_texture_bruit_ondes;
-	texture_couleur_coord     		= gl_MultiTexCoord0.xy;
+	texture_couleur_coord     		= sommet_texture0.xy;
 	
 	//Données de l'observateur:
-	position_sommet 	= (matrice_modele_vue * gl_Vertex).xyz;
-    normale_face 			= matrice_normale * gl_Normal;
+	position_sommet 	= (matrice_modele_vue * sommet_position).xyz;
+    normale_face 			= matrice_normale * sommet_normale;
 	direction_sommet_oeil 	= -position_sommet;
 	
 	// Calcul des sources:		

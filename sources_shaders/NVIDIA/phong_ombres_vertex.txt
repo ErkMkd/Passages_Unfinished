@@ -14,19 +14,19 @@ uniform mat4 matrice_projection_vision_source;
 uniform mat4 matrice_vision_source;
 uniform mat4 matrice_source_uv;	//transformation_uv*projection*vision*matrice_volume
 
-varying vec4 coordonnees_texture_ombres;
-varying float distance_source_des_ombres;
+out vec4 coordonnees_texture_ombres;
+out float distance_source_des_ombres;
 
 //------ Données de gestion de la lumière:
 
 uniform int drapeaux_sources;	//Les bits d'activation des sources lumineuses
 
-varying vec3 direction_oeil;
-varying vec3 directions_sources[8];
-varying float distances_sources[8];
-varying vec3 normale_face;
+out vec3 direction_oeil;
+out vec3 directions_sources[8];
+out float distances_sources[8];
+out vec3 normale_face;
 
-varying vec3 couleur_ambiante_globale;
+out vec3 couleur_ambiante_globale;
 
 //====================================
 //			Main
@@ -35,16 +35,16 @@ varying vec3 couleur_ambiante_globale;
 void main( void )
 {	
 	//-------------- Calculs ombre:
-		coordonnees_texture_ombres=(matrice_source_uv*gl_Vertex);
+		coordonnees_texture_ombres=(matrice_source_uv*sommet_position);
 	
 	//--------------- Position du sommet:
-		gl_Position 	=  matrice_modele_vue_projection * gl_Vertex;
-		normale_face	= matrice_normale * gl_Normal;
-		vec3 position_sommet 	= (matrice_modele_vue * gl_Vertex).xyz;
+		gl_Position 	=  matrice_modele_vue_projection * sommet_position;
+		normale_face	= matrice_normale * sommet_normale;
+		vec3 position_sommet 	= (matrice_modele_vue * sommet_position).xyz;
 		direction_oeil 	= -position_sommet;
    
    // ----------------- Calcul des sources:	
-	distance_source_des_ombres=-(matrice_vision_source * gl_Vertex).z;
+	distance_source_des_ombres=-(matrice_vision_source * sommet_position).z;
 			
 	for(int n=0;n<NBR_SOURCES;n++)
 	{

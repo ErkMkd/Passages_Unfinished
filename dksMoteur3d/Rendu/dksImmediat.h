@@ -15,18 +15,22 @@
 //  les attributs génériques "courants" sont associés à chaque sommet, et
 //  restent valables d'un tracé à l'autre.
 //
-//  Pendant le portage (profil de compatibilité):
-//      - les sommets alimentent les attributs de l'ancien pipeline (gl_Vertex,
-//        gl_Normal...), lus par le pipeline fixe et par les shaders actuels;
-//      - les primitives d'origine sont conservées (GL_POLYGON, GL_QUADS...);
-//      - chaque valeur courante est aussi transmise à OpenGL, pour les tracés
-//        qui ne passent pas encore par ces fonctions.
-//  Tous les tracés du moteur passent par ces fonctions (et par dksTableaux): le VAO
-//  de dksImmediat reste lié en permanence.
+//  Les sommets alimentent les attributs génériques des shaders, aux emplacements
+//  déclarés dans sources_shaders/sommets.glsl (voir ci-dessous).
+//  Pendant le portage (profil de compatibilité), les primitives d'origine sont
+//  conservées (GL_POLYGON, GL_QUADS...).
+//  Tous les tracés du moteur passent par ces fonctions (et par dksTableaux).
 //*************************************************************************
 
 #define DKSIMMEDIAT_NBR_UNITES_TEXTURE 4
-#define DKSIMMEDIAT_NBR_ATTRIBUTS 8
+#define DKSIMMEDIAT_NBR_ATTRIBUTS 4
+
+//Emplacements des attributs des sommets dans les shaders (sources_shaders/sommets.glsl):
+#define DKSIMMEDIAT_EMPLACEMENT_POSITION 0
+#define DKSIMMEDIAT_EMPLACEMENT_NORMALE 1
+#define DKSIMMEDIAT_EMPLACEMENT_COULEUR 2
+#define DKSIMMEDIAT_EMPLACEMENT_ATTRIBUTS 4     //4 à 7: attributs propres aux shaders (tangentes...)
+#define DKSIMMEDIAT_EMPLACEMENT_TEXTURES 8      //8 à 11: coordonnées de texture des unités 0 à 3
 
 //Le buffer est rempli à la suite, segment après segment, puis réutilisé depuis le début. Un segment n'est
 //réécrit qu'une fois que le GPU a fini de tracer ses sommets (barrière posée quand on le quitte).
@@ -72,8 +76,6 @@ class dksImmediat
         inline static size_t debut_primitive=0;             //Premier sommet de la primitive en cours, dans le lot
         inline static std::vector<GLint> premiers;          //Premier sommet de chaque primitive du lot
         inline static std::vector<GLsizei> nombres;         //Nombre de sommets de chaque primitive du lot
-        inline static unsigned int attributs_utilises=0;    //Attributs génériques déjà utilisés (un bit par indice)
-        inline static unsigned int attributs_actives=0;     //Attributs génériques activés dans le VAO
         inline static GLuint vao=0;
         inline static GLuint tampon=0;
         inline static Sommet* memoire=NULL;                 //Le buffer, projeté en mémoire en permanence
@@ -89,45 +91,23 @@ class dksImmediat
             glCreateBuffers(1,&tampon);
             glNamedBufferStorage(tampon,taille,NULL,acces);
             memoire=(Sommet*)glMapNamedBufferRange(tampon,0,taille,acces);
-            glCreateVertexArrays(1,&vao);
 
-            //Les attributs de l'ancien pipeline se règlent VAO et buffer liés:
-            GLint unite_client;
-            glGetIntegerv(GL_CLIENT_ACTIVE_TEXTURE,&unite_client);
-            glBindVertexArray(vao);
-            glBindBuffer(GL_ARRAY_BUFFER,tampon);
-            GLsizei pas=sizeof(Sommet);
-            glVertexPointer(4,GL_FLOAT,pas,(void*)offsetof(Sommet,position));
-            glEnableClientState(GL_VERTEX_ARRAY);
-            glNormalPointer(GL_FLOAT,pas,(void*)offsetof(Sommet,normale));
-            glEnableClientState(GL_NORMAL_ARRAY);
-            glColorPointer(4,GL_FLOAT,pas,(void*)offsetof(Sommet,couleur));
-            glEnableClientState(GL_COLOR_ARRAY);
-            for (int i=0;i<DKSIMMEDIAT_NBR_UNITES_TEXTURE;i++)
-            {
-                glClientActiveTexture(GL_TEXTURE0+i);
-                glTexCoordPointer(4,GL_FLOAT,pas,(void*)(offsetof(Sommet,textures)+i*4*sizeof(GLfloat)));
-                glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-            }
-            glClientActiveTexture(unite_client);
-            glBindBuffer(GL_ARRAY_BUFFER,0);
+            glCreateVertexArrays(1,&vao);
+            glVertexArrayVertexBuffer(vao,0,tampon,0,sizeof(Sommet));
+            decrit_attribut(DKSIMMEDIAT_EMPLACEMENT_POSITION,4,offsetof(Sommet,position));
+            decrit_attribut(DKSIMMEDIAT_EMPLACEMENT_NORMALE,3,offsetof(Sommet,normale));
+            decrit_attribut(DKSIMMEDIAT_EMPLACEMENT_COULEUR,4,offsetof(Sommet,couleur));
+            for (GLuint i=0;i<DKSIMMEDIAT_NBR_ATTRIBUTS;i++)
+                decrit_attribut(DKSIMMEDIAT_EMPLACEMENT_ATTRIBUTS+i,4,offsetof(Sommet,attributs)+i*4*sizeof(GLfloat));
+            for (GLuint i=0;i<DKSIMMEDIAT_NBR_UNITES_TEXTURE;i++)
+                decrit_attribut(DKSIMMEDIAT_EMPLACEMENT_TEXTURES+i,4,offsetof(Sommet,textures)+i*4*sizeof(GLfloat));
         }
 
-        //------- Active dans le VAO les attributs génériques utilisés pour la première fois:
-        static void active_attributs()
+        static void decrit_attribut(GLuint emplacement,GLint nbr_composantes,size_t decalage)
         {
-            unsigned int nouveaux=attributs_utilises&~attributs_actives;
-            if (nouveaux==0) return;
-            glBindVertexArray(vao);
-            glBindBuffer(GL_ARRAY_BUFFER,tampon);
-            for (GLuint i=1;i<DKSIMMEDIAT_NBR_ATTRIBUTS;i++)
-            {
-                if ((nouveaux&(1u<<i))==0) continue;
-                glVertexAttribPointer(i,4,GL_FLOAT,GL_FALSE,sizeof(Sommet),(void*)(offsetof(Sommet,attributs)+i*4*sizeof(GLfloat)));
-                glEnableVertexAttribArray(i);
-            }
-            glBindBuffer(GL_ARRAY_BUFFER,0);
-            attributs_actives|=nouveaux;
+            glVertexArrayAttribFormat(vao,emplacement,nbr_composantes,GL_FLOAT,GL_FALSE,GLuint(decalage));
+            glVertexArrayAttribBinding(vao,emplacement,0);
+            glEnableVertexArrayAttrib(vao,emplacement);
         }
 
         //------- Attend que le GPU ait fini de tracer les sommets d'un segment:
@@ -158,7 +138,6 @@ class dksImmediat
                 attend_segment(segment_courant);
             }
             memcpy(memoire+premier_libre,a_copier.data(),size_t(nbr)*sizeof(Sommet));
-            active_attributs();
             GLint premier=premier_libre;
             premier_libre+=nbr;
             return premier;
@@ -289,33 +268,29 @@ class dksImmediat
 
         //-------------------------------------------------------------
         //      Équivalents de glNormal, glTexCoord, glMultiTexCoord, glColor et glVertexAttrib
-        //  Les valeurs courantes sont aussi transmises à OpenGL.
         //-------------------------------------------------------------
-        static void normale3dv(const GLdouble* v) { normale(GLfloat(v[0]),GLfloat(v[1]),GLfloat(v[2])); glNormal3dv(v); }
-        static void normale3fv(const GLfloat* v) { normale(v[0],v[1],v[2]); glNormal3fv(v); }
+        static void normale3dv(const GLdouble* v) { normale(GLfloat(v[0]),GLfloat(v[1]),GLfloat(v[2])); }
+        static void normale3fv(const GLfloat* v) { normale(v[0],v[1],v[2]); }
 
-        static void texture2f(GLfloat s,GLfloat t) { texture(GL_TEXTURE0,s,t); glTexCoord2f(s,t); }
-        static void texture2fv(const GLfloat* v) { texture(GL_TEXTURE0,v[0],v[1]); glTexCoord2fv(v); }
-        static void texture2d(GLdouble s,GLdouble t) { texture(GL_TEXTURE0,GLfloat(s),GLfloat(t)); glTexCoord2d(s,t); }
-        static void multi_texture2f(GLenum unite,GLfloat s,GLfloat t) { texture(unite,s,t); glMultiTexCoord2f(unite,s,t); }
-        static void multi_texture2fv(GLenum unite,const GLfloat* v) { texture(unite,v[0],v[1]); glMultiTexCoord2fv(unite,v); }
+        static void texture2f(GLfloat s,GLfloat t) { texture(GL_TEXTURE0,s,t); }
+        static void texture2fv(const GLfloat* v) { texture(GL_TEXTURE0,v[0],v[1]); }
+        static void texture2d(GLdouble s,GLdouble t) { texture(GL_TEXTURE0,GLfloat(s),GLfloat(t)); }
+        static void multi_texture2f(GLenum unite,GLfloat s,GLfloat t) { texture(unite,s,t); }
+        static void multi_texture2fv(GLenum unite,const GLfloat* v) { texture(unite,v[0],v[1]); }
 
-        static void couleur3f(GLfloat r,GLfloat v,GLfloat b) { couleur(r,v,b,1.f); glColor3f(r,v,b); }
-        static void couleur4f(GLfloat r,GLfloat v,GLfloat b,GLfloat a) { couleur(r,v,b,a); glColor4f(r,v,b,a); }
-        static void couleur3fv(const GLfloat* c) { couleur(c[0],c[1],c[2],1.f); glColor3fv(c); }
-        static void couleur4fv(const GLfloat* c) { couleur(c[0],c[1],c[2],c[3]); glColor4fv(c); }
-        static void couleur3ub(GLubyte r,GLubyte v,GLubyte b) { couleur(r/255.f,v/255.f,b/255.f,1.f); glColor3ub(r,v,b); }
-        static void couleur4ub(GLubyte r,GLubyte v,GLubyte b,GLubyte a) { couleur(r/255.f,v/255.f,b/255.f,a/255.f); glColor4ub(r,v,b,a); }
-        static void couleur3i(GLint r,GLint v,GLint b) { couleur(entier(r),entier(v),entier(b),1.f); glColor3i(r,v,b); }
+        static void couleur3f(GLfloat r,GLfloat v,GLfloat b) { couleur(r,v,b,1.f); }
+        static void couleur4f(GLfloat r,GLfloat v,GLfloat b,GLfloat a) { couleur(r,v,b,a); }
+        static void couleur3fv(const GLfloat* c) { couleur(c[0],c[1],c[2],1.f); }
+        static void couleur4fv(const GLfloat* c) { couleur(c[0],c[1],c[2],c[3]); }
+        static void couleur3ub(GLubyte r,GLubyte v,GLubyte b) { couleur(r/255.f,v/255.f,b/255.f,1.f); }
+        static void couleur4ub(GLubyte r,GLubyte v,GLubyte b,GLubyte a) { couleur(r/255.f,v/255.f,b/255.f,a/255.f); }
+        static void couleur3i(GLint r,GLint v,GLint b) { couleur(entier(r),entier(v),entier(b),1.f); }
 
-        static void attribut3dv(GLuint indice,const GLdouble* v)
+        //Attributs propres aux shaders, aux emplacements 4 à 7:
+        static void attribut3dv(GLuint emplacement,const GLdouble* v)
         {
-            if (indice>0 && indice<DKSIMMEDIAT_NBR_ATTRIBUTS)
-            {
-                copie(courant.attributs[indice],GLfloat(v[0]),GLfloat(v[1]),GLfloat(v[2]),1.f);
-                attributs_utilises|=1u<<indice;
-            }
-            glVertexAttrib3dv(indice,v);
+            GLuint i=emplacement-DKSIMMEDIAT_EMPLACEMENT_ATTRIBUTS;
+            if (i<DKSIMMEDIAT_NBR_ATTRIBUTS) copie(courant.attributs[i],GLfloat(v[0]),GLfloat(v[1]),GLfloat(v[2]),1.f);
         }
 };
 

@@ -1,22 +1,22 @@
-varying vec2 coordonnees_texture_rugosite;
+out vec2 coordonnees_texture_rugosite;
 
-varying vec3 direction_oeil_sommet;
-varying vec3 direction_source_sommet;
-varying float distance_source;
-varying vec4 couleur;
+out vec3 direction_oeil_sommet;
+out vec3 direction_source_sommet;
+out float distance_source;
+out vec4 couleur;
 
 layout(location=6) in vec3 tangente;
 layout(location=7) in vec3 binormale;
 
 void main( void )
 {
-    gl_Position =  matrice_modele_vue_projection * gl_Vertex;
-	vec3 position_sommet = (matrice_modele_vue * gl_Vertex).xyz;
-    coordonnees_texture_rugosite    = gl_MultiTexCoord0.st;
+    gl_Position =  matrice_modele_vue_projection * sommet_position;
+	vec3 position_sommet = (matrice_modele_vue * sommet_position).xyz;
+    coordonnees_texture_rugosite    = sommet_texture0.st;
    
    //--------- Calcul de l'éclairage:
    
-    vec3 normale = 			matrice_normale * gl_Normal;
+    vec3 normale = 			matrice_normale * sommet_normale;
     vec3 tangente_sommet = 	matrice_normale * tangente;
     vec3 binormale_sommet = matrice_normale * binormale;
 	
@@ -40,6 +40,6 @@ void main( void )
    direction_source_sommet.y=dot(direction_source,binormale_sommet);
    direction_source_sommet.z=dot(direction_source,normale);
    
-   couleur=gl_Color;
+   couleur=sommet_couleur;
    
 }

@@ -1,15 +1,13 @@
 #version 460 compatibility
 //======================================================================
-//      En-tête commun, ajouté par le moteur devant chaque shader.
+//      En-tête commun, ajouté par le moteur devant chaque shader, suivi de
+//      sommets.glsl (vertex shaders) ou de fragments.glsl (fragment shaders).
 //      Les blocs d'uniforms sont remplis par le C++ (disposition std140):
 //          binding 0: dksMatrices
 //          binding 1 et 2: dksEclairage
 //======================================================================
 
 #define NBR_SOURCES 8
-
-//Attributs de sommets propres aux shaders: emplacements 4 à 7. Sur NVIDIA, les autres sont aussi ceux
-//des attributs de l'ancien pipeline (0 position, 2 normale, 3 couleur, 8 à 11 coordonnées de texture).
 
 layout(std140, binding=0) uniform Matrices
 {

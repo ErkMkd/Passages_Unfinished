@@ -5,20 +5,20 @@
 //				Vertex shader
 //======================================================================
 
-varying vec2 coordonnees_texture_depart;
-varying vec2 coordonnees_texture_destination;
-varying vec2 coordonnees_texture_transition;
+out vec2 coordonnees_texture_depart;
+out vec2 coordonnees_texture_destination;
+out vec2 coordonnees_texture_transition;
 
-varying vec4 couleur;
+out vec4 couleur;
 
 void main( void )
 {
 	//Données de l'observateur:
-    gl_Position =  matrice_modele_vue_projection * gl_Vertex;
-	couleur		=	gl_Color;
+    gl_Position =  matrice_modele_vue_projection * sommet_position;
+	couleur		=	sommet_couleur;
 	
-	coordonnees_texture_depart     		= gl_MultiTexCoord0.xy;
-	coordonnees_texture_destination     = gl_MultiTexCoord1.xy;
-	coordonnees_texture_transition     	= gl_MultiTexCoord2.xy;
+	coordonnees_texture_depart     		= sommet_texture0.xy;
+	coordonnees_texture_destination     = sommet_texture1.xy;
+	coordonnees_texture_transition     	= sommet_texture2.xy;
 	
 }

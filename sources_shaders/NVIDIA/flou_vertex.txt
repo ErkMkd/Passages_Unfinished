@@ -1,0 +1,12 @@
+//======================================================================
+//      Flous horizontal et vertical: transmet la position et les
+//      coordonnées de texture, comme le faisait le pipeline fixe.
+//======================================================================
+
+out vec2 coordonnees_texture;
+
+void main()
+{
+    gl_Position=matrice_modele_vue_projection*sommet_position;
+    coordonnees_texture=(matrice_texture*sommet_texture0).st;
+}

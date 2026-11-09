@@ -7,16 +7,16 @@
 
 uniform sampler2D texture_rugosite;
 
-varying vec2 coordonnees_texture_rugosite;
+in vec2 coordonnees_texture_rugosite;
 
-varying vec3 direction_oeil_sommet;
-varying vec3 direction_source_sommet;
-varying float distance_source;
-varying vec4 couleur;
+in vec3 direction_oeil_sommet;
+in vec3 direction_source_sommet;
+in float distance_source;
+in vec4 couleur;
 
 void main( void )
 {
-	vec4 texel						= texture2D(texture_rugosite,coordonnees_texture_rugosite);
+	vec4 texel						= texture(texture_rugosite,coordonnees_texture_rugosite);
 	if (texel.a<0.5)discard;	//Transparence
 	
 	vec3 normale_pixel				= normalize(texel.xyz*2.-1.);
@@ -37,7 +37,7 @@ void main( void )
 	
 	float alpha=couleur_diffuse.a + facteur_speculaire*couleur_speculaire.a;
 	
-    gl_FragColor =	vec4(
+    couleur_fragment =	vec4(
 							attenuation* (facteur_diffuse*couleur_diffuse.rgb*couleur.rgb + facteur_speculaire*couleur_speculaire.rgb)
 							,alpha
 						);  

@@ -10,19 +10,19 @@ uniform sampler2D texture_destination;
 uniform sampler2D texture_transition;
 uniform float niveau_transition;
 
-varying vec2 coordonnees_texture_depart;
-varying vec2 coordonnees_texture_destination;
-varying vec2 coordonnees_texture_transition;
+in vec2 coordonnees_texture_depart;
+in vec2 coordonnees_texture_destination;
+in vec2 coordonnees_texture_transition;
 
-varying vec4 couleur;
+in vec4 couleur;
 
 void main( void )
 {
 	//Copie modifiable de l'entrée (les entrées d'un fragment shader sont en lecture seule)
 	vec4 couleur=couleur;
-	vec4 texel_depart=texture2D( texture_depart, coordonnees_texture_depart );
-	vec4 texel_destination=texture2D( texture_destination, coordonnees_texture_destination );
-	vec4 texel_transition=texture2D( texture_transition, coordonnees_texture_transition );
+	vec4 texel_depart=texture( texture_depart, coordonnees_texture_depart );
+	vec4 texel_destination=texture( texture_destination, coordonnees_texture_destination );
+	vec4 texel_transition=texture( texture_transition, coordonnees_texture_transition );
 	
 	//if (texel_depart.a<0.5 && texel_destination.a<0.5) discard;	//Transparence
 	
@@ -38,5 +38,5 @@ void main( void )
 	}
 	//couleur*=((1.-niveau_transition_2)*texel_depart+niveau_transition_2*texel_destination);
 
-    gl_FragColor =  couleur;
+    couleur_fragment =  couleur;
 }

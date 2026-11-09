@@ -7,17 +7,17 @@
 //
 //======================================================================
 
-varying vec2 coordonnees_texture_1;
-varying vec2 coordonnees_texture_2;
+out vec2 coordonnees_texture_1;
+out vec2 coordonnees_texture_2;
 
-varying vec4 couleur;
+out vec4 couleur;
 
 void main( void )
 {
 	//Données de l'observateur:
-    gl_Position =  matrice_modele_vue_projection * gl_Vertex;
-	couleur		=	gl_Color;
+    gl_Position =  matrice_modele_vue_projection * sommet_position;
+	couleur		=	sommet_couleur;
 	
-	coordonnees_texture_1     = gl_MultiTexCoord0.xy;
-	coordonnees_texture_2     = gl_MultiTexCoord1.xy;
+	coordonnees_texture_1     = sommet_texture0.xy;
+	coordonnees_texture_2     = sommet_texture1.xy;
 }

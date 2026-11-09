@@ -8,15 +8,15 @@
 uniform samplerCube cube_arriere_plan;
 uniform float niveau_reflexion;
 
-varying vec4 couleur;
-varying vec3 couleur_speculaire;
+in vec4 couleur;
+in vec3 couleur_speculaire;
 
-varying vec3 vecteur_reflet;
+in vec3 vecteur_reflet;
 
 
 void main( void )
 {
-	gl_FragColor=clamp(
+	couleur_fragment=clamp(
 						(1.-niveau_reflexion)*(couleur+vec4(couleur_speculaire,0.))
 						+niveau_reflexion*texture(cube_arriere_plan,vecteur_reflet),
 						0.,1.);

@@ -8,15 +8,15 @@
 
 uniform int drapeaux_sources;	//Les bits d'activation des sources lumineuses
 
-varying vec4 couleur;
-varying vec3 couleur_speculaire; //Spérarée pour apparaître par dessus les textures
+out vec4 couleur;
+out vec3 couleur_speculaire; //Spérarée pour apparaître par dessus les textures
 
 void main( void )
 {
 	//Données de l'observateur:
-    gl_Position =  matrice_modele_vue_projection * gl_Vertex;
-	vec3 position_sommet = (matrice_modele_vue * gl_Vertex).xyz;
-    vec3 normale 				= matrice_normale * gl_Normal;
+    gl_Position =  matrice_modele_vue_projection * sommet_position;
+	vec3 position_sommet = (matrice_modele_vue * sommet_position).xyz;
+    vec3 normale 				= matrice_normale * sommet_normale;
 	vec3 direction_oeil 	= -normalize(position_sommet);
 	
 	// Calcul des sources:

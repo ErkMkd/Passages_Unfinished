@@ -4,14 +4,14 @@
 
 //Eclairage:
 uniform int drapeaux_sources;	//Les bits d'activation des sources lumineuses
-varying vec4 couleur;
-varying vec3 couleur_speculaire; //Spérarée pour apparaître par dessus les textures
+out vec4 couleur;
+out vec3 couleur_speculaire; //Spérarée pour apparaître par dessus les textures
 
 //Réflexion:
 
 uniform mat4 matrice_volume;	//Pour avoir les coordonnées du sommet dans l'espace absolu
 uniform vec3 position_oeil;
-varying vec3 vecteur_sommet_oeil;	//Dans l'epace absolu
+out vec3 vecteur_sommet_oeil;	//Dans l'epace absolu
 
 //Ondes:
 
@@ -23,33 +23,33 @@ uniform float vitesse_ondes;
 uniform float echelle_texture_bruit_ondes;
 uniform float position_temps;
 
-varying vec3 tangente_sommet;
-varying vec3 binormale_sommet;
-varying vec2 position_sommet_2d;
-varying vec2 texture_bruit_coord;
+out vec3 tangente_sommet;
+out vec3 binormale_sommet;
+out vec2 position_sommet_2d;
+out vec2 texture_bruit_coord;
 
-varying vec3 direction_sommet_oeil;	//Dans le repère de l'oeil
-varying vec3 directions_sources[4];
-varying float distances_sources[4];
-varying vec3 normale_face;
+out vec3 direction_sommet_oeil;	//Dans le repère de l'oeil
+out vec3 directions_sources[4];
+out float distances_sources[4];
+out vec3 normale_face;
 
 
 void main( void )
 {
-	gl_Position 			=  matrice_modele_vue_projection * gl_Vertex;
+	gl_Position 			=  matrice_modele_vue_projection * sommet_position;
 	
 	//---------- Réflexion --------------------
 	vec3 position_volume=vec3(matrice_volume[3][0],matrice_volume[3][1],matrice_volume[3][2]);
-	vec3 position_sommet=(matrice_volume*gl_Vertex).xyz;
+	vec3 position_sommet=(matrice_volume*sommet_position).xyz;
 	vecteur_sommet_oeil=position_sommet-position_oeil;
-	//vec3 normale_absolue = (matrice_volume * vec4(gl_Normal,1.)).xyz-position_volume;
+	//vec3 normale_absolue = (matrice_volume * vec4(sommet_normale,1.)).xyz-position_volume;
 	//vecteur_reflet=reflect(vecteur_sommet_oeil,normale_absolue);
 	
 	
 	//Position du sommet dans le plan de la face:
 	tangente_sommet			= tangente;
 	binormale_sommet		= binormale;
-	position_sommet	= gl_Vertex.xyz-centre_gravite_face;
+	position_sommet	= sommet_position.xyz-centre_gravite_face;
 	position_sommet_2d.x 	= dot(position_sommet,tangente);
 	position_sommet_2d.y 	= dot(position_sommet,binormale);
 	
@@ -59,8 +59,8 @@ void main( void )
 	//texture_bruit_coord			=	(position_sommet_2d+vec2(pas_texture,0.))/echelle_texture_bruit_ondes;
 	
 	//Données de l'observateur:
-	position_sommet 	= (matrice_modele_vue * gl_Vertex).xyz;
-    normale_face 			= gl_Normal;
+	position_sommet 	= (matrice_modele_vue * sommet_position).xyz;
+    normale_face 			= sommet_normale;
 	direction_sommet_oeil 	= -position_sommet;
 	
 	// Calcul des sources:		

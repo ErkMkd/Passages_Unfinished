@@ -18,25 +18,25 @@ uniform float vitesse_ondes;
 uniform float position_temps;
 uniform int drapeaux_sources;
 
-varying vec3 tangente_sommet;
-varying vec3 binormale_sommet;
-varying vec2 position_sommet_2d;
-varying vec2 texture_bruit_coord;
-varying vec2 texture_couleur_coord;
+in vec3 tangente_sommet;
+in vec3 binormale_sommet;
+in vec2 position_sommet_2d;
+in vec2 texture_bruit_coord;
+in vec2 texture_couleur_coord;
 
-varying vec3 direction_sommet_oeil;
-varying vec3 directions_sources[4];
-varying float distances_sources[4];
-varying vec3 normale_face;
+in vec3 direction_sommet_oeil;
+in vec3 directions_sources[4];
+in float distances_sources[4];
+in vec3 normale_face;
 
 void main( void )
 {
 	//Calcul de la normale:
 	float pas=vitesse_ondes*quantite_ondes*position_temps;
 	
-	float perturbation=niveau_perturbations_ondes*(texture2D(texture_bruit,texture_bruit_coord).r*2.-1.);
-	vec3 texel=texture2D(texture_couleur,texture_couleur_coord).rgb;
-	//float perturbation=(texture2D(texture_bruit,texture_bruit_coord));
+	float perturbation=niveau_perturbations_ondes*(texture(texture_bruit,texture_bruit_coord).r*2.-1.);
+	vec3 texel=texture(texture_couleur,texture_couleur_coord).rgb;
+	//float perturbation=(texture(texture_bruit,texture_bruit_coord));
 	
 	vec3 normale=normalize(normale_face);
 	
@@ -95,5 +95,5 @@ void main( void )
 	}
 	vec3 couleur_ambiante_globale = materiau_ambiante.rgb*ambiante_globale.rgb;
 	vec4 couleur=vec4((materiau_emission.rgb + couleur_ambiante_globale + couleur_rgb)*texel , materiau_diffuse.a);	
-    gl_FragColor = clamp((vec4(couleur_speculaire,0.) + couleur),0.,1.);
+    couleur_fragment = clamp((vec4(couleur_speculaire,0.) + couleur),0.,1.);
 }

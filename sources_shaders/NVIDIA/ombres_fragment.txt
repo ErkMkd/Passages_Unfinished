@@ -9,17 +9,17 @@ uniform float composantes_convertion[2];		//Les composantes de la matrice de pro
 uniform float seuil_ombres;	//Pour éviter les trop grandes razances qui étirent la texture de profondeur, je défini un seuil: seuil_ombres=cos(angle_max) - angle en radians
 uniform float intensite_ombres;
 
-varying vec4 coordonnees_texture_ombres;
-varying float distance_source_des_ombres;
+in vec4 coordonnees_texture_ombres;
+in float distance_source_des_ombres;
 
 //------------- Données de gestion de l'éclairage:
-varying vec4 couleur;
-varying vec3 couleur_speculaire;
-varying vec3 couleur_source_des_ombres;
-varying vec3 couleur_speculaire_source_des_ombres;
+in vec4 couleur;
+in vec3 couleur_speculaire;
+in vec3 couleur_source_des_ombres;
+in vec3 couleur_speculaire_source_des_ombres;
 
-varying vec3 direction_source_des_ombres;
-varying vec3 normale;
+in vec3 direction_source_des_ombres;
+in vec3 normale;
 
 void main(void)
 {
@@ -81,6 +81,6 @@ void main(void)
 	
 		
 	//------- Détermine la couleur:
-			gl_FragColor =  clamp(vec4(couleur_speculaire,0.) + couleur,0.,1.);
-			//gl_FragColor=vec4(1.,0.,0.,1.);
+			couleur_fragment =  clamp(vec4(couleur_speculaire,0.) + couleur,0.,1.);
+			//couleur_fragment=vec4(1.,0.,0.,1.);
 }

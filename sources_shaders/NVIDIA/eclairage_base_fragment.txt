@@ -1,9 +1,9 @@
 
 
-varying vec4 couleur;
-varying vec3 couleur_speculaire;
+in vec4 couleur;
+in vec3 couleur_speculaire;
 
 void main( void )
 {
-    gl_FragColor =  clamp(vec4(couleur_speculaire,0.) + couleur,0.,1.);
+    couleur_fragment =  clamp(vec4(couleur_speculaire,0.) + couleur,0.,1.);
 }

@@ -4,17 +4,17 @@
 
 uniform int drapeaux_sources;	//Les bits d'activation des sources lumineuses
 
-varying vec3 direction_sommet_oeil;
-varying vec3 directions_sources[8];
-varying float distances_sources[8];
-varying vec3 normale_face;
+out vec3 direction_sommet_oeil;
+out vec3 directions_sources[8];
+out float distances_sources[8];
+out vec3 normale_face;
 
 void main( void )
 {
 	//Données de l'observateur:
-    gl_Position 			=  matrice_modele_vue_projection * gl_Vertex;
-	vec3 position_sommet 	= (matrice_modele_vue * gl_Vertex).xyz;
-    normale_face 			= matrice_normale * gl_Normal;
+    gl_Position 			=  matrice_modele_vue_projection * sommet_position;
+	vec3 position_sommet 	= (matrice_modele_vue * sommet_position).xyz;
+    normale_face 			= matrice_normale * sommet_normale;
 	direction_sommet_oeil 	= -position_sommet;
 	
 	// Calcul des sources:		
