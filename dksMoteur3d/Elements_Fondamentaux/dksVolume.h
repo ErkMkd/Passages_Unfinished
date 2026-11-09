@@ -2306,21 +2306,21 @@ public: ///Public, pour que le moteur puisse s'en servir lors de l'affichage des
             {
                 glDisable(GL_CULL_FACE);
                 face_materiaux=GL_FRONT_AND_BACK;
-                glLightModeli(GL_LIGHT_MODEL_TWO_SIDE,GL_TRUE);
+                dksEclairage::modele(GL_LIGHT_MODEL_TWO_SIDE,GL_TRUE);
             }
             else
             {
                 glEnable(GL_CULL_FACE); //Active la distinction face avant/face arrière des polygones pour le rendu.
                 face_materiaux=GL_FRONT;
-                glLightModeli(GL_LIGHT_MODEL_TWO_SIDE,GL_FALSE);
+                dksEclairage::modele(GL_LIGHT_MODEL_TWO_SIDE,GL_FALSE);
             }
 
             glColor3fv(couleur_diffusion);  //Au cas où les éclairages sont désactivés
-            glMaterialfv(face_materiaux,GL_AMBIENT, couleur_ambiance);
-            glMaterialfv(face_materiaux,GL_DIFFUSE, couleur_diffusion);
-            glMaterialfv(face_materiaux,GL_EMISSION, couleur_luminescence);
-            glMaterialfv(face_materiaux,GL_SPECULAR, couleur_speculaire);
-            glMaterialf(face_materiaux, GL_SHININESS, surface->brillance);
+            dksEclairage::materiau(face_materiaux,GL_AMBIENT, couleur_ambiance);
+            dksEclairage::materiau(face_materiaux,GL_DIFFUSE, couleur_diffusion);
+            dksEclairage::materiau(face_materiaux,GL_EMISSION, couleur_luminescence);
+            dksEclairage::materiau(face_materiaux,GL_SPECULAR, couleur_speculaire);
+            dksEclairage::materiau(face_materiaux, GL_SHININESS, surface->brillance);
             glShadeModel(GL_SMOOTH);
 
 

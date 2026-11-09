@@ -349,13 +349,13 @@ class VolumeFacesSeparees : public dksParticules
             {
                 glDisable(GL_CULL_FACE);
                 face_materiaux=GL_FRONT_AND_BACK;
-                //glLightModeli(GL_LIGHT_MODEL_TWO_SIDE,GL_TRUE);
+                //dksEclairage::modele(GL_LIGHT_MODEL_TWO_SIDE,GL_TRUE);
             }
             else
             {
                 glEnable(GL_CULL_FACE); //Active la distinction face avant/face arrière des polygones pour le rendu.
                 face_materiaux=GL_FRONT;
-                //glLightModeli(GL_LIGHT_MODEL_TWO_SIDE,GL_FALSE);
+                //dksEclairage::modele(GL_LIGHT_MODEL_TWO_SIDE,GL_FALSE);
             }
             glColor3fv(couleur_luminescence);
             //glColorMask(GL_TRUE,GL_TRUE,GL_TRUE,GL_TRUE);

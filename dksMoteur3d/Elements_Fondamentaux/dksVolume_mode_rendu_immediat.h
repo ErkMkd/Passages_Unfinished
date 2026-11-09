@@ -87,7 +87,7 @@
                 couleur_diffusion[2]=surface_courante->couleur_diffusion[2]*surface_courante->diffusion;
                 couleur_diffusion[3]=1.;
                 glColor3fv(couleur_diffusion);  //Au cas où les éclairages sont désactivés
-                glMaterialfv(GL_FRONT,GL_DIFFUSE, couleur_diffusion);
+                dksEclairage::materiau(GL_FRONT,GL_DIFFUSE, couleur_diffusion);
 
                 for (j=0;j<surface_courante->nbr_faces;j++)
                 {
@@ -120,7 +120,7 @@
             GLdouble* sommet;
             GLdouble* nml;
 
-            //glMaterialfv(GL_FRONT,GL_DIFFUSE, couleur_diffusion);
+            //dksEclairage::materiau(GL_FRONT,GL_DIFFUSE, couleur_diffusion);
 
             for (j=0;j<surface_courante->nbr_faces;j++)
             {
@@ -993,7 +993,7 @@
 
             GLboolean eclairage_mem=glIsEnabled(GL_LIGHTING);
             glDisable(GL_LIGHTING);
-            glMaterialfv(GL_FRONT,GL_DIFFUSE, couleur_diffusion);
+            dksEclairage::materiau(GL_FRONT,GL_DIFFUSE, couleur_diffusion);
             glShadeModel(GL_FLAT);
 
             for(k=0;k<face->nbrSommets;k++)

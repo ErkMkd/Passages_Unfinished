@@ -123,9 +123,9 @@ class dksSourceLumineuse :public dksOeil
 
         void maj_openGl_couleur()
         {
-            glLightfv(id_openGl, GL_AMBIENT,  couleur_ambience);
-            glLightfv(id_openGl, GL_DIFFUSE,  couleur_diffusion);
-            glLightfv(id_openGl, GL_SPECULAR, couleur_speculaire);
+            dksEclairage::source(id_openGl, GL_AMBIENT,  couleur_ambience);
+            dksEclairage::source(id_openGl, GL_DIFFUSE,  couleur_diffusion);
+            dksEclairage::source(id_openGl, GL_SPECULAR, couleur_speculaire);
         }
 
         void maj_openGl_intensite()
@@ -153,9 +153,9 @@ class dksSourceLumineuse :public dksOeil
 
         void maj_openGl_attenuation()
         {
-            glLightf(id_openGl,GL_CONSTANT_ATTENUATION,attenuation_constante);
-            glLightf(id_openGl,GL_LINEAR_ATTENUATION,attenuation_lineaire);
-            glLightf(id_openGl,GL_QUADRATIC_ATTENUATION,attenuation_carree);
+            dksEclairage::source(id_openGl,GL_CONSTANT_ATTENUATION,attenuation_constante);
+            dksEclairage::source(id_openGl,GL_LINEAR_ATTENUATION,attenuation_lineaire);
+            dksEclairage::source(id_openGl,GL_QUADRATIC_ATTENUATION,attenuation_carree);
         }
 
         //Source directionnelle ou située à l'infini:
@@ -172,12 +172,12 @@ class dksSourceLumineuse :public dksOeil
             if (type==DKSSOURCELUMINEUSE_DIRECTIONNELLE)
             {
                 direction[3]=1.f;
-                glLightfv(id_openGl, GL_SPOT_DIRECTION, direction);
+                dksEclairage::source(id_openGl, GL_SPOT_DIRECTION, direction);
             }
             else if (type==DKSSOURCELUMINEUSE_INFINIE)
             {
                 direction[3]=0.f;
-                glLightfv(id_openGl, GL_POSITION, direction);
+                dksEclairage::source(id_openGl, GL_POSITION, direction);
             }
         }
 
@@ -192,7 +192,7 @@ public:
             couleur_ambience_base[1]=(float)((p_couleur>>8)&0xff)/255.f;
             couleur_ambience_base[2]=(float)(p_couleur&0xff)/255.f;
             couleur_ambience_base[3]=(float)((p_couleur>>24)&0xff)/255.f;
-            if (drapeau_lumiere_active) maj_openGl_intensite();//glLightfv(id_openGl, GL_AMBIENT,  couleur_ambience);
+            if (drapeau_lumiere_active) maj_openGl_intensite();//dksEclairage::source(id_openGl, GL_AMBIENT,  couleur_ambience);
         }
 
         void determine_couleur_diffusion(uint32_t p_couleur)
@@ -201,7 +201,7 @@ public:
             couleur_diffusion_base[1]=(float)((p_couleur>>8)&0xff)/255.f;
             couleur_diffusion_base[2]=(float)(p_couleur&0xff)/255.f;
             couleur_diffusion_base[3]=(float)((p_couleur>>24)&0xff)/255.f;
-            if (drapeau_lumiere_active) maj_openGl_intensite();//glLightfv(id_openGl, GL_DIFFUSE,  couleur_diffusion);
+            if (drapeau_lumiere_active) maj_openGl_intensite();//dksEclairage::source(id_openGl, GL_DIFFUSE,  couleur_diffusion);
         }
 
         void determine_couleur_speculaire(uint32_t p_couleur)
@@ -210,7 +210,7 @@ public:
             couleur_speculaire_base[1]=(float)((p_couleur>>8)&0xff)/255.f;
             couleur_speculaire_base[2]=(float)(p_couleur&0xff)/255.f;
             couleur_speculaire_base[3]=(float)((p_couleur>>24)&0xff)/255.f;
-            if (drapeau_lumiere_active) maj_openGl_intensite();//glLightfv(id_openGl, GL_SPECULAR,  couleur_speculaire);
+            if (drapeau_lumiere_active) maj_openGl_intensite();//dksEclairage::source(id_openGl, GL_SPECULAR,  couleur_speculaire);
         }
 
         uint32_t renvoie_couleur_ambiance_ARVB()
@@ -258,16 +258,16 @@ public:
                     position[1]=(float)repere_absolu->y;
                     position[2]=(float)repere_absolu->z;
                     position[3]=1.f;
-                    glLightfv(id_openGl, GL_POSITION, position);
-                    glLightfv(id_openGl, GL_SPOT_DIRECTION, direction);
+                    dksEclairage::source(id_openGl, GL_POSITION, position);
+                    dksEclairage::source(id_openGl, GL_SPOT_DIRECTION, direction);
                     break;
 
                 case DKSSOURCELUMINEUSE_INFINIE:
                     direction[0]=(float)(-direction_regard->x);
                     direction[1]=(float)(-direction_regard->y);
                     direction[2]=(float)(-direction_regard->z);
-                    direction[4]=0.f;
-                    glLightfv(id_openGl, GL_POSITION, direction);
+                    direction[3]=0.f;
+                    dksEclairage::source(id_openGl, GL_POSITION, direction);
                     break;
 
                 case DKSSOURCELUMINEUSE_OMNIDIRECTIONNELLE:
@@ -275,7 +275,7 @@ public:
                     position[1]=float(repere_absolu->y);
                     position[2]=float(repere_absolu->z);
                     position[3]=1.f;
-                    glLightfv(id_openGl, GL_POSITION, position);
+                    dksEclairage::source(id_openGl, GL_POSITION, position);
                     break;
             }
         }
@@ -362,8 +362,8 @@ public:
             if ( (p_type!=DKSSOURCELUMINEUSE_OMNIDIRECTIONNELLE) && (type!=DKSSOURCELUMINEUSE_INFINIE) && (type!=DKSSOURCELUMINEUSE_DIRECTIONNELLE) ) return;
             type=p_type;
             if (!drapeau_lumiere_active) return;
-            if ( (type==DKSSOURCELUMINEUSE_OMNIDIRECTIONNELLE) || (type==DKSSOURCELUMINEUSE_INFINIE) ) glLightf(id_openGl, GL_SPOT_CUTOFF,180.); //La spéciale valeur 180 indique à openGl que la source n'est plus directionelle.
-            else glLightf(id_openGl, GL_SPOT_CUTOFF,ouverture_spot);
+            if ( (type==DKSSOURCELUMINEUSE_OMNIDIRECTIONNELLE) || (type==DKSSOURCELUMINEUSE_INFINIE) ) dksEclairage::source(id_openGl, GL_SPOT_CUTOFF,180.); //La spéciale valeur 180 indique à openGl que la source n'est plus directionelle.
+            else dksEclairage::source(id_openGl, GL_SPOT_CUTOFF,ouverture_spot);
             maj();
         }
 
@@ -376,7 +376,7 @@ public:
         {
             if (p_ouverture_spot>90.)p_ouverture_spot=90.;
             ouverture_spot=p_ouverture_spot;
-            if ((type==DKSSOURCELUMINEUSE_DIRECTIONNELLE) && drapeau_lumiere_active) glLightf(id_openGl, GL_SPOT_CUTOFF,ouverture_spot);
+            if ((type==DKSSOURCELUMINEUSE_DIRECTIONNELLE) && drapeau_lumiere_active) dksEclairage::source(id_openGl, GL_SPOT_CUTOFF,ouverture_spot);
         }
 
         float renvoie_ouverture_spot()

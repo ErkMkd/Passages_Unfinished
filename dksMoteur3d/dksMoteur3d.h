@@ -641,8 +641,8 @@ class dksMoteur3d : public dksConteneur
 
             //----Initialisation de l'éclairage:
 
-            glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER,GL_TRUE); //Sert à définir que c'est la position de l'oeil qui sert pour le calcul de la spécularité.
-            glLightModeli(GL_LIGHT_MODEL_COLOR_CONTROL,GL_SEPARATE_SPECULAR_COLOR); //La lumière spéculaire est ajoutée par dessus le texturage, pour éviter de l'altérer.
+            dksEclairage::modele(GL_LIGHT_MODEL_LOCAL_VIEWER,GL_TRUE); //Sert à définir que c'est la position de l'oeil qui sert pour le calcul de la spécularité.
+            dksEclairage::modele(GL_LIGHT_MODEL_COLOR_CONTROL,GL_SEPARATE_SPECULAR_COLOR); //La lumière spéculaire est ajoutée par dessus le texturage, pour éviter de l'altérer.
 
             glDisable(GL_NORMALIZE); //Convertion automatique des normales en vecteur unitaire
 
@@ -656,11 +656,11 @@ class dksMoteur3d : public dksConteneur
 
             glDisable(GL_COLOR_MATERIAL);   //Désactivation de l'usage de la commande glColorMaterial()
 
-            glMaterialfv(GL_FRONT, GL_AMBIENT,   defaut_ambiance);
-            glMaterialfv(GL_FRONT, GL_DIFFUSE,   defaut_diffusion);
-            glMaterialfv(GL_FRONT, GL_SPECULAR,  defaut_speculaire);
-            glMaterialfv(GL_FRONT,GL_EMISSION, defaut_luminosite);
-            glMaterialfv(GL_FRONT, GL_SHININESS, defaut_brillance);
+            dksEclairage::materiau(GL_FRONT, GL_AMBIENT,   defaut_ambiance);
+            dksEclairage::materiau(GL_FRONT, GL_DIFFUSE,   defaut_diffusion);
+            dksEclairage::materiau(GL_FRONT, GL_SPECULAR,  defaut_speculaire);
+            dksEclairage::materiau(GL_FRONT,GL_EMISSION, defaut_luminosite);
+            dksEclairage::materiau(GL_FRONT, GL_SHININESS, defaut_brillance);
 
         }
 
@@ -711,7 +711,7 @@ public:
 
             else glDisable(GL_FOG);
 
-            glLightModelfv(GL_LIGHT_MODEL_AMBIENT, lumiere_ambiante);  //Couleur de la lumière ambiente globale
+            dksEclairage::modele(GL_LIGHT_MODEL_AMBIENT, lumiere_ambiante);  //Couleur de la lumière ambiente globale
 
             drapeau_active=true;
 
@@ -819,7 +819,7 @@ public:
             lumiere_ambiante[1]=v;
             lumiere_ambiante[2]=b;
             lumiere_ambiante[3]=a;
-            if (drapeau_active) glLightModelfv(GL_LIGHT_MODEL_AMBIENT, lumiere_ambiante);
+            if (drapeau_active) dksEclairage::modele(GL_LIGHT_MODEL_AMBIENT, lumiere_ambiante);
         }
 
         void determine_lumiere_ambiante_ARVB (uint32_t couleur)
