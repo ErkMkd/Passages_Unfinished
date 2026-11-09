@@ -693,6 +693,9 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
     if (banc->actif) glfwWindowHint(GLFW_RESIZABLE,GLFW_FALSE);    //Captures toujours à la même taille
+    #ifdef _DEBUG
+    glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT,GLFW_TRUE);   //Messages d'erreur d'OpenGL (Utiles/Erreurs_OpenGl.h)
+    #endif
     fenetre=glfwCreateWindow(mon_ecran->resolution_x,mon_ecran->resolution_y,"Genesis ¤ Project - Passages",NULL,NULL);
     if (fenetre==NULL)
     {
@@ -712,6 +715,7 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
     cout<<"Version GLEW: "<<glewGetString(GLEW_VERSION)<<endl;
+    active_debogage_openGl();
 
     //------------------ Carte graphique:
     cout<<"Carte graphique: "<<glGetString(GL_RENDERER)<<" - "<<glGetString(GL_VENDOR)<<endl;
