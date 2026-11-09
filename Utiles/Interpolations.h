@@ -248,7 +248,7 @@ class Interpolation_Parametre: public Interpolations
         else if (type_interpolation==INTERPOLATION_COSINUS)
         {
             if (enveloppe==NULL) return interpolation_cosinusoidale_f(valeur_depart,valeur_fin,(t-t0)/duree);
-            else interpolation_cosinusoidale_f(valeur_depart,valeur_fin,enveloppe->renvoie_valeur((t-t0)/duree));
+            else return interpolation_cosinusoidale_f(valeur_depart,valeur_fin,enveloppe->renvoie_valeur((t-t0)/duree));
         }
 
         else if (type_interpolation==INTERPOLATION_BEZIER)
@@ -256,6 +256,7 @@ class Interpolation_Parametre: public Interpolations
             if (enveloppe==NULL) return interpolation_lineaire_f(valeur_depart,valeur_fin,courbe_bezier->renvoie_ordonnee_via_abscisse((t-t0)/duree));
             else return interpolation_lineaire_f(valeur_depart,valeur_fin,courbe_bezier->renvoie_ordonnee_via_abscisse(enveloppe->renvoie_valeur((t-t0)/duree)));
         }
+        return valeur_depart;   //Type d'interpolation inconnu
     }
 
 
@@ -423,6 +424,7 @@ class Suite_Interpolations :public Interpolations
         {
             return interpolation_lineaire_f(valeur_depart,valeur_fin,tableau_courbes[etape_actuelle]->renvoie_ordonnee_via_abscisse(position));
         }
+        return valeur_depart;   //Type d'interpolation inconnu
     }
 };
 

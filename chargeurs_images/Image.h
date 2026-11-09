@@ -1319,6 +1319,9 @@ public:
         yi=y;
         x-=xi;
         y-=yi;
+        //Une coordonnée négative très proche de 0 vaut 1 après le bornage (arrondi): c'est le bord opposé.
+        if(xi>=int32_t(largeur))xi-=largeur;
+        if(yi>=int32_t(hauteur))yi-=hauteur;
         int32_t xi1=xi+1;
         int32_t yi1=yi+1;
         if(xi1>=largeur)xi1=0;

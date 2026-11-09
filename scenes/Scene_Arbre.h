@@ -108,6 +108,7 @@ class Scene_Arbre : public Scene
 
         for (i=0;i<sizeof(textures_arriere_plan)/sizeof(Image*);i++) textures_arriere_plan[i]=NULL;
         for (i=0;i<NBR_VECTORBALLS;i++) vectorBalls[i]=NULL;
+        for (i=0;i<sizeof(etapes)/sizeof(bool);i++) etapes[i]=false;
 
         papillon=NULL;
 

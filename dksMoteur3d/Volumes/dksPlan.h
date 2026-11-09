@@ -332,6 +332,7 @@ class dksPlan : public dksVolume
         free(indices_uvs);
         surface_plan_recto->ajoute_texture(texture_recto);
         initialise_textures();
+        return true;
     }
     //=============================================================================================
     //                  Gestion des hauteurs des mailles

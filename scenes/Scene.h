@@ -76,8 +76,10 @@ class Scene
         drapeau_scene_terminee=false;
         drapeau_initialisee=false;
         oeil_courant=NULL;
+        position_temps=0.;
         position_temps_depart=-1.;
         position_temps_scene=0.;
+        delta_t=0.;
         copie_nom(p_nom);
         la_musique=p_la_musique;
     }

@@ -133,6 +133,7 @@ class Scene_Greetings : public Scene
         for (i=0;i<NBR_VECTORBALLS;i++) vectorBalls[i]=NULL;
 
         for (i=0;i<sizeof(interpolations_parametres)/sizeof(Interpolation_Parametre*);i++) interpolations_parametres[i]=NULL;
+        for (i=0;i<sizeof(etapes)/sizeof(bool);i++) etapes[i]=false;
         for (i=0;i<sizeof(textures_arriere_plan)/sizeof(Image*);i++) textures_arriere_plan[i]=NULL;
 
 
@@ -303,6 +304,7 @@ class Scene_Greetings : public Scene
             conteneur_mvt_balls_1=new dksConteneur("conteneur_mouvement_balls_1",0.,POSITION_GROUPS_Y,POSITION_GROUPS_Z);
             conteneur_mvt_balls_2=new dksConteneur("conteneur_mouvement_balls_2",0.,4.,0.);
             conteneur_mvt_balls_1->ajoute_enfant(conteneur_mvt_balls_2);
+            affecte(centre_gravite_balls_RTL,0.,0.,0.);
             affecte(vitesse_centre_gravite_balls_RTL,35./180.*M_PI*1.,43./180.*M_PI*1.,-57./180*M_PI*1.);
 
         //----------------- Création des éléments de la scène:

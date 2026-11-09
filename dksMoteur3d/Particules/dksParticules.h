@@ -532,7 +532,7 @@ class dksParticules :public dksVolume
                 case GAUCHE:
                     for (i=0;i<nbrPoints;i++)
                     {
-                        points[3*i]+=vitesse;
+                        p=points[3*i]+vitesse;
                         if (p>flux_xmax) p=flux_xmin+(p-flux_xmax);
                         points[3*i]=p;
                     }
@@ -548,9 +548,9 @@ class dksParticules :public dksVolume
                 case AVANT:
                     for (i=0;i<nbrPoints;i++)
                     {
-                        points[3*i+2]+=vitesse;
+                        p=points[3*i+2]+vitesse;
                         if (p>flux_zmax) p=flux_zmin+(p-flux_zmax);
-                        points[3*i]=p;
+                        points[3*i+2]=p;
                     }
                     break;
                 case ARRIERE:

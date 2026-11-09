@@ -80,6 +80,7 @@ class Scene_Jungler_Credits : public Scene
 
         uint32_t i;
         for (i=0;i<NBR_VECTORBALLS;i++) vectorBalls[i]=NULL;
+        for (i=0;i<sizeof(etapes)/sizeof(bool);i++) etapes[i]=false;
 
         //-------------- Vector balls:
             for (i=0;i<NBR_VECTORBALLS;i++)
