@@ -1,4 +1,3 @@
-#version 130
 //-------------------------------------------------------------------------
 //			Caclul de la rugosité, avec texture de couleur.
 //			La couche Alpha de la texture de couleur sert pour la transparence en bascule

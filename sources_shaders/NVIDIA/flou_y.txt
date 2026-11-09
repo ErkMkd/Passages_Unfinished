@@ -1,4 +1,3 @@
-#version 130
 uniform int taille_flou;
 uniform float saturation_flou;
 uniform sampler2D texture;

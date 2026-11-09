@@ -1,4 +1,3 @@
-#version 130
 varying vec2 coordonnees_texture_rugosite;
 
 varying vec3 direction_oeil_sommet;

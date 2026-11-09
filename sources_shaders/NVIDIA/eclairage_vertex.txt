@@ -1,4 +1,3 @@
-#version 130
 varying vec2 coordonnees_texture_couleur;
 varying vec4 couleur;
 varying vec4 couleur_secondaire;

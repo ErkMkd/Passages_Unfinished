@@ -82,15 +82,22 @@ class dksShader: public Gestion_Shaders
             //---------- Lie les sources avec les objets shader:
             if (DKSSHADER_DEBUG) cout<<"Liaisons des sources aux shaders...";
 
+            //L'en-tête commun (version de GLSL, blocs d'uniforms) précède chaque source:
+            static const char* entete=charge_source_shader((char*)"sources_shaders/communs.glsl");
+            if (entete==NULL)
+            {
+                erreur=DKSSHADER_ERREUR_SOURCE;
+                return;
+            }
             if(drapeau_vertex)
             {
-                affecte(tableau_sources,source_vertex);
-                glShaderSource(vertex_id,1,tableau_sources,NULL);
+                const GLchar* sources[3]={entete,"\n#line 1\n",source_vertex};
+                glShaderSource(vertex_id,3,sources,NULL);
             }
             if(drapeau_fragment)
             {
-                tableau_sources[0]=source_fragment;
-                glShaderSource(fragment_id,1,tableau_sources,NULL);
+                const GLchar* sources[3]={entete,"\n#line 1\n",source_fragment};
+                glShaderSource(fragment_id,3,sources,NULL);
             }
 
             if (DKSSHADER_DEBUG) cout<<"OK"<<endl;

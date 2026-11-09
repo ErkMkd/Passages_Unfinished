@@ -1,4 +1,3 @@
-#version 130
 /*
 		Affichage des ombres portées, rendu sans texture (autre que la texture de profondeur)
 */

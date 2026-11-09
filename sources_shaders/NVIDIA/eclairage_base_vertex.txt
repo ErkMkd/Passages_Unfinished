@@ -1,4 +1,3 @@
-#version 130
 //======================================================================
 //				Eclairage de base.
 //		Je ne sais pas comment savoir si les lumières de bases d'OpenGL

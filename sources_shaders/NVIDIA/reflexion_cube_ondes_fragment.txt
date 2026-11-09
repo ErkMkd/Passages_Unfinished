@@ -1,4 +1,3 @@
-#version 130
 /*
 
 		Réflexion + ondes aqueuses avec éclairage - Fragment shader

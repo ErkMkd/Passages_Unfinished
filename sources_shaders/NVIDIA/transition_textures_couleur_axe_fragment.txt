@@ -1,4 +1,3 @@
-#version 130
 //======================================================================
 //				Transition entre deux textures de couleur,
 //				le long de l'axe Z du volume
