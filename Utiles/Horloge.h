@@ -14,11 +14,12 @@ class Horloge
 {
     public:
         bool pause;
-        double vitesse;     //1: temps réel
+        double vitesse;     //1: temps réel (sans effet avec un pas fixe)
         double pas_fixe;    //>0: chaque image avance de ce pas (en s), quelle que soit sa durée réelle
 
     private:
         double temps;       //Temps de la démo (en s)
+        unsigned long long nbr_pas;
         double temps_reel_precedent;
         bool drapeau_demarree;
         bool drapeau_image_suivante;
@@ -30,6 +31,7 @@ class Horloge
             vitesse=1.;
             pas_fixe=0.;
             temps=0.;
+            nbr_pas=0;
             temps_reel_precedent=0.;
             drapeau_demarree=false;
             drapeau_image_suivante=false;
@@ -65,9 +67,14 @@ class Horloge
                 drapeau_demarree=true;
                 return temps;
             }
-            if (pas_fixe>0.) ecart=pas_fixe;
-            if (!pause) temps+=ecart*vitesse;
-            else if (drapeau_image_suivante) temps+= pas_fixe>0. ? pas_fixe : 1./60.;
+            if (pas_fixe>0.)
+            {
+                //Le temps est un multiple exact du pas: les arrondis ne s'accumulent pas.
+                if (!pause || drapeau_image_suivante) nbr_pas++;
+                temps=nbr_pas*pas_fixe;
+            }
+            else if (!pause) temps+=ecart*vitesse;
+            else if (drapeau_image_suivante) temps+=1./60.;
             drapeau_image_suivante=false;
             return temps;
         }

@@ -16,6 +16,7 @@ find_package(OpenGL REQUIRED)
 find_package(GLEW REQUIRED)
 find_package(glfw3 CONFIG REQUIRED)
 find_package(imgui CONFIG REQUIRED)
+find_package(Stb REQUIRED)
 find_package(TIFF REQUIRED)
 find_package(JPEG REQUIRED)
 
@@ -44,6 +45,8 @@ target_compile_definitions(Passages PRIVATE
     _CRT_SECURE_NO_WARNINGS
     _USE_MATH_DEFINES
     PASSAGES_DONNEES="${CMAKE_SOURCE_DIR}")
+
+target_include_directories(Passages PRIVATE ${Stb_INCLUDE_DIR})
 
 target_compile_options(Passages PRIVATE /utf-8)
 

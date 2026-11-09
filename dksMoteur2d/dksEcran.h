@@ -369,6 +369,7 @@ class dksEcran
                 glBindTexture(GL_TEXTURE_2D,0);
 
             drapeau_tempons_rendu=true;
+            efface_tempons_rendu();
 
             //Erreur?:
             if(erreur_openGl("ERREUR dans dksEcran::creation_tempons_rendus() : "))
@@ -433,6 +434,7 @@ class dksEcran
 
 
             glBindRenderbuffer(GL_RENDERBUFFER,0);
+            efface_tempons_rendu();
             //Erreur?:
             if(erreur_openGl("ERREUR dans dksEcran::maj_tempons_rendu() : "))
             {
@@ -440,6 +442,28 @@ class dksEcran
                 return false;
             }
             return true;
+        }
+
+        //--------------------------------------------------------------
+        //  Efface les tempons de rendu: à leur création, leur contenu
+        //  est indéfini (et change d'une exécution à l'autre).
+        //--------------------------------------------------------------
+        void efface_tempons_rendu()
+        {
+            GLfloat couleur_effacement[4];
+            GLfloat profondeur_effacement;
+            glGetFloatv(GL_COLOR_CLEAR_VALUE,couleur_effacement);
+            glGetFloatv(GL_DEPTH_CLEAR_VALUE,&profondeur_effacement);
+            glClearColor(0.,0.,0.,0.);
+            glClearDepth(1.);
+            for(uint32_t i=0;i<sizeof(frame_buffers)/sizeof(GLuint);i++)
+            {
+                glBindFramebuffer(GL_DRAW_FRAMEBUFFER,frame_buffers[i]);
+                glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            }
+            glBindFramebuffer(GL_DRAW_FRAMEBUFFER,0);
+            glClearColor(couleur_effacement[0],couleur_effacement[1],couleur_effacement[2],couleur_effacement[3]);
+            glClearDepth(profondeur_effacement);
         }
 
     public:

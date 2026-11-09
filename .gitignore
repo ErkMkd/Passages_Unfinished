@@ -12,3 +12,6 @@ dessins/
 documentation/
 storyboard/
 videos/
+
+# Banc d'essai (images de référence et captures, régénérables)
+banc_essai/

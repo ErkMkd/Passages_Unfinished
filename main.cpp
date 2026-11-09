@@ -30,6 +30,7 @@ using namespace std;
 #include "Utiles/Rapport_Assertions.h"
 #include "Utiles/Horloge.h"
 #include "Utiles/Panneau_Developpement.h"
+#include "Utiles/Banc_Essai.h"
 #include "dksMoteur2d/dksEcran.h"
 #include "dksMoteur3d/LWO/dksChargeLWO2.h"
 #include "dksMoteur3d/LWO/dksConvertionLWO2.h"
@@ -91,6 +92,7 @@ Horloge horloge;
 //============ Fenêtre:
 GLFWwindow* fenetre=NULL;
 Panneau_Developpement* panneau=NULL;
+Banc_Essai* banc=NULL;
 
 //============ Objets:
 dksEcran* mon_ecran=NULL;
@@ -189,8 +191,10 @@ static void affichage_principal(void)
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    //Pour sauter des scènes:
+    //Pour sauter des scènes (sauf si la scène de départ est donnée en paramètre: --scene):
 
+    if (banc->scene_depart<0)
+    {
     scene_logoGp->drapeau_scene_terminee=true;
     scene_tunnel->drapeau_scene_terminee=true;
     scene_caduce->drapeau_scene_terminee=true;
@@ -199,6 +203,12 @@ static void affichage_principal(void)
     //scene_greets->drapeau_scene_terminee=true;
     //scene_credits->drapeau_scene_terminee=true;
     //scene_fin->drapeau_scene_terminee=true;
+    }
+    else
+    {
+        Scene* scenes[BANC_ESSAI_NBR_SCENES]={scene_logoGp,scene_tunnel,scene_caduce,scene_starfield,scene_arbre,scene_greets,scene_credits,scene_fin};
+        for (int i=0;i<banc->scene_depart;i++) scenes[i]->drapeau_scene_terminee=true;
+    }
 
 
 
@@ -347,6 +357,15 @@ static void affichage_principal(void)
     }
 
     //ralenti();
+
+    //Banc d'essai: captures, avant l'affichage du panneau de développement:
+    if (banc->actif)
+    {
+        int largeur,hauteur;
+        glfwGetFramebufferSize(fenetre,&largeur,&hauteur);
+        if (banc->apres_rendu(t,scene_actuelle->nom,largeur,hauteur)) glfwSetWindowShouldClose(fenetre,GLFW_TRUE);
+    }
+
     #if AFFICHE_FPS
         dksRendu::desactive_textures();
         glUseProgram(0);
@@ -650,6 +669,11 @@ static void taille_fenetre(GLFWwindow* f,int largeur,int hauteur)
 
 int main(int argc, char *argv[])
 {
+    //--------------- Paramètres du banc d'essai (scène de départ, temps fixe, captures):
+    banc=new Banc_Essai(argc,argv);
+    if (banc->drapeau_erreur) return banc->code_sortie();
+    if (banc->images_par_seconde>0.) horloge.pas_fixe=1./banc->images_par_seconde;
+
     la_musique=NULL;
     musique_fin=NULL;
     atexit(fin_du_programme);
@@ -663,6 +687,7 @@ int main(int argc, char *argv[])
         drapeau_erreur=true;
         exit(EXIT_FAILURE);
     }
+    if (banc->actif) glfwWindowHint(GLFW_RESIZABLE,GLFW_FALSE);    //Captures toujours à la même taille
     fenetre=glfwCreateWindow(mon_ecran->resolution_x,mon_ecran->resolution_y,"Genesis ¤ Project - Passages",NULL,NULL);
     if (fenetre==NULL)
     {
@@ -671,7 +696,7 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
     glfwMakeContextCurrent(fenetre);
-    glfwSwapInterval(1);    //Synchronisation verticale
+    glfwSwapInterval(banc->actif ? 0 : 1);    //Synchronisation verticale, sauf pour le banc d'essai
 
     //------------------ Initialise Glew (gestionnaire d'extensions OpenGl):
     GLenum erreur_glew=glewInit();
@@ -710,9 +735,10 @@ int main(int argc, char *argv[])
     glfwSetCursorPosCallback(fenetre,souris);
     glfwSetFramebufferSizeCallback(fenetre,taille_fenetre);
 
-    //------------ Panneau de développement (après les fonctions ci-dessus, qu'il appelle en chaîne):
+    //------------ Panneau de développement (après les fonctions ci-dessus, qu'il appelle en chaîne),
+    //             absent des captures du banc d'essai:
     #if AFFICHE_FPS
-        panneau=new Panneau_Developpement(fenetre);
+        if (!banc->actif) panneau=new Panneau_Developpement(fenetre);
     #endif
 
     //------------ Lancement:
@@ -736,6 +762,6 @@ int main(int argc, char *argv[])
 
     fin_du_programme();
     glfwTerminate();
-    return 0;
+    return banc->code_sortie();
 }
 
