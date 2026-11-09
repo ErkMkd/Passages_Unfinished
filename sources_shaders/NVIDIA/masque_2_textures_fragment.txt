@@ -1,3 +1,4 @@
+#version 130
 //======================================================================
 //				
 //		Shader de post-rendu.
@@ -17,6 +18,8 @@ varying vec4 couleur;
 
 void main( void )
 {
+	//Copie modifiable de l'entrée (les entrées d'un fragment shader sont en lecture seule)
+	vec4 couleur=couleur;
 	
 	vec3 texel_1=texture2D( texture_1, coordonnees_texture_1 ).rgb;
 

@@ -1,3 +1,4 @@
+#version 130
 //======================================================================
 //				Transition entre deux textures de couleur,
 //				le long de l'axe Z du volume
@@ -27,9 +28,9 @@ void main( void )
 	
 	vec4 couleur_transition=vec4(0.,1.,1.,1.);
 	
-	if(drapeaux_textures & 1) texel_depart=texture2D( texture_depart, coordonnees_texture_depart );
+	if((drapeaux_textures & 1)!=0) texel_depart=texture2D( texture_depart, coordonnees_texture_depart );
 	else texel_depart=vec4(1.,1.,1.,1.);
-	if(drapeaux_textures & 2)texel_destination=texture2D( texture_destination, coordonnees_texture_destination );
+	if((drapeaux_textures & 2)!=0)texel_destination=texture2D( texture_destination, coordonnees_texture_destination );
 	else texel_destination=vec4(1.,1.,1.,1.);
 	
 	//if (texel_depart.a<0.5 && texel_destination.a<0.5) discard;	//Transparence

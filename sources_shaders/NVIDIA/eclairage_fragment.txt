@@ -1,3 +1,4 @@
+#version 130
 uniform sampler2D texture_couleur;
 
 varying vec2 coordonnees_texture_couleur;

@@ -1,3 +1,4 @@
+#version 130
 //-------------------------------------------------------------------------
 //			Caclul de la rugosité, sans texture de couleur.
 //			La couche Alpha de la texture de normales sert pour la transparence en bascule
@@ -38,7 +39,7 @@ void main( void )
 	float alpha=couleur_diffuse.a + facteur_speculaire*couleur_speculaire.a;
 	
     gl_FragColor =	vec4(
-							attenuation* (facteur_diffuse*couleur_diffuse.rgb*couleur + facteur_speculaire*couleur_speculaire.rgb)
+							attenuation* (facteur_diffuse*couleur_diffuse.rgb*couleur.rgb + facteur_speculaire*couleur_speculaire.rgb)
 							,alpha
 						);  
 }

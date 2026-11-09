@@ -1,3 +1,4 @@
+#version 130
 //======================================================================
 //				Transition entre deux textures de couleur,
 //				avec une troisième texture en niveau de gris pour le
@@ -18,6 +19,8 @@ varying vec4 couleur;
 
 void main( void )
 {
+	//Copie modifiable de l'entrée (les entrées d'un fragment shader sont en lecture seule)
+	vec4 couleur=couleur;
 	vec4 texel_depart=texture2D( texture_depart, coordonnees_texture_depart );
 	vec4 texel_destination=texture2D( texture_destination, coordonnees_texture_destination );
 	vec4 texel_transition=texture2D( texture_transition, coordonnees_texture_transition );

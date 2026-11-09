@@ -1,3 +1,4 @@
+#version 130
 //======================================================================
 //				Transition entre deux textures de couleur,
 //				le long de l'axe Z du volume
@@ -26,8 +27,8 @@ void main( void )
     gl_Position =  gl_ModelViewProjectionMatrix * gl_Vertex;
 	position_axe=(gl_Vertex.z-zmin)/(zmax-zmin);
 	
-	if(drapeaux_textures&&0x1) coordonnees_texture_depart     	= gl_MultiTexCoord0.xy;
-	if(drapeaux_textures&&0x2) coordonnees_texture_destination   = gl_MultiTexCoord1.xy;
+	if((drapeaux_textures&0x1)!=0) coordonnees_texture_depart     	= gl_MultiTexCoord0.xy;
+	if((drapeaux_textures&0x2)!=0) coordonnees_texture_destination   = gl_MultiTexCoord1.xy;
 	
 	//------------ Eclairage:
 	
@@ -43,7 +44,7 @@ void main( void )
 			
 			for(int n=0;n<gl_MaxLights;n++)
 			{
-				if ( !(drapeaux_sources & (1<<n)) ) continue;
+				if ( (drapeaux_sources & (1<<n))==0 ) continue;
 				
 				vec3 position_source 		= (gl_LightSource[n].position).xyz;
 				vec3 direction_source 		= position_source-position_sommet;

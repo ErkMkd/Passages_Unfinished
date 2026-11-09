@@ -55,20 +55,19 @@ class Gestion_Shaders
         //-----------------------------------------
         static bool compile_shader(GLuint shader_id)
         {
-            char message_erreur[1024];
             GLint taille_message;
             GLint status;
-            message_erreur[1023]=0;
 
             glCompileShader(shader_id);
             glGetShaderiv(shader_id,GL_COMPILE_STATUS,&status);
             if (status==GL_FALSE)
             {
                 glGetShaderiv(shader_id,GL_INFO_LOG_LENGTH,&taille_message);
-                glGetShaderInfoLog(shader_id,1023,&taille_message,message_erreur);
+                vector<char> message_erreur(taille_message+1,0);
+                glGetShaderInfoLog(shader_id,taille_message,NULL,message_erreur.data());
                 cout<<"ERREUR de compilation du shader "<<shader_id<<":"<<endl;
                 cout<<"Taille du message:"<<taille_message<<endl;
-                cout<<message_erreur<<endl;
+                cout<<message_erreur.data()<<endl;
                 return false;
             }
             #if GESTION_SHADERS_DEBUG
@@ -82,19 +81,18 @@ class Gestion_Shaders
         //-----------------------------------------
         static bool relie_programme_shader(GLuint programme_id)
         {
-            char message_erreur[1024];
             GLint taille_message;
             GLint status;
-            message_erreur[1023]=0;
 
             glLinkProgram(programme_id);
             glGetProgramiv(programme_id,GL_LINK_STATUS,&status);
             if (status==GL_FALSE)
             {
                 glGetProgramiv(programme_id,GL_INFO_LOG_LENGTH,&taille_message);
-                glGetProgramInfoLog(programme_id,1023,&taille_message,message_erreur);
+                vector<char> message_erreur(taille_message+1,0);
+                glGetProgramInfoLog(programme_id,taille_message,NULL,message_erreur.data());
                 cout<<"ERREUR de liaison du programme de shaders "<<programme_id<<":"<<endl;
-                cout<<message_erreur<<endl;
+                cout<<message_erreur.data()<<endl;
                 return false;
             }
 
@@ -110,17 +108,73 @@ class Gestion_Shaders
         static bool valide_programme_shader(GLuint programme_id)
         {
             GLint status;
+
+            //Après la liaison, tous les samplers sont sur l'unité de texture 0. Deux samplers de types
+            //différents (ex: sampler2D et samplerCube) sur la même unité rendent le programme invalide
+            //(règle appliquée par Intel et AMD). Le temps de la validation, chaque sampler reçoit sa propre unité.
+            vector<GLint> samplers=renvoie_samplers(programme_id);
+            GLint programme_courant;
+            glGetIntegerv(GL_CURRENT_PROGRAM,&programme_courant);
+            glUseProgram(programme_id);
+            for (GLint i=0;i<GLint(samplers.size());i++) glUniform1i(samplers[i],i);
+
             glValidateProgram(programme_id);
             glGetProgramiv(programme_id,GL_VALIDATE_STATUS,&status);
+
+            for (GLint i=0;i<GLint(samplers.size());i++) glUniform1i(samplers[i],0);
+            glUseProgram(programme_courant);
+
             if (status==GL_FALSE)
             {
+                GLint taille_message;
+                glGetProgramiv(programme_id,GL_INFO_LOG_LENGTH,&taille_message);
+                vector<char> message(taille_message+1,0);
+                if (taille_message>0) glGetProgramInfoLog(programme_id,taille_message,NULL,message.data());
                 cout<<"ERREUR le programme de shader "<<programme_id<<" n'est pas valide!"<<endl;
+                cout<<message.data()<<endl;
                 return false;
             }
             #if GESTION_SHADERS_DEBUG
             cout<<"Le programme de shader "<<programme_id<<" est opérationnel"<<endl;
             #endif
             return true;
+        }
+
+        //-----------------------------------------------------------
+        //  Renvoie les emplacements des samplers actifs d'un programme
+        //  (un emplacement par unité de texture, tableaux compris)
+        //-----------------------------------------------------------
+        static vector<GLint> renvoie_samplers(GLuint programme_id)
+        {
+            vector<GLint> samplers;
+            GLint nbr_uniformes=0;
+            glGetProgramiv(programme_id,GL_ACTIVE_UNIFORMS,&nbr_uniformes);
+            for (GLint i=0;i<nbr_uniformes;i++)
+            {
+                char nom[256];
+                GLint taille;
+                GLenum type;
+                glGetActiveUniform(programme_id,i,sizeof(nom),NULL,&taille,&type,nom);
+                switch (type)
+                {
+                    case GL_SAMPLER_1D: case GL_SAMPLER_2D: case GL_SAMPLER_3D: case GL_SAMPLER_CUBE:
+                    case GL_SAMPLER_1D_SHADOW: case GL_SAMPLER_2D_SHADOW: case GL_SAMPLER_2D_RECT:
+                    case GL_SAMPLER_2D_RECT_SHADOW: case GL_SAMPLER_1D_ARRAY: case GL_SAMPLER_2D_ARRAY:
+                    {
+                        string base(nom);
+                        if (taille>1 && base.size()>3 && base.compare(base.size()-3,3,"[0]")==0) base.resize(base.size()-3);
+                        for (GLint j=0;j<taille;j++)
+                        {
+                            string element= taille>1 ? base+"["+to_string(j)+"]" : base;
+                            samplers.push_back(glGetUniformLocation(programme_id,element.c_str()));
+                        }
+                        break;
+                    }
+                    default:
+                        break;
+                }
+            }
+            return samplers;
         }
 
         //----------------------------------------------

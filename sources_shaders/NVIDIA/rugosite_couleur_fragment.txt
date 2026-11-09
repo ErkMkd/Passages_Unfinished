@@ -1,3 +1,4 @@
+#version 130
 //-------------------------------------------------------------------------
 //			Caclul de la rugosité, avec texture de couleur.
 //			La couche Alpha de la texture de couleur sert pour la transparence en bascule
@@ -39,7 +40,7 @@ void main( void )
 	
 	gl_FragColor =	clamp(vec4(
 							attenuation*
-							(facteur_diffuse*couleur_diffuse*texel.rgb
+							(facteur_diffuse*couleur_diffuse.rgb*texel.rgb
 							+facteur_speculaire*couleur_speculaire.rgb)
 							,alpha),0.,1.);
 						

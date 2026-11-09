@@ -1,3 +1,4 @@
+#version 130
 //======================================================================
 //				Transition entre deux textures de couleur,
 //				avec une troisième texture en niveau de gris pour le

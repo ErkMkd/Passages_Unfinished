@@ -1,3 +1,4 @@
+#version 130
 
 /************************************************************************************************************
 
@@ -81,7 +82,7 @@ void main( void )
 			for(int n=1;n<gl_MaxLights;n++)
 			{
 				
-				if ( !(drapeaux_sources & (1<<n)) ) continue;
+				if ( (drapeaux_sources & (1<<n))==0 ) continue;
 				
 				position_source 		= (gl_LightSource[n].position).xyz;
 				direction_source 	= position_source-position_sommet;

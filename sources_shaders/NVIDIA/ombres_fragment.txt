@@ -1,3 +1,4 @@
+#version 130
 /*
 		Affichage des ombres portées, rendu sans texture (autre que la texture de profondeur)
 */
@@ -23,6 +24,9 @@ varying vec3 normale;
 
 void main(void)
 {
+	//Copie modifiable de l'entrée (les entrées d'un fragment shader sont en lecture seule)
+	vec3 couleur_speculaire=couleur_speculaire;
+	vec4 couleur=couleur;
 	//float facteur_attenuation_ombres=0.1;
 	
 	//---------- Calcul ombre:
@@ -41,7 +45,7 @@ void main(void)
 			//Projection des ombres:
 			else
 			{
-				float distance_zBuf = textureProj( texture_profondeur, coordonnees_texture_ombres);
+				float distance_zBuf = textureProj( texture_profondeur, coordonnees_texture_ombres).r;
 				
 				//Conversion Zbuffer->Ze:
 				float Zndc = distance_zBuf*2.-1.;

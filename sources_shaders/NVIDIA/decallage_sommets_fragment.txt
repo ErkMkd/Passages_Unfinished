@@ -1,3 +1,4 @@
+#version 130
 
 varying vec4 couleur;
 varying vec3 couleur_speculaire;

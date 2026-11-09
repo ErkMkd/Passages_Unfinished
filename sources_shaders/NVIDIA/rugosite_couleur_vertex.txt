@@ -1,3 +1,4 @@
+#version 130
 varying vec2 coordonnees_texture_couleur;
 varying vec2 coordonnees_texture_rugosite;
 
