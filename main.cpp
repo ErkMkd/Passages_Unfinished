@@ -693,6 +693,9 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
     if (banc->actif) glfwWindowHint(GLFW_RESIZABLE,GLFW_FALSE);    //Captures toujours à la même taille
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR,4);      //OpenGL 4.6, profil Core
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR,6);
+    glfwWindowHint(GLFW_OPENGL_PROFILE,GLFW_OPENGL_CORE_PROFILE);
     #ifdef _DEBUG
     glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT,GLFW_TRUE);   //Messages d'erreur d'OpenGL (Utiles/Erreurs_OpenGl.h)
     #endif
@@ -707,6 +710,7 @@ int main(int argc, char *argv[])
     glfwSwapInterval(banc->actif ? 0 : 1);    //Synchronisation verticale, sauf pour le banc d'essai
 
     //------------------ Initialise Glew (gestionnaire d'extensions OpenGl):
+    glewExperimental=GL_TRUE;   //Indispensable avec le profil Core: sinon, des fonctions restent introuvables
     GLenum erreur_glew=glewInit();
     if (erreur_glew!=GLEW_OK)
     {
@@ -714,12 +718,15 @@ int main(int argc, char *argv[])
         drapeau_erreur=true;
         exit(EXIT_FAILURE);
     }
+    glGetError();   //glewInit interroge glGetString(GL_EXTENSIONS), absent du profil Core: l'erreur est effacée
     cout<<"Version GLEW: "<<glewGetString(GLEW_VERSION)<<endl;
     active_debogage_openGl();
 
     //------------------ Carte graphique:
     cout<<"Carte graphique: "<<glGetString(GL_RENDERER)<<" - "<<glGetString(GL_VENDOR)<<endl;
-    cout<<"Version OpenGL: "<<glGetString(GL_VERSION)<<endl;
+    GLint profil=0;
+    glGetIntegerv(GL_CONTEXT_PROFILE_MASK,&profil);
+    cout<<"Version OpenGL: "<<glGetString(GL_VERSION)<<((profil&GL_CONTEXT_CORE_PROFILE_BIT) ? " (profil Core)" : " (profil de compatibilité)")<<endl;
     //Le jeu de shaders NVIDIA est le seul complet: il est utilisé quelle que soit la carte.
     uint8_t id_fabriquant=DKSSHADERS_FABRIQUANT_NVIDIA;
     //------------ Vérifiacation de l'implémentation d'OpenGL:

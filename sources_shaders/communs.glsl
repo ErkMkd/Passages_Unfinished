@@ -1,4 +1,4 @@
-#version 460 compatibility
+#version 460 core
 //======================================================================
 //      En-tête commun, ajouté par le moteur devant chaque shader, suivi de
 //      sommets.glsl (vertex shaders) ou de fragments.glsl (fragment shaders).

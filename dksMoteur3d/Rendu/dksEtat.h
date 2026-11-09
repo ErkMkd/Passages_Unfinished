@@ -13,7 +13,8 @@
 //  glEnable, glBindTexture, glTexEnv, glFog, glUseProgram... et tiennent cet
 //  état en C++, pour qu'un shader d'émulation le reproduise quand le moteur
 //  trace sans shader.
-//  Pendant le portage, chaque appel est aussi transmis à OpenGL.
+//  Ce qui existe aussi dans le profil Core (glEnable(GL_BLEND), glBindTexture,
+//  glPointSize...) est transmis à OpenGL.
 //*************************************************************************
 
 #define DKSETAT_NBR_UNITES 8
@@ -77,6 +78,13 @@ class dksEtat
             }
         }
 
+        //Capacités qui n'existent que dans le pipeline fixe (lissage des lignes et des polygones: aussi dans le profil Core):
+        static bool capacite_pipeline_fixe(GLenum capacite)
+        {
+            if (capacite==GL_LINE_SMOOTH || capacite==GL_POLYGON_SMOOTH) return false;
+            return capacite_fixe(capacite)!=NULL || capacite==GL_TEXTURE_2D || (capacite>=GL_LIGHT0 && capacite<GL_LIGHT0+8);
+        }
+
         static void change(GLenum capacite,bool valeur)
         {
             bool* c=capacite_fixe(capacite);
@@ -91,6 +99,7 @@ class dksEtat
                 unsigned int bit=1u<<unite;
                 textures= valeur ? (textures|bit) : (textures&~bit);
             }
+            if (capacite_pipeline_fixe(capacite)) return;
             if (valeur) glEnable(capacite);
             else glDisable(capacite);
         }
@@ -237,7 +246,6 @@ class dksEtat
                 if (cible==GL_TEXTURE_ENV && parametre==GL_TEXTURE_ENV_MODE) modes_textures[unite]=valeur;
                 else if (cible==GL_POINT_SPRITE && parametre==GL_COORD_REPLACE) remplacement_coordonnees[unite]= valeur!=0;
             }
-            glTexEnvi(cible,parametre,valeur);
         }
 
         static void enveloppe_f(GLenum cible,GLenum parametre,GLfloat valeur)
@@ -257,20 +265,17 @@ class dksEtat
                 case GL_FOG_START: debut_brouillard=valeur; break;
                 case GL_FOG_END: fin_brouillard=valeur; break;
             }
-            glFogf(parametre,valeur);
         }
 
         static void brouillard_i(GLenum parametre,GLint valeur)
         {
             if (parametre==GL_FOG_MODE) mode_brouillard=valeur;
-            glFogi(parametre,valeur);
         }
 
         static void brouillard_fv(GLenum parametre,const GLfloat* valeurs)
         {
             if (parametre==GL_FOG_COLOR) memcpy(couleur_brouillard,valeurs,4*sizeof(GLfloat));
             else brouillard_f(parametre,valeurs[0]);
-            glFogfv(parametre,valeurs);
         }
 
         //-------------------------------------------------------------
@@ -279,14 +284,12 @@ class dksEtat
         static void ombrage(GLenum mode)
         {
             modele_ombrage=mode;
-            glShadeModel(mode);
         }
 
         static void couleur_materiau_mode(GLenum faces,GLenum composante)
         {
             faces_couleur_materiau=faces;
             composante_couleur_materiau=composante;
-            glColorMaterial(faces,composante);
         }
 
         //-------------------------------------------------------------
@@ -302,7 +305,7 @@ class dksEtat
         {
             if (parametre==GL_POINT_SIZE_MIN) taille_points_min=valeur;
             else if (parametre==GL_POINT_SIZE_MAX) taille_points_max=valeur;
-            glPointParameterf(parametre,valeur);
+            else glPointParameterf(parametre,valeur);
         }
 
         static void parametre_points_i(GLenum parametre,GLint valeur)
@@ -313,8 +316,7 @@ class dksEtat
         static void parametre_points_fv(GLenum parametre,const GLfloat* valeurs)
         {
             if (parametre==GL_POINT_DISTANCE_ATTENUATION) memcpy(attenuation_points,valeurs,3*sizeof(GLfloat));
-            else if (parametre==GL_POINT_SIZE_MIN || parametre==GL_POINT_SIZE_MAX) parametre_points_f(parametre,valeurs[0]);
-            glPointParameterfv(parametre,valeurs);
+            else parametre_points_f(parametre,valeurs[0]);
         }
 
         //=============================================================

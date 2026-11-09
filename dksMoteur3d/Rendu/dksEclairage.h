@@ -17,7 +17,6 @@
 //      binding 2: Materiau    (matériau des faces avant, comme gl_FrontMaterial)
 //  et le shader d'émulation du pipeline fixe lit aussi:
 //      binding 4: MateriauArriere (matériau des faces arrière, pour l'éclairage des deux faces)
-//  Pendant le portage, chaque changement est aussi transmis à OpenGL, pour le pipeline fixe.
 //*************************************************************************
 
 #define DKSECLAIRAGE_NBR_SOURCES 8
@@ -169,7 +168,6 @@ class dksEclairage
                 case GL_QUADRATIC_ATTENUATION: s.attenuation_quadratique=valeurs[0]; break;
             }
             transmet(tampon_eclairage,DKSECLAIRAGE_BLOC_ECLAIRAGE,&eclairage,sizeof(eclairage));
-            glLightfv(id_openGl,parametre,valeurs);
         }
 
         static void source(GLenum id_openGl,GLenum parametre,GLfloat valeur)
@@ -179,8 +177,8 @@ class dksEclairage
 
         //-------------------------------------------------------------
         //      Équivalents de glLightModelfv et glLightModeli
-        //  Seule la couleur ambiante globale concerne les shaders: les autres
-        //  paramètres ne servent qu'au pipeline fixe.
+        //  Seule la couleur ambiante globale concerne les shaders du moteur: les
+        //  autres paramètres ne servent qu'à l'émulation du pipeline fixe (dksEtat).
         //-------------------------------------------------------------
         static void modele(GLenum parametre,const GLfloat* valeurs)
         {
@@ -189,7 +187,6 @@ class dksEclairage
                 memcpy(eclairage.ambiante_globale,valeurs,4*sizeof(GLfloat));
                 transmet(tampon_eclairage,DKSECLAIRAGE_BLOC_ECLAIRAGE,&eclairage,sizeof(eclairage));
             }
-            glLightModelfv(parametre,valeurs);
         }
 
         static void modele(GLenum parametre,GLint valeur)
@@ -200,12 +197,12 @@ class dksEclairage
                 case GL_LIGHT_MODEL_LOCAL_VIEWER: observateur_local= valeur!=0; break;
                 case GL_LIGHT_MODEL_COLOR_CONTROL: speculaire_separee= valeur==GL_SEPARATE_SPECULAR_COLOR; break;
             }
-            glLightModeli(parametre,valeur);
         }
 
         //-------------------------------------------------------------
         //      Équivalents de glMaterialfv et glMaterialf
-        //  Les shaders du moteur ne lisent que le matériau des faces avant.
+        //  Les shaders du moteur ne lisent que le matériau des faces avant;
+        //  l'émulation du pipeline fixe lit aussi celui des faces arrière.
         //-------------------------------------------------------------
         static void materiau(GLenum face,GLenum parametre,const GLfloat* valeurs)
         {
@@ -219,7 +216,6 @@ class dksEclairage
                 change_materiau(materiau_arriere,parametre,valeurs);
                 transmet(tampon_materiau_arriere,DKSECLAIRAGE_BLOC_MATERIAU_ARRIERE,&materiau_arriere,sizeof(materiau_arriere));
             }
-            glMaterialfv(face,parametre,valeurs);
         }
 
     private:

@@ -18,7 +18,7 @@ From a *Developer PowerShell for VS 2026*, at the root of the repository:
 
 The first configuration takes a few minutes: vcpkg builds GLFW, GLEW, Dear ImGui, libtiff, libjpeg-turbo and stb, and the BASS audio library is downloaded from [un4seen.com](https://www.un4seen.com).
 
-Run `build\Release\Passages.exe`. The demo loads its textures, models and shaders from the repository root, wherever the executable is started from.
+Run `build\Release\Passages.exe`. The demo loads its textures, models and shaders from the repository root, wherever the executable is started from. It needs a graphics driver supporting OpenGL 4.6 (core profile); in Debug builds, OpenGL errors are printed to the console.
 
 ## Test bench
 

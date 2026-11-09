@@ -16,8 +16,6 @@
 //  courante à droite.
 //  Les shaders lisent les matrices courantes dans le bloc d'uniforms "Matrices"
 //  (binding 0, disposition std140), mis à jour à chaque changement.
-//  Pendant le portage, chaque changement est aussi recopié dans OpenGL, pour
-//  le pipeline fixe.
 //
 //  Une seule pile de texture: elle s'applique à l'unité de texture active,
 //  comme dans OpenGL (le moteur n'en utilise qu'une).
@@ -81,13 +79,6 @@ class dksMatrices
             else glNamedBufferSubData(tampon,0,sizeof(bloc),&bloc);
         }
 
-        //Transmet la matrice courante aux shaders, et la recopie dans OpenGL (le mode d'OpenGL suit celui des piles).
-        static void synchronise()
-        {
-            transmet();
-            glLoadMatrixd(glm::value_ptr(courante()));
-        }
-
     public:
         //-------------------------------------------------------------
         //      Équivalents des fonctions d'OpenGL et de GLU
@@ -100,7 +91,6 @@ class dksMatrices
                 case GL_TEXTURE: pile_courante=TEXTURE; break;
                 default: pile_courante=MODELE_VUE; break;
             }
-            glMatrixMode(mode_gl);
         }
 
         static void empile()    //glPushMatrix
@@ -111,61 +101,61 @@ class dksMatrices
         static void depile()    //glPopMatrix
         {
             if (piles[pile_courante].size()>1) piles[pile_courante].pop_back();
-            synchronise();
+            transmet();
         }
 
         static void identite()  //glLoadIdentity
         {
             courante()=glm::dmat4(1.);
-            synchronise();
+            transmet();
         }
 
         static void charge(const GLdouble* m)   //glLoadMatrixd
         {
             courante()=glm::make_mat4(m);
-            synchronise();
+            transmet();
         }
 
         static void charge(const GLfloat* m)    //glLoadMatrixf
         {
             courante()=glm::dmat4(glm::make_mat4(m));
-            synchronise();
+            transmet();
         }
 
         static void multiplie(const GLdouble* m)    //glMultMatrixd
         {
             courante()*=glm::make_mat4(m);
-            synchronise();
+            transmet();
         }
 
         static void multiplie(const GLfloat* m)     //glMultMatrixf
         {
             courante()*=glm::dmat4(glm::make_mat4(m));
-            synchronise();
+            transmet();
         }
 
         static void translation(double x,double y,double z)     //glTranslate
         {
             courante()=glm::translate(courante(),glm::dvec3(x,y,z));
-            synchronise();
+            transmet();
         }
 
         static void rotation(double angle,double x,double y,double z)   //glRotate (angle en degrés)
         {
             courante()=glm::rotate(courante(),glm::radians(angle),glm::dvec3(x,y,z));
-            synchronise();
+            transmet();
         }
 
         static void echelle(double x,double y,double z)     //glScale
         {
             courante()=glm::scale(courante(),glm::dvec3(x,y,z));
-            synchronise();
+            transmet();
         }
 
         static void ortho(double gauche,double droite,double bas,double haut,double proche,double lointain)    //glOrtho
         {
             courante()*=glm::ortho(gauche,droite,bas,haut,proche,lointain);
-            synchronise();
+            transmet();
         }
 
         static void ortho2D(double gauche,double droite,double bas,double haut)    //gluOrtho2D
@@ -176,13 +166,13 @@ class dksMatrices
         static void frustum(double gauche,double droite,double bas,double haut,double proche,double lointain)  //glFrustum
         {
             courante()*=glm::frustum(gauche,droite,bas,haut,proche,lointain);
-            synchronise();
+            transmet();
         }
 
         static void perspective(double ouverture,double rapport_xy,double zmin,double zmax)    //gluPerspective (ouverture en degrés)
         {
             courante()*=glm::perspective(glm::radians(ouverture),rapport_xy,zmin,zmax);
-            synchronise();
+            transmet();
         }
 
         static void regarde(double oeil_x,double oeil_y,double oeil_z,
@@ -190,7 +180,7 @@ class dksMatrices
                             double haut_x,double haut_y,double haut_z)   //gluLookAt
         {
             courante()*=glm::lookAt(glm::dvec3(oeil_x,oeil_y,oeil_z),glm::dvec3(cible_x,cible_y,cible_z),glm::dvec3(haut_x,haut_y,haut_z));
-            synchronise();
+            transmet();
         }
 
         static void lit(GLenum quelle,GLdouble* m)  //glGetDoublev(GL_xxx_MATRIX)
