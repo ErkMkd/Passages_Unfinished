@@ -106,7 +106,7 @@ class dksInitialiseShaders: public Gestion_Shaders
             pipeline_fixe=NULL;
 
             //Les shaders (GLSL 4.60 core) conviennent à toutes les cartes graphiques:
-            strcpy(chemin_sources,"sources_shaders/NVIDIA/");
+            strcpy(chemin_sources,"sources_shaders/");
 
             //Création des shaders:
             if(!creation_shaders())
