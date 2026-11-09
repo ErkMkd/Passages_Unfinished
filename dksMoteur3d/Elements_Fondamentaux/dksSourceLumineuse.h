@@ -301,7 +301,7 @@ public:
                     allocation_lumieres_openGl|=(1<<id);
                     drapeau_lumiere_active=true;
                     id_openGl=table_openGl_id[id];
-                    glEnable(id_openGl); //L'activation se fait par maj_intensite()
+                    dksEtat::active(id_openGl); //L'activation se fait par maj_intensite()
                     initialise_openGl();
                     return true;
                 }
@@ -313,7 +313,7 @@ public:
         void desactive_lumiere()
         {
             if (!drapeau_lumiere_active) return;
-            glDisable(id_openGl);
+            dksEtat::desactive(id_openGl);
             allocation_lumieres_openGl&=-(1<<id)-1;
             drapeau_lumiere_active=false;
         }

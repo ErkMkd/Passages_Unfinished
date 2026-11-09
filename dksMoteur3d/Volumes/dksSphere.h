@@ -300,13 +300,13 @@ class dksSphere : public dksVolume
     {
         this->dksVolume::affiche(oeil);
         /*
-        glPointSize(4.);
-        bool mem_lights=glIsEnabled(GL_LIGHTING);
-        bool mem_depth_test=glIsEnabled(GL_DEPTH_TEST);
+        dksEtat::taille_point(4.);
+        bool mem_lights=dksEtat::est_active(GL_LIGHTING);
+        bool mem_depth_test=dksEtat::est_active(GL_DEPTH_TEST);
         desactive_textures();
-        glDisable(GL_DEPTH_TEST);
-        glDisable(GL_BLEND);
-        glDisable(GL_LIGHTING);
+        dksEtat::desactive(GL_DEPTH_TEST);
+        dksEtat::desactive(GL_BLEND);
+        dksEtat::desactive(GL_LIGHTING);
         dksImmediat::debut(GL_POINTS);
             dksImmediat::couleur3f(1.,0.,0.);
             dksImmediat::sommet3dv(&sommets[0]);
@@ -315,8 +315,8 @@ class dksSphere : public dksVolume
             dksImmediat::couleur3f(0.,0.,1.);
             dksImmediat::sommet3dv(&sommets[6]);
         dksImmediat::fin();
-        if (mem_lights)glEnable(GL_LIGHTING);
-        if (mem_depth_test)glEnable(GL_DEPTH_TEST);
+        if (mem_lights)dksEtat::active(GL_LIGHTING);
+        if (mem_depth_test)dksEtat::active(GL_DEPTH_TEST);
         */
     }
 

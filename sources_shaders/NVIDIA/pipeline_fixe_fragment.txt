@@ -1,0 +1,145 @@
+//======================================================================
+//      Émulation du pipeline fixe d'OpenGL: textures (modes d'enveloppe),
+//      couleur spéculaire séparée, points lissés et sprites, brouillard.
+//      Utilisé automatiquement quand le moteur trace sans shader (dksEtat).
+//======================================================================
+
+layout(std140, binding=3) uniform PipelineFixe
+{
+    int eclairage;
+    int sources_actives;
+    int couleur_materiau;
+    int deux_faces;
+    int normalisation;
+    int ombrage_plat;
+    int textures_actives;
+    int speculaire_separee;
+    int observateur_local;
+    int brouillard;
+    float densite_brouillard;
+    float debut_brouillard;
+    float fin_brouillard;
+    int primitive_points;
+    int points_lisses;
+    int sprites;
+    vec4 couleur_brouillard;
+    ivec4 modes_textures;
+    ivec4 formats_textures;
+    float taille_points;
+    float taille_points_min;
+    float taille_points_max;
+    int faces_couleur_materiau;
+    vec4 attenuation_points;
+};
+
+layout(binding=0) uniform sampler2D textures_unites[4];
+
+const int GL_MODULATE_=0x2100;
+const int GL_REPLACE_=0x1E01;
+const int GL_DECAL_=0x2101;
+const int GL_BLEND_=0x0BE2;
+const int GL_ADD_=0x0104;
+const int GL_ALPHA_=0x1906;
+const int GL_RGB_=0x1907;
+const int GL_LUMINANCE_=0x1909;
+const int GL_LUMINANCE_ALPHA_=0x190A;
+const int GL_INTENSITY_=0x8049;
+const int GL_LINEAR_=0x2601;
+const int GL_EXP_=0x0800;
+
+in vec4 couleur_avant;
+in vec4 speculaire_avant;
+in vec4 couleur_arriere;
+in vec4 speculaire_arriere;
+flat in vec4 couleur_avant_plate;
+flat in vec4 speculaire_avant_plate;
+flat in vec4 couleur_arriere_plate;
+flat in vec4 speculaire_arriere_plate;
+in vec4 coordonnees_textures[4];
+in float distance_brouillard;
+flat in float taille_point;
+
+//Application d'une texture selon son mode d'enveloppe et son format (table de la spécification d'OpenGL).
+//La couleur de l'enveloppe (GL_TEXTURE_ENV_COLOR) n'est pas utilisée par le moteur: elle vaut 0.
+vec4 applique_texture(vec4 f,vec4 t,int mode,int format)
+{
+    vec3 ct=t.rgb;
+    float at=t.a;
+    bool sans_couleur= format==GL_ALPHA_;
+    bool sans_alpha= format==GL_RGB_ || format==GL_LUMINANCE_;
+    if (format==GL_INTENSITY_) at=t.r;
+    vec4 c=f;
+    if (mode==GL_REPLACE_)
+    {
+        if (!sans_couleur) c.rgb=ct;
+        if (!sans_alpha) c.a=at;
+    }
+    else if (mode==GL_DECAL_)
+    {
+        if (format==GL_RGB_) c.rgb=ct;
+        else c.rgb=mix(f.rgb,ct,at);
+    }
+    else if (mode==GL_BLEND_)
+    {
+        if (!sans_couleur) c.rgb=f.rgb*(1.-ct);
+        if (!sans_alpha) c.a= format==GL_INTENSITY_ ? f.a*(1.-at) : f.a*at;
+    }
+    else if (mode==GL_ADD_)
+    {
+        if (!sans_couleur) c.rgb=f.rgb+ct;
+        if (!sans_alpha) c.a= format==GL_INTENSITY_ ? f.a+at : f.a*at;
+    }
+    else    //GL_MODULATE
+    {
+        if (!sans_couleur) c.rgb=f.rgb*ct;
+        if (!sans_alpha) c.a=f.a*at;
+    }
+    return clamp(c,0.,1.);
+}
+
+void main()
+{
+    bool avant= gl_FrontFacing || deux_faces==0;
+    vec4 c,s;
+    if (ombrage_plat!=0)
+    {
+        c= avant ? couleur_avant_plate : couleur_arriere_plate;
+        s= avant ? speculaire_avant_plate : speculaire_arriere_plate;
+    }
+    else
+    {
+        c= avant ? couleur_avant : couleur_arriere;
+        s= avant ? speculaire_avant : speculaire_arriere;
+    }
+
+    for (int u=0;u<4;u++)
+    {
+        if ((textures_actives&(1<<u))==0) continue;
+        vec2 st=coordonnees_textures[u].st/coordonnees_textures[u].q;
+        if (primitive_points!=0 && (sprites&(1<<u))!=0) st=gl_PointCoord;
+        c=applique_texture(c,texture(textures_unites[u],st),modes_textures[u],formats_textures[u]);
+    }
+
+    if (eclairage!=0 && speculaire_separee!=0) c.rgb=min(c.rgb+s.rgb,1.);
+
+    //Points lissés (GL_POINT_SMOOTH): disque dont le bord est adouci sur un pixel.
+    if (primitive_points!=0 && points_lisses!=0)
+    {
+        float r=length(gl_PointCoord-vec2(.5))*2.;
+        float couverture=clamp((1.-r)*taille_point*.5+.5,0.,1.);
+        if (couverture<=0.) discard;
+        c.a*=couverture;
+    }
+
+    if (brouillard!=0)
+    {
+        float z=distance_brouillard;
+        float f;
+        if (brouillard==GL_LINEAR_) f=(fin_brouillard-z)/(fin_brouillard-debut_brouillard);
+        else if (brouillard==GL_EXP_) f=exp(-densite_brouillard*z);
+        else f=exp(-(densite_brouillard*z)*(densite_brouillard*z));
+        c.rgb=mix(couleur_brouillard.rgb,c.rgb,clamp(f,0.,1.));
+    }
+
+    gl_FragColor=c;
+}

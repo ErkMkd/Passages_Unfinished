@@ -960,7 +960,7 @@ class Annelide :public dksVolume
     //=======================================================================================
     virtual void affiche(dksOeil* oeil)
     {
-        //glPointSize(3);
+        //dksEtat::taille_point(3);
         dksVolume::affiche(oeil);
         //affiche_sommets();
         //affiche_colonne();
@@ -969,22 +969,22 @@ class Annelide :public dksVolume
 
     void affiche_sommets()
     {
-        glPointSize(3);
-        glDisable(GL_LIGHTING);
+        dksEtat::taille_point(3);
+        dksEtat::desactive(GL_LIGHTING);
         dksImmediat::debut(GL_POINTS);
         dksImmediat::couleur3f(1.,0.,0.);
         dksImmediat::sommet3dv(&sommets[(0+1)*3]);
         dksImmediat::couleur3f(1.,1.,0.);
         dksImmediat::sommet3dv(&sommets[(1+1)*3]);
         dksImmediat::fin();
-        glEnable(GL_LIGHTING);
+        dksEtat::active(GL_LIGHTING);
 
     }
 
     void affiche_vecteur_generateur()
     {
-        GLboolean lum_mem=glIsEnabled(GL_LIGHTING);
-        glDisable(GL_LIGHTING);
+        GLboolean lum_mem=dksEtat::est_active(GL_LIGHTING);
+        dksEtat::desactive(GL_LIGHTING);
         dksImmediat::couleur3f(1.,1.,0.5);
         dksImmediat::debut(GL_POINTS);
         dksImmediat::sommet3dv(vecteur_generateur_position);
@@ -1002,14 +1002,14 @@ class Annelide :public dksVolume
                    vecteur_generateur_position[2]+vecteur_generateur_orientation[2]
                    );
         dksImmediat::fin();
-        if (lum_mem)glEnable(GL_LIGHTING);
+        if (lum_mem)dksEtat::active(GL_LIGHTING);
     }
 
     void affiche_colonne()
     {
         uint16_t i;
-        GLboolean lum_mem=glIsEnabled(GL_LIGHTING);
-        glDisable(GL_LIGHTING);
+        GLboolean lum_mem=dksEtat::est_active(GL_LIGHTING);
+        dksEtat::desactive(GL_LIGHTING);
         dksImmediat::couleur3f(1.,.5,1.);
 
         dksImmediat::debut(GL_POINTS);
@@ -1027,7 +1027,7 @@ class Annelide :public dksVolume
         }
         dksImmediat::fin();
 
-        if (lum_mem)glEnable(GL_LIGHTING);
+        if (lum_mem)dksEtat::active(GL_LIGHTING);
     }
 
 };

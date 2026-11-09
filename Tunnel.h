@@ -169,7 +169,7 @@ class Tunnel : public dksConteneur
     {
         if (!drapeau_maj) return;
         /*
-        glDisable(GL_LIGHTING);
+        dksEtat::desactive(GL_LIGHTING);
         dksImmediat::debut(GL_LINES);
             dksImmediat::sommet3fv(position_vecteur_generateur);
             dksImmediat::sommet3f(position_vecteur_generateur[0]+orientation_vecteur_generateur[0],
@@ -177,7 +177,7 @@ class Tunnel : public dksConteneur
                        position_vecteur_generateur[2]+orientation_vecteur_generateur[2]
                        );
         dksImmediat::fin();
-        glPointSize(6);
+        dksEtat::taille_point(6);
         dksImmediat::couleur3ub(0xff,0xff,0x00);
         dksImmediat::debut(GL_POINTS);
             dksImmediat::sommet3fv(position_vecteur_generateur);
@@ -191,7 +191,7 @@ class Tunnel : public dksConteneur
         trajectoire_sections.affiche_courbe(10,0xffffffff);
         trajectoire_sections.affiche_points(0xffff0000,3);
 
-        glEnable(GL_LIGHTING);
+        dksEtat::active(GL_LIGHTING);
         */
 
 

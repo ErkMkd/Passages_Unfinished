@@ -195,16 +195,16 @@ class dksStarfield : public dksParticules
         virtual void affiche(dksOeil* oeil)
         {
             //Sauvegarde états sensibles openGL:
-            bool blend_mem=glIsEnabled(GL_BLEND);
-            bool lighting_mem=glIsEnabled(GL_LIGHTING);
+            bool blend_mem=dksEtat::est_active(GL_BLEND);
+            bool lighting_mem=dksEtat::est_active(GL_LIGHTING);
             GLboolean depth_mask_mem;
             glGetBooleanv(GL_DEPTH_WRITEMASK,&depth_mask_mem);
 
             //Initialise la transparence;
 
-            glEnable(GL_BLEND);
+            dksEtat::active(GL_BLEND);
             glBlendFunc(GL_SRC_ALPHA,GL_DST_ALPHA);//GL_ONE_MINUS_SRC_ALPHA);
-            glDisable(GL_LIGHTING);
+            dksEtat::desactive(GL_LIGHTING);
             glDepthMask(GL_FALSE);
 
             //Affiche des points si pas de sprite
@@ -225,8 +225,8 @@ class dksStarfield : public dksParticules
 
             //Restitue les états sensibles d'openGL:
             glDepthMask(depth_mask_mem);
-            if (!blend_mem) glDisable(GL_BLEND);
-            if (lighting_mem) glEnable(GL_LIGHTING);
+            if (!blend_mem) dksEtat::desactive(GL_BLEND);
+            if (lighting_mem) dksEtat::active(GL_LIGHTING);
         }
 
         //-----------------------------------------------------------
@@ -239,9 +239,9 @@ class dksStarfield : public dksParticules
             uint32_t i;
 
             //Initialise openGl:
-            bool point_smooth_mem=glIsEnabled(GL_POINT_SMOOTH);
+            bool point_smooth_mem=dksEtat::est_active(GL_POINT_SMOOTH);
 
-            glEnable(GL_POINT_SMOOTH);
+            dksEtat::active(GL_POINT_SMOOTH);
             dksImmediat::couleur4f(float(uint8_t(couleur>>16))/255.,float(uint8_t(couleur>>8))/255.,float(uint8_t(couleur)),float(uint8_t(couleur>>24))/255.);
 
             //Calcul la taille des points:
@@ -249,25 +249,25 @@ class dksStarfield : public dksParticules
             glGetIntegerv(GL_VIEWPORT,resolution);
             float taille=taille_points * resolution[3] / (2*tanf(oeil->renvoie_ouverture()/360*M_PI));
 
-            glPointSize(taille);
+            dksEtat::taille_point(taille);
             GLfloat attenuation[3]={0.,0.,1.};
-            //glPointSize(10);
+            //dksEtat::taille_point(10);
             //GLfloat attenuation[3]={1.,0.,0.};
 
-            glPointParameterfv(GL_POINT_DISTANCE_ATTENUATION,attenuation);
-            glPointParameterf(GL_POINT_SIZE_MAX,128.);
-            glPointParameterf(GL_POINT_SIZE_MIN,1.);
+            dksEtat::parametre_points_fv(GL_POINT_DISTANCE_ATTENUATION,attenuation);
+            dksEtat::parametre_points_f(GL_POINT_SIZE_MAX,128.);
+            dksEtat::parametre_points_f(GL_POINT_SIZE_MIN,1.);
 
             //Initialise la texture:
             desactive_textures();
             if (image!=NULL)
             {
-                glActiveTexture(GL_TEXTURE0);
-                glEnable(GL_POINT_SPRITE);
-                glBindTexture(GL_TEXTURE_2D,image->texture_id);
-                glTexEnvi(GL_POINT_SPRITE,GL_COORD_REPLACE,GL_TRUE);
-                glPointParameteri(GL_POINT_SPRITE_COORD_ORIGIN,GL_LOWER_LEFT);
-                glEnable(GL_TEXTURE_2D);
+                dksEtat::unite_active(GL_TEXTURE0);
+                dksEtat::active(GL_POINT_SPRITE);
+                dksEtat::lie_texture(GL_TEXTURE_2D,image->texture_id);
+                dksEtat::enveloppe_i(GL_POINT_SPRITE,GL_COORD_REPLACE,GL_TRUE);
+                dksEtat::parametre_points_i(GL_POINT_SPRITE_COORD_ORIGIN,GL_LOWER_LEFT);
+                dksEtat::active(GL_TEXTURE_2D);
             }
 
             //Affiche les points:
@@ -277,13 +277,13 @@ class dksStarfield : public dksParticules
 
             //Restitue les données évcentuellement sensibles:
 
-            if (!point_smooth_mem) glDisable(GL_POINT_SMOOTH);
+            if (!point_smooth_mem) dksEtat::desactive(GL_POINT_SMOOTH);
 
             if (image!=NULL)
             {
-                glTexEnvi(GL_POINT_SPRITE,GL_COORD_REPLACE,GL_FALSE);
-                glDisable(GL_POINT_SPRITE);
-                glDisable(GL_TEXTURE_2D);
+                dksEtat::enveloppe_i(GL_POINT_SPRITE,GL_COORD_REPLACE,GL_FALSE);
+                dksEtat::desactive(GL_POINT_SPRITE);
+                dksEtat::desactive(GL_TEXTURE_2D);
             }
 
         }

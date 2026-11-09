@@ -58,12 +58,12 @@ class Scene
         glGetIntegerv(GL_MAX_TEXTURE_UNITS,&nbr_unites_textures_max);
         for (i=0;i<nbr_unites_textures_max;i++)
             {
-                glActiveTexture(GL_TEXTURE0+i);
-                glDisable(GL_TEXTURE_2D);
+                dksEtat::unite_active(GL_TEXTURE0+i);
+                dksEtat::desactive(GL_TEXTURE_2D);
                 dksTableaux::unite(GL_TEXTURE0+i);
                 dksTableaux::desactive(GL_TEXTURE_COORD_ARRAY);
             }
-        glActiveTexture(GL_TEXTURE0);
+        dksEtat::unite_active(GL_TEXTURE0);
     }
     //==========================================================================================
     //                                      Constructeur

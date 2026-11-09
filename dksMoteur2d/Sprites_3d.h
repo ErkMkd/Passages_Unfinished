@@ -107,7 +107,7 @@ private:
             Image_TIFF* image=sprites[i].image;
             image->texture_id=textures_openGl_id[i]; //Initialise les identifiants textures pour les images.
 
-            glBindTexture(GL_TEXTURE_2D,textures_openGl_id[i]); //Sélection de la texture courante
+            dksEtat::lie_texture(GL_TEXTURE_2D,textures_openGl_id[i]); //Sélection de la texture courante
 
             glTexParameterf(GL_TEXTURE_2D,      //Cible: La texture à paramétrer
                             GL_TEXTURE_WRAP_S,  //nomparam: Le paramètre à initialiser (ici:mode débordement horizontal de la texture 2d)
@@ -117,7 +117,7 @@ private:
             glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR); //Mode d'étirement de la texture
             glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR); //Mode de rétrécissement de la texture
 
-            glTexImage2D(GL_TEXTURE_2D, //Type de  texture
+            dksEtat::image_texture(GL_TEXTURE_2D, //Type de  texture
                         0,      //level: 0 pour une texture à 1 niveau (???)
                         4,      //component: 1:R, 2:RA, 3:RVB, 4:RVBA
                         image->largeur,image->hauteur, //largeur et hauteur de la texture en pixels
@@ -167,20 +167,20 @@ public:
     {
         dksMatrices::empile();
 
-        bool lighting_mem=glIsEnabled(GL_LIGHTING);
-        bool blend_mem=glIsEnabled(GL_BLEND);
-        bool texture_mem=glIsEnabled(GL_TEXTURE_2D);
-        bool depth_test_mem=glIsEnabled(GL_DEPTH_TEST);
-        bool cull_mem=glIsEnabled(GL_CULL_FACE);
-        bool colorMat_mem=glIsEnabled(GL_COLOR_MATERIAL);
+        bool lighting_mem=dksEtat::est_active(GL_LIGHTING);
+        bool blend_mem=dksEtat::est_active(GL_BLEND);
+        bool texture_mem=dksEtat::est_active(GL_TEXTURE_2D);
+        bool depth_test_mem=dksEtat::est_active(GL_DEPTH_TEST);
+        bool cull_mem=dksEtat::est_active(GL_CULL_FACE);
+        bool colorMat_mem=dksEtat::est_active(GL_COLOR_MATERIAL);
 
-        glDisable(GL_LIGHTING);
-        glEnable(GL_BLEND);
-        glEnable(GL_TEXTURE_2D);
-        glDisable(GL_DEPTH_TEST); //Désactive la prise en compte de la profondeur ("z-buffer")
-        glDisable(GL_CULL_FACE);
-        glEnable(GL_COLOR_MATERIAL);
-        glColorMaterial(GL_FRONT_AND_BACK,GL_DIFFUSE);
+        dksEtat::desactive(GL_LIGHTING);
+        dksEtat::active(GL_BLEND);
+        dksEtat::active(GL_TEXTURE_2D);
+        dksEtat::desactive(GL_DEPTH_TEST); //Désactive la prise en compte de la profondeur ("z-buffer")
+        dksEtat::desactive(GL_CULL_FACE);
+        dksEtat::active(GL_COLOR_MATERIAL);
+        dksEtat::couleur_materiau_mode(GL_FRONT_AND_BACK,GL_DIFFUSE);
 
         dksMatrices::identite();
         float xp=sprites[indice].x-sprites[indice].cx*sprites[indice].zoom;
@@ -188,7 +188,7 @@ public:
         dksMatrices::translation(xp-resolution_x/2,-yp+resolution_y/2,-echelle);
 
         Image_TIFF* image=sprites[indice].image;
-        glBindTexture(GL_TEXTURE_2D,image->texture_id);
+        dksEtat::lie_texture(GL_TEXTURE_2D,image->texture_id);
 
         float largeur=float(image->largeur)*sprites[indice].zoom;
         float hauteur=float(image->hauteur)*sprites[indice].zoom;
@@ -201,12 +201,12 @@ public:
             dksImmediat::texture2f(1,0); dksImmediat::sommet2f(largeur,0);
         dksImmediat::fin();
 
-        if (!blend_mem) glDisable(GL_BLEND);
-        if (lighting_mem) glEnable(GL_LIGHTING);
-        if (depth_test_mem) glEnable(GL_DEPTH_TEST);
-        if (!texture_mem) glDisable(GL_TEXTURE_2D);
-        if (cull_mem) glEnable(GL_CULL_FACE);
-        if (!colorMat_mem) glDisable(GL_COLOR_MATERIAL);
+        if (!blend_mem) dksEtat::desactive(GL_BLEND);
+        if (lighting_mem) dksEtat::active(GL_LIGHTING);
+        if (depth_test_mem) dksEtat::active(GL_DEPTH_TEST);
+        if (!texture_mem) dksEtat::desactive(GL_TEXTURE_2D);
+        if (cull_mem) dksEtat::active(GL_CULL_FACE);
+        if (!colorMat_mem) dksEtat::desactive(GL_COLOR_MATERIAL);
 
         dksMatrices::depile();
     }

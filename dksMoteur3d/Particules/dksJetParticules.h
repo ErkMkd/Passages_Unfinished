@@ -355,14 +355,14 @@ class dksJetParticules : public dksParticules
     virtual void affiche(dksOeil* oeil)
     {
         if(!drapeau_affiche) return;
-        glPointSize(epaisseur_points);
-        GLboolean light_mem=glIsEnabled(GL_LIGHTING);
-        GLboolean blend_mem=glIsEnabled(GL_BLEND);
-        glEnable(GL_BLEND);
+        dksEtat::taille_point(epaisseur_points);
+        GLboolean light_mem=dksEtat::est_active(GL_LIGHTING);
+        GLboolean blend_mem=dksEtat::est_active(GL_BLEND);
+        dksEtat::active(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-        glDisable(GL_LIGHTING);
+        dksEtat::desactive(GL_LIGHTING);
         Particule_Jet* particule=(Particule_Jet*)particules_actives;
-        glUseProgram(0);
+        dksEtat::utilise_programme(0);
         desactive_textures();
         dksImmediat::debut(GL_POINTS);
         while (particule!=NULL)
@@ -372,16 +372,16 @@ class dksJetParticules : public dksParticules
             particule=(Particule_Jet*)particule->suivante;
         }
         dksImmediat::fin();
-        if(light_mem)glEnable(GL_LIGHTING);
-        if(!blend_mem)glDisable(GL_BLEND);
+        if(light_mem)dksEtat::active(GL_LIGHTING);
+        if(!blend_mem)dksEtat::desactive(GL_BLEND);
     }
 
     virtual void affiche_couleurs_luminescentes(dksOeil* oeil)
     {
         if(!drapeau_affiche) return;
-        glPointSize(epaisseur_points_luminescents);
-        GLboolean blend_mem=glIsEnabled(GL_BLEND);
-        glEnable(GL_BLEND);
+        dksEtat::taille_point(epaisseur_points_luminescents);
+        GLboolean blend_mem=dksEtat::est_active(GL_BLEND);
+        dksEtat::active(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
         dksImmediat::debut(GL_POINTS);
         Particule_Jet* particule=(Particule_Jet*)particules_actives;
@@ -392,7 +392,7 @@ class dksJetParticules : public dksParticules
             particule=(Particule_Jet*)particule->suivante;
         }
         dksImmediat::fin();
-        if(!blend_mem)glDisable(GL_BLEND);
+        if(!blend_mem)dksEtat::desactive(GL_BLEND);
 
     }
 

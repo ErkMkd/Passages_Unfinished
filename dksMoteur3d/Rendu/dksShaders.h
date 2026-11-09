@@ -69,6 +69,8 @@ class dksInitialiseShaders: public Gestion_Shaders
         Shader_Masque_2_Textures* masque_2_textures;
         Shader_Decallage_Sommets* decallage_sommets;
 
+        dksShader* pipeline_fixe;   //Émulation du pipeline fixe d'OpenGL, utilisée par dksEtat
+
 
     private:
         char chemin_sources[256];
@@ -107,6 +109,7 @@ class dksInitialiseShaders: public Gestion_Shaders
             floutage_y=NULL;
             decallage_sommets=NULL;
             masque_2_textures=NULL;
+            pipeline_fixe=NULL;
 
             //Gestion carte graphique:
             id_fabriquant=p_id_fabriquant;
@@ -152,6 +155,11 @@ class dksInitialiseShaders: public Gestion_Shaders
             if(floutage_y!=NULL) delete floutage_y;
             if(decallage_sommets!=NULL) delete decallage_sommets;
             if(masque_2_textures!=NULL) delete masque_2_textures;
+            if(pipeline_fixe!=NULL)
+            {
+                if (dksEtat::programme_emulation==pipeline_fixe->programme_id) dksEtat::programme_emulation=0;
+                delete pipeline_fixe;
+            }
         }
 
     //========================================================================
@@ -197,7 +205,7 @@ class dksInitialiseShaders: public Gestion_Shaders
             if(transition_textures_couleur->erreur!=DKSSHADER_OK) return false;
 
             transition_textures_couleur_axe=new Shader_Transition_Textures_Couleur_Axe("transition_textures_couleur_axe",renvoie_nom_fichier("transition_textures_couleur_axe_vertex.txt"),renvoie_nom_fichier("transition_textures_couleur_axe_fragment.txt"));
-            if(transition_textures_couleur->erreur!=DKSSHADER_OK) return false;
+            if(transition_textures_couleur_axe->erreur!=DKSSHADER_OK) return false;
 
             floutage_x=new Shader_Floutage("floutage_x",NULL,renvoie_nom_fichier("flou_x.txt"));
             if(floutage_x->erreur!=DKSSHADER_OK) return false;
@@ -209,6 +217,10 @@ class dksInitialiseShaders: public Gestion_Shaders
 
             masque_2_textures=new Shader_Masque_2_Textures("masque_2_textures",renvoie_nom_fichier("masque_2_textures_vertex.txt"),renvoie_nom_fichier("masque_2_textures_fragment.txt"));
             if(masque_2_textures->erreur!=DKSSHADER_OK) return false;
+
+            pipeline_fixe=new dksShader("pipeline_fixe",renvoie_nom_fichier("pipeline_fixe_vertex.txt"),renvoie_nom_fichier("pipeline_fixe_fragment.txt"));
+            if(pipeline_fixe->erreur!=DKSSHADER_OK) return false;
+            dksEtat::programme_emulation=pipeline_fixe->programme_id;
 
             return true;
         }
@@ -240,15 +252,15 @@ class dksInitialiseShaders: public Gestion_Shaders
             }
 
             glGenTextures(1,&texture_bruit_id);
-            glBindTexture(GL_TEXTURE_2D,texture_bruit_id);
+            dksEtat::lie_texture(GL_TEXTURE_2D,texture_bruit_id);
 
             glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
             glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
             glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
             glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);    //Il semble que ce paramètre active la texture.....
-            glTexImage2D(GL_TEXTURE_2D,0,GL_LUMINANCE,DKSSHADERS_TAILLE_TEXTURE_BRUIT,DKSSHADERS_TAILLE_TEXTURE_BRUIT,0,GL_LUMINANCE,GL_UNSIGNED_BYTE,texture_bruit);
+            dksEtat::image_texture(GL_TEXTURE_2D,0,GL_LUMINANCE,DKSSHADERS_TAILLE_TEXTURE_BRUIT,DKSSHADERS_TAILLE_TEXTURE_BRUIT,0,GL_LUMINANCE,GL_UNSIGNED_BYTE,texture_bruit);
 
-            //glTexEnvf(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);
+            //dksEtat::enveloppe_f(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);
 
 
             //--------- Erreur OpenGl:

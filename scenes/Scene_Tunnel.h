@@ -882,18 +882,18 @@ class Scene_Tunnel: public Scene
         {
 
             //dksMatrices::identite();
-            glDisable(GL_LIGHTING);
-            glDisable(GL_TEXTURE_2D);
-            glDisable(GL_BLEND);
+            dksEtat::desactive(GL_LIGHTING);
+            dksEtat::desactive(GL_TEXTURE_2D);
+            dksEtat::desactive(GL_BLEND);
             //glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-            glDisable(GL_DEPTH_TEST);
+            dksEtat::desactive(GL_DEPTH_TEST);
             //oeil_1->positionne_scene(t);
             trajectoire_camera_caducee_01.affiche_courbe(20,0x40ffff00);
             trajectoire_camera_caducee_01.affiche_points(0x80ff0000,5);
             //trajectoire_camera_caducee_01.affiche_point(point_actuel,0xffff6060,8);
-            glEnable(GL_LIGHTING);
-            //glDisable(GL_BLEND);
-            glEnable(GL_DEPTH_TEST);
+            dksEtat::active(GL_LIGHTING);
+            //dksEtat::desactive(GL_BLEND);
+            dksEtat::active(GL_DEPTH_TEST);
         }
 
     //=================================================

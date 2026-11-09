@@ -105,14 +105,14 @@ class Essaim :public Scene
     void initialise_openGl()
     {
         glClearColor(0.,0.,0.,0.);
-        glEnable(GL_DEPTH_TEST);
-        glEnable(GL_CULL_FACE);
+        dksEtat::active(GL_DEPTH_TEST);
+        dksEtat::active(GL_CULL_FACE);
 
-        glShadeModel(GL_SMOOTH);
+        dksEtat::ombrage(GL_SMOOTH);
 
         //Activation des éclairages:
-        glDisable(GL_LIGHTING);
-        glDisable(GL_BLEND);
+        dksEtat::desactive(GL_LIGHTING);
+        dksEtat::desactive(GL_BLEND);
     }
 
     //====================================================
@@ -151,7 +151,7 @@ class Essaim :public Scene
 
 
         conteneur_1->rotation(.05,0.,1.,0.);
-        glPointSize(6);
+        dksEtat::taille_point(6);
         scene->maj(t);
         scene->affiche(oeil_courant);
 

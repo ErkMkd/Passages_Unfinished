@@ -33,6 +33,7 @@ using namespace std;
 #include "Utiles/Banc_Essai.h"
 #include "dksMoteur3d/Rendu/dksMatrices.h"
 #include "dksMoteur3d/Rendu/dksEclairage.h"
+#include "dksMoteur3d/Rendu/dksEtat.h"
 #include "dksMoteur3d/Rendu/dksImmediat.h"
 #include "dksMoteur3d/Rendu/dksTableaux.h"
 #include "dksMoteur2d/dksEcran.h"
@@ -372,7 +373,7 @@ static void affichage_principal(void)
 
     #if AFFICHE_FPS
         dksRendu::desactive_textures();
-        glUseProgram(0);
+        dksEtat::utilise_programme(0);
         //glBindBuffer(GL_PIXEL_UNPACK_BUFFER,0);
         temps_calcul_image=Horloge::temps_reel()-debut_image;
         if (panneau!=NULL) panneau->affiche(&horloge,scene_actuelle->nom,temps_calcul_image);
@@ -407,7 +408,7 @@ static void fin_du_programme()
     }
 
     dksRendu::desactive_textures();
-    glUseProgram(0);
+    dksEtat::utilise_programme(0);
 
     if(la_musique!=NULL) delete la_musique;
     if (scene_fin!=NULL) delete scene_fin;

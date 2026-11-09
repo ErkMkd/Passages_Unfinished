@@ -170,7 +170,9 @@ class dksImmediat
             GLint premier=copie_sommets(a_tracer);
             if (premier<0) return;
             glBindVertexArray(vao);
+            bool emulation=dksEtat::prepare_trace(mode_trace);
             glDrawArrays(mode_trace,premier,GLsizei(a_tracer.size()));
+            dksEtat::termine_trace(mode_trace,emulation);
         }
 
         //------- Trace les primitives du lot en un seul appel, chacune avec sa primitive d'origine:
@@ -183,8 +185,10 @@ class dksImmediat
                 {
                     for (GLint& premier:premiers) premier+=base;
                     glBindVertexArray(vao);
+                    bool emulation=dksEtat::prepare_trace(mode_lot);
                     glMultiDrawArrays(mode_lot,premiers.data(),nombres.data(),GLsizei(premiers.size()));
-                        }
+                    dksEtat::termine_trace(mode_lot,emulation);
+                }
             }
             sommets.clear();
             premiers.clear();

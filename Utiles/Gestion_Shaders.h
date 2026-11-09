@@ -109,20 +109,23 @@ class Gestion_Shaders
         {
             GLint status;
 
-            //Après la liaison, tous les samplers sont sur l'unité de texture 0. Deux samplers de types
-            //différents (ex: sampler2D et samplerCube) sur la même unité rendent le programme invalide
-            //(règle appliquée par Intel et AMD). Le temps de la validation, chaque sampler reçoit sa propre unité.
+            //Après la liaison, les samplers sont sur l'unité de texture 0 (sauf ceux qui en fixent une avec
+            //layout(binding)). Deux samplers de types différents (ex: sampler2D et samplerCube) sur la même
+            //unité rendent le programme invalide (règle appliquée par Intel et AMD). Le temps de la validation,
+            //chaque sampler reçoit sa propre unité, puis retrouve la sienne.
             vector<GLint> samplers=renvoie_samplers(programme_id);
+            vector<GLint> unites(samplers.size(),0);
+            for (size_t i=0;i<samplers.size();i++) glGetUniformiv(programme_id,samplers[i],&unites[i]);
             GLint programme_courant;
             glGetIntegerv(GL_CURRENT_PROGRAM,&programme_courant);
-            glUseProgram(programme_id);
+            dksEtat::utilise_programme(programme_id);
             for (GLint i=0;i<GLint(samplers.size());i++) glUniform1i(samplers[i],i);
 
             glValidateProgram(programme_id);
             glGetProgramiv(programme_id,GL_VALIDATE_STATUS,&status);
 
-            for (GLint i=0;i<GLint(samplers.size());i++) glUniform1i(samplers[i],0);
-            glUseProgram(programme_courant);
+            for (size_t i=0;i<samplers.size();i++) glUniform1i(samplers[i],unites[i]);
+            dksEtat::utilise_programme(programme_courant);
 
             if (status==GL_FALSE)
             {

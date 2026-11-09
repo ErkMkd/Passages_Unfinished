@@ -392,13 +392,13 @@ class Scene_LogoGP: public Scene
         void affiche_trajectoire(dksTrajectoire* trajectoire)
         {
             desactive_textures();
-            glUseProgram(0);
+            dksEtat::utilise_programme(0);
             //dksMatrices::identite();
-            glDisable(GL_LIGHTING);
+            dksEtat::desactive(GL_LIGHTING);
             trajectoire->affiche_courbe(20,0x40ffff00);
             trajectoire->affiche_points(0x80ff0000,5);
             trajectoire->affiche_point(point_actuel,0xffff6060,8);
-            glEnable(GL_LIGHTING);
+            dksEtat::active(GL_LIGHTING);
         }
 
 

@@ -1781,76 +1781,76 @@ class Scene_Starfield : public Scene
         void affiche_trajectoire()
         {
             //dksMatrices::identite();
-            glDisable(GL_FOG);
-            glDisable(GL_LIGHTING);
-            glDisable(GL_TEXTURE_2D);
-            //glEnable(GL_BLEND);
+            dksEtat::desactive(GL_FOG);
+            dksEtat::desactive(GL_LIGHTING);
+            dksEtat::desactive(GL_TEXTURE_2D);
+            //dksEtat::active(GL_BLEND);
             //glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-            //glDisable(GL_DEPTH_TEST);
+            //dksEtat::desactive(GL_DEPTH_TEST);
             //oeil_1->positionne_scene(t);
             ma_trajectoire.affiche_courbe(20,0x40ffff00);
             ma_trajectoire.affiche_points(0x80ff0000,5);
             ma_trajectoire.affiche_point(point_actuel,0xffff6060,8);
-            glEnable(GL_LIGHTING);
-            glDisable(GL_BLEND);
-            //glEnable(GL_DEPTH_TEST);
+            dksEtat::active(GL_LIGHTING);
+            dksEtat::desactive(GL_BLEND);
+            //dksEtat::active(GL_DEPTH_TEST);
         }
 
         void affiche_trajectoire_vaisseau()
         {
             //dksMatrices::identite();
-            glDisable(GL_FOG);
-            glDisable(GL_LIGHTING);
-            glDisable(GL_TEXTURE_2D);
-            //glEnable(GL_BLEND);
+            dksEtat::desactive(GL_FOG);
+            dksEtat::desactive(GL_LIGHTING);
+            dksEtat::desactive(GL_TEXTURE_2D);
+            //dksEtat::active(GL_BLEND);
             //glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-            //glDisable(GL_DEPTH_TEST);
+            //dksEtat::desactive(GL_DEPTH_TEST);
             //oeil_1->positionne_scene(t);
             trajectoire_vaisseau.affiche_courbe(20,0x4000ffff);
             trajectoire_vaisseau.affiche_points(0x80ff00ff,5);
             //trajectoire_vaisseau.affiche_point(point_actuel,0xffff6060,8);
-            glEnable(GL_LIGHTING);
-            //glDisable(GL_BLEND);
-            //glEnable(GL_DEPTH_TEST);
+            dksEtat::active(GL_LIGHTING);
+            //dksEtat::desactive(GL_BLEND);
+            //dksEtat::active(GL_DEPTH_TEST);
         }
 
         void affiche_trajectoire_poursuite()
         {
             //dksMatrices::identite();
-            glDisable(GL_FOG);
-            glDisable(GL_LIGHTING);
-            glDisable(GL_TEXTURE_2D);
-            //glEnable(GL_BLEND);
+            dksEtat::desactive(GL_FOG);
+            dksEtat::desactive(GL_LIGHTING);
+            dksEtat::desactive(GL_TEXTURE_2D);
+            //dksEtat::active(GL_BLEND);
             //glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-            //glDisable(GL_DEPTH_TEST);
+            //dksEtat::desactive(GL_DEPTH_TEST);
             //oeil_1->positionne_scene(t);
             trajectoire_poursuite_vaisseau.affiche_courbe(20,0x4000ffff);
             trajectoire_poursuite_vaisseau.affiche_points(0x80ff00ff,5);
             //trajectoire_vaisseau.affiche_point(point_actuel,0xffff6060,8);
-            glEnable(GL_LIGHTING);
-            //glDisable(GL_BLEND);
-            //glEnable(GL_DEPTH_TEST);
+            dksEtat::active(GL_LIGHTING);
+            //dksEtat::desactive(GL_BLEND);
+            //dksEtat::active(GL_DEPTH_TEST);
         }
 
         void affiche_conteneur_selectionne()
         {
             //dksMatrices::identite();
-            glDisable(GL_LIGHTING);
-            glDisable(GL_TEXTURE_2D);
-            glEnable(GL_BLEND);
+            dksEtat::desactive(GL_LIGHTING);
+            dksEtat::desactive(GL_TEXTURE_2D);
+            dksEtat::active(GL_BLEND);
             glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-            //glDisable(GL_DEPTH_TEST);
-            glDisable(GL_FOG);
+            //dksEtat::desactive(GL_DEPTH_TEST);
+            dksEtat::desactive(GL_FOG);
 
             dksImmediat::couleur4ub(0xff,0xff,0x00,0x80);
-            glPointSize(50);
+            dksEtat::taille_point(50);
             dksImmediat::debut(GL_POINTS);
                  dksImmediat::sommet3f(conteneur_selectionne->repere_absolu->x,conteneur_selectionne->repere_absolu->y,conteneur_selectionne->repere_absolu->z);
             dksImmediat::fin();
 
-            glEnable(GL_LIGHTING);
-            glDisable(GL_BLEND);
-            //glEnable(GL_DEPTH_TEST);
+            dksEtat::active(GL_LIGHTING);
+            dksEtat::desactive(GL_BLEND);
+            //dksEtat::active(GL_DEPTH_TEST);
         }
 
         void affiche_numero_porte()

@@ -90,8 +90,8 @@ class dksSprite3d
 
     void affiche_pixels(double px, double py, double pz, dksOeil* oeil)
     {
-        bool fog_mem=glIsEnabled(GL_FOG);
-        if (!drapeau_affecte_par_brouillard) glDisable(GL_FOG);
+        bool fog_mem=dksEtat::est_active(GL_FOG);
+        if (!drapeau_affecte_par_brouillard) dksEtat::desactive(GL_FOG);
         //Calcul la taille du sprite par rapport à l'oeil:
         float dx=px-oeil->repere_absolu->x;
         float dy=py-oeil->repere_absolu->y;
@@ -118,12 +118,12 @@ class dksSprite3d
         glRasterPos3f(Rx,Ry,Rz);
 
         //affichage:
-        glDisable(GL_BLEND);
+        dksEtat::desactive(GL_BLEND);
         glBindBuffer(GL_PIXEL_UNPACK_BUFFER,image->buffer_id);
         glDrawPixels(image->largeur,image->hauteur,image->format_pixels,image->type_pixels,(GLubyte*)NULL+(0));
         glBindBuffer(GL_PIXEL_UNPACK_BUFFER,0);
 
-        if(fog_mem) glEnable(GL_FOG); else glDisable(GL_FOG);
+        if(fog_mem) dksEtat::active(GL_FOG); else dksEtat::desactive(GL_FOG);
     }
 
     //-------------------------------------------------------------------
@@ -133,24 +133,24 @@ class dksSprite3d
 
     void affiche_texture(double px,double py,double pz, dksOeil* oeil,float alpha=1.)
     {
-        bool lighting_mem=glIsEnabled(GL_LIGHTING);
-        bool blend_mem=glIsEnabled(GL_BLEND);
-        bool texture_mem=glIsEnabled(GL_TEXTURE_2D);
-        bool depth_test_mem=glIsEnabled(GL_DEPTH_TEST);
-        bool cull_mem=glIsEnabled(GL_CULL_FACE);
-        bool fog_mem=glIsEnabled(GL_FOG);
+        bool lighting_mem=dksEtat::est_active(GL_LIGHTING);
+        bool blend_mem=dksEtat::est_active(GL_BLEND);
+        bool texture_mem=dksEtat::est_active(GL_TEXTURE_2D);
+        bool depth_test_mem=dksEtat::est_active(GL_DEPTH_TEST);
+        bool cull_mem=dksEtat::est_active(GL_CULL_FACE);
+        bool fog_mem=dksEtat::est_active(GL_FOG);
 
-        if (!drapeau_affecte_par_brouillard) glDisable(GL_FOG);
+        if (!drapeau_affecte_par_brouillard) dksEtat::desactive(GL_FOG);
 
-        glActiveTexture(GL_TEXTURE0);
-        glDisable(GL_LIGHTING);
-        glEnable(GL_BLEND);
-        glEnable(GL_TEXTURE_2D);
-        glEnable(GL_DEPTH_TEST); //Désactive la prise en compte de la profondeur ("z-buffer")
-        glEnable(GL_CULL_FACE);
+        dksEtat::unite_active(GL_TEXTURE0);
+        dksEtat::desactive(GL_LIGHTING);
+        dksEtat::active(GL_BLEND);
+        dksEtat::active(GL_TEXTURE_2D);
+        dksEtat::active(GL_DEPTH_TEST); //Désactive la prise en compte de la profondeur ("z-buffer")
+        dksEtat::active(GL_CULL_FACE);
         glFrontFace(GL_CCW);
 
-        glBindTexture(GL_TEXTURE_2D,image->texture_id);
+        dksEtat::lie_texture(GL_TEXTURE_2D,image->texture_id);
 
         float cx=float(image->largeur)*facteur_taille/2.;
         float cy=float(image->hauteur)*facteur_taille/2.;
@@ -185,12 +185,12 @@ class dksSprite3d
             dksImmediat::texture2f(0,1); dksImmediat::sommet3f(x3,y3,z3);
         dksImmediat::fin();
 
-        if (!blend_mem) glDisable(GL_BLEND);
-        if (lighting_mem) glEnable(GL_LIGHTING);
-        if (depth_test_mem) glEnable(GL_DEPTH_TEST);
-        if (!texture_mem) glDisable(GL_TEXTURE_2D);
-        if (!cull_mem) glDisable(GL_CULL_FACE);
-        if(fog_mem) glEnable(GL_FOG); else glDisable(GL_FOG);
+        if (!blend_mem) dksEtat::desactive(GL_BLEND);
+        if (lighting_mem) dksEtat::active(GL_LIGHTING);
+        if (depth_test_mem) dksEtat::active(GL_DEPTH_TEST);
+        if (!texture_mem) dksEtat::desactive(GL_TEXTURE_2D);
+        if (!cull_mem) dksEtat::desactive(GL_CULL_FACE);
+        if(fog_mem) dksEtat::active(GL_FOG); else dksEtat::desactive(GL_FOG);
 
     }
 
@@ -200,34 +200,34 @@ class dksSprite3d
     //------------------------------------------------------------------
     static void initialise_affichage()
     {
-        openGl_mem[0]=glIsEnabled(GL_LIGHTING);
-        openGl_mem[1]=glIsEnabled(GL_BLEND);
-        openGl_mem[2]=glIsEnabled(GL_TEXTURE_2D);
-        openGl_mem[3]=glIsEnabled(GL_DEPTH_TEST);
-        openGl_mem[4]=glIsEnabled(GL_CULL_FACE);
-        openGl_mem[5]=glIsEnabled(GL_FOG);
+        openGl_mem[0]=dksEtat::est_active(GL_LIGHTING);
+        openGl_mem[1]=dksEtat::est_active(GL_BLEND);
+        openGl_mem[2]=dksEtat::est_active(GL_TEXTURE_2D);
+        openGl_mem[3]=dksEtat::est_active(GL_DEPTH_TEST);
+        openGl_mem[4]=dksEtat::est_active(GL_CULL_FACE);
+        openGl_mem[5]=dksEtat::est_active(GL_FOG);
 
         /// Voir si il y a besoin de désactiver toutes les unités de texture.
 
-        glActiveTexture(GL_TEXTURE0);
-        glDisable(GL_LIGHTING);
-        glEnable(GL_BLEND);
-        glEnable(GL_TEXTURE_2D);
-        glEnable(GL_DEPTH_TEST); //Désactive la prise en compte de la profondeur ("z-buffer")
-        glEnable(GL_CULL_FACE);
+        dksEtat::unite_active(GL_TEXTURE0);
+        dksEtat::desactive(GL_LIGHTING);
+        dksEtat::active(GL_BLEND);
+        dksEtat::active(GL_TEXTURE_2D);
+        dksEtat::active(GL_DEPTH_TEST); //Désactive la prise en compte de la profondeur ("z-buffer")
+        dksEtat::active(GL_CULL_FACE);
         glFrontFace(GL_CCW);
     }
 
     void affiche_texture_optimisee(double* position, dksOeil* oeil,float alpha=1.)
     {
-        if (!drapeau_affecte_par_brouillard) glDisable(GL_FOG);
+        if (!drapeau_affecte_par_brouillard) dksEtat::desactive(GL_FOG);
         else
         {
-            if (openGl_mem[5]) glEnable(GL_FOG);
-            else glDisable(GL_FOG);
+            if (openGl_mem[5]) dksEtat::active(GL_FOG);
+            else dksEtat::desactive(GL_FOG);
         }
 
-        glBindTexture(GL_TEXTURE_2D,image->texture_id);
+        dksEtat::lie_texture(GL_TEXTURE_2D,image->texture_id);
 
         float cx=float(image->largeur)*facteur_taille/2.;
         float cy=float(image->hauteur)*facteur_taille/2.;
@@ -265,12 +265,12 @@ class dksSprite3d
 
     static void fin_affichage()
     {
-        if (openGl_mem[0]) glEnable(GL_LIGHTING);
-        if (!openGl_mem[1]) glDisable(GL_BLEND);
-        if (!openGl_mem[2]) glDisable(GL_TEXTURE_2D);
-        if (openGl_mem[3]) glEnable(GL_DEPTH_TEST);
-        if (!openGl_mem[4]) glDisable(GL_CULL_FACE);
-        if(openGl_mem[5]) glEnable(GL_FOG); else glDisable(GL_FOG);
+        if (openGl_mem[0]) dksEtat::active(GL_LIGHTING);
+        if (!openGl_mem[1]) dksEtat::desactive(GL_BLEND);
+        if (!openGl_mem[2]) dksEtat::desactive(GL_TEXTURE_2D);
+        if (openGl_mem[3]) dksEtat::active(GL_DEPTH_TEST);
+        if (!openGl_mem[4]) dksEtat::desactive(GL_CULL_FACE);
+        if(openGl_mem[5]) dksEtat::active(GL_FOG); else dksEtat::desactive(GL_FOG);
     }
 
 };

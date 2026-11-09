@@ -1056,7 +1056,7 @@ class dksTrajectoire
             if (nbrPoints<2) return;
 
             //--- Affiche le point de départ:
-            glPointSize(6);
+            dksEtat::taille_point(6);
             dksImmediat::debut(GL_POINTS);
                 dksImmediat::sommet3fv(&points[0]);
             dksImmediat::fin();
@@ -1117,7 +1117,7 @@ class dksTrajectoire
             uint8_t b=(couleur)&0xff;
             uint8_t a=(couleur>>24)&0xff;
             dksImmediat::couleur4ub(r,v,b,a);
-            glPointSize(taille);
+            dksEtat::taille_point(taille);
             dksImmediat::debut(GL_POINTS);
 
                 for (i=0;i<nbrPoints;i++) dksImmediat::sommet3fv(&points[3*i]);
@@ -1133,7 +1133,7 @@ class dksTrajectoire
 
             if (point>=nbrPoints) return;
             dksImmediat::couleur4ub(r,v,b,a);
-            glPointSize(taille);
+            dksEtat::taille_point(taille);
             dksImmediat::debut(GL_POINTS);
                 dksImmediat::sommet3fv(&points[3*point]);
             dksImmediat::fin();

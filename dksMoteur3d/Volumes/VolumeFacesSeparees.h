@@ -347,13 +347,13 @@ class VolumeFacesSeparees : public dksParticules
 
             if(surface->double_face)
             {
-                glDisable(GL_CULL_FACE);
+                dksEtat::desactive(GL_CULL_FACE);
                 face_materiaux=GL_FRONT_AND_BACK;
                 //dksEclairage::modele(GL_LIGHT_MODEL_TWO_SIDE,GL_TRUE);
             }
             else
             {
-                glEnable(GL_CULL_FACE); //Active la distinction face avant/face arrière des polygones pour le rendu.
+                dksEtat::active(GL_CULL_FACE); //Active la distinction face avant/face arrière des polygones pour le rendu.
                 face_materiaux=GL_FRONT;
                 //dksEclairage::modele(GL_LIGHT_MODEL_TWO_SIDE,GL_FALSE);
             }
@@ -364,8 +364,8 @@ class VolumeFacesSeparees : public dksParticules
         //Surface opaque (sert juste à masquer les surfaces lumineuses)
         else
         {
-            if(surface->double_face) glDisable(GL_CULL_FACE);
-            else glEnable(GL_CULL_FACE); //Active la distinction face avant/face arrière des polygones pour le rendu.
+            if(surface->double_face) dksEtat::desactive(GL_CULL_FACE);
+            else dksEtat::active(GL_CULL_FACE); //Active la distinction face avant/face arrière des polygones pour le rendu.
             dksImmediat::couleur4fv(noir);
             //glColorMask(GL_FALSE,GL_FALSE,GL_FALSE,GL_FALSE);
         }
@@ -376,7 +376,7 @@ class VolumeFacesSeparees : public dksParticules
 
         //Gestion des textures et shaders:
         desactive_textures();
-        glUseProgram(dksShaders::bibliotheque->decallage_sommets->programme_id);
+        dksEtat::utilise_programme(dksShaders::bibliotheque->decallage_sommets->programme_id);
     }
 
     //----------------------------------------------------------------------------------------
@@ -391,7 +391,7 @@ class VolumeFacesSeparees : public dksParticules
             Particule_Face_Separee* particule;
 
             //************** Surfaces opaques:
-            glDisable(GL_BLEND);
+            dksEtat::desactive(GL_BLEND);
             glDepthMask(GL_TRUE);
 
 
@@ -464,7 +464,7 @@ class VolumeFacesSeparees : public dksParticules
             duree_rendu=Horloge::temps_reel_ms();
 
             //**************** Surfaces opaques:
-            glDisable(GL_BLEND);
+            dksEtat::desactive(GL_BLEND);
             glDepthMask(GL_TRUE);
 
             for (i=0;i<nbrSurfaces;i++)
@@ -531,7 +531,7 @@ class VolumeFacesSeparees : public dksParticules
 
     virtual void init_rendu_couleur()
     {
-        glUseProgram(dksShaders::bibliotheque->decallage_sommets->programme_id);
+        dksEtat::utilise_programme(dksShaders::bibliotheque->decallage_sommets->programme_id);
     }
 
     //---------------------------------------------
@@ -542,16 +542,16 @@ class VolumeFacesSeparees : public dksParticules
         dksTexture* texture;
         surface_courante->mode_rendu=DKSSURFACE_RENDU_TEXTURE_COULEUR;
         texture=surface_courante->textures_couleur[0];
-        glActiveTexture(GL_TEXTURE0);
-        glEnable(GL_TEXTURE_2D);
-        glBindTexture(GL_TEXTURE_2D,texture->image->texture_id);
+        dksEtat::unite_active(GL_TEXTURE0);
+        dksEtat::active(GL_TEXTURE_2D);
+        dksEtat::lie_texture(GL_TEXTURE_2D,texture->image->texture_id);
         glTexParameterfv(GL_TEXTURE_2D,GL_TEXTURE_BORDER_COLOR,couleur_diffusion);
         glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,texture->recouvrement_s);
         glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,texture->recouvrement_t);
         glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,texture->type_grossissement);
         glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,texture->type_diminution);
         //Mode de combinaisons des fragments:
-        glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);
+        dksEtat::enveloppe_i(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);
         //Gestion des tableaux:
         if (mode_rendu==DKSVOLUME_MODE_TABLEAUX || mode_rendu==DKSVOLUME_MODE_LISTE_OPAQUES_TABLEAUX_TRANSPARENTES)
         {
@@ -559,7 +559,7 @@ class VolumeFacesSeparees : public dksParticules
             dksTableaux::pointeur_textures(2,GL_FLOAT,0,texture->coordonnees_UV_tableau);
             dksTableaux::active(GL_TEXTURE_COORD_ARRAY);
         }
-        glUseProgram(dksShaders::bibliotheque->decallage_sommets->programme_id);
+        dksEtat::utilise_programme(dksShaders::bibliotheque->decallage_sommets->programme_id);
     }
 
 

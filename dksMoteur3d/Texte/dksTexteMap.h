@@ -336,25 +336,25 @@ class dksTextMap : public dksConteneur
         float b=float(couleur&0xff)/255.;
         dksImmediat::couleur4f(r,v,b,alpha);
         desactive_textures();
-        glUseProgram(0);
+        dksEtat::utilise_programme(0);
 
-        glActiveTexture(GL_TEXTURE0);
-        glEnable(GL_TEXTURE_2D);
-        glBindTexture(GL_TEXTURE_2D,police->texture_id);
+        dksEtat::unite_active(GL_TEXTURE0);
+        dksEtat::active(GL_TEXTURE_2D);
+        dksEtat::lie_texture(GL_TEXTURE_2D,police->texture_id);
         glTexParameterfv(GL_TEXTURE_2D,GL_TEXTURE_BORDER_COLOR,couleur_fond);
         glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP);
         glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_CLAMP);
         glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,type_grossissement);
         glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,type_diminution);
-        glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);
+        dksEtat::enveloppe_i(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);
 
-        GLboolean color_material_mem=glIsEnabled(GL_COLOR_MATERIAL);
-        glDisable(GL_COLOR_MATERIAL);
+        GLboolean color_material_mem=dksEtat::est_active(GL_COLOR_MATERIAL);
+        dksEtat::desactive(GL_COLOR_MATERIAL);
 
         if (mode_rendu==DKSTEXTMAP_RENDU_2D) affiche_2d();
         else if (mode_rendu==DKSTEXTMAP_RENDU_3D) affiche_3d();
 
-        if (color_material_mem) glEnable(GL_COLOR_MATERIAL);
+        if (color_material_mem) dksEtat::active(GL_COLOR_MATERIAL);
     }
 
     virtual void affiche_couleurs_luminescentes(dksOeil* oeil)
@@ -379,13 +379,13 @@ class dksTextMap : public dksConteneur
         float rapport_ecran=(float)ecran->resolution_y/ecran->resolution_x;
         glFrontFace(GL_CCW);
 
-        GLboolean eclairage_mem=glIsEnabled(GL_LIGHTING);
-        glDisable(GL_DEPTH_TEST);
-        glEnable(GL_BLEND);
+        GLboolean eclairage_mem=dksEtat::est_active(GL_LIGHTING);
+        dksEtat::desactive(GL_DEPTH_TEST);
+        dksEtat::active(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-        glDisable(GL_LIGHTING);
+        dksEtat::desactive(GL_LIGHTING);
 
-        glDisable(GL_DEPTH_TEST);
+        dksEtat::desactive(GL_DEPTH_TEST);
         glDepthMask(GL_FALSE);
 
         dksMatrices::mode(GL_PROJECTION);
@@ -399,16 +399,16 @@ class dksTextMap : public dksConteneur
 
         affiche_texte(texte);
 
-        glDisable(GL_TEXTURE_2D);
-        glDisable(GL_BLEND);
-        glEnable(GL_DEPTH_TEST);
+        dksEtat::desactive(GL_TEXTURE_2D);
+        dksEtat::desactive(GL_BLEND);
+        dksEtat::active(GL_DEPTH_TEST);
         glDepthMask(GL_TRUE);
 
         dksMatrices::depile();
         dksMatrices::mode(GL_PROJECTION);
         dksMatrices::depile();
         dksMatrices::mode(GL_MODELVIEW);
-        if(eclairage_mem)glEnable(GL_LIGHTING);
+        if(eclairage_mem)dksEtat::active(GL_LIGHTING);
     }
 
     //--------------------------------------------------------------------------
@@ -421,13 +421,13 @@ class dksTextMap : public dksConteneur
         uint32_t i,c;
         float rapport_ecran=(float)ecran->resolution_y/ecran->resolution_x;
         glFrontFace(GL_CCW);
-        GLboolean eclairages_mem=glIsEnabled(GL_LIGHTING);
+        GLboolean eclairages_mem=dksEtat::est_active(GL_LIGHTING);
         GLboolean mask_mem;
         glGetBooleanv(GL_DEPTH_WRITEMASK,&mask_mem);
-        glDisable(GL_LIGHTING);
+        dksEtat::desactive(GL_LIGHTING);
 
         glDepthMask(GL_FALSE);
-        glEnable(GL_BLEND);
+        dksEtat::active(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 
 
@@ -437,10 +437,10 @@ class dksTextMap : public dksConteneur
         affiche_texte(texte);
         dksMatrices::depile();
 
-        glDisable(GL_TEXTURE_2D);
-        glDisable(GL_BLEND);
+        dksEtat::desactive(GL_TEXTURE_2D);
+        dksEtat::desactive(GL_BLEND);
         glDepthMask(mask_mem);
-        if (eclairages_mem) glEnable(GL_LIGHTING);
+        if (eclairages_mem) dksEtat::active(GL_LIGHTING);
     }
 
 

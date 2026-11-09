@@ -243,23 +243,23 @@ class Scene_Bureau : public Scene
         {
             //------------TEXTURE DE FILTRE:
             glGenTextures(1,&texture_filtre_id);
-            glBindTexture(GL_TEXTURE_2D,texture_filtre_id);
+            dksEtat::lie_texture(GL_TEXTURE_2D,texture_filtre_id);
             //Paramètres d'affichage de la texture:
             glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP);
             glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_CLAMP);
             glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
             glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);    //Il semble que ce paramètre active la texture.....
-            glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,taille_texture_aura,taille_texture_aura,0,GL_RGBA,GL_UNSIGNED_BYTE,NULL);
+            dksEtat::image_texture(GL_TEXTURE_2D,0,GL_RGBA,taille_texture_aura,taille_texture_aura,0,GL_RGBA,GL_UNSIGNED_BYTE,NULL);
 
             //------------TEXTURE DE RENDU DE SCENE:
             glGenTextures(1,&texture_scene_id);
-            glBindTexture(GL_TEXTURE_2D,texture_scene_id);
+            dksEtat::lie_texture(GL_TEXTURE_2D,texture_scene_id);
             //Paramètres d'affichage de la texture:
             glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
             glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
             glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
             glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);    //Il semble que ce paramètre active la texture.....
-            glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,ecran->resolution_x,ecran->resolution_y,0,GL_RGBA,GL_UNSIGNED_BYTE,NULL);
+            dksEtat::image_texture(GL_TEXTURE_2D,0,GL_RGBA,ecran->resolution_x,ecran->resolution_y,0,GL_RGBA,GL_UNSIGNED_BYTE,NULL);
         }
 
         //==========================================================
@@ -333,16 +333,16 @@ class Scene_Bureau : public Scene
         void affiche_trajectoire()
         {
             //dksMatrices::identite();
-            glDisable(GL_LIGHTING);
-            glDisable(GL_TEXTURE_2D);
-            glEnable(GL_BLEND);
+            dksEtat::desactive(GL_LIGHTING);
+            dksEtat::desactive(GL_TEXTURE_2D);
+            dksEtat::active(GL_BLEND);
             glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
             //oeil_1->positionne_scene(t);
             ma_trajectoire.affiche_courbe(20,0x40ffff00);
             ma_trajectoire.affiche_points(0x80ff0000,5);
             ma_trajectoire.affiche_point(point_actuel,0xffff6060,8);
-            glEnable(GL_LIGHTING);
-            glDisable(GL_BLEND);
+            dksEtat::active(GL_LIGHTING);
+            dksEtat::desactive(GL_BLEND);
         }
 
         //==============================================

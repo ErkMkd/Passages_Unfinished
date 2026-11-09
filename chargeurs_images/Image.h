@@ -449,7 +449,7 @@ public:
             cout<<" - Identifiant:"<<texture_id<<endl;
         #endif
 
-        glBindTexture(GL_TEXTURE_2D,texture_id); //Sélection de la texture courante
+        dksEtat::lie_texture(GL_TEXTURE_2D,texture_id); //Sélection de la texture courante
 
         glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,recouvrement_s);          //valeur: la valeur du paramètre.
         glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,recouvrement_t); //Mode de débordement vertical de la texture 2d
@@ -470,7 +470,7 @@ public:
         //Pas de texture de tailles différentes.
         else
         {
-            glTexImage2D(GL_TEXTURE_2D, //Type de  texture
+            dksEtat::image_texture(GL_TEXTURE_2D, //Type de  texture
                         0,      //Niveau de détails de la texture
                         GL_RGBA,      //Format de la texture: 1:R, 2:RA, 3:RVB, 4:RVBA
                         largeur,hauteur, //largeur et hauteur de la texture en pixels

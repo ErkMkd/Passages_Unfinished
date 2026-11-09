@@ -15,12 +15,15 @@
 //  Les shaders lisent cet état dans deux blocs d'uniforms (disposition std140):
 //      binding 1: Eclairage   (8 sources et couleur ambiante globale)
 //      binding 2: Materiau    (matériau des faces avant, comme gl_FrontMaterial)
+//  et le shader d'émulation du pipeline fixe lit aussi:
+//      binding 4: MateriauArriere (matériau des faces arrière, pour l'éclairage des deux faces)
 //  Pendant le portage, chaque changement est aussi transmis à OpenGL, pour le pipeline fixe.
 //*************************************************************************
 
 #define DKSECLAIRAGE_NBR_SOURCES 8
 #define DKSECLAIRAGE_BLOC_ECLAIRAGE 1
 #define DKSECLAIRAGE_BLOC_MATERIAU 2
+#define DKSECLAIRAGE_BLOC_MATERIAU_ARRIERE 4
 
 class dksEclairage
 {
@@ -100,8 +103,10 @@ class dksEclairage
 
         inline static Bloc_Eclairage eclairage=eclairage_initial();
         inline static Bloc_Materiau materiau_avant=materiau_initial();
+        inline static Bloc_Materiau materiau_arriere=materiau_initial();
         inline static GLuint tampon_eclairage=0;
         inline static GLuint tampon_materiau=0;
+        inline static GLuint tampon_materiau_arriere=0;
 
         //Transmet un bloc aux shaders (le tampon est créé à la première utilisation):
         static void transmet(GLuint& tampon,GLuint indice_bloc,const void* donnees,GLsizeiptr taille)
@@ -116,6 +121,11 @@ class dksEclairage
         }
 
     public:
+        //------- Modèle d'éclairage (pipeline fixe):
+        inline static bool deux_faces=false;            //GL_LIGHT_MODEL_TWO_SIDE
+        inline static bool observateur_local=false;     //GL_LIGHT_MODEL_LOCAL_VIEWER
+        inline static bool speculaire_separee=false;    //GL_LIGHT_MODEL_COLOR_CONTROL: GL_SEPARATE_SPECULAR_COLOR
+
         static const Bloc_Eclairage& etat_eclairage()
         {
             return eclairage;
@@ -184,33 +194,52 @@ class dksEclairage
 
         static void modele(GLenum parametre,GLint valeur)
         {
+            switch (parametre)
+            {
+                case GL_LIGHT_MODEL_TWO_SIDE: deux_faces= valeur!=0; break;
+                case GL_LIGHT_MODEL_LOCAL_VIEWER: observateur_local= valeur!=0; break;
+                case GL_LIGHT_MODEL_COLOR_CONTROL: speculaire_separee= valeur==GL_SEPARATE_SPECULAR_COLOR; break;
+            }
             glLightModeli(parametre,valeur);
         }
 
         //-------------------------------------------------------------
         //      Équivalents de glMaterialfv et glMaterialf
-        //  Les shaders ne lisent que le matériau des faces avant.
+        //  Les shaders du moteur ne lisent que le matériau des faces avant.
         //-------------------------------------------------------------
         static void materiau(GLenum face,GLenum parametre,const GLfloat* valeurs)
         {
             if (face!=GL_BACK)
             {
-                switch (parametre)
-                {
-                    case GL_AMBIENT: memcpy(materiau_avant.ambiante,valeurs,4*sizeof(GLfloat)); break;
-                    case GL_DIFFUSE: memcpy(materiau_avant.diffuse,valeurs,4*sizeof(GLfloat)); break;
-                    case GL_AMBIENT_AND_DIFFUSE:
-                        memcpy(materiau_avant.ambiante,valeurs,4*sizeof(GLfloat));
-                        memcpy(materiau_avant.diffuse,valeurs,4*sizeof(GLfloat));
-                        break;
-                    case GL_SPECULAR: memcpy(materiau_avant.speculaire,valeurs,4*sizeof(GLfloat)); break;
-                    case GL_EMISSION: memcpy(materiau_avant.emission,valeurs,4*sizeof(GLfloat)); break;
-                    case GL_SHININESS: materiau_avant.brillance=valeurs[0]; break;
-                }
+                change_materiau(materiau_avant,parametre,valeurs);
                 transmet(tampon_materiau,DKSECLAIRAGE_BLOC_MATERIAU,&materiau_avant,sizeof(materiau_avant));
+            }
+            if (face!=GL_FRONT)
+            {
+                change_materiau(materiau_arriere,parametre,valeurs);
+                transmet(tampon_materiau_arriere,DKSECLAIRAGE_BLOC_MATERIAU_ARRIERE,&materiau_arriere,sizeof(materiau_arriere));
             }
             glMaterialfv(face,parametre,valeurs);
         }
+
+    private:
+        static void change_materiau(Bloc_Materiau& m,GLenum parametre,const GLfloat* valeurs)
+        {
+            switch (parametre)
+            {
+                case GL_AMBIENT: memcpy(m.ambiante,valeurs,4*sizeof(GLfloat)); break;
+                case GL_DIFFUSE: memcpy(m.diffuse,valeurs,4*sizeof(GLfloat)); break;
+                case GL_AMBIENT_AND_DIFFUSE:
+                    memcpy(m.ambiante,valeurs,4*sizeof(GLfloat));
+                    memcpy(m.diffuse,valeurs,4*sizeof(GLfloat));
+                    break;
+                case GL_SPECULAR: memcpy(m.speculaire,valeurs,4*sizeof(GLfloat)); break;
+                case GL_EMISSION: memcpy(m.emission,valeurs,4*sizeof(GLfloat)); break;
+                case GL_SHININESS: m.brillance=valeurs[0]; break;
+            }
+        }
+
+    public:
 
         static void materiau(GLenum face,GLenum parametre,GLfloat valeur)
         {

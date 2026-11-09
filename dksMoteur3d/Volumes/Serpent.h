@@ -1040,7 +1040,7 @@ class Serpent : public dksVolume
     /*
     virtual void affiche(dksOeil* oeil)
     {
-        //glPointSize(3);
+        //dksEtat::taille_point(3);
         //mode_remplissage=DKSVOLUME_REMPLISSAGE_ARETES;
         dksVolume::affiche(oeil);
         //affiche_colonne();
@@ -1053,8 +1053,8 @@ class Serpent : public dksVolume
     void affiche_colonne()
     {
         uint16_t i;
-        GLboolean lum_mem=glIsEnabled(GL_LIGHTING);
-        glDisable(GL_LIGHTING);
+        GLboolean lum_mem=dksEtat::est_active(GL_LIGHTING);
+        dksEtat::desactive(GL_LIGHTING);
         dksImmediat::couleur3f(1.,.5,1.);
 
         dksImmediat::debut(GL_POINTS);
@@ -1072,14 +1072,14 @@ class Serpent : public dksVolume
         }
         dksImmediat::fin();
 
-        if (lum_mem)glEnable(GL_LIGHTING);
+        if (lum_mem)dksEtat::active(GL_LIGHTING);
     }
 
     void affiche_reperes_colonne()
     {
         uint16_t i;
-        GLboolean lum_mem=glIsEnabled(GL_LIGHTING);
-        glDisable(GL_LIGHTING);
+        GLboolean lum_mem=dksEtat::est_active(GL_LIGHTING);
+        dksEtat::desactive(GL_LIGHTING);
 
         //Tangentes:
 
@@ -1129,7 +1129,7 @@ class Serpent : public dksVolume
         dksImmediat::fin();
 
 
-        if (lum_mem)glEnable(GL_LIGHTING);
+        if (lum_mem)dksEtat::active(GL_LIGHTING);
     }
 
 
@@ -1137,8 +1137,8 @@ class Serpent : public dksVolume
     void affiche_corps()
     {
         uint16_t i,j;
-        GLboolean lum_mem=glIsEnabled(GL_LIGHTING);
-        glDisable(GL_LIGHTING);
+        GLboolean lum_mem=dksEtat::est_active(GL_LIGHTING);
+        dksEtat::desactive(GL_LIGHTING);
         dksImmediat::couleur3f(1.,.5,1.);
 
         /*
@@ -1161,7 +1161,7 @@ class Serpent : public dksVolume
             dksImmediat::fin();
         }
 
-        if (lum_mem)glEnable(GL_LIGHTING);
+        if (lum_mem)dksEtat::active(GL_LIGHTING);
     }
 
 };

@@ -1,0 +1,170 @@
+//======================================================================
+//      Émulation du pipeline fixe d'OpenGL: éclairage par sommet, couleur
+//      des matériaux, coordonnées de texture, taille des points.
+//      Utilisé automatiquement quand le moteur trace sans shader (dksEtat).
+//======================================================================
+
+layout(std140, binding=3) uniform PipelineFixe
+{
+    int eclairage;
+    int sources_actives;
+    int couleur_materiau;           //0, ou la composante remplacée par la couleur des sommets
+    int deux_faces;
+    int normalisation;
+    int ombrage_plat;
+    int textures_actives;
+    int speculaire_separee;
+    int observateur_local;
+    int brouillard;                 //0, ou le mode du brouillard
+    float densite_brouillard;
+    float debut_brouillard;
+    float fin_brouillard;
+    int primitive_points;
+    int points_lisses;
+    int sprites;                    //Unités dont les coordonnées sont remplacées sur les sprites
+    vec4 couleur_brouillard;
+    ivec4 modes_textures;
+    ivec4 formats_textures;
+    float taille_points;
+    float taille_points_min;
+    float taille_points_max;
+    int faces_couleur_materiau;
+    vec4 attenuation_points;
+};
+
+layout(std140, binding=4) uniform MateriauArriere
+{
+    vec4 arriere_ambiante;
+    vec4 arriere_diffuse;
+    vec4 arriere_speculaire;
+    vec4 arriere_emission;
+    float arriere_brillance;
+};
+
+const int GL_FRONT_=0x0404;
+const int GL_BACK_=0x0405;
+const int GL_AMBIENT_=0x1200;
+const int GL_DIFFUSE_=0x1201;
+const int GL_SPECULAR_=0x1202;
+const int GL_EMISSION_=0x1600;
+const int GL_AMBIENT_AND_DIFFUSE_=0x1602;
+
+out vec4 couleur_avant;
+out vec4 speculaire_avant;
+out vec4 couleur_arriere;
+out vec4 speculaire_arriere;
+flat out vec4 couleur_avant_plate;
+flat out vec4 speculaire_avant_plate;
+flat out vec4 couleur_arriere_plate;
+flat out vec4 speculaire_arriere_plate;
+out vec4 coordonnees_textures[4];
+out float distance_brouillard;
+flat out float taille_point;
+
+//Remplace une composante du matériau par la couleur du sommet (GL_COLOR_MATERIAL):
+void applique_couleur(inout vec4 ambiante,inout vec4 diffuse,inout vec4 speculaire,inout vec4 emission)
+{
+    if (couleur_materiau==GL_AMBIENT_ || couleur_materiau==GL_AMBIENT_AND_DIFFUSE_) ambiante=gl_Color;
+    if (couleur_materiau==GL_DIFFUSE_ || couleur_materiau==GL_AMBIENT_AND_DIFFUSE_) diffuse=gl_Color;
+    if (couleur_materiau==GL_SPECULAR_) speculaire=gl_Color;
+    if (couleur_materiau==GL_EMISSION_) emission=gl_Color;
+}
+
+//Éclairage d'un sommet, selon la formule de la spécification d'OpenGL:
+void eclaire(vec3 n,vec3 position,vec4 ambiante,vec4 diffuse,vec4 speculaire,vec4 emission,float brillance,
+             out vec4 primaire,out vec4 secondaire)
+{
+    vec3 couleur=emission.rgb+ambiante.rgb*ambiante_globale.rgb;
+    vec3 reflets=vec3(0.);
+    vec3 vers_oeil= observateur_local!=0 ? normalize(-position) : vec3(0.,0.,1.);
+    for (int i=0;i<NBR_SOURCES;i++)
+    {
+        if ((sources_actives&(1<<i))==0) continue;
+        vec3 l;
+        float attenuation=1.;
+        if (sources[i].position.w!=0.)
+        {
+            vec3 d=sources[i].position.xyz/sources[i].position.w-position;
+            float distance=length(d);
+            l=d/distance;
+            attenuation=1./(sources[i].attenuation_constante+sources[i].attenuation_lineaire*distance
+                            +sources[i].attenuation_quadratique*distance*distance);
+        }
+        else l=normalize(sources[i].position.xyz);
+        float spot=1.;
+        if (sources[i].ouverture_spot!=180.)
+        {
+            float c=dot(-l,normalize(sources[i].direction_spot.xyz));
+            spot= c<sources[i].cos_ouverture_spot ? 0. : pow(max(c,0.),sources[i].exposant_spot);
+        }
+        float nl=dot(n,l);
+        couleur+=attenuation*spot*(ambiante.rgb*sources[i].ambiante.rgb+max(nl,0.)*diffuse.rgb*sources[i].diffuse.rgb);
+        if (nl>0.)
+        {
+            float nh=max(dot(n,normalize(l+vers_oeil)),0.);
+            float facteur= brillance==0. ? 1. : pow(nh,brillance);
+            reflets+=attenuation*spot*facteur*speculaire.rgb*sources[i].speculaire.rgb;
+        }
+    }
+    if (speculaire_separee!=0)
+    {
+        primaire=vec4(clamp(couleur,0.,1.),clamp(diffuse.a,0.,1.));
+        secondaire=vec4(clamp(reflets,0.,1.),0.);
+    }
+    else
+    {
+        primaire=vec4(clamp(couleur+reflets,0.,1.),clamp(diffuse.a,0.,1.));
+        secondaire=vec4(0.);
+    }
+}
+
+void main()
+{
+    vec4 position_oeil=matrice_modele_vue*gl_Vertex;
+    gl_Position=matrice_modele_vue_projection*gl_Vertex;
+
+    if (eclairage!=0)
+    {
+        vec3 n=matrice_normale*gl_Normal;
+        if (normalisation!=0) n=normalize(n);
+        vec4 ambiante=materiau_ambiante, diffuse=materiau_diffuse, speculaire=materiau_speculaire, emission=materiau_emission;
+        vec4 ambiante_arriere=arriere_ambiante, diffuse_arriere=arriere_diffuse;
+        vec4 speculaire_arriere_m=arriere_speculaire, emission_arriere=arriere_emission;
+        if (couleur_materiau!=0)
+        {
+            if (faces_couleur_materiau!=GL_BACK_) applique_couleur(ambiante,diffuse,speculaire,emission);
+            if (faces_couleur_materiau!=GL_FRONT_) applique_couleur(ambiante_arriere,diffuse_arriere,speculaire_arriere_m,emission_arriere);
+        }
+        eclaire(n,position_oeil.xyz,ambiante,diffuse,speculaire,emission,materiau_brillance,couleur_avant,speculaire_avant);
+        if (deux_faces!=0) eclaire(-n,position_oeil.xyz,ambiante_arriere,diffuse_arriere,speculaire_arriere_m,emission_arriere,
+                                   arriere_brillance,couleur_arriere,speculaire_arriere);
+        else
+        {
+            couleur_arriere=couleur_avant;
+            speculaire_arriere=speculaire_avant;
+        }
+    }
+    else
+    {
+        couleur_avant=clamp(gl_Color,0.,1.);
+        speculaire_avant=vec4(0.);
+        couleur_arriere=couleur_avant;
+        speculaire_arriere=speculaire_avant;
+    }
+    couleur_avant_plate=couleur_avant;
+    speculaire_avant_plate=speculaire_avant;
+    couleur_arriere_plate=couleur_arriere;
+    speculaire_arriere_plate=speculaire_arriere;
+
+    coordonnees_textures[0]=matrice_texture*gl_MultiTexCoord0;
+    coordonnees_textures[1]=gl_MultiTexCoord1;
+    coordonnees_textures[2]=gl_MultiTexCoord2;
+    coordonnees_textures[3]=gl_MultiTexCoord3;
+    distance_brouillard=abs(position_oeil.z);
+
+    //Taille des points, atténuée selon la distance (GL_POINT_DISTANCE_ATTENUATION):
+    float distance=length(position_oeil.xyz);
+    float facteur=attenuation_points.x+attenuation_points.y*distance+attenuation_points.z*distance*distance;
+    taille_point=clamp(taille_points*sqrt(1./facteur),taille_points_min,taille_points_max);
+    gl_PointSize=taille_point;
+}

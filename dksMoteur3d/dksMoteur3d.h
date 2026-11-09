@@ -457,48 +457,48 @@ class dksMoteur3d : public dksConteneur
             //---------- Création des textures CUBE_MAP:
             Image* image;
             dksSurface* surface;
-            glActiveTexture(GL_TEXTURE0);
+            dksEtat::unite_active(GL_TEXTURE0);
 
             surface=cube_arriere_plan->renvoie_surface_avant();
             if(surface->textures_couleur.size()!=0)
             {
                 image=surface->textures_couleur[0]->image;
-                if (image!=NULL) glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Z,0,GL_RGBA,image->largeur,image->hauteur,0,image->format_pixels,image->type_pixels,image->image);
+                if (image!=NULL) dksEtat::image_texture(GL_TEXTURE_CUBE_MAP_POSITIVE_Z,0,GL_RGBA,image->largeur,image->hauteur,0,image->format_pixels,image->type_pixels,image->image);
             }
 
             surface=cube_arriere_plan->renvoie_surface_arriere();
             if(surface->textures_couleur.size()!=0)
             {
                 image=surface->textures_couleur[0]->image;
-                if (image!=NULL) glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z,0,GL_RGBA,image->largeur,image->hauteur,0,image->format_pixels,image->type_pixels,image->image);
+                if (image!=NULL) dksEtat::image_texture(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z,0,GL_RGBA,image->largeur,image->hauteur,0,image->format_pixels,image->type_pixels,image->image);
             }
 
             surface=cube_arriere_plan->renvoie_surface_droite();
             if(surface->textures_couleur.size()!=0)
             {
                 image=surface->textures_couleur[0]->image;
-                if (image!=NULL) glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_X,0,GL_RGBA,image->largeur,image->hauteur,0,image->format_pixels,image->type_pixels,image->image);
+                if (image!=NULL) dksEtat::image_texture(GL_TEXTURE_CUBE_MAP_NEGATIVE_X,0,GL_RGBA,image->largeur,image->hauteur,0,image->format_pixels,image->type_pixels,image->image);
             }
 
             surface=cube_arriere_plan->renvoie_surface_gauche();
             if(surface->textures_couleur.size()!=0)
             {
                 image=surface->textures_couleur[0]->image;
-                if (image!=NULL) glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X,0,GL_RGBA,image->largeur,image->hauteur,0,image->format_pixels,image->type_pixels,image->image);
+                if (image!=NULL) dksEtat::image_texture(GL_TEXTURE_CUBE_MAP_POSITIVE_X,0,GL_RGBA,image->largeur,image->hauteur,0,image->format_pixels,image->type_pixels,image->image);
             }
 
             surface=cube_arriere_plan->renvoie_surface_haut();
             if(surface->textures_couleur.size()!=0)
             {
                 image=surface->textures_couleur[0]->image;
-                if (image!=NULL) glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Y,0,GL_RGBA,image->largeur,image->hauteur,0,image->format_pixels,image->type_pixels,image->image);
+                if (image!=NULL) dksEtat::image_texture(GL_TEXTURE_CUBE_MAP_POSITIVE_Y,0,GL_RGBA,image->largeur,image->hauteur,0,image->format_pixels,image->type_pixels,image->image);
             }
 
             surface=cube_arriere_plan->renvoie_surface_bas();
             if(surface->textures_couleur.size()!=0)
             {
                 image=surface->textures_couleur[0]->image;
-                if (image!=NULL) glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y,0,GL_RGBA,image->largeur,image->hauteur,0,image->format_pixels,image->type_pixels,image->image);
+                if (image!=NULL) dksEtat::image_texture(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y,0,GL_RGBA,image->largeur,image->hauteur,0,image->format_pixels,image->type_pixels,image->image);
             }
 
             glTexParameteri(GL_TEXTURE_CUBE_MAP,GL_TEXTURE_WRAP_S,GL_REPEAT);
@@ -582,7 +582,7 @@ class dksMoteur3d : public dksConteneur
             //Dimensions de la texture de profondeur:
             if (drapeau_rendu_ombres)
             {
-                glBindTexture(GL_TEXTURE_2D,texture_ombres_id);
+                dksEtat::lie_texture(GL_TEXTURE_2D,texture_ombres_id);
                 glGetTexLevelParameteriv(GL_TEXTURE_2D,0,GL_TEXTURE_WIDTH,&largeur_texture_ombres);
                 glGetTexLevelParameteriv(GL_TEXTURE_2D,0,GL_TEXTURE_HEIGHT,&hauteur_texture_ombres);
                 source_des_ombres->determine_resolution(uint32_t(largeur_texture_ombres),uint32_t(hauteur_texture_ombres));
@@ -621,17 +621,17 @@ class dksMoteur3d : public dksConteneur
 
             glPolygonMode(GL_FRONT,GL_FILL);//Mode de rendu des faces avant des polygones
             glPolygonMode(GL_BACK,GL_FILL);//Mode de rendu des faces arrière des polygones
-            glEnable(GL_CULL_FACE); //Active la distinction face avant/face arrière des polygones pour le rendu.
+            dksEtat::active(GL_CULL_FACE); //Active la distinction face avant/face arrière des polygones pour le rendu.
             glCullFace(GL_BACK);    //Détermine quelle face des polygones n'est pas affichée.
-            glPointSize(1); //La taille des sommets en mode d'affichage de sommets
+            dksEtat::taille_point(1); //La taille des sommets en mode d'affichage de sommets
 
             //----Lissage:
             glHint(GL_LINE_SMOOTH_HINT,GL_NICEST);
             glHint(GL_POINT_SMOOTH_HINT,GL_NICEST);
             glHint(GL_POLYGON_SMOOTH_HINT,GL_NICEST);
-            glDisable(GL_POLYGON_SMOOTH);
-            glDisable(GL_LINE_SMOOTH);
-            glDisable(GL_POINT_SMOOTH);
+            dksEtat::desactive(GL_POLYGON_SMOOTH);
+            dksEtat::desactive(GL_LINE_SMOOTH);
+            dksEtat::desactive(GL_POINT_SMOOTH);
 
             //----Initialisation du rendu des textures:
 
@@ -644,7 +644,7 @@ class dksMoteur3d : public dksConteneur
             dksEclairage::modele(GL_LIGHT_MODEL_LOCAL_VIEWER,GL_TRUE); //Sert à définir que c'est la position de l'oeil qui sert pour le calcul de la spécularité.
             dksEclairage::modele(GL_LIGHT_MODEL_COLOR_CONTROL,GL_SEPARATE_SPECULAR_COLOR); //La lumière spéculaire est ajoutée par dessus le texturage, pour éviter de l'altérer.
 
-            glDisable(GL_NORMALIZE); //Convertion automatique des normales en vecteur unitaire
+            dksEtat::desactive(GL_NORMALIZE); //Convertion automatique des normales en vecteur unitaire
 
             //---- Matériaux de base :
 
@@ -654,7 +654,7 @@ class dksMoteur3d : public dksConteneur
             const GLfloat defaut_luminosite[]   = { 0.f, 0.f, 0.f, 1.f };
             const GLfloat defaut_brillance[] = { 64.0f };
 
-            glDisable(GL_COLOR_MATERIAL);   //Désactivation de l'usage de la commande glColorMaterial()
+            dksEtat::desactive(GL_COLOR_MATERIAL);   //Désactivation de l'usage de la commande dksEtat::couleur_materiau_mode()
 
             dksEclairage::materiau(GL_FRONT, GL_AMBIENT,   defaut_ambiance);
             dksEclairage::materiau(GL_FRONT, GL_DIFFUSE,   defaut_diffusion);
@@ -700,16 +700,16 @@ public:
 
             if(drapeau_brouillard)
             {
-                glFogi(GL_FOG_MODE,GL_LINEAR);
-                glFogfv(GL_FOG_COLOR,couleur_brouillard);
-                glFogf(GL_FOG_START,brouillard_min);
-                glFogf(GL_FOG_END,brouillard_max);
-                glFogf(GL_FOG_DENSITY,1.);
+                dksEtat::brouillard_i(GL_FOG_MODE,GL_LINEAR);
+                dksEtat::brouillard_fv(GL_FOG_COLOR,couleur_brouillard);
+                dksEtat::brouillard_f(GL_FOG_START,brouillard_min);
+                dksEtat::brouillard_f(GL_FOG_END,brouillard_max);
+                dksEtat::brouillard_f(GL_FOG_DENSITY,1.);
                 glHint(GL_FOG_HINT,GL_NICEST);
-                glEnable(GL_FOG);
+                dksEtat::active(GL_FOG);
             }
 
-            else glDisable(GL_FOG);
+            else dksEtat::desactive(GL_FOG);
 
             dksEclairage::modele(GL_LIGHT_MODEL_AMBIENT, lumiere_ambiante);  //Couleur de la lumière ambiente globale
 
@@ -739,19 +739,19 @@ public:
             drapeau_brouillard=true;
             if (drapeau_active)
             {
-                glFogi(GL_FOG_MODE,GL_LINEAR);
-                glFogfv(GL_FOG_COLOR,couleur_brouillard);
-                glFogf(GL_FOG_START,brouillard_min);
-                glFogf(GL_FOG_END,brouillard_max);
-                glFogf(GL_FOG_DENSITY,1.);
+                dksEtat::brouillard_i(GL_FOG_MODE,GL_LINEAR);
+                dksEtat::brouillard_fv(GL_FOG_COLOR,couleur_brouillard);
+                dksEtat::brouillard_f(GL_FOG_START,brouillard_min);
+                dksEtat::brouillard_f(GL_FOG_END,brouillard_max);
+                dksEtat::brouillard_f(GL_FOG_DENSITY,1.);
                 glHint(GL_FOG_HINT,GL_NICEST);
-                glEnable(GL_FOG);
+                dksEtat::active(GL_FOG);
             }
         }
 
         void desactive_brouillard()
         {
-            if (drapeau_active) glDisable(GL_FOG);
+            if (drapeau_active) dksEtat::desactive(GL_FOG);
             drapeau_brouillard=false;
         }
 
@@ -761,15 +761,15 @@ public:
             brouillard_max=max;
             if (drapeau_active)
             {
-                glFogf(GL_FOG_START,brouillard_min);
-                glFogf(GL_FOG_END,brouillard_max);
+                dksEtat::brouillard_f(GL_FOG_START,brouillard_min);
+                dksEtat::brouillard_f(GL_FOG_END,brouillard_max);
             }
         }
 
         void determine_alpha_brouillard(GLfloat alpha)
         {
             couleur_brouillard[3]=alpha;
-            if (drapeau_active) glFogfv(GL_FOG_COLOR,couleur_brouillard);
+            if (drapeau_active) dksEtat::brouillard_fv(GL_FOG_COLOR,couleur_brouillard);
 
         }
 
@@ -779,7 +779,7 @@ public:
             couleur_brouillard[1]=v;
             couleur_brouillard[2]=b;
             couleur_brouillard[3]=a;
-            if (drapeau_active) glFogfv(GL_FOG_COLOR,couleur_brouillard);
+            if (drapeau_active) dksEtat::brouillard_fv(GL_FOG_COLOR,couleur_brouillard);
         }
 
         void determine_couleur_brouillard(uint32_t cb)
@@ -788,7 +788,7 @@ public:
             couleur_brouillard[1]=GLfloat((cb>>8)&0xff)/255.;
             couleur_brouillard[2]=GLfloat(cb&0xff)/255.;
             couleur_brouillard[3]=GLfloat((cb>>24)&0xff)/255.;
-            if (drapeau_active) glFogfv(GL_FOG_COLOR,couleur_brouillard);
+            if (drapeau_active) dksEtat::brouillard_fv(GL_FOG_COLOR,couleur_brouillard);
         }
 
         //---------------------------------------------------------------
@@ -897,7 +897,7 @@ public:
             if(nbrSources>0)
             {
                 drapeau_eclairage=true;
-                glEnable(GL_LIGHTING);
+                dksEtat::active(GL_LIGHTING);
             }
         }
 
@@ -908,7 +908,7 @@ public:
             {
                 sources_lumineuses[i]->desactive_lumiere();
             }
-            glDisable(GL_LIGHTING);
+            dksEtat::desactive(GL_LIGHTING);
             drapeau_eclairage=false;
         }
 
@@ -1229,12 +1229,12 @@ public:
             //----------------- Génère la texture de profondeur pour les ombres:
             if (drapeau_rendu_ombres) affiche_profondeur(source_des_ombres);
 
-            if (drapeau_eclairage) glEnable(GL_LIGHTING);
-            else glDisable(GL_LIGHTING);
+            if (drapeau_eclairage) dksEtat::active(GL_LIGHTING);
+            else dksEtat::desactive(GL_LIGHTING);
 
             //------------------Active les états nécessaire au bon affichage:
-            GLboolean depth_test_mem=glIsEnabled(GL_DEPTH_TEST);
-            glEnable(GL_DEPTH_TEST);
+            GLboolean depth_test_mem=dksEtat::est_active(GL_DEPTH_TEST);
+            dksEtat::active(GL_DEPTH_TEST);
 
             //if ((erreur!=DKSM3D_OK) || (!drapeau_active) || (!drapeau_maj) ) return;
             if ((erreur!=DKSM3D_OK) || (!drapeau_active) ) return;
@@ -1245,15 +1245,15 @@ public:
 
             if (cube_arriere_plan!=NULL)
             {
-                if (drapeau_brouillard) glDisable(GL_FOG);
-                glDisable(GL_LIGHTING);
+                if (drapeau_brouillard) dksEtat::desactive(GL_FOG);
+                dksEtat::desactive(GL_LIGHTING);
                 dksMatrices::empile();
                 dksMatrices::multiplie(cube_arriere_plan->matrice.matrice);
 
                 cube_arriere_plan->affiche(oeil);
                 dksMatrices::depile();
-                if (drapeau_brouillard) glEnable(GL_FOG);
-                if (drapeau_eclairage) glEnable(GL_LIGHTING);
+                if (drapeau_brouillard) dksEtat::active(GL_FOG);
+                if (drapeau_eclairage) dksEtat::active(GL_LIGHTING);
 
             }
 
@@ -1284,7 +1284,7 @@ public:
             //---------------Affiche les boîtes de collision :
             #if DKSM3D_AFFICHE_BOITES_COLLISIONS
 
-            glDisable(GL_DEPTH_TEST);
+            dksEtat::desactive(GL_DEPTH_TEST);
             for (i=0;i< nbrVolumes;i++)
             {
                 if (volumes[i]->boite_collision!=NULL)volumes[i]->boite_collision->affiche();
@@ -1293,7 +1293,7 @@ public:
             #endif
 
             //---------------Restitue les états sensibles:
-            if (depth_test_mem)glEnable(GL_DEPTH_TEST); else glDisable(GL_DEPTH_TEST);
+            if (depth_test_mem)dksEtat::active(GL_DEPTH_TEST); else dksEtat::desactive(GL_DEPTH_TEST);
 
 
 
@@ -1311,12 +1311,12 @@ public:
         {
             if ((erreur!=DKSM3D_OK) || (!drapeau_active)) return;
             dksMatrices::mode(GL_MODELVIEW);
-            glDisable(GL_LIGHTING);
+            dksEtat::desactive(GL_LIGHTING);
             //dksTableaux::desactive(GL_NORMAL_ARRAY);
             //desactive_textures();
-            //glUseProgram(0);
-            GLboolean brouillard_mem=glIsEnabled(GL_FOG);
-            if (!drapeau_brouillard_surfaces_lumineuses) glDisable(GL_FOG);
+            //dksEtat::utilise_programme(0);
+            GLboolean brouillard_mem=dksEtat::est_active(GL_FOG);
+            if (!drapeau_brouillard_surfaces_lumineuses) dksEtat::desactive(GL_FOG);
 
             //--------- Affiche les volume:
             for ( uint32_t i=0 ; i<nbrVolumes ; i++ )
@@ -1329,7 +1329,7 @@ public:
                 dksMatrices::depile();
             }
 
-            if (brouillard_mem) glEnable(GL_FOG);
+            if (brouillard_mem) dksEtat::active(GL_FOG);
 
         //cout<<duree_rendu<<endl;
         }
@@ -1341,12 +1341,12 @@ public:
         {
             if ((erreur!=DKSM3D_OK) || (!drapeau_active) || (!drapeau_rendu_ombres)) return;
 
-            GLboolean lumieres_mem=glIsEnabled(GL_LIGHTING);
-            glDisable(GL_LIGHTING);
+            GLboolean lumieres_mem=dksEtat::est_active(GL_LIGHTING);
+            dksEtat::desactive(GL_LIGHTING);
             glColorMask(GL_FALSE,GL_FALSE,GL_FALSE,GL_FALSE);
             dksTableaux::desactive(GL_NORMAL_ARRAY);
             desactive_textures();
-            glUseProgram(0);
+            dksEtat::utilise_programme(0);
 
             //--------- Calcul la matrice de transformation vue de la source:
 
@@ -1393,7 +1393,7 @@ public:
             dksMatrices::mode(GL_MODELVIEW);
 
             //---------- Restitue les états d'openGl:
-            if (lumieres_mem) glEnable(GL_LIGHTING);
+            if (lumieres_mem) dksEtat::active(GL_LIGHTING);
             glColorMask(GL_TRUE,GL_TRUE,GL_TRUE,GL_TRUE);
             glBindFramebuffer(GL_DRAW_FRAMEBUFFER,frameBuffer_mem);
             glViewport(dimensions_mem[0],dimensions_mem[1],dimensions_mem[2],dimensions_mem[3]);
@@ -1413,8 +1413,8 @@ public:
             glGetIntegerv(GL_MAX_TEXTURE_UNITS,&nbr_unites_textures_max);
             for (i=0;i<nbr_unites_textures_max;i++)
                 {
-                    glActiveTexture(GL_TEXTURE0+i);
-                    glDisable(GL_TEXTURE_2D);
+                    dksEtat::unite_active(GL_TEXTURE0+i);
+                    dksEtat::desactive(GL_TEXTURE_2D);
                     dksTableaux::unite(GL_TEXTURE0+i);
                     dksTableaux::desactive(GL_TEXTURE_COORD_ARRAY);
                 }
@@ -1429,14 +1429,14 @@ public:
 
         void rendu_faces_transparentes_scene()
         {
-            GLint blend_mem=glIsEnabled(GL_BLEND);
-            glEnable(GL_BLEND);
+            GLint blend_mem=dksEtat::est_active(GL_BLEND);
+            dksEtat::active(GL_BLEND);
             glDepthMask(GL_FALSE);
             dksMatrices::mode(GL_MODELVIEW);
             dksMatrices::empile();
             indice_face_transparente=0;
             dksRendu::desactive_textures();
-            glUseProgram(0);
+            dksEtat::utilise_programme(0);
 
             for (;indice_face_transparente<nbr_faces_transparentes;indice_face_transparente++)
             {
@@ -1464,10 +1464,10 @@ public:
             }
 
 
-            glUseProgram(0);
+            dksEtat::utilise_programme(0);
             dksMatrices::mode(GL_MODELVIEW);
             dksMatrices::depile();
-            if(!blend_mem)glDisable(GL_BLEND);
+            if(!blend_mem)dksEtat::desactive(GL_BLEND);
         }
 
         //--------------------------------------------

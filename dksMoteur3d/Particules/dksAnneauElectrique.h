@@ -111,9 +111,9 @@ class dksAnneauElectrique : public dksParticules
             if(v<vm)v=vm;
             if(b<bm)b=bm;
 
-            GLboolean light_mem=glIsEnabled(GL_LIGHTING);
-            glDisable(GL_LIGHTING);
-            glUseProgram(0);
+            GLboolean light_mem=dksEtat::est_active(GL_LIGHTING);
+            dksEtat::desactive(GL_LIGHTING);
+            dksEtat::utilise_programme(0);
             desactive_textures();
             dksImmediat::couleur3f(r,v,b);
             dksImmediat::debut(GL_LINE_STRIP);
@@ -129,7 +129,7 @@ class dksAnneauElectrique : public dksParticules
                     }
                 }
             dksImmediat::fin();
-            if(light_mem)glEnable(GL_LIGHTING);
+            if(light_mem)dksEtat::active(GL_LIGHTING);
         }
 
         virtual void affiche_couleurs_luminescentes(dksOeil* oeil)
@@ -149,8 +149,8 @@ class dksAnneauElectrique : public dksParticules
             if(r<rm)r=rm;
             if(v<vm)v=vm;
             if(b<bm)b=bm;
-            //GLboolean light_mem=glIsEnabled(GL_LIGHTING);
-            //glDisable(GL_BLEND);
+            //GLboolean light_mem=dksEtat::est_active(GL_LIGHTING);
+            //dksEtat::desactive(GL_BLEND);
             dksImmediat::couleur3f(r,v,b);
             dksImmediat::debut(GL_LINE_STRIP);
                 //glLineWidth(epaisseur_points+(2.*float(rand()/32768.)*2.-1.));
@@ -165,7 +165,7 @@ class dksAnneauElectrique : public dksParticules
                     }
                 }
             dksImmediat::fin();
-            //if(light_mem)glEnable(GL_LIGHTING);
+            //if(light_mem)dksEtat::active(GL_LIGHTING);
         }
 };
 

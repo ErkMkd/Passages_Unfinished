@@ -538,11 +538,11 @@ class dksInsecte:public dksConteneur
             dksMatrices::multiplie(matrice.matrice);
 
             desactive_textures();
-            glUseProgram(0);
+            dksEtat::utilise_programme(0);
 
             uint16_t i;
-            GLboolean lum_mem=glIsEnabled(GL_LIGHTING);
-            glDisable(GL_LIGHTING);
+            GLboolean lum_mem=dksEtat::est_active(GL_LIGHTING);
+            dksEtat::desactive(GL_LIGHTING);
 
             //Lignes:
             dksImmediat::couleur3f(1.,1.,1.);
@@ -630,12 +630,12 @@ class dksInsecte:public dksConteneur
 
             //Points:
             dksImmediat::couleur3f(1.,1.,0.);
-            glPointSize(5.);
+            dksEtat::taille_point(5.);
             dksImmediat::debut(GL_POINTS);
             for(i=0;i<INSECTE_NBRPOINTS;i++) dksImmediat::sommet3dv(&squelette[i*3]);
             dksImmediat::fin();
 
-            if (lum_mem)glEnable(GL_LIGHTING);
+            if (lum_mem)dksEtat::active(GL_LIGHTING);
 
             dksMatrices::depile();
         }

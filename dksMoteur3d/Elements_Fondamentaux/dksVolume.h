@@ -2304,13 +2304,13 @@ public: ///Public, pour que le moteur puisse s'en servir lors de l'affichage des
 
             if(surface->double_face)
             {
-                glDisable(GL_CULL_FACE);
+                dksEtat::desactive(GL_CULL_FACE);
                 face_materiaux=GL_FRONT_AND_BACK;
                 dksEclairage::modele(GL_LIGHT_MODEL_TWO_SIDE,GL_TRUE);
             }
             else
             {
-                glEnable(GL_CULL_FACE); //Active la distinction face avant/face arrière des polygones pour le rendu.
+                dksEtat::active(GL_CULL_FACE); //Active la distinction face avant/face arrière des polygones pour le rendu.
                 face_materiaux=GL_FRONT;
                 dksEclairage::modele(GL_LIGHT_MODEL_TWO_SIDE,GL_FALSE);
             }
@@ -2321,7 +2321,7 @@ public: ///Public, pour que le moteur puisse s'en servir lors de l'affichage des
             dksEclairage::materiau(face_materiaux,GL_EMISSION, couleur_luminescence);
             dksEclairage::materiau(face_materiaux,GL_SPECULAR, couleur_speculaire);
             dksEclairage::materiau(face_materiaux, GL_SHININESS, surface->brillance);
-            glShadeModel(GL_SMOOTH);
+            dksEtat::ombrage(GL_SMOOTH);
 
 
             //Gestion des tableaux:
@@ -2337,7 +2337,7 @@ public: ///Public, pour que le moteur puisse s'en servir lors de l'affichage des
             }
 
             //---- Initialise openGL selon le rendu de la surface:
-            glUseProgram(0);    ///Il faut le laisser ici !!
+            dksEtat::utilise_programme(0);    ///Il faut le laisser ici !!
             desactive_textures();
             desactive_pointeurs_attributs_sommets();
             (this->*init_rendus[surface->mode_rendu])();
@@ -2366,8 +2366,8 @@ protected:
 		    else dksImmediat::couleur4fv(noir);
 
             //Gestion de l'affichage double-face:
-		    if(surface->double_face) glDisable(GL_CULL_FACE);
-            else glEnable(GL_CULL_FACE); //Active la distinction face avant/face arrière des polygones pour le rendu.
+		    if(surface->double_face) dksEtat::desactive(GL_CULL_FACE);
+            else dksEtat::active(GL_CULL_FACE); //Active la distinction face avant/face arrière des polygones pour le rendu.
 		}
 
         //-------------------------------------------------------------------------------
@@ -2378,8 +2378,8 @@ protected:
         virtual void initialise_materiau_profondeur(dksSurface* surface)
 		{
 		    //Gestion de l'affichage double face:
-            if(surface->double_face) glDisable(GL_CULL_FACE);
-            else glEnable(GL_CULL_FACE); //Active la distinction face avant/face arrière des polygones pour le rendu.
+            if(surface->double_face) dksEtat::desactive(GL_CULL_FACE);
+            else dksEtat::active(GL_CULL_FACE); //Active la distinction face avant/face arrière des polygones pour le rendu.
 		}
 
 
@@ -2452,20 +2452,20 @@ public:
             uint32_t i,j;
             uint16_t k;
             oeil_courant=oeil;
-            GLboolean brouillard_mem=glIsEnabled(GL_FOG);
+            GLboolean brouillard_mem=dksEtat::est_active(GL_FOG);
             if (erreur!=DKSVOLUME_OK || (!drapeau_affiche)) return;
-            if (!drapeau_affecte_par_brouillard) {glDisable(GL_FOG);};
+            if (!drapeau_affecte_par_brouillard) {dksEtat::desactive(GL_FOG);};
 
             #include "debug_volume_affiche.h"
-            glEnable(GL_DEPTH_TEST);
+            dksEtat::active(GL_DEPTH_TEST);
 
             //-------------------------- Affiche les sommets
             if (mode_remplissage==DKSVOLUME_REMPLISSAGE_SOMMETS)
             {
-                GLboolean lum_mem=glIsEnabled(GL_LIGHTING);
-                glPointSize(taille_points_sommets);
+                GLboolean lum_mem=dksEtat::est_active(GL_LIGHTING);
+                dksEtat::taille_point(taille_points_sommets);
                 desactive_textures();
-                glDisable(GL_LIGHTING);
+                dksEtat::desactive(GL_LIGHTING);
                 dksImmediat::couleur3fv(couleur_sommets);
                 for (i=0;i<nbrSommets;i++)
                 {
@@ -2473,15 +2473,15 @@ public:
                         dksImmediat::sommet3dv(&sommets[3*i]);
                     dksImmediat::fin();
                 }
-                if (lum_mem)glEnable(GL_LIGHTING);
+                if (lum_mem)dksEtat::active(GL_LIGHTING);
             }
 
             //-------------------------- Affiche les arètes
             else if (mode_remplissage==DKSVOLUME_REMPLISSAGE_ARETES)
             {
                 desactive_textures();
-                GLboolean lum_mem=glIsEnabled(GL_LIGHTING);
-                glDisable(GL_LIGHTING);
+                GLboolean lum_mem=dksEtat::est_active(GL_LIGHTING);
+                dksEtat::desactive(GL_LIGHTING);
                 dksImmediat::couleur3fv(couleur_aretes);
                 for (i=0;i<nbrAretes;i++)
                 {
@@ -2490,7 +2490,7 @@ public:
                         dksImmediat::sommet3dv(&sommets[aretes[i*2+1]*3]);
                     dksImmediat::fin();
                 }
-                if (lum_mem)glEnable(GL_LIGHTING);
+                if (lum_mem)dksEtat::active(GL_LIGHTING);
             }
 
             //-------------------------- Affiche les faces en aplats colorés:
@@ -2540,8 +2540,8 @@ public:
                     break;
                 }
             }
-            glUseProgram(0);
-            if (!drapeau_affecte_par_brouillard && brouillard_mem) glEnable(GL_FOG);
+            dksEtat::utilise_programme(0);
+            if (!drapeau_affecte_par_brouillard && brouillard_mem) dksEtat::active(GL_FOG);
         }
 
 
@@ -2553,14 +2553,14 @@ public:
         virtual void affiche_couleurs_luminescentes(dksOeil* oeil)
         {
             if (erreur!=DKSVOLUME_OK || (!drapeau_affiche)) return;
-            GLboolean eclairage_mem=glIsEnabled(GL_LIGHTING);
-            GLboolean brouillard_mem=glIsEnabled(GL_FOG);
-            if (!drapeau_affecte_par_brouillard) glDisable(GL_FOG);
-            glEnable(GL_DEPTH_TEST);
-            glDisable(GL_LIGHTING);
-            glShadeModel(GL_FLAT);
+            GLboolean eclairage_mem=dksEtat::est_active(GL_LIGHTING);
+            GLboolean brouillard_mem=dksEtat::est_active(GL_FOG);
+            if (!drapeau_affecte_par_brouillard) dksEtat::desactive(GL_FOG);
+            dksEtat::active(GL_DEPTH_TEST);
+            dksEtat::desactive(GL_LIGHTING);
+            dksEtat::ombrage(GL_FLAT);
             desactive_textures();
-            glUseProgram(0);
+            dksEtat::utilise_programme(0);
             glFrontFace(sens_polygones); //Détermine quelle est la face "avant" des polygones, selon
                                          // le sens des sommets: CCW (counter-clockwise) ou CW (clockwise)
 
@@ -2593,8 +2593,8 @@ public:
                 }
             }
 
-            if (eclairage_mem) glEnable(GL_LIGHTING);
-            if (!drapeau_affecte_par_brouillard && brouillard_mem) glEnable(GL_FOG);
+            if (eclairage_mem) dksEtat::active(GL_LIGHTING);
+            if (!drapeau_affecte_par_brouillard && brouillard_mem) dksEtat::active(GL_FOG);
 
         }
 
@@ -2622,19 +2622,19 @@ public:
 
             //Initialise l'état openGl nécessaire:
             /// Remonter tout ça....?
-            GLboolean eclairage_mem=glIsEnabled(GL_LIGHTING);
-            GLboolean brouillard_mem=glIsEnabled(GL_FOG);
-            glDisable(GL_FOG);
-            glEnable(GL_DEPTH_TEST);
+            GLboolean eclairage_mem=dksEtat::est_active(GL_LIGHTING);
+            GLboolean brouillard_mem=dksEtat::est_active(GL_FOG);
+            dksEtat::desactive(GL_FOG);
+            dksEtat::active(GL_DEPTH_TEST);
             glDepthMask(GL_TRUE);
-            glDisable(GL_LIGHTING);
-            glDisable(GL_BLEND);
-            glShadeModel(GL_FLAT);
+            dksEtat::desactive(GL_LIGHTING);
+            dksEtat::desactive(GL_BLEND);
+            dksEtat::ombrage(GL_FLAT);
 
             glFrontFace(sens_polygones); //Détermine quelle est la face "avant" des polygones, selon
                                          // le sens des sommets: CCW (counter-clockwise) ou CW (clockwise)
             desactive_textures();
-            glUseProgram(0);
+            dksEtat::utilise_programme(0);
 
             //Rendu:
             if(drapeau_liste_profondeurs)
@@ -2666,9 +2666,9 @@ public:
                 }
             }
 
-            if (eclairage_mem) glEnable(GL_LIGHTING);
-            if (brouillard_mem) glEnable(GL_FOG);
-            glUseProgram(0);
+            if (eclairage_mem) dksEtat::active(GL_LIGHTING);
+            if (brouillard_mem) dksEtat::active(GL_FOG);
+            dksEtat::utilise_programme(0);
         }
 
 protected:

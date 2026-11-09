@@ -103,10 +103,10 @@ class dksAfficheImage :public dksRendu
             //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             GLboolean depth_mask_mem;
             glGetBooleanv(GL_DEPTH_WRITEMASK,&depth_mask_mem);
-            GLboolean depth_mem=glIsEnabled(GL_DEPTH_TEST);
+            GLboolean depth_mem=dksEtat::est_active(GL_DEPTH_TEST);
 
             desactive_textures();
-            glUseProgram(0);
+            dksEtat::utilise_programme(0);
 
             dksMatrices::mode(GL_PROJECTION);
             dksMatrices::empile();
@@ -121,25 +121,25 @@ class dksAfficheImage :public dksRendu
 
 
             glDepthMask(GL_FALSE);
-            glDisable(GL_CULL_FACE);
-            glDisable(GL_LIGHTING);
-            glDisable(GL_DEPTH_TEST);
-            glEnable(GL_BLEND);
+            dksEtat::desactive(GL_CULL_FACE);
+            dksEtat::desactive(GL_LIGHTING);
+            dksEtat::desactive(GL_DEPTH_TEST);
+            dksEtat::active(GL_BLEND);
             glBlendFunc(GL_SRC_ALPHA,GL_DST_ALPHA);
 
 
 
             //---------Activation de la texture:
 
-            glActiveTexture(GL_TEXTURE0);
-            glEnable(GL_TEXTURE_2D);
-            glBindTexture(GL_TEXTURE_2D,image->texture_id);
+            dksEtat::unite_active(GL_TEXTURE0);
+            dksEtat::active(GL_TEXTURE_2D);
+            dksEtat::lie_texture(GL_TEXTURE_2D,image->texture_id);
             glTexParameterfv(GL_TEXTURE_2D,GL_TEXTURE_BORDER_COLOR,couleur_fond);
             glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,recouvrement_s);
             glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,recouvrement_t);
             glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,type_grossissement);
             glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,type_diminution);
-            glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,type_rendu);
+            dksEtat::enveloppe_i(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,type_rendu);
 
 
 
@@ -170,8 +170,8 @@ class dksAfficheImage :public dksRendu
 
 
             //Affiche la texture:
-            GLboolean color_material_mem=glIsEnabled(GL_COLOR_MATERIAL);
-            glDisable(GL_COLOR_MATERIAL);
+            GLboolean color_material_mem=dksEtat::est_active(GL_COLOR_MATERIAL);
+            dksEtat::desactive(GL_COLOR_MATERIAL);
             dksImmediat::couleur4f(couleur_teinte[0],couleur_teinte[1],couleur_teinte[2],alpha);
             dksImmediat::debut(GL_QUADS);
 
@@ -187,20 +187,20 @@ class dksAfficheImage :public dksRendu
 
 
             dksImmediat::fin();
-            if (color_material_mem) glEnable(GL_COLOR_MATERIAL);
+            if (color_material_mem) dksEtat::active(GL_COLOR_MATERIAL);
 
 
 
             //Restitue l'état d'openGl:
             dksMatrices::depile();  //Matrice de texture
             dksMatrices::mode(GL_MODELVIEW);
-            glDisable(GL_BLEND);
+            dksEtat::desactive(GL_BLEND);
             dksMatrices::depile();
             dksMatrices::mode(GL_PROJECTION);
             dksMatrices::depile();
             dksMatrices::mode(GL_MODELVIEW);
             glDepthMask(depth_mask_mem);
-            if(depth_mem)glEnable(GL_DEPTH_TEST);
+            if(depth_mem)dksEtat::active(GL_DEPTH_TEST);
         }
 
         virtual void affiche_couleurs_luminescentes(dksOeil* oeil)

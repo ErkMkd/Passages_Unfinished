@@ -1027,18 +1027,18 @@ class Scene_Caduce: public Scene
         void affiche_trajectoire(dksTrajectoire* trajectoire)
         {
             //dksMatrices::identite();
-            glDisable(GL_LIGHTING);
-            glDisable(GL_TEXTURE_2D);
-            glEnable(GL_BLEND);
+            dksEtat::desactive(GL_LIGHTING);
+            dksEtat::desactive(GL_TEXTURE_2D);
+            dksEtat::active(GL_BLEND);
             glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-            //glDisable(GL_DEPTH_TEST);
+            //dksEtat::desactive(GL_DEPTH_TEST);
             //oeil_1->positionne_scene(t);
             trajectoire->affiche_courbe(20,0x40ffff00);
             trajectoire->affiche_points(0x80ff0000,5);
             trajectoire->affiche_point(point_actuel,0xffff6060,8);
-            glEnable(GL_LIGHTING);
-            glDisable(GL_BLEND);
-            //glEnable(GL_DEPTH_TEST);
+            dksEtat::active(GL_LIGHTING);
+            dksEtat::desactive(GL_BLEND);
+            //dksEtat::active(GL_DEPTH_TEST);
         }
 
         //===================================================
@@ -1046,19 +1046,19 @@ class Scene_Caduce: public Scene
         //===================================================
         void affiche_origine_conteneur(dksConteneur* cont)
         {
-            glDisable(GL_LIGHTING);
-            glDisable(GL_TEXTURE_2D);
+            dksEtat::desactive(GL_LIGHTING);
+            dksEtat::desactive(GL_TEXTURE_2D);
 
             glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
             dksMatrices::empile();
             dksMatrices::multiplie(cont->matrice.matrice);
-            glPointSize(6);
+            dksEtat::taille_point(6);
             dksImmediat::couleur3f(1.,0.,0.);
             dksImmediat::debut(GL_POINTS);
                 dksImmediat::sommet3d(0.,0.,0.);
             dksImmediat::fin();
             dksMatrices::depile();
-            glEnable(GL_LIGHTING);
+            dksEtat::active(GL_LIGHTING);
         }
 
         //==============================================

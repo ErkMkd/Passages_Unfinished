@@ -1307,16 +1307,16 @@ class dksJongleur:public dksPersonnage
         {
             this->dksPersonnage::affiche(oeil);
             uint16_t i;
-            GLboolean lum_mem=glIsEnabled(GL_LIGHTING);
-            glDisable(GL_LIGHTING);
-            bool point_smooth_mem=glIsEnabled(GL_POINT_SMOOTH);
+            GLboolean lum_mem=dksEtat::est_active(GL_LIGHTING);
+            dksEtat::desactive(GL_LIGHTING);
+            bool point_smooth_mem=dksEtat::est_active(GL_POINT_SMOOTH);
 
             dksMatrices::empile();
             dksMatrices::multiplie(matrice.matrice);
             //Centres des balles:
 
-            glPointSize(10.);
-            glEnable(GL_POINT_SMOOTH);
+            dksEtat::taille_point(10.);
+            dksEtat::active(GL_POINT_SMOOTH);
             dksImmediat::debut(GL_POINTS);
             for(i=0;i<nbr_balles;i++)
             {
@@ -1325,8 +1325,8 @@ class dksJongleur:public dksPersonnage
             }
             dksImmediat::fin();
 
-            if (lum_mem)glEnable(GL_LIGHTING);
-            if (!point_smooth_mem) glDisable(GL_POINT_SMOOTH);
+            if (lum_mem)dksEtat::active(GL_LIGHTING);
+            if (!point_smooth_mem) dksEtat::desactive(GL_POINT_SMOOTH);
             dksMatrices::depile();
         }
 

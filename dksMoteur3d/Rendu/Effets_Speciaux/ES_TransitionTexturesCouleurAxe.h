@@ -56,30 +56,30 @@ class ES_TransitionTexturesCouleurAxe : public dksEffetSpecial
         {
             drapeaux_textures|=0x1;
             texture_depart=surface->textures_couleur[surface->indice_texture_depart];
-            glActiveTexture(GL_TEXTURE0);
-            glEnable(GL_TEXTURE_2D);
-            glBindTexture(GL_TEXTURE_2D,texture_depart->image->texture_id);
+            dksEtat::unite_active(GL_TEXTURE0);
+            dksEtat::active(GL_TEXTURE_2D);
+            dksEtat::lie_texture(GL_TEXTURE_2D,texture_depart->image->texture_id);
             glTexParameterfv(GL_TEXTURE_2D,GL_TEXTURE_BORDER_COLOR,vol->couleur_diffusion);
             glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,texture_depart->recouvrement_s);
             glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,texture_depart->recouvrement_t);
             glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,texture_depart->type_grossissement);
             glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,texture_depart->type_diminution);
-            glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);
+            dksEtat::enveloppe_i(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);
         }
         //Texture destination:
         if(surface->indice_texture_destination>=0)
         {
             drapeaux_textures|=0x2;
             texture_dest=surface->textures_couleur[surface->indice_texture_destination];
-            glActiveTexture(GL_TEXTURE1);
-            glEnable(GL_TEXTURE_2D);
-            glBindTexture(GL_TEXTURE_2D,texture_dest->image->texture_id);
+            dksEtat::unite_active(GL_TEXTURE1);
+            dksEtat::active(GL_TEXTURE_2D);
+            dksEtat::lie_texture(GL_TEXTURE_2D,texture_dest->image->texture_id);
             glTexParameterfv(GL_TEXTURE_2D,GL_TEXTURE_BORDER_COLOR,vol->couleur_diffusion);
             glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,texture_dest->recouvrement_s);
             glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,texture_dest->recouvrement_t);
             glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,texture_dest->type_grossissement);
             glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,texture_dest->type_diminution);
-            glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);
+            dksEtat::enveloppe_i(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);
         }
         //Gestion des tableaux:
         if (vol->mode_rendu==DKSVOLUME_MODE_TABLEAUX || vol->mode_rendu==DKSVOLUME_MODE_LISTE_OPAQUES_TABLEAUX_TRANSPARENTES)
@@ -99,7 +99,7 @@ class ES_TransitionTexturesCouleurAxe : public dksEffetSpecial
         }
 
         //Initialise le shader:
-        glUseProgram(dksShaders::bibliotheque->transition_textures_couleur_axe->programme_id);
+        dksEtat::utilise_programme(dksShaders::bibliotheque->transition_textures_couleur_axe->programme_id);
         glUniform1i(dksShaders::bibliotheque->transition_textures_couleur_axe->drapeaux_sources,dksSourceLumineuse::allocation_lumieres_openGl);
         glUniform1i(dksShaders::bibliotheque->transition_textures_couleur_axe->texture_depart,0);
         glUniform1i(dksShaders::bibliotheque->transition_textures_couleur_axe->texture_destination,1);

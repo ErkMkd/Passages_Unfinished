@@ -227,7 +227,7 @@ class dksPostRendu
         glViewport(0,0,ecran->resolution_x,ecran->resolution_y);
         glDepthMask(GL_TRUE);
         if(drapeau_efface_sortie)glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glUseProgram(0);
+        dksEtat::utilise_programme(0);
         rendu_elements(oeil,&liste_affichage_ecran_1);
     }
 
@@ -237,7 +237,7 @@ class dksPostRendu
         glViewport(0,0,ecran->resolution_x,ecran->resolution_y);
         glDepthMask(GL_TRUE);
         if(drapeau_efface_sortie)glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glUseProgram(0);
+        dksEtat::utilise_programme(0);
         rendu_elements(oeil,&liste_affichage_ecran_2);
     }
 
@@ -247,7 +247,7 @@ class dksPostRendu
         glViewport(0,0,ecran->largeur_texture_quart,ecran->hauteur_texture_quart);
         glDepthMask(GL_TRUE);
         if(drapeau_efface_sortie)glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glUseProgram(0);
+        dksEtat::utilise_programme(0);
         rendu_elements(oeil,&liste_affichage_quart);
     }
 
@@ -257,7 +257,7 @@ class dksPostRendu
         glViewport(0,0,256,256);
         glDepthMask(GL_TRUE);
         if(drapeau_efface_sortie)glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glUseProgram(0);
+        dksEtat::utilise_programme(0);
         rendu_elements(oeil,&liste_affichage_256);
     }
 
@@ -270,7 +270,7 @@ class dksPostRendu
     {
         //-------------- Floutage X:
         dksRendu::desactive_textures();
-        glActiveTexture(GL_TEXTURE0);
+        dksEtat::unite_active(GL_TEXTURE0);
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER,ecran->frame_buffers[FB_256_2]);
         glViewport(0,0,256,256);
 
@@ -283,14 +283,14 @@ class dksPostRendu
         dksMatrices::empile();
         dksMatrices::identite();
 
-        glDisable(GL_CULL_FACE);
-        glDisable(GL_LIGHTING);
-        glDisable(GL_DEPTH_TEST);
-        glDisable(GL_BLEND);
+        dksEtat::desactive(GL_CULL_FACE);
+        dksEtat::desactive(GL_LIGHTING);
+        dksEtat::desactive(GL_DEPTH_TEST);
+        dksEtat::desactive(GL_BLEND);
 
-        glEnable(GL_TEXTURE_2D);
-        glBindTexture(GL_TEXTURE_2D,ecran->textures[TX_256_1]);
-        glUseProgram(dksShaders::bibliotheque->floutage_x->programme_id);
+        dksEtat::active(GL_TEXTURE_2D);
+        dksEtat::lie_texture(GL_TEXTURE_2D,ecran->textures[TX_256_1]);
+        dksEtat::utilise_programme(dksShaders::bibliotheque->floutage_x->programme_id);
         glUniform1i(dksShaders::bibliotheque->floutage_x->taille,largeur_flou);
         glUniform1f(dksShaders::bibliotheque->floutage_x->saturation,saturation_horizontale_flou);
         glUniform1i(dksShaders::bibliotheque->floutage_x->texture,0);
@@ -300,17 +300,17 @@ class dksPostRendu
         //--------------- floutage Y:
 
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER,ecran->frame_buffers[FB_256_1]);
-        glBindTexture(GL_TEXTURE_2D,ecran->textures[TX_256_2]);
+        dksEtat::lie_texture(GL_TEXTURE_2D,ecran->textures[TX_256_2]);
         glViewport(0,0,256,256);
 
-        glUseProgram(dksShaders::bibliotheque->floutage_y->programme_id);
+        dksEtat::utilise_programme(dksShaders::bibliotheque->floutage_y->programme_id);
         glUniform1i(dksShaders::bibliotheque->floutage_y->taille,hauteur_flou);
         glUniform1f(dksShaders::bibliotheque->floutage_y->saturation,saturation_verticale_flou);
         glUniform1i(dksShaders::bibliotheque->floutage_y->texture,0);
 
         affiche_texture();
 
-        glUseProgram(0);
+        dksEtat::utilise_programme(0);
         dksMatrices::depile();
         dksMatrices::mode(GL_PROJECTION);
         dksMatrices::depile();
@@ -322,7 +322,7 @@ class dksPostRendu
     {
         //-------------- Floutage X:
         dksRendu::desactive_textures();
-        glActiveTexture(GL_TEXTURE0);
+        dksEtat::unite_active(GL_TEXTURE0);
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER,ecran->frame_buffers[FB_QUART_2]);
         glViewport(0,0,ecran->largeur_texture_quart,ecran->hauteur_texture_quart);
 
@@ -335,14 +335,14 @@ class dksPostRendu
         dksMatrices::empile();
         dksMatrices::identite();
 
-        glDisable(GL_CULL_FACE);
-        glDisable(GL_LIGHTING);
-        glDisable(GL_DEPTH_TEST);
-        glDisable(GL_BLEND);
+        dksEtat::desactive(GL_CULL_FACE);
+        dksEtat::desactive(GL_LIGHTING);
+        dksEtat::desactive(GL_DEPTH_TEST);
+        dksEtat::desactive(GL_BLEND);
 
-        glEnable(GL_TEXTURE_2D);
-        glBindTexture(GL_TEXTURE_2D,ecran->textures[TX_QUART_1]);
-        glUseProgram(dksShaders::bibliotheque->floutage_x->programme_id);
+        dksEtat::active(GL_TEXTURE_2D);
+        dksEtat::lie_texture(GL_TEXTURE_2D,ecran->textures[TX_QUART_1]);
+        dksEtat::utilise_programme(dksShaders::bibliotheque->floutage_x->programme_id);
         glUniform1i(dksShaders::bibliotheque->floutage_x->taille,largeur_flou);
         glUniform1f(dksShaders::bibliotheque->floutage_x->saturation,saturation_horizontale_flou);
         glUniform1i(dksShaders::bibliotheque->floutage_x->texture,0);
@@ -352,17 +352,17 @@ class dksPostRendu
         //--------------- floutage Y:
 
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER,ecran->frame_buffers[FB_QUART_1]);
-        glBindTexture(GL_TEXTURE_2D,ecran->textures[TX_QUART_2]);
+        dksEtat::lie_texture(GL_TEXTURE_2D,ecran->textures[TX_QUART_2]);
         glViewport(0,0,ecran->largeur_texture_quart,ecran->hauteur_texture_quart);
 
-        glUseProgram(dksShaders::bibliotheque->floutage_y->programme_id);
+        dksEtat::utilise_programme(dksShaders::bibliotheque->floutage_y->programme_id);
         glUniform1i(dksShaders::bibliotheque->floutage_y->taille,hauteur_flou);
         glUniform1f(dksShaders::bibliotheque->floutage_y->saturation,saturation_verticale_flou);
         glUniform1i(dksShaders::bibliotheque->floutage_y->texture,0);
 
         affiche_texture();
 
-        glUseProgram(0);
+        dksEtat::utilise_programme(0);
         dksMatrices::depile();
         dksMatrices::mode(GL_PROJECTION);
         dksMatrices::depile();
@@ -374,35 +374,35 @@ class dksPostRendu
     //-----------------------------------------------------
     void masque_2_tempons(uint8_t texture_1,uint8_t texture_2, uint8_t frameBuffer_resultat=DKSECRAN_TEMPON_DEFAUT)
     {
-        glUseProgram(0);
+        dksEtat::utilise_programme(0);
         depart_superposition_tempons(frameBuffer_resultat);
 
-        //glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D,ecran->textures[texture_1]);
-        //glEnable(GL_TEXTURE_2D);
+        //dksEtat::unite_active(GL_TEXTURE0);
+        dksEtat::lie_texture(GL_TEXTURE_2D,ecran->textures[texture_1]);
+        //dksEtat::active(GL_TEXTURE_2D);
         glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP);
         glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_CLAMP);
         glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-        glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);
+        dksEtat::enveloppe_i(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);
 
-        glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_2D,ecran->textures[texture_2]);
-        glEnable(GL_TEXTURE_2D);
+        dksEtat::unite_active(GL_TEXTURE1);
+        dksEtat::lie_texture(GL_TEXTURE_2D,ecran->textures[texture_2]);
+        dksEtat::active(GL_TEXTURE_2D);
         glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP);
         glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_CLAMP);
         glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-        glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);
+        dksEtat::enveloppe_i(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);
 
-        glUseProgram(dksShaders::bibliotheque->masque_2_textures->programme_id);
+        dksEtat::utilise_programme(dksShaders::bibliotheque->masque_2_textures->programme_id);
         glUniform1i(dksShaders::bibliotheque->masque_2_textures->texture_1,0);
         glUniform1i(dksShaders::bibliotheque->masque_2_textures->texture_2,1);
         glUniform3f(dksShaders::bibliotheque->masque_2_textures->couleur_masque,couleur_masque[0],couleur_masque[1],couleur_masque[2]);
 
         affiche_2_textures();
 
-        glUseProgram(0);
+        dksEtat::utilise_programme(0);
 
         fin_superposition_tempons();
 
@@ -435,14 +435,14 @@ class dksPostRendu
         dksMatrices::empile();
         dksMatrices::identite();
 
-        glDisable(GL_CULL_FACE);
-        glDisable(GL_LIGHTING);
-        glDisable(GL_DEPTH_TEST);
+        dksEtat::desactive(GL_CULL_FACE);
+        dksEtat::desactive(GL_LIGHTING);
+        dksEtat::desactive(GL_DEPTH_TEST);
         glDepthMask(GL_FALSE);
-        glEnable(GL_BLEND);
+        dksEtat::active(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA,GL_DST_ALPHA);
-        glActiveTexture(GL_TEXTURE0);
-        glEnable(GL_TEXTURE_2D);
+        dksEtat::unite_active(GL_TEXTURE0);
+        dksEtat::active(GL_TEXTURE_2D);
     }
 
     //-----------------------------------------------------
@@ -453,19 +453,19 @@ class dksPostRendu
         switch (tempon_id)
         {
             case DKSECRAN_TEMPON_ECRAN_1:
-                glBindTexture(GL_TEXTURE_2D,ecran->textures[TX_ECRAN_1]);
+                dksEtat::lie_texture(GL_TEXTURE_2D,ecran->textures[TX_ECRAN_1]);
                 affiche_texture(alpha_tempon_ecran);
             break;
             case DKSECRAN_TEMPON_ECRAN_2:
-                glBindTexture(GL_TEXTURE_2D,ecran->textures[TX_ECRAN_2]);
+                dksEtat::lie_texture(GL_TEXTURE_2D,ecran->textures[TX_ECRAN_2]);
                 affiche_texture(alpha_tempon_ecran);
             break;
             case DKSECRAN_TEMPON_QUART:
-                glBindTexture(GL_TEXTURE_2D,ecran->textures[TX_QUART_1]);
+                dksEtat::lie_texture(GL_TEXTURE_2D,ecran->textures[TX_QUART_1]);
                 affiche_texture(alpha_tempon_quart);
             break;
             case DKSECRAN_TEMPON_256:
-                glBindTexture(GL_TEXTURE_2D,ecran->textures[TX_256_1]);
+                dksEtat::lie_texture(GL_TEXTURE_2D,ecran->textures[TX_256_1]);
                 affiche_texture(alpha_tempon_256);
             break;
             default:
@@ -479,7 +479,7 @@ class dksPostRendu
     //-----------------------------------------------------------------------------
     void fin_superposition_tempons()
     {
-        glDisable(GL_BLEND);
+        dksEtat::desactive(GL_BLEND);
         dksMatrices::depile();
         dksMatrices::mode(GL_PROJECTION);
         dksMatrices::depile();
@@ -492,8 +492,8 @@ class dksPostRendu
     //Le view port doit avoir été correctement initialisé
     void affiche_texture(float alpha=1.)
     {
-        GLboolean color_material_mem=glIsEnabled(GL_COLOR_MATERIAL);
-        glDisable(GL_COLOR_MATERIAL);
+        GLboolean color_material_mem=dksEtat::est_active(GL_COLOR_MATERIAL);
+        dksEtat::desactive(GL_COLOR_MATERIAL);
         dksImmediat::couleur4f(1.,1.,1.,alpha);
         dksImmediat::debut(GL_QUADS);
             dksImmediat::texture2f(0.,0.);
@@ -505,7 +505,7 @@ class dksPostRendu
             dksImmediat::texture2f(0.,1.);
             dksImmediat::sommet3f(-.5,.5,-1.);
         dksImmediat::fin();
-        if (color_material_mem) glEnable(GL_COLOR_MATERIAL);
+        if (color_material_mem) dksEtat::active(GL_COLOR_MATERIAL);
     }
 
     //------------------------------------------------------
@@ -515,8 +515,8 @@ class dksPostRendu
     //------------------------------------------------------
     void affiche_2_textures(float alpha=1.)
     {
-        GLboolean color_material_mem=glIsEnabled(GL_COLOR_MATERIAL);
-        glDisable(GL_COLOR_MATERIAL);
+        GLboolean color_material_mem=dksEtat::est_active(GL_COLOR_MATERIAL);
+        dksEtat::desactive(GL_COLOR_MATERIAL);
         dksImmediat::couleur4f(1.,1.,1.,alpha);
         dksImmediat::debut(GL_QUADS);
             dksImmediat::multi_texture2f(GL_TEXTURE0,0.,0.);
@@ -532,7 +532,7 @@ class dksPostRendu
             dksImmediat::multi_texture2f(GL_TEXTURE1,0.,1.);
             dksImmediat::sommet3d(-.5,.5,-1.);
         dksImmediat::fin();
-        if (color_material_mem) glEnable(GL_COLOR_MATERIAL);
+        if (color_material_mem) dksEtat::active(GL_COLOR_MATERIAL);
     }
 
     //====================================================================================================

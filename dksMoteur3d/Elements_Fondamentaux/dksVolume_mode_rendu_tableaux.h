@@ -18,7 +18,7 @@
             dksFace* face;
 
             //************** Surfaces opaques:
-            glDisable(GL_BLEND);
+            dksEtat::desactive(GL_BLEND);
             if (drapeau_tempon_profondeur) glDepthMask(GL_TRUE); else glDepthMask(GL_FALSE);
 
             for (i=0;i<nbrSurfaces;i++)
@@ -37,15 +37,15 @@
                     //------------------- Surface en aplat brut (pas d'éclairage)
                     if(surface->mode_rendu==DKSSURFACE_RENDU_APLAT)
                     {
-                        GLboolean eclairage_mem=glIsEnabled(GL_LIGHTING);
-                        glDisable(GL_LIGHTING);
-                        glShadeModel(GL_FLAT);
+                        GLboolean eclairage_mem=dksEtat::est_active(GL_LIGHTING);
+                        dksEtat::desactive(GL_LIGHTING);
+                        dksEtat::ombrage(GL_FLAT);
                         for(j=0;j<surface->nbr_faces;j++)
                         {
                             face=surface->faces[j];
                             dksTableaux::trace_elements(GL_POLYGON,face->nbrSommets,GL_UNSIGNED_INT,face->aretes);
                         }
-                        if(eclairage_mem)glEnable(GL_LIGHTING);
+                        if(eclairage_mem)dksEtat::active(GL_LIGHTING);
                     }
                     //------------------- Surface adoucie:
                     else if(surface->drapeau_adoucissement)
@@ -88,7 +88,7 @@
             //************** Surfaces transparentes:
             if ( nbrFaces_transparentes > 0 )
             {
-                glEnable(GL_BLEND);
+                dksEtat::active(GL_BLEND);
                 glDepthMask(GL_FALSE);
                 tri_faces_transparentes(oeil);
                 surface_courante=NULL;
@@ -137,7 +137,7 @@
             duree_rendu=Horloge::temps_reel_ms();
 
             //**************** Surfaces opaques:
-            glDisable(GL_BLEND);
+            dksEtat::desactive(GL_BLEND);
             if (drapeau_tempon_profondeur) glDepthMask(GL_TRUE); else glDepthMask(GL_FALSE);
 
             for (i=0;i<nbrSurfaces;i++)

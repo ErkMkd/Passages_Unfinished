@@ -128,14 +128,14 @@ public:
         dksMatrices::identite();
 
 
-        bool lighting_mem=glIsEnabled(GL_LIGHTING);
-        bool blend_mem=glIsEnabled(GL_BLEND);
-        bool texture_mem=glIsEnabled(GL_TEXTURE_2D);
-        bool depth_test_mem=glIsEnabled(GL_DEPTH_TEST);
-        glDisable(GL_LIGHTING);
-        glEnable(GL_BLEND);
-        glDisable(GL_TEXTURE_2D);
-        glDisable(GL_DEPTH_TEST); //Désactive la prise en compte de la profondeur ("z-buffer")
+        bool lighting_mem=dksEtat::est_active(GL_LIGHTING);
+        bool blend_mem=dksEtat::est_active(GL_BLEND);
+        bool texture_mem=dksEtat::est_active(GL_TEXTURE_2D);
+        bool depth_test_mem=dksEtat::est_active(GL_DEPTH_TEST);
+        dksEtat::desactive(GL_LIGHTING);
+        dksEtat::active(GL_BLEND);
+        dksEtat::desactive(GL_TEXTURE_2D);
+        dksEtat::desactive(GL_DEPTH_TEST); //Désactive la prise en compte de la profondeur ("z-buffer")
 
         Image_TIFF* image=sprites[indice].image;
         glPixelStorei (GL_UNPACK_ALIGNMENT, 1);
@@ -143,10 +143,10 @@ public:
         glDrawPixels(image->largeur,image->hauteur,image->format_pixels,GL_UNSIGNED_BYTE,image->image);
 
 
-        if (!blend_mem) glDisable(GL_BLEND);
-        if (lighting_mem) glEnable(GL_LIGHTING);
-        if (depth_test_mem) glEnable(GL_DEPTH_TEST);
-        if (!texture_mem) glDisable(GL_TEXTURE_2D);
+        if (!blend_mem) dksEtat::desactive(GL_BLEND);
+        if (lighting_mem) dksEtat::active(GL_LIGHTING);
+        if (depth_test_mem) dksEtat::active(GL_DEPTH_TEST);
+        if (!texture_mem) dksEtat::desactive(GL_TEXTURE_2D);
 
 
         dksMatrices::depile();

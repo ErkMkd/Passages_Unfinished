@@ -75,8 +75,8 @@
             GLdouble* sommet;
             GLdouble* nml;
             desactive_textures();
-            glUseProgram(0);
-            glShadeModel(GL_FLAT);
+            dksEtat::utilise_programme(0);
+            dksEtat::ombrage(GL_FLAT);
 
             //-------- Rendu en aplats:
             for (i=0;i<nbrSurfaces;i++)
@@ -152,7 +152,7 @@
             dksFace* face;
             GLdouble* sommet;
             GLdouble* nml;
-            glShadeModel(GL_SMOOTH);
+            dksEtat::ombrage(GL_SMOOTH);
             dksImmediat::debut_lot();
 
             //-------- Rendu en aplats:
@@ -992,17 +992,17 @@
             uint32_t* at=face->aretes;
             GLdouble* sommet;
 
-            GLboolean eclairage_mem=glIsEnabled(GL_LIGHTING);
-            glDisable(GL_LIGHTING);
+            GLboolean eclairage_mem=dksEtat::est_active(GL_LIGHTING);
+            dksEtat::desactive(GL_LIGHTING);
             dksEclairage::materiau(GL_FRONT,GL_DIFFUSE, couleur_diffusion);
-            glShadeModel(GL_FLAT);
+            dksEtat::ombrage(GL_FLAT);
 
             for(k=0;k<face->nbrSommets;k++)
                 {
                     sommet=&sommets[at[k]*3];
                     dksImmediat::sommet3dv(sommet);
                 }
-            if(eclairage_mem)glEnable(GL_LIGHTING);
+            if(eclairage_mem)dksEtat::active(GL_LIGHTING);
         }
 
 
@@ -1388,12 +1388,12 @@
 
             if (drapeau_inverse_transparentes_opaques)
             {
-                glEnable(GL_BLEND);
+                dksEtat::active(GL_BLEND);
                 glDepthMask(GL_FALSE);
             }
             else
             {
-                glDisable(GL_BLEND);
+                dksEtat::desactive(GL_BLEND);
                 if (drapeau_tempon_profondeur) glDepthMask(GL_TRUE); else glDepthMask(GL_FALSE);
             }
 
@@ -1425,7 +1425,7 @@
 
             if ( nbrFaces_transparentes > 0 )
             {
-                glEnable(GL_BLEND);
+                dksEtat::active(GL_BLEND);
                 glDepthMask(GL_FALSE);
                 tri_faces_transparentes(oeil);
                 surface_courante=NULL;
@@ -1474,7 +1474,7 @@
             GLdouble* nml;
 
             //**************** Surfaces opaques:
-            glDisable(GL_BLEND);
+            dksEtat::desactive(GL_BLEND);
             glDepthMask(GL_TRUE);
 
             //if (drapeau_tempon_profondeur) glDepthMask(GL_TRUE); else glDepthMask(GL_FALSE);

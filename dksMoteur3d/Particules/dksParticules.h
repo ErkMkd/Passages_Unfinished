@@ -726,12 +726,12 @@ class dksParticules :public dksVolume
         virtual void affiche(dksOeil* oeil)
         {
                 uint32_t i;
-                glPointSize(epaisseur_points);
+                dksEtat::taille_point(epaisseur_points);
                 float r=float(((couleur_points>>16)&0xff))/255.;
                 float v=float(((couleur_points>>8)&0xff))/255.;
                 float b=float((couleur_points&0xff))/255.;
-                GLboolean light_mem=glIsEnabled(GL_LIGHTING);
-                glDisable(GL_LIGHTING);
+                GLboolean light_mem=dksEtat::est_active(GL_LIGHTING);
+                dksEtat::desactive(GL_LIGHTING);
                 dksImmediat::couleur3f(r,v,b);
                 if (drapeau_vie_limitee) affiche_vie_limitee();
                 else
@@ -743,7 +743,7 @@ class dksParticules :public dksVolume
                     }
                     dksImmediat::fin();
                 }
-                if(light_mem)glEnable(GL_LIGHTING);
+                if(light_mem)dksEtat::active(GL_LIGHTING);
         }
 
         virtual void affiche_couleurs_luminescentes(dksOeil* oeil)
