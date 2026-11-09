@@ -115,20 +115,20 @@ class dksAnneauElectrique : public dksParticules
             glDisable(GL_LIGHTING);
             glUseProgram(0);
             desactive_textures();
-            glColor3f(r,v,b);
-            glBegin(GL_LINE_STRIP);
+            dksImmediat::couleur3f(r,v,b);
+            dksImmediat::debut(GL_LINE_STRIP);
                 //glLineWidth(epaisseur_points+(2.*float(rand()/32768.)*2.-1.));
                 for (i=0;i<nbrPoints;i++)
                 {
-                    glVertex3dv(&points[3*i]);
+                    dksImmediat::sommet3dv(&points[3*i]);
                     if((i&0x0f)==0x0f)
                     {
-                        glEnd();
+                        dksImmediat::fin();
                         glLineWidth(epaisseur_points+(2.*float(rand()/32768.)*2.-1.));
-                        glBegin(GL_LINE_STRIP);
+                        dksImmediat::debut(GL_LINE_STRIP);
                     }
                 }
-            glEnd();
+            dksImmediat::fin();
             if(light_mem)glEnable(GL_LIGHTING);
         }
 
@@ -151,20 +151,20 @@ class dksAnneauElectrique : public dksParticules
             if(b<bm)b=bm;
             //GLboolean light_mem=glIsEnabled(GL_LIGHTING);
             //glDisable(GL_BLEND);
-            glColor3f(r,v,b);
-            glBegin(GL_LINE_STRIP);
+            dksImmediat::couleur3f(r,v,b);
+            dksImmediat::debut(GL_LINE_STRIP);
                 //glLineWidth(epaisseur_points+(2.*float(rand()/32768.)*2.-1.));
                 for (i=0;i<nbrPoints;i++)
                 {
-                    glVertex3dv(&points[3*i]);
+                    dksImmediat::sommet3dv(&points[3*i]);
                     if((i&0x0f)==0x0f)
                     {
-                        glEnd();
+                        dksImmediat::fin();
                         glLineWidth(epaisseur_points+(2.*float(rand()/32768.)*2.-1.));
-                        glBegin(GL_LINE_STRIP);
+                        dksImmediat::debut(GL_LINE_STRIP);
                     }
                 }
-            glEnd();
+            dksImmediat::fin();
             //if(light_mem)glEnable(GL_LIGHTING);
         }
 };

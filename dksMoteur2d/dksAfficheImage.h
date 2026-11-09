@@ -172,21 +172,21 @@ class dksAfficheImage :public dksRendu
             //Affiche la texture:
             GLboolean color_material_mem=glIsEnabled(GL_COLOR_MATERIAL);
             glDisable(GL_COLOR_MATERIAL);
-            glColor4f(couleur_teinte[0],couleur_teinte[1],couleur_teinte[2],alpha);
-            glBegin(GL_QUADS);
+            dksImmediat::couleur4f(couleur_teinte[0],couleur_teinte[1],couleur_teinte[2],alpha);
+            dksImmediat::debut(GL_QUADS);
 
 
-            glTexCoord2d(-re/2.,-0.5);
-            glVertex3d(-ecran_xdim,-ecran_ydim,-1.);
-            glTexCoord2d(re/2.,-0.5);
-            glVertex3d(ecran_xdim,-ecran_ydim,-1.);
-            glTexCoord2d(re/2.,.5);
-            glVertex3d(ecran_xdim,ecran_ydim,-1.);
-            glTexCoord2d(-re/2.,0.5);
-            glVertex3d(-ecran_xdim,ecran_ydim,-1.);
+            dksImmediat::texture2d(-re/2.,-0.5);
+            dksImmediat::sommet3d(-ecran_xdim,-ecran_ydim,-1.);
+            dksImmediat::texture2d(re/2.,-0.5);
+            dksImmediat::sommet3d(ecran_xdim,-ecran_ydim,-1.);
+            dksImmediat::texture2d(re/2.,.5);
+            dksImmediat::sommet3d(ecran_xdim,ecran_ydim,-1.);
+            dksImmediat::texture2d(-re/2.,0.5);
+            dksImmediat::sommet3d(-ecran_xdim,ecran_ydim,-1.);
 
 
-            glEnd();
+            dksImmediat::fin();
             if (color_material_mem) glEnable(GL_COLOR_MATERIAL);
 
 

@@ -357,7 +357,7 @@ class VolumeFacesSeparees : public dksParticules
                 face_materiaux=GL_FRONT;
                 //dksEclairage::modele(GL_LIGHT_MODEL_TWO_SIDE,GL_FALSE);
             }
-            glColor3fv(couleur_luminescence);
+            dksImmediat::couleur3fv(couleur_luminescence);
             //glColorMask(GL_TRUE,GL_TRUE,GL_TRUE,GL_TRUE);
         }
 
@@ -366,13 +366,13 @@ class VolumeFacesSeparees : public dksParticules
         {
             if(surface->double_face) glDisable(GL_CULL_FACE);
             else glEnable(GL_CULL_FACE); //Active la distinction face avant/face arrière des polygones pour le rendu.
-            glColor4fv(noir);
+            dksImmediat::couleur4fv(noir);
             //glColorMask(GL_FALSE,GL_FALSE,GL_FALSE,GL_FALSE);
         }
 
 
         //Gestion des tableaux:
-        //glDisableClientState(GL_NORMAL_ARRAY); //Déjà désactivé par rendu_surfaces_luminescentes()
+        //dksTableaux::desactive(GL_NORMAL_ARRAY); //Déjà désactivé par rendu_surfaces_luminescentes()
 
         //Gestion des textures et shaders:
         desactive_textures();
@@ -417,11 +417,11 @@ class VolumeFacesSeparees : public dksParticules
                             particule=(Particule_Face_Separee*)particules[face->indice];
                             glUniform3fv(dksShaders::bibliotheque->decallage_sommets->deplacement,1,particule->deplacement_centre_gravite);
                             glUniform1f(dksShaders::bibliotheque->decallage_sommets->niveau_eclairage,1.);
-                            glVertexAttrib3dv(dksShaders::bibliotheque->decallage_sommets->centre_gravite_face,&points[3*j]);
-                            glVertexAttrib3dv(dksShaders::bibliotheque->decallage_sommets->tangente_face,face->tangente);
-                            glVertexAttrib3dv(dksShaders::bibliotheque->decallage_sommets->normale_face,face->normale);
-                            glVertexAttrib3dv(dksShaders::bibliotheque->decallage_sommets->binormale_face,face->binormale);
-                            glDrawElements(GL_POLYGON,face->nbrSommets,GL_UNSIGNED_INT,face->aretes);
+                            dksImmediat::attribut3dv(dksShaders::bibliotheque->decallage_sommets->centre_gravite_face,&points[3*j]);
+                            dksImmediat::attribut3dv(dksShaders::bibliotheque->decallage_sommets->tangente_face,face->tangente);
+                            dksImmediat::attribut3dv(dksShaders::bibliotheque->decallage_sommets->normale_face,face->normale);
+                            dksImmediat::attribut3dv(dksShaders::bibliotheque->decallage_sommets->binormale_face,face->binormale);
+                            dksTableaux::trace_elements(GL_POLYGON,face->nbrSommets,GL_UNSIGNED_INT,face->aretes);
                         }
                     }
 
@@ -432,14 +432,14 @@ class VolumeFacesSeparees : public dksParticules
                         {
                             face=surface->faces[j];
                             particule=(Particule_Face_Separee*)particules[face->indice];
-                            glNormal3dv(face->normale);
+                            dksImmediat::normale3dv(face->normale);
                             glUniform3fv(dksShaders::bibliotheque->decallage_sommets->deplacement,1,particule->deplacement_centre_gravite);
                             glUniform1f(dksShaders::bibliotheque->decallage_sommets->niveau_eclairage,1.);
-                            glVertexAttrib3dv(dksShaders::bibliotheque->decallage_sommets->centre_gravite_face,&points[3*j]);
-                            glVertexAttrib3dv(dksShaders::bibliotheque->decallage_sommets->tangente_face,face->tangente);
-                            glVertexAttrib3dv(dksShaders::bibliotheque->decallage_sommets->normale_face,face->normale);
-                            glVertexAttrib3dv(dksShaders::bibliotheque->decallage_sommets->binormale_face,face->binormale);
-                            glDrawElements(GL_POLYGON,face->nbrSommets,GL_UNSIGNED_INT,face->aretes);
+                            dksImmediat::attribut3dv(dksShaders::bibliotheque->decallage_sommets->centre_gravite_face,&points[3*j]);
+                            dksImmediat::attribut3dv(dksShaders::bibliotheque->decallage_sommets->tangente_face,face->tangente);
+                            dksImmediat::attribut3dv(dksShaders::bibliotheque->decallage_sommets->normale_face,face->normale);
+                            dksImmediat::attribut3dv(dksShaders::bibliotheque->decallage_sommets->binormale_face,face->binormale);
+                            dksTableaux::trace_elements(GL_POLYGON,face->nbrSommets,GL_UNSIGNED_INT,face->aretes);
                         }
                     }
                 //}
@@ -482,11 +482,11 @@ class VolumeFacesSeparees : public dksParticules
                         particule=(Particule_Face_Separee*)particules[face->indice];
                         glUniform3fv(dksShaders::bibliotheque->decallage_sommets->deplacement,1,particule->deplacement_centre_gravite);
                         glUniform1f(dksShaders::bibliotheque->decallage_sommets->niveau_eclairage,particule->niveau_eclairage);
-                        glVertexAttrib3dv(dksShaders::bibliotheque->decallage_sommets->centre_gravite_face,&points[3*j]);
-                        glVertexAttrib3dv(dksShaders::bibliotheque->decallage_sommets->tangente_face,face->tangente);
-                        glVertexAttrib3dv(dksShaders::bibliotheque->decallage_sommets->normale_face,face->normale);
-                        glVertexAttrib3dv(dksShaders::bibliotheque->decallage_sommets->binormale_face,face->binormale);
-                        glDrawElements(GL_POLYGON,face->nbrSommets,GL_UNSIGNED_INT,face->aretes);
+                        dksImmediat::attribut3dv(dksShaders::bibliotheque->decallage_sommets->centre_gravite_face,&points[3*j]);
+                        dksImmediat::attribut3dv(dksShaders::bibliotheque->decallage_sommets->tangente_face,face->tangente);
+                        dksImmediat::attribut3dv(dksShaders::bibliotheque->decallage_sommets->normale_face,face->normale);
+                        dksImmediat::attribut3dv(dksShaders::bibliotheque->decallage_sommets->binormale_face,face->binormale);
+                        dksTableaux::trace_elements(GL_POLYGON,face->nbrSommets,GL_UNSIGNED_INT,face->aretes);
                     }
                 //}
             }
@@ -555,9 +555,9 @@ class VolumeFacesSeparees : public dksParticules
         //Gestion des tableaux:
         if (mode_rendu==DKSVOLUME_MODE_TABLEAUX || mode_rendu==DKSVOLUME_MODE_LISTE_OPAQUES_TABLEAUX_TRANSPARENTES)
         {
-            glClientActiveTexture(GL_TEXTURE0);
-            glTexCoordPointer(2,GL_FLOAT,0,texture->coordonnees_UV_tableau);
-            glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+            dksTableaux::unite(GL_TEXTURE0);
+            dksTableaux::pointeur_textures(2,GL_FLOAT,0,texture->coordonnees_UV_tableau);
+            dksTableaux::active(GL_TEXTURE_COORD_ARRAY);
         }
         glUseProgram(dksShaders::bibliotheque->decallage_sommets->programme_id);
     }

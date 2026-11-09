@@ -58,7 +58,7 @@
     virtual void init_rendu_aplat()
     {
         glUseProgram(dksShaders::bibliotheque->aplat_brut->programme_id);
-        glDisableClientState(GL_NORMAL_ARRAY); //Au cas où on est en mode TABLEAU
+        dksTableaux::desactive(GL_NORMAL_ARRAY); //Au cas où on est en mode TABLEAU
     }
 
     //--------------------------------------------------------------------------------
@@ -91,9 +91,9 @@
         //Gestion des tableaux:
         if (mode_rendu==DKSVOLUME_MODE_TABLEAUX || mode_rendu==DKSVOLUME_MODE_LISTE_OPAQUES_TABLEAUX_TRANSPARENTES)
         {
-            glClientActiveTexture(GL_TEXTURE0);
-            glTexCoordPointer(2,GL_FLOAT,0,texture->coordonnees_UV_tableau);
-            glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+            dksTableaux::unite(GL_TEXTURE0);
+            dksTableaux::pointeur_textures(2,GL_FLOAT,0,texture->coordonnees_UV_tableau);
+            dksTableaux::active(GL_TEXTURE_COORD_ARRAY);
         }
     }
 
@@ -116,13 +116,13 @@
         //Gestion des tableaux:
         if (mode_rendu==DKSVOLUME_MODE_TABLEAUX || mode_rendu==DKSVOLUME_MODE_LISTE_OPAQUES_TABLEAUX_TRANSPARENTES)
         {
-            glClientActiveTexture(0);
-            glTexCoordPointer(2,GL_FLOAT,0,texture->coordonnees_UV_tableau);
-            glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-            glVertexAttribPointer(dksShaders::bibliotheque->rugosite->tangente,3,GL_DOUBLE,GL_FALSE,0,texture->tangentes_sommets);
-            glVertexAttribPointer(dksShaders::bibliotheque->rugosite->binormale,3,GL_DOUBLE,GL_FALSE,0,texture->binormales_sommets);
-            glEnableVertexAttribArray(dksShaders::bibliotheque->rugosite->tangente);
-            glEnableVertexAttribArray(dksShaders::bibliotheque->rugosite->binormale);
+            dksTableaux::unite(0);
+            dksTableaux::pointeur_textures(2,GL_FLOAT,0,texture->coordonnees_UV_tableau);
+            dksTableaux::active(GL_TEXTURE_COORD_ARRAY);
+            dksTableaux::pointeur_attribut(dksShaders::bibliotheque->rugosite->tangente,3,GL_DOUBLE,GL_FALSE,0,texture->tangentes_sommets);
+            dksTableaux::pointeur_attribut(dksShaders::bibliotheque->rugosite->binormale,3,GL_DOUBLE,GL_FALSE,0,texture->binormales_sommets);
+            dksTableaux::active_attribut(dksShaders::bibliotheque->rugosite->tangente);
+            dksTableaux::active_attribut(dksShaders::bibliotheque->rugosite->binormale);
         }
         //Initialise le shader:
         glUseProgram(dksShaders::bibliotheque->rugosite->programme_id);
@@ -161,17 +161,17 @@
         if (mode_rendu==DKSVOLUME_MODE_TABLEAUX || mode_rendu==DKSVOLUME_MODE_LISTE_OPAQUES_TABLEAUX_TRANSPARENTES)
         {
             //Texture de couleurs:
-            glClientActiveTexture(GL_TEXTURE0);
-            glTexCoordPointer(2,GL_FLOAT,0,texture->coordonnees_UV_tableau);
-            glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+            dksTableaux::unite(GL_TEXTURE0);
+            dksTableaux::pointeur_textures(2,GL_FLOAT,0,texture->coordonnees_UV_tableau);
+            dksTableaux::active(GL_TEXTURE_COORD_ARRAY);
             //Texture de rugosité:
-            glClientActiveTexture(GL_TEXTURE1);
-            glTexCoordPointer(2,GL_FLOAT,0,texture->coordonnees_UV_tableau);
-            glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-            glVertexAttribPointer(dksShaders::bibliotheque->couleur_rugosite->tangente,3,GL_DOUBLE,GL_FALSE,0,texture->tangentes_sommets);
-            glVertexAttribPointer(dksShaders::bibliotheque->couleur_rugosite->binormale,3,GL_DOUBLE,GL_FALSE,0,texture->binormales_sommets);
-            glEnableVertexAttribArray(dksShaders::bibliotheque->couleur_rugosite->tangente);
-            glEnableVertexAttribArray(dksShaders::bibliotheque->couleur_rugosite->binormale);
+            dksTableaux::unite(GL_TEXTURE1);
+            dksTableaux::pointeur_textures(2,GL_FLOAT,0,texture->coordonnees_UV_tableau);
+            dksTableaux::active(GL_TEXTURE_COORD_ARRAY);
+            dksTableaux::pointeur_attribut(dksShaders::bibliotheque->couleur_rugosite->tangente,3,GL_DOUBLE,GL_FALSE,0,texture->tangentes_sommets);
+            dksTableaux::pointeur_attribut(dksShaders::bibliotheque->couleur_rugosite->binormale,3,GL_DOUBLE,GL_FALSE,0,texture->binormales_sommets);
+            dksTableaux::active_attribut(dksShaders::bibliotheque->couleur_rugosite->tangente);
+            dksTableaux::active_attribut(dksShaders::bibliotheque->couleur_rugosite->binormale);
         }
         //Initialise le shader:
         glUseProgram(dksShaders::bibliotheque->couleur_rugosite->programme_id);
@@ -369,15 +369,15 @@
         //Gestion des tableaux:
         if (mode_rendu==DKSVOLUME_MODE_TABLEAUX || mode_rendu==DKSVOLUME_MODE_LISTE_OPAQUES_TABLEAUX_TRANSPARENTES)
         {
-            glClientActiveTexture(GL_TEXTURE0);
-            glTexCoordPointer(2,GL_FLOAT,0,texture_depart->coordonnees_UV_tableau);
-            glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-            glClientActiveTexture(GL_TEXTURE1);
-            glTexCoordPointer(2,GL_FLOAT,0,texture_dest->coordonnees_UV_tableau);
-            glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-            glClientActiveTexture(GL_TEXTURE2);
-            glTexCoordPointer(2,GL_FLOAT,0,texture_trans->coordonnees_UV_tableau);
-            glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+            dksTableaux::unite(GL_TEXTURE0);
+            dksTableaux::pointeur_textures(2,GL_FLOAT,0,texture_depart->coordonnees_UV_tableau);
+            dksTableaux::active(GL_TEXTURE_COORD_ARRAY);
+            dksTableaux::unite(GL_TEXTURE1);
+            dksTableaux::pointeur_textures(2,GL_FLOAT,0,texture_dest->coordonnees_UV_tableau);
+            dksTableaux::active(GL_TEXTURE_COORD_ARRAY);
+            dksTableaux::unite(GL_TEXTURE2);
+            dksTableaux::pointeur_textures(2,GL_FLOAT,0,texture_trans->coordonnees_UV_tableau);
+            dksTableaux::active(GL_TEXTURE_COORD_ARRAY);
         }
 
         //Initialise le shader:

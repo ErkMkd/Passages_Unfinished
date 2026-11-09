@@ -215,7 +215,10 @@ class dksStarfield : public dksParticules
                 dksSprite3d::initialise_affichage();
                 uint32_t i;
 
+                //Même sprite et même état pour tous les points: tracés ensemble.
+                dksImmediat::debut_lot();
                 for (i=0;i<nbrPoints;i++) sprite->affiche_texture_optimisee(&points[i*3],oeil,alpha);
+                dksImmediat::fin_lot();
 
                 dksSprite3d::fin_affichage();
             }
@@ -239,7 +242,7 @@ class dksStarfield : public dksParticules
             bool point_smooth_mem=glIsEnabled(GL_POINT_SMOOTH);
 
             glEnable(GL_POINT_SMOOTH);
-            glColor4f(float(uint8_t(couleur>>16))/255.,float(uint8_t(couleur>>8))/255.,float(uint8_t(couleur)),float(uint8_t(couleur>>24))/255.);
+            dksImmediat::couleur4f(float(uint8_t(couleur>>16))/255.,float(uint8_t(couleur>>8))/255.,float(uint8_t(couleur)),float(uint8_t(couleur>>24))/255.);
 
             //Calcul la taille des points:
             GLint resolution[4];
@@ -268,9 +271,9 @@ class dksStarfield : public dksParticules
             }
 
             //Affiche les points:
-            glBegin(GL_POINTS);
-                for (i=0;i<nbrPoints;i++) glVertex3dv(&points[3*i]);
-            glEnd();
+            dksImmediat::debut(GL_POINTS);
+                for (i=0;i<nbrPoints;i++) dksImmediat::sommet3dv(&points[3*i]);
+            dksImmediat::fin();
 
             //Restitue les données évcentuellement sensibles:
 

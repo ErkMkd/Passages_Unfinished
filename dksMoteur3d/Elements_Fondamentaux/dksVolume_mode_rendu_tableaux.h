@@ -43,7 +43,7 @@
                         for(j=0;j<surface->nbr_faces;j++)
                         {
                             face=surface->faces[j];
-                            glDrawElements(GL_POLYGON,face->nbrSommets,GL_UNSIGNED_INT,face->aretes);
+                            dksTableaux::trace_elements(GL_POLYGON,face->nbrSommets,GL_UNSIGNED_INT,face->aretes);
                         }
                         if(eclairage_mem)glEnable(GL_LIGHTING);
                     }
@@ -53,7 +53,7 @@
                         for(j=0;j<surface->nbr_faces;j++)
                         {
                             face=surface->faces[j];
-                            glDrawElements(GL_POLYGON,face->nbrSommets,GL_UNSIGNED_INT,face->aretes);
+                            dksTableaux::trace_elements(GL_POLYGON,face->nbrSommets,GL_UNSIGNED_INT,face->aretes);
                         }
                     }
 
@@ -64,8 +64,8 @@
                         {
                             //if(drapeau_debug)cout<<"face:"<<i<<"/"<<surface->nbr_faces<<endl;
                             face=surface->faces[j];
-                            glNormal3dv(face->normale);
-                            glDrawElements(GL_POLYGON,face->nbrSommets,GL_UNSIGNED_INT,face->aretes);
+                            dksImmediat::normale3dv(face->normale);
+                            dksTableaux::trace_elements(GL_POLYGON,face->nbrSommets,GL_UNSIGNED_INT,face->aretes);
                         }
                     }
                 //}
@@ -106,14 +106,14 @@
                     //------------------- Face adoucie:
                     if(surface_courante->drapeau_adoucissement)
                     {
-                        glDrawElements(GL_POLYGON,face->nbrSommets,GL_UNSIGNED_INT,face->aretes);
+                        dksTableaux::trace_elements(GL_POLYGON,face->nbrSommets,GL_UNSIGNED_INT,face->aretes);
                     }
 
                     //------------------- Face en aplats;
                     else
                     {
-                        glNormal3dv(face->normale);
-                        glDrawElements(GL_POLYGON,face->nbrSommets,GL_UNSIGNED_INT,face->aretes);
+                        dksImmediat::normale3dv(face->normale);
+                        dksTableaux::trace_elements(GL_POLYGON,face->nbrSommets,GL_UNSIGNED_INT,face->aretes);
                     }
                 }
             }
@@ -152,7 +152,7 @@
                     for (j=0;j<surface->nbr_faces;j++)
                     {
                         dksFace* face=surface->faces[j];
-                        glDrawElements(GL_POLYGON,face->nbrSommets,GL_UNSIGNED_INT,face->aretes);
+                        dksTableaux::trace_elements(GL_POLYGON,face->nbrSommets,GL_UNSIGNED_INT,face->aretes);
                     }
                 //}
             }
@@ -189,7 +189,7 @@
                     for (j=0;j<surface->nbr_faces;j++)
                     {
                         dksFace* face=surface->faces[j];
-                        glDrawElements(GL_POLYGON,face->nbrSommets,GL_UNSIGNED_INT,face->aretes);
+                        dksTableaux::trace_elements(GL_POLYGON,face->nbrSommets,GL_UNSIGNED_INT,face->aretes);
                     }
                 //}
             }

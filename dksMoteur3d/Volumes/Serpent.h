@@ -1055,22 +1055,22 @@ class Serpent : public dksVolume
         uint16_t i;
         GLboolean lum_mem=glIsEnabled(GL_LIGHTING);
         glDisable(GL_LIGHTING);
-        glColor3f(1.,.5,1.);
+        dksImmediat::couleur3f(1.,.5,1.);
 
-        glBegin(GL_POINTS);
+        dksImmediat::debut(GL_POINTS);
         for(i=0;i<nbrSegments+1;i++)
         {
-            glVertex3dv(&colonne_vertebrale_tampon[i*3]);
+            dksImmediat::sommet3dv(&colonne_vertebrale_tampon[i*3]);
         }
-        glEnd();
+        dksImmediat::fin();
 
-        glColor3f(0.5,0.25,0.5);
-        glBegin(GL_LINE_STRIP);
+        dksImmediat::couleur3f(0.5,0.25,0.5);
+        dksImmediat::debut(GL_LINE_STRIP);
         for(i=0;i<nbrSegments+1;i++)
         {
-            glVertex3dv(&colonne_vertebrale_tampon[i*3]);
+            dksImmediat::sommet3dv(&colonne_vertebrale_tampon[i*3]);
         }
-        glEnd();
+        dksImmediat::fin();
 
         if (lum_mem)glEnable(GL_LIGHTING);
     }
@@ -1083,50 +1083,50 @@ class Serpent : public dksVolume
 
         //Tangentes:
 
-        glColor3f(1.,0.,0.);
-        glBegin(GL_LINES);
+        dksImmediat::couleur3f(1.,0.,0.);
+        dksImmediat::debut(GL_LINES);
         for(i=0;i<nbrSegments+1;i++)
         {
 
-            glVertex3dv(&colonne_vertebrale_tampon[i*3]);
-            glVertex3d(
+            dksImmediat::sommet3dv(&colonne_vertebrale_tampon[i*3]);
+            dksImmediat::sommet3d(
                        colonne_vertebrale_tampon[i*3]+tangentes_colonne_tampon[i*3],
                        colonne_vertebrale_tampon[i*3+1]+tangentes_colonne_tampon[i*3+1],
                        colonne_vertebrale_tampon[i*3+2]+tangentes_colonne_tampon[i*3+2]
                        );
         }
-        glEnd();
+        dksImmediat::fin();
 
         //Normales:
 
-        glColor3f(0.,1.,0.);
-        glBegin(GL_LINES);
+        dksImmediat::couleur3f(0.,1.,0.);
+        dksImmediat::debut(GL_LINES);
         for(i=0;i<nbrSegments+1;i++)
         {
 
-            glVertex3dv(&colonne_vertebrale_tampon[i*3]);
-            glVertex3d(
+            dksImmediat::sommet3dv(&colonne_vertebrale_tampon[i*3]);
+            dksImmediat::sommet3d(
                        colonne_vertebrale_tampon[i*3]+normales_colonne_tampon[i*3],
                        colonne_vertebrale_tampon[i*3+1]+normales_colonne_tampon[i*3+1],
                        colonne_vertebrale_tampon[i*3+2]+normales_colonne_tampon[i*3+2]
                        );
         }
-        glEnd();
+        dksImmediat::fin();
 
         //Binormales:
 
-        glColor3f(0.,0.,1.);
-        glBegin(GL_LINES);
+        dksImmediat::couleur3f(0.,0.,1.);
+        dksImmediat::debut(GL_LINES);
         for(i=0;i<nbrSegments+1;i++)
         {
-            glVertex3dv(&colonne_vertebrale_tampon[i*3]);
-            glVertex3d(
+            dksImmediat::sommet3dv(&colonne_vertebrale_tampon[i*3]);
+            dksImmediat::sommet3d(
                        colonne_vertebrale_tampon[i*3]+binormales_colonne_tampon[i*3],
                        colonne_vertebrale_tampon[i*3+1]+binormales_colonne_tampon[i*3+1],
                        colonne_vertebrale_tampon[i*3+2]+binormales_colonne_tampon[i*3+2]
                        );
         }
-        glEnd();
+        dksImmediat::fin();
 
 
         if (lum_mem)glEnable(GL_LIGHTING);
@@ -1139,26 +1139,26 @@ class Serpent : public dksVolume
         uint16_t i,j;
         GLboolean lum_mem=glIsEnabled(GL_LIGHTING);
         glDisable(GL_LIGHTING);
-        glColor3f(1.,.5,1.);
+        dksImmediat::couleur3f(1.,.5,1.);
 
         /*
-        glBegin(GL_POINTS);
+        dksImmediat::debut(GL_POINTS);
         for(i=0;i<corps_nbrSommets;i++)
         {
-            glVertex3dv(&corps_sommets_tampon[i*3]);
+            dksImmediat::sommet3dv(&corps_sommets_tampon[i*3]);
         }
-        glEnd();
+        dksImmediat::fin();
         */
 
-        glColor3f(0.5,0.25,0.5);
+        dksImmediat::couleur3f(0.5,0.25,0.5);
         for(j=0;j<nbrSegments;j++)
         {
-            glBegin(GL_LINE_LOOP);
+            dksImmediat::debut(GL_LINE_LOOP);
             for(i=0;i<nbrCotes;i++)
             {
-                glVertex3dv(&corps_sommets_tampon[(i+j*nbrCotes)*3]);
+                dksImmediat::sommet3dv(&corps_sommets_tampon[(i+j*nbrCotes)*3]);
             }
-            glEnd();
+            dksImmediat::fin();
         }
 
         if (lum_mem)glEnable(GL_LIGHTING);

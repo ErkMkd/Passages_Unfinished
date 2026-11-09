@@ -712,14 +712,14 @@ class dksParticules :public dksVolume
         //==========================================================================
         virtual void affiche_vie_limitee()
         {
-            glBegin(GL_POINTS);
+            dksImmediat::debut(GL_POINTS);
             Element_particule* particule=particules_actives;
             while (particule!=NULL)
             {
-                glVertex3dv(&points[3*particule->point]);
+                dksImmediat::sommet3dv(&points[3*particule->point]);
                 particule=(Element_particule*)particule->suivante;
             }
-            glEnd();
+            dksImmediat::fin();
         }
 
         //Le rendu propre aux classes dérivées.
@@ -732,16 +732,16 @@ class dksParticules :public dksVolume
                 float b=float((couleur_points&0xff))/255.;
                 GLboolean light_mem=glIsEnabled(GL_LIGHTING);
                 glDisable(GL_LIGHTING);
-                glColor3f(r,v,b);
+                dksImmediat::couleur3f(r,v,b);
                 if (drapeau_vie_limitee) affiche_vie_limitee();
                 else
                 {
-                    glBegin(GL_POINTS);
+                    dksImmediat::debut(GL_POINTS);
                     for (i=0;i<nbrPoints;i++)
                     {
-                        glVertex3dv(&points[3*i]);
+                        dksImmediat::sommet3dv(&points[3*i]);
                     }
-                    glEnd();
+                    dksImmediat::fin();
                 }
                 if(light_mem)glEnable(GL_LIGHTING);
         }

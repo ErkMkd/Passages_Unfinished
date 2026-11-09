@@ -8,6 +8,9 @@
 
 #define NBR_SOURCES 8
 
+//Attributs de sommets propres aux shaders: emplacements 4 à 7. Sur NVIDIA, les autres sont aussi ceux
+//des attributs de l'ancien pipeline (0 position, 2 normale, 3 couleur, 8 à 11 coordonnées de texture).
+
 layout(std140, binding=0) uniform Matrices
 {
     mat4 matrice_modele_vue;

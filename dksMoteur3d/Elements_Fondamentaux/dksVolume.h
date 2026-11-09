@@ -2315,7 +2315,7 @@ public: ///Public, pour que le moteur puisse s'en servir lors de l'affichage des
                 dksEclairage::modele(GL_LIGHT_MODEL_TWO_SIDE,GL_FALSE);
             }
 
-            glColor3fv(couleur_diffusion);  //Au cas où les éclairages sont désactivés
+            dksImmediat::couleur3fv(couleur_diffusion);  //Au cas où les éclairages sont désactivés
             dksEclairage::materiau(face_materiaux,GL_AMBIENT, couleur_ambiance);
             dksEclairage::materiau(face_materiaux,GL_DIFFUSE, couleur_diffusion);
             dksEclairage::materiau(face_materiaux,GL_EMISSION, couleur_luminescence);
@@ -2330,10 +2330,10 @@ public: ///Public, pour que le moteur puisse s'en servir lors de l'affichage des
             {
                 if (surface->drapeau_adoucissement)
                 {
-                    glEnableClientState(GL_NORMAL_ARRAY);
-                    glNormalPointer(GL_DOUBLE,0,surface->normales_sommets);
+                    dksTableaux::active(GL_NORMAL_ARRAY);
+                    dksTableaux::pointeur_normales(GL_DOUBLE,0,surface->normales_sommets);
                 }
-                else glDisableClientState(GL_NORMAL_ARRAY);
+                else dksTableaux::desactive(GL_NORMAL_ARRAY);
             }
 
             //---- Initialise openGL selon le rendu de la surface:
@@ -2358,12 +2358,12 @@ protected:
                 couleur_luminescence[1]=surface->couleur_luminescence[1]*f_lum;
                 couleur_luminescence[2]=surface->couleur_luminescence[2]*f_lum;
                 couleur_luminescence[3]=1.-surface->transparence;
-                //glColor3f(couleur_luminescence[0],couleur_luminescence[1],couleur_luminescence[2]);
-                glColor3fv(couleur_luminescence);
+                //dksImmediat::couleur3f(couleur_luminescence[0],couleur_luminescence[1],couleur_luminescence[2]);
+                dksImmediat::couleur3fv(couleur_luminescence);
 		    }
 
 		    //Surface opaque (sert juste à masquer les surfaces lumineuses)
-		    else glColor4fv(noir);
+		    else dksImmediat::couleur4fv(noir);
 
             //Gestion de l'affichage double-face:
 		    if(surface->double_face) glDisable(GL_CULL_FACE);
@@ -2387,7 +2387,7 @@ protected:
 		//--------Désactive les pointeurs d'attributs des sommets:
 		void desactive_pointeurs_attributs_sommets()
 		{
-		    for(uint16_t i=0;i<nbr_attributs_sommets_max;i++) glDisableVertexAttribArray(i);
+		    for(uint16_t i=0;i<nbr_attributs_sommets_max;i++) dksTableaux::desactive_attribut(i);
 		}
 
 
@@ -2466,12 +2466,12 @@ public:
                 glPointSize(taille_points_sommets);
                 desactive_textures();
                 glDisable(GL_LIGHTING);
-                glColor3fv(couleur_sommets);
+                dksImmediat::couleur3fv(couleur_sommets);
                 for (i=0;i<nbrSommets;i++)
                 {
-                    glBegin(GL_POINTS);
-                        glVertex3dv(&sommets[3*i]);
-                    glEnd();
+                    dksImmediat::debut(GL_POINTS);
+                        dksImmediat::sommet3dv(&sommets[3*i]);
+                    dksImmediat::fin();
                 }
                 if (lum_mem)glEnable(GL_LIGHTING);
             }
@@ -2482,13 +2482,13 @@ public:
                 desactive_textures();
                 GLboolean lum_mem=glIsEnabled(GL_LIGHTING);
                 glDisable(GL_LIGHTING);
-                glColor3fv(couleur_aretes);
+                dksImmediat::couleur3fv(couleur_aretes);
                 for (i=0;i<nbrAretes;i++)
                 {
-                    glBegin(GL_LINES);
-                        glVertex3dv(&sommets[aretes[i*2]*3]);
-                        glVertex3dv(&sommets[aretes[i*2+1]*3]);
-                    glEnd();
+                    dksImmediat::debut(GL_LINES);
+                        dksImmediat::sommet3dv(&sommets[aretes[i*2]*3]);
+                        dksImmediat::sommet3dv(&sommets[aretes[i*2+1]*3]);
+                    dksImmediat::fin();
                 }
                 if (lum_mem)glEnable(GL_LIGHTING);
             }
@@ -2508,34 +2508,34 @@ public:
                 switch (mode_rendu)
                 {
                     case DKSVOLUME_MODE_IMMEDIAT:
-                        glDisableClientState(GL_VERTEX_ARRAY);
-                        glDisableClientState(GL_NORMAL_ARRAY);
+                        dksTableaux::desactive(GL_VERTEX_ARRAY);
+                        dksTableaux::desactive(GL_NORMAL_ARRAY);
                         rendu_opaques_mode_immediat();
                         if (drapeau_rendu_faces_transparentes)rendu_transparentes_mode_immediat(oeil);
                     break;
 
                     case DKSVOLUME_MODE_TABLEAUX:
-                        glEnableClientState(GL_VERTEX_ARRAY);
-                        glVertexPointer(3,GL_DOUBLE,0,sommets);
+                        dksTableaux::active(GL_VERTEX_ARRAY);
+                        dksTableaux::pointeur_sommets(3,GL_DOUBLE,0,sommets);
                         rendu_opaques_mode_tableaux();
                         if (drapeau_rendu_faces_transparentes)rendu_transparentes_mode_tableaux(oeil);
                     break;
 
                     case DKSVOLUME_MODE_LISTE:
-                        glDisableClientState(GL_VERTEX_ARRAY);
-                        glDisableClientState(GL_NORMAL_ARRAY);
+                        dksTableaux::desactive(GL_VERTEX_ARRAY);
+                        dksTableaux::desactive(GL_NORMAL_ARRAY);
                         rendu_mode_liste();
                     break;
 
                     case DKSVOLUME_MODE_LISTE_OPAQUES_IMMEDIAT_TRANSPARENTES:
-                        glDisableClientState(GL_VERTEX_ARRAY);
-                        glDisableClientState(GL_NORMAL_ARRAY);
+                        dksTableaux::desactive(GL_VERTEX_ARRAY);
+                        dksTableaux::desactive(GL_NORMAL_ARRAY);
                         rendu_mode_liste_opaques_immediat_transparentes(oeil);
                     break;
 
                     case DKSVOLUME_MODE_LISTE_OPAQUES_TABLEAUX_TRANSPARENTES:
-                        glEnableClientState(GL_VERTEX_ARRAY);
-                        glVertexPointer(3,GL_DOUBLE,0,sommets);
+                        dksTableaux::active(GL_VERTEX_ARRAY);
+                        dksTableaux::pointeur_sommets(3,GL_DOUBLE,0,sommets);
                         rendu_mode_liste_opaques_tableaux_transparentes(oeil);
                     break;
                 }
@@ -2566,7 +2566,7 @@ public:
 
             if(drapeau_liste_luminescences)
             {
-                glDisableClientState(GL_VERTEX_ARRAY);
+                dksTableaux::desactive(GL_VERTEX_ARRAY);
                 rendu_surfaces_luminescentes_liste();
             }
             else
@@ -2574,7 +2574,7 @@ public:
                 switch (mode_rendu)
                 {
                     case DKSVOLUME_MODE_IMMEDIAT:
-                        glDisableClientState(GL_VERTEX_ARRAY);
+                        dksTableaux::desactive(GL_VERTEX_ARRAY);
                         rendu_surfaces_luminescentes_immediat();
                     break;
 
@@ -2584,8 +2584,8 @@ public:
                     case DKSVOLUME_MODE_LISTE:
                     case DKSVOLUME_MODE_LISTE_OPAQUES_IMMEDIAT_TRANSPARENTES:
                     case DKSVOLUME_MODE_LISTE_OPAQUES_TABLEAUX_TRANSPARENTES:
-                        glEnableClientState(GL_VERTEX_ARRAY);
-                        glVertexPointer(3,GL_DOUBLE,0,sommets);
+                        dksTableaux::active(GL_VERTEX_ARRAY);
+                        dksTableaux::pointeur_sommets(3,GL_DOUBLE,0,sommets);
                         rendu_surfaces_luminescentes_tableaux();
                     break;
 
@@ -2639,7 +2639,7 @@ public:
             //Rendu:
             if(drapeau_liste_profondeurs)
             {
-                glDisableClientState(GL_VERTEX_ARRAY);
+                dksTableaux::desactive(GL_VERTEX_ARRAY);
                 rendu_profondeur_liste();
             }
             else
@@ -2647,20 +2647,20 @@ public:
                 switch (mode_rendu)
                 {
                     case DKSVOLUME_MODE_IMMEDIAT:
-                        glDisableClientState(GL_VERTEX_ARRAY);
+                        dksTableaux::desactive(GL_VERTEX_ARRAY);
                         rendu_profondeur_immediat();
                     break;
 
                     case DKSVOLUME_MODE_TABLEAUX:
-                        glEnableClientState(GL_VERTEX_ARRAY);
-                        glVertexPointer(3,GL_DOUBLE,0,sommets);
+                        dksTableaux::active(GL_VERTEX_ARRAY);
+                        dksTableaux::pointeur_sommets(3,GL_DOUBLE,0,sommets);
                         rendu_profondeur_tableaux();
                     break;
 
                     case DKSVOLUME_MODE_LISTE:
                     case DKSVOLUME_MODE_LISTE_OPAQUES_IMMEDIAT_TRANSPARENTES:
                     case DKSVOLUME_MODE_LISTE_OPAQUES_TABLEAUX_TRANSPARENTES:
-                        glDisableClientState(GL_VERTEX_ARRAY);
+                        dksTableaux::desactive(GL_VERTEX_ARRAY);
                         rendu_profondeur_liste();
                     break;
                 }

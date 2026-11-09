@@ -545,95 +545,95 @@ class dksInsecte:public dksConteneur
             glDisable(GL_LIGHTING);
 
             //Lignes:
-            glColor3f(1.,1.,1.);
+            dksImmediat::couleur3f(1.,1.,1.);
 
             //patte avant droite
-            glBegin(GL_LINE_STRIP);
-            glVertex3dv(&squelette[3*INSECTE_FEMUR_AVANT_DROIT]);
-            glVertex3dv(&squelette[3*INSECTE_TIBIA_AVANT_DROIT]);
-            glVertex3dv(&squelette[3*INSECTE_TARSE_AVANT_DROIT]);
-            glVertex3dv(&squelette[3*INSECTE_CONTACT_AVANT_DROIT]);
-            glEnd();
+            dksImmediat::debut(GL_LINE_STRIP);
+            dksImmediat::sommet3dv(&squelette[3*INSECTE_FEMUR_AVANT_DROIT]);
+            dksImmediat::sommet3dv(&squelette[3*INSECTE_TIBIA_AVANT_DROIT]);
+            dksImmediat::sommet3dv(&squelette[3*INSECTE_TARSE_AVANT_DROIT]);
+            dksImmediat::sommet3dv(&squelette[3*INSECTE_CONTACT_AVANT_DROIT]);
+            dksImmediat::fin();
             //patte avant gauche
-            glBegin(GL_LINE_STRIP);
-            glVertex3dv(&squelette[3*INSECTE_FEMUR_AVANT_GAUCHE]);
-            glVertex3dv(&squelette[3*INSECTE_TIBIA_AVANT_GAUCHE]);
-            glVertex3dv(&squelette[3*INSECTE_TARSE_AVANT_GAUCHE]);
-            glVertex3dv(&squelette[3*INSECTE_CONTACT_AVANT_GAUCHE]);
-            glEnd();
+            dksImmediat::debut(GL_LINE_STRIP);
+            dksImmediat::sommet3dv(&squelette[3*INSECTE_FEMUR_AVANT_GAUCHE]);
+            dksImmediat::sommet3dv(&squelette[3*INSECTE_TIBIA_AVANT_GAUCHE]);
+            dksImmediat::sommet3dv(&squelette[3*INSECTE_TARSE_AVANT_GAUCHE]);
+            dksImmediat::sommet3dv(&squelette[3*INSECTE_CONTACT_AVANT_GAUCHE]);
+            dksImmediat::fin();
             //patte mediane droite
-            glBegin(GL_LINE_STRIP);
-            glVertex3dv(&squelette[3*INSECTE_FEMUR_MEDIAN_DROIT]);
-            glVertex3dv(&squelette[3*INSECTE_TIBIA_MEDIAN_DROIT]);
-            glVertex3dv(&squelette[3*INSECTE_TARSE_MEDIAN_DROIT]);
-            glVertex3dv(&squelette[3*INSECTE_CONTACT_MEDIAN_DROIT]);
-            glEnd();
+            dksImmediat::debut(GL_LINE_STRIP);
+            dksImmediat::sommet3dv(&squelette[3*INSECTE_FEMUR_MEDIAN_DROIT]);
+            dksImmediat::sommet3dv(&squelette[3*INSECTE_TIBIA_MEDIAN_DROIT]);
+            dksImmediat::sommet3dv(&squelette[3*INSECTE_TARSE_MEDIAN_DROIT]);
+            dksImmediat::sommet3dv(&squelette[3*INSECTE_CONTACT_MEDIAN_DROIT]);
+            dksImmediat::fin();
             //patte mediane gauche
-            glBegin(GL_LINE_STRIP);
-            glVertex3dv(&squelette[3*INSECTE_FEMUR_MEDIAN_GAUCHE]);
-            glVertex3dv(&squelette[3*INSECTE_TIBIA_MEDIAN_GAUCHE]);
-            glVertex3dv(&squelette[3*INSECTE_TARSE_MEDIAN_GAUCHE]);
-            glVertex3dv(&squelette[3*INSECTE_CONTACT_MEDIAN_GAUCHE]);
-            glEnd();
+            dksImmediat::debut(GL_LINE_STRIP);
+            dksImmediat::sommet3dv(&squelette[3*INSECTE_FEMUR_MEDIAN_GAUCHE]);
+            dksImmediat::sommet3dv(&squelette[3*INSECTE_TIBIA_MEDIAN_GAUCHE]);
+            dksImmediat::sommet3dv(&squelette[3*INSECTE_TARSE_MEDIAN_GAUCHE]);
+            dksImmediat::sommet3dv(&squelette[3*INSECTE_CONTACT_MEDIAN_GAUCHE]);
+            dksImmediat::fin();
 
             //patte arrière droite
-            glBegin(GL_LINE_STRIP);
-            glVertex3dv(&squelette[3*INSECTE_FEMUR_ARRIERE_DROIT]);
-            glVertex3dv(&squelette[3*INSECTE_TIBIA_ARRIERE_DROIT]);
-            glVertex3dv(&squelette[3*INSECTE_TARSE_ARRIERE_DROIT]);
-            glVertex3dv(&squelette[3*INSECTE_CONTACT_ARRIERE_DROIT]);
-            glEnd();
+            dksImmediat::debut(GL_LINE_STRIP);
+            dksImmediat::sommet3dv(&squelette[3*INSECTE_FEMUR_ARRIERE_DROIT]);
+            dksImmediat::sommet3dv(&squelette[3*INSECTE_TIBIA_ARRIERE_DROIT]);
+            dksImmediat::sommet3dv(&squelette[3*INSECTE_TARSE_ARRIERE_DROIT]);
+            dksImmediat::sommet3dv(&squelette[3*INSECTE_CONTACT_ARRIERE_DROIT]);
+            dksImmediat::fin();
 
             //patte arrière gauche
-            glBegin(GL_LINE_STRIP);
-            glVertex3dv(&squelette[3*INSECTE_FEMUR_ARRIERE_GAUCHE]);
-            glVertex3dv(&squelette[3*INSECTE_TIBIA_ARRIERE_GAUCHE]);
-            glVertex3dv(&squelette[3*INSECTE_TARSE_ARRIERE_GAUCHE]);
-            glVertex3dv(&squelette[3*INSECTE_CONTACT_ARRIERE_GAUCHE]);
-            glEnd();
+            dksImmediat::debut(GL_LINE_STRIP);
+            dksImmediat::sommet3dv(&squelette[3*INSECTE_FEMUR_ARRIERE_GAUCHE]);
+            dksImmediat::sommet3dv(&squelette[3*INSECTE_TIBIA_ARRIERE_GAUCHE]);
+            dksImmediat::sommet3dv(&squelette[3*INSECTE_TARSE_ARRIERE_GAUCHE]);
+            dksImmediat::sommet3dv(&squelette[3*INSECTE_CONTACT_ARRIERE_GAUCHE]);
+            dksImmediat::fin();
 
             //Aile avant droite:
-            glBegin(GL_LINE_STRIP);
-            glVertex3dv(&squelette[3*INSECTE_AILE_AVANT_DROITE]);
-            glVertex3dv(&squelette[3*INSECTE_BOUT_AILE_AVANT_DROITE]);
-            glEnd();
+            dksImmediat::debut(GL_LINE_STRIP);
+            dksImmediat::sommet3dv(&squelette[3*INSECTE_AILE_AVANT_DROITE]);
+            dksImmediat::sommet3dv(&squelette[3*INSECTE_BOUT_AILE_AVANT_DROITE]);
+            dksImmediat::fin();
 
             //Aile avant gauche:
-            glBegin(GL_LINE_STRIP);
-            glVertex3dv(&squelette[3*INSECTE_AILE_AVANT_GAUCHE]);
-            glVertex3dv(&squelette[3*INSECTE_BOUT_AILE_AVANT_GAUCHE]);
-            glEnd();
+            dksImmediat::debut(GL_LINE_STRIP);
+            dksImmediat::sommet3dv(&squelette[3*INSECTE_AILE_AVANT_GAUCHE]);
+            dksImmediat::sommet3dv(&squelette[3*INSECTE_BOUT_AILE_AVANT_GAUCHE]);
+            dksImmediat::fin();
 
             //Aile arrière droite:
-            glBegin(GL_LINE_STRIP);
-            glVertex3dv(&squelette[3*INSECTE_AILE_ARRIERE_DROITE]);
-            glVertex3dv(&squelette[3*INSECTE_BOUT_AILE_ARRIERE_DROITE]);
-            glEnd();
+            dksImmediat::debut(GL_LINE_STRIP);
+            dksImmediat::sommet3dv(&squelette[3*INSECTE_AILE_ARRIERE_DROITE]);
+            dksImmediat::sommet3dv(&squelette[3*INSECTE_BOUT_AILE_ARRIERE_DROITE]);
+            dksImmediat::fin();
 
             //Aile arrière gauche:
-            glBegin(GL_LINE_STRIP);
-            glVertex3dv(&squelette[3*INSECTE_AILE_ARRIERE_GAUCHE]);
-            glVertex3dv(&squelette[3*INSECTE_BOUT_AILE_ARRIERE_GAUCHE]);
-            glEnd();
+            dksImmediat::debut(GL_LINE_STRIP);
+            dksImmediat::sommet3dv(&squelette[3*INSECTE_AILE_ARRIERE_GAUCHE]);
+            dksImmediat::sommet3dv(&squelette[3*INSECTE_BOUT_AILE_ARRIERE_GAUCHE]);
+            dksImmediat::fin();
 
             //Antenne droite:
-            glBegin(GL_LINE_STRIP);
-            glVertex3dv(&squelette[3*INSECTE_ANTENNE_DROITE]);
-            glVertex3dv(&squelette[3*INSECTE_ANTENNE_FLAGELLE_DROITE]);
-            glEnd();
+            dksImmediat::debut(GL_LINE_STRIP);
+            dksImmediat::sommet3dv(&squelette[3*INSECTE_ANTENNE_DROITE]);
+            dksImmediat::sommet3dv(&squelette[3*INSECTE_ANTENNE_FLAGELLE_DROITE]);
+            dksImmediat::fin();
 
             //Antenne gauche:
-            glBegin(GL_LINE_STRIP);
-            glVertex3dv(&squelette[3*INSECTE_ANTENNE_GAUCHE]);
-            glVertex3dv(&squelette[3*INSECTE_ANTENNE_FLAGELLE_GAUCHE]);
-            glEnd();
+            dksImmediat::debut(GL_LINE_STRIP);
+            dksImmediat::sommet3dv(&squelette[3*INSECTE_ANTENNE_GAUCHE]);
+            dksImmediat::sommet3dv(&squelette[3*INSECTE_ANTENNE_FLAGELLE_GAUCHE]);
+            dksImmediat::fin();
 
             //Points:
-            glColor3f(1.,1.,0.);
+            dksImmediat::couleur3f(1.,1.,0.);
             glPointSize(5.);
-            glBegin(GL_POINTS);
-            for(i=0;i<INSECTE_NBRPOINTS;i++) glVertex3dv(&squelette[i*3]);
-            glEnd();
+            dksImmediat::debut(GL_POINTS);
+            for(i=0;i<INSECTE_NBRPOINTS;i++) dksImmediat::sommet3dv(&squelette[i*3]);
+            dksImmediat::fin();
 
             if (lum_mem)glEnable(GL_LIGHTING);
 

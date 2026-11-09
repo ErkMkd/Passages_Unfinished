@@ -649,59 +649,59 @@ class dksPersonnage:public dksConteneur
             GLboolean lum_mem=glIsEnabled(GL_LIGHTING);
             glDisable(GL_LIGHTING);
 
-            glColor3f(1.,1.,1.);
+            dksImmediat::couleur3f(1.,1.,1.);
             //Colonne vertébrale:
-            glBegin(GL_LINE_STRIP);
-            glVertex3dv(&squelette[3*PERSONNAGE_ARTICULATION_TETE]);
-            glVertex3dv(&squelette[3*PERSONNAGE_ARTICULATION_COU]);
-            glVertex3dv(&squelette[3*PERSONNAGE_ARTICULATION_THORAX]);
-            glVertex3dv(&squelette[3*PERSONNAGE_ARTICULATION_ABDOMEN]);
-            glEnd();
+            dksImmediat::debut(GL_LINE_STRIP);
+            dksImmediat::sommet3dv(&squelette[3*PERSONNAGE_ARTICULATION_TETE]);
+            dksImmediat::sommet3dv(&squelette[3*PERSONNAGE_ARTICULATION_COU]);
+            dksImmediat::sommet3dv(&squelette[3*PERSONNAGE_ARTICULATION_THORAX]);
+            dksImmediat::sommet3dv(&squelette[3*PERSONNAGE_ARTICULATION_ABDOMEN]);
+            dksImmediat::fin();
 
             //Bras droit:
 
-            glBegin(GL_LINE_STRIP);
-            glVertex3dv(&squelette[3*PERSONNAGE_EPAULE_DROITE]);
-            glVertex3dv(&squelette[3*PERSONNAGE_COUDE_DROIT]);
-            glVertex3dv(&squelette[3*PERSONNAGE_POIGNET_DROIT]);
-            glVertex3dv(&squelette[3*PERSONNAGE_MAIN_DROITE]);
-            glEnd();
+            dksImmediat::debut(GL_LINE_STRIP);
+            dksImmediat::sommet3dv(&squelette[3*PERSONNAGE_EPAULE_DROITE]);
+            dksImmediat::sommet3dv(&squelette[3*PERSONNAGE_COUDE_DROIT]);
+            dksImmediat::sommet3dv(&squelette[3*PERSONNAGE_POIGNET_DROIT]);
+            dksImmediat::sommet3dv(&squelette[3*PERSONNAGE_MAIN_DROITE]);
+            dksImmediat::fin();
 
             //Bras gauche:
-            glBegin(GL_LINE_STRIP);
-            glVertex3dv(&squelette[3*PERSONNAGE_EPAULE_GAUCHE]);
-            glVertex3dv(&squelette[3*PERSONNAGE_COUDE_GAUCHE]);
-            glVertex3dv(&squelette[3*PERSONNAGE_POIGNET_GAUCHE]);
-            glVertex3dv(&squelette[3*PERSONNAGE_MAIN_GAUCHE]);
-            glEnd();
+            dksImmediat::debut(GL_LINE_STRIP);
+            dksImmediat::sommet3dv(&squelette[3*PERSONNAGE_EPAULE_GAUCHE]);
+            dksImmediat::sommet3dv(&squelette[3*PERSONNAGE_COUDE_GAUCHE]);
+            dksImmediat::sommet3dv(&squelette[3*PERSONNAGE_POIGNET_GAUCHE]);
+            dksImmediat::sommet3dv(&squelette[3*PERSONNAGE_MAIN_GAUCHE]);
+            dksImmediat::fin();
 
             //Jambe droite:
-            glBegin(GL_LINE_STRIP);
-            glVertex3dv(&squelette[3*PERSONNAGE_HANCHE_DROITE]);
-            glVertex3dv(&squelette[3*PERSONNAGE_GENOU_DROIT]);
-            glVertex3dv(&squelette[3*PERSONNAGE_CHEVILLE_DROITE]);
-            glVertex3dv(&squelette[3*PERSONNAGE_TALON_DROIT]);
-            glVertex3dv(&squelette[3*PERSONNAGE_PLANTE_DROITE]);
-            glEnd();
+            dksImmediat::debut(GL_LINE_STRIP);
+            dksImmediat::sommet3dv(&squelette[3*PERSONNAGE_HANCHE_DROITE]);
+            dksImmediat::sommet3dv(&squelette[3*PERSONNAGE_GENOU_DROIT]);
+            dksImmediat::sommet3dv(&squelette[3*PERSONNAGE_CHEVILLE_DROITE]);
+            dksImmediat::sommet3dv(&squelette[3*PERSONNAGE_TALON_DROIT]);
+            dksImmediat::sommet3dv(&squelette[3*PERSONNAGE_PLANTE_DROITE]);
+            dksImmediat::fin();
 
             //Jambe gauche:
-            glBegin(GL_LINE_STRIP);
-            glVertex3dv(&squelette[3*PERSONNAGE_HANCHE_GAUCHE]);
-            glVertex3dv(&squelette[3*PERSONNAGE_GENOU_GAUCHE]);
-            glVertex3dv(&squelette[3*PERSONNAGE_CHEVILLE_GAUCHE]);
-            glVertex3dv(&squelette[3*PERSONNAGE_TALON_GAUCHE]);
-            glVertex3dv(&squelette[3*PERSONNAGE_PLANTE_GAUCHE]);
-            glEnd();
+            dksImmediat::debut(GL_LINE_STRIP);
+            dksImmediat::sommet3dv(&squelette[3*PERSONNAGE_HANCHE_GAUCHE]);
+            dksImmediat::sommet3dv(&squelette[3*PERSONNAGE_GENOU_GAUCHE]);
+            dksImmediat::sommet3dv(&squelette[3*PERSONNAGE_CHEVILLE_GAUCHE]);
+            dksImmediat::sommet3dv(&squelette[3*PERSONNAGE_TALON_GAUCHE]);
+            dksImmediat::sommet3dv(&squelette[3*PERSONNAGE_PLANTE_GAUCHE]);
+            dksImmediat::fin();
 
             //Points:
-            glColor3f(1.,0.,0.);
+            dksImmediat::couleur3f(1.,0.,0.);
             glPointSize(5.);
-            glBegin(GL_POINTS);
+            dksImmediat::debut(GL_POINTS);
             for(i=0;i<PERSONNAGE_NBRPOINTS;i++)
             {
-                glVertex3dv(&squelette[i*3]);
+                dksImmediat::sommet3dv(&squelette[i*3]);
             }
-            glEnd();
+            dksImmediat::fin();
 
             if (lum_mem)glEnable(GL_LIGHTING);
 

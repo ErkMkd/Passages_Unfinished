@@ -35,7 +35,7 @@
                     volume_courant->initialise_materiau(surface_courante);
                 }
 
-                if (!surface_courante->drapeau_adoucissement) glNormal3dv(face->normale);
-                glDrawElements(GL_POLYGON,face->nbrSommets,GL_UNSIGNED_INT,face->aretes);
+                if (!surface_courante->drapeau_adoucissement) dksImmediat::normale3dv(face->normale);
+                dksTableaux::trace_elements(GL_POLYGON,face->nbrSommets,GL_UNSIGNED_INT,face->aretes);
             }
         }

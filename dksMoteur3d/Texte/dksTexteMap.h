@@ -334,7 +334,7 @@ class dksTextMap : public dksConteneur
         float r=float((couleur>>16)&0xff)/255.;
         float v=float((couleur>>8)&0xff)/255.;
         float b=float(couleur&0xff)/255.;
-        glColor4f(r,v,b,alpha);
+        dksImmediat::couleur4f(r,v,b,alpha);
         desactive_textures();
         glUseProgram(0);
 
@@ -490,18 +490,18 @@ class dksTextMap : public dksConteneur
                 }
                 else
                 {
-                    glBegin(GL_QUADS);
-                    glNormal3fv(normale);
+                    dksImmediat::debut(GL_QUADS);
+                    dksImmediat::normale3fv(normale);
                     //cout<<"Point "<<i<<" "<<rectangle[0]<<" "<<rectangle[1]<<" "<<rectangle[2]<<endl;
-                    glTexCoord2fv(&coordonnees_lettres[c*8+6]);
-                    glVertex3fv(&rectangle[0]);
-                    glTexCoord2fv(&coordonnees_lettres[c*8+4]);
-                    glVertex3fv(&rectangle[3]);
-                    glTexCoord2fv(&coordonnees_lettres[c*8+2]);
-                    glVertex3fv(&rectangle[6]);
-                    glTexCoord2fv(&coordonnees_lettres[c*8+0]);
-                    glVertex3fv(&rectangle[9]);
-                    glEnd();
+                    dksImmediat::texture2fv(&coordonnees_lettres[c*8+6]);
+                    dksImmediat::sommet3fv(&rectangle[0]);
+                    dksImmediat::texture2fv(&coordonnees_lettres[c*8+4]);
+                    dksImmediat::sommet3fv(&rectangle[3]);
+                    dksImmediat::texture2fv(&coordonnees_lettres[c*8+2]);
+                    dksImmediat::sommet3fv(&rectangle[6]);
+                    dksImmediat::texture2fv(&coordonnees_lettres[c*8+0]);
+                    dksImmediat::sommet3fv(&rectangle[9]);
+                    dksImmediat::fin();
                     dksMatrices::translation(espaces_lettres[c]+espace_lettres,0.,0.);
                 }
             }

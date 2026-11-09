@@ -170,22 +170,22 @@ class Tunnel : public dksConteneur
         if (!drapeau_maj) return;
         /*
         glDisable(GL_LIGHTING);
-        glBegin(GL_LINES);
-            glVertex3fv(position_vecteur_generateur);
-            glVertex3f(position_vecteur_generateur[0]+orientation_vecteur_generateur[0],
+        dksImmediat::debut(GL_LINES);
+            dksImmediat::sommet3fv(position_vecteur_generateur);
+            dksImmediat::sommet3f(position_vecteur_generateur[0]+orientation_vecteur_generateur[0],
                        position_vecteur_generateur[1]+orientation_vecteur_generateur[1],
                        position_vecteur_generateur[2]+orientation_vecteur_generateur[2]
                        );
-        glEnd();
+        dksImmediat::fin();
         glPointSize(6);
-        glColor3ub(0xff,0xff,0x00);
-        glBegin(GL_POINTS);
-            glVertex3fv(position_vecteur_generateur);
-            glVertex3f(position_vecteur_generateur[0]+orientation_vecteur_generateur[0],
+        dksImmediat::couleur3ub(0xff,0xff,0x00);
+        dksImmediat::debut(GL_POINTS);
+            dksImmediat::sommet3fv(position_vecteur_generateur);
+            dksImmediat::sommet3f(position_vecteur_generateur[0]+orientation_vecteur_generateur[0],
                        position_vecteur_generateur[1]+orientation_vecteur_generateur[1],
                        position_vecteur_generateur[2]+orientation_vecteur_generateur[2]
                        );
-        glEnd();
+        dksImmediat::fin();
 
 
         trajectoire_sections.affiche_courbe(10,0xffffffff);

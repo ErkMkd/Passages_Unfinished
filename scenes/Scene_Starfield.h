@@ -1842,11 +1842,11 @@ class Scene_Starfield : public Scene
             //glDisable(GL_DEPTH_TEST);
             glDisable(GL_FOG);
 
-            glColor4ub(0xff,0xff,0x00,0x80);
+            dksImmediat::couleur4ub(0xff,0xff,0x00,0x80);
             glPointSize(50);
-            glBegin(GL_POINTS);
-                 glVertex3f(conteneur_selectionne->repere_absolu->x,conteneur_selectionne->repere_absolu->y,conteneur_selectionne->repere_absolu->z);
-            glEnd();
+            dksImmediat::debut(GL_POINTS);
+                 dksImmediat::sommet3f(conteneur_selectionne->repere_absolu->x,conteneur_selectionne->repere_absolu->y,conteneur_selectionne->repere_absolu->z);
+            dksImmediat::fin();
 
             glEnable(GL_LIGHTING);
             glDisable(GL_BLEND);

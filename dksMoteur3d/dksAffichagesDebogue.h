@@ -25,12 +25,12 @@ class dksAffichagesDebogue
 
             glPolygonMode(GL_FRONT_AND_BACK,GL_POINT);
             glPointSize(4.);
-            glBegin(GL_TRIANGLES);
-            glColor3i((couleur<<7)&0x7f800000,(couleur<<15)&0x7f800000,(couleur<<23)&0x7f800000);
-            glVertex3d(Ax,Ay,Az);
-            glVertex3d(Ax,Ay,Az);
-            glVertex3d(Ax,Ay,Az);
-            glEnd();
+            dksImmediat::debut(GL_TRIANGLES);
+            dksImmediat::couleur3i((couleur<<7)&0x7f800000,(couleur<<15)&0x7f800000,(couleur<<23)&0x7f800000);
+            dksImmediat::sommet3d(Ax,Ay,Az);
+            dksImmediat::sommet3d(Ax,Ay,Az);
+            dksImmediat::sommet3d(Ax,Ay,Az);
+            dksImmediat::fin();
 
             //Restitue les états d'openGl:
             if (GL_CULL_FACE_mem==GL_TRUE) glEnable(GL_CULL_FACE);
@@ -55,19 +55,19 @@ class dksAffichagesDebogue
 
             //Affiche le segment:
             glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
-            glBegin(GL_LINES);
-            glColor3i((couleur<<7)&0x7f800000,(couleur<<15)&0x7f800000,(couleur<<23)&0x7f800000);
-            glVertex3d(Ax,Ay,Az);
-            glVertex3d(Bx,By,Bz);
-            glEnd();
+            dksImmediat::debut(GL_LINES);
+            dksImmediat::couleur3i((couleur<<7)&0x7f800000,(couleur<<15)&0x7f800000,(couleur<<23)&0x7f800000);
+            dksImmediat::sommet3d(Ax,Ay,Az);
+            dksImmediat::sommet3d(Bx,By,Bz);
+            dksImmediat::fin();
 
             //Affiche les extrémités:
             glPolygonMode(GL_FRONT_AND_BACK,GL_POINT);
             glPointSize(4.);
-            glBegin(GL_POINTS);
-            glColor3f(1.,0,0);glVertex3d(Ax,Ay,Az);
-            glColor3f(0,1.,0);glVertex3d(Bx,By,Bz);
-            glEnd();
+            dksImmediat::debut(GL_POINTS);
+            dksImmediat::couleur3f(1.,0,0);dksImmediat::sommet3d(Ax,Ay,Az);
+            dksImmediat::couleur3f(0,1.,0);dksImmediat::sommet3d(Bx,By,Bz);
+            dksImmediat::fin();
 
             //Restitue les états d'openGl:
             if (GL_CULL_FACE_mem==GL_TRUE) glEnable(GL_CULL_FACE);
@@ -82,14 +82,14 @@ class dksAffichagesDebogue
             glDisable(GL_CULL_FACE);
 
             glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
-            glBegin(GL_POLYGON);
-            glColor3i((couleur<<7)&0x7f800000,(couleur<<15)&0x7f800000,(couleur<<23)&0x7f800000);
+            dksImmediat::debut(GL_POLYGON);
+            dksImmediat::couleur3i((couleur<<7)&0x7f800000,(couleur<<15)&0x7f800000,(couleur<<23)&0x7f800000);
             for (uint16_t i=0 ;i<nbrSommets;i++)
             {
                 uint32_t index=(*aretes)[i]*3;
-                glVertex3d((*tabSommets)[index],(*tabSommets)[index+1],(*tabSommets)[index+2]);
+                dksImmediat::sommet3d((*tabSommets)[index],(*tabSommets)[index+1],(*tabSommets)[index+2]);
             }
-            glEnd();
+            dksImmediat::fin();
             glEnable(GL_CULL_FACE);
         }
 };

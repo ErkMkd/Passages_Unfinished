@@ -494,17 +494,17 @@ class dksPostRendu
     {
         GLboolean color_material_mem=glIsEnabled(GL_COLOR_MATERIAL);
         glDisable(GL_COLOR_MATERIAL);
-        glColor4f(1.,1.,1.,alpha);
-        glBegin(GL_QUADS);
-            glTexCoord2f(0.,0.);
-            glVertex3f(-.5,-.5,-1.);
-            glTexCoord2f(1.,0.);
-            glVertex3f(.5,-.5,-1.);
-            glTexCoord2f(1.,1.);
-            glVertex3f(.5,.5,-1.);
-            glTexCoord2f(0.,1.);
-            glVertex3f(-.5,.5,-1.);
-        glEnd();
+        dksImmediat::couleur4f(1.,1.,1.,alpha);
+        dksImmediat::debut(GL_QUADS);
+            dksImmediat::texture2f(0.,0.);
+            dksImmediat::sommet3f(-.5,-.5,-1.);
+            dksImmediat::texture2f(1.,0.);
+            dksImmediat::sommet3f(.5,-.5,-1.);
+            dksImmediat::texture2f(1.,1.);
+            dksImmediat::sommet3f(.5,.5,-1.);
+            dksImmediat::texture2f(0.,1.);
+            dksImmediat::sommet3f(-.5,.5,-1.);
+        dksImmediat::fin();
         if (color_material_mem) glEnable(GL_COLOR_MATERIAL);
     }
 
@@ -517,21 +517,21 @@ class dksPostRendu
     {
         GLboolean color_material_mem=glIsEnabled(GL_COLOR_MATERIAL);
         glDisable(GL_COLOR_MATERIAL);
-        glColor4f(1.,1.,1.,alpha);
-        glBegin(GL_QUADS);
-            glMultiTexCoord2f(GL_TEXTURE0,0.,0.);
-            glMultiTexCoord2f(GL_TEXTURE1,0.,0.);
-            glVertex3d(-.5,-.5,-1.);
-            glMultiTexCoord2f(GL_TEXTURE0,1.,0.);
-            glMultiTexCoord2f(GL_TEXTURE1,1.,0.);
-            glVertex3d(.5,-.5,-1.);
-            glMultiTexCoord2f(GL_TEXTURE0,1.,1.);
-            glMultiTexCoord2f(GL_TEXTURE1,1.,1.);
-            glVertex3d(.5,.5,-1.);
-            glMultiTexCoord2f(GL_TEXTURE0,0.,1.);
-            glMultiTexCoord2f(GL_TEXTURE1,0.,1.);
-            glVertex3d(-.5,.5,-1.);
-        glEnd();
+        dksImmediat::couleur4f(1.,1.,1.,alpha);
+        dksImmediat::debut(GL_QUADS);
+            dksImmediat::multi_texture2f(GL_TEXTURE0,0.,0.);
+            dksImmediat::multi_texture2f(GL_TEXTURE1,0.,0.);
+            dksImmediat::sommet3d(-.5,-.5,-1.);
+            dksImmediat::multi_texture2f(GL_TEXTURE0,1.,0.);
+            dksImmediat::multi_texture2f(GL_TEXTURE1,1.,0.);
+            dksImmediat::sommet3d(.5,-.5,-1.);
+            dksImmediat::multi_texture2f(GL_TEXTURE0,1.,1.);
+            dksImmediat::multi_texture2f(GL_TEXTURE1,1.,1.);
+            dksImmediat::sommet3d(.5,.5,-1.);
+            dksImmediat::multi_texture2f(GL_TEXTURE0,0.,1.);
+            dksImmediat::multi_texture2f(GL_TEXTURE1,0.,1.);
+            dksImmediat::sommet3d(-.5,.5,-1.);
+        dksImmediat::fin();
         if (color_material_mem) glEnable(GL_COLOR_MATERIAL);
     }
 

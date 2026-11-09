@@ -5,8 +5,8 @@ varying vec3 direction_source_sommet;
 varying float distance_source;
 varying vec4 couleur;
 
-attribute vec3 tangente;
-attribute vec3 binormale;
+layout(location=6) in vec3 tangente;
+layout(location=7) in vec3 binormale;
 
 void main( void )
 {

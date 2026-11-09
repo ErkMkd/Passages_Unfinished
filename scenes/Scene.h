@@ -60,8 +60,8 @@ class Scene
             {
                 glActiveTexture(GL_TEXTURE0+i);
                 glDisable(GL_TEXTURE_2D);
-                glClientActiveTexture(GL_TEXTURE0+i);
-                glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+                dksTableaux::unite(GL_TEXTURE0+i);
+                dksTableaux::desactive(GL_TEXTURE_COORD_ARRAY);
             }
         glActiveTexture(GL_TEXTURE0);
     }

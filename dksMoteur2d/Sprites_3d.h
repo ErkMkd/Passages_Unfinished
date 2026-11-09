@@ -193,13 +193,13 @@ public:
         float largeur=float(image->largeur)*sprites[indice].zoom;
         float hauteur=float(image->hauteur)*sprites[indice].zoom;
 
-        glBegin(GL_TRIANGLE_FAN);
-            glColor4f(1.0,1.0,1.0,alpha);
-            glTexCoord2f(0,0); glVertex2f(0,0);
-            glTexCoord2f(0,1); glVertex2f(0,-hauteur);
-            glTexCoord2f(1,1); glVertex2f(largeur,-hauteur);
-            glTexCoord2f(1,0); glVertex2f(largeur,0);
-        glEnd();
+        dksImmediat::debut(GL_TRIANGLE_FAN);
+            dksImmediat::couleur4f(1.0,1.0,1.0,alpha);
+            dksImmediat::texture2f(0,0); dksImmediat::sommet2f(0,0);
+            dksImmediat::texture2f(0,1); dksImmediat::sommet2f(0,-hauteur);
+            dksImmediat::texture2f(1,1); dksImmediat::sommet2f(largeur,-hauteur);
+            dksImmediat::texture2f(1,0); dksImmediat::sommet2f(largeur,0);
+        dksImmediat::fin();
 
         if (!blend_mem) glDisable(GL_BLEND);
         if (lighting_mem) glEnable(GL_LIGHTING);

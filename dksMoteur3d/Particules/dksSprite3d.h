@@ -177,13 +177,13 @@ class dksSprite3d
         z3=pz+repX->z*cx+repY->z*cy;
 
 
-        glBegin(GL_QUADS);
-            glColor4f(1.0,1.0,1.0,alpha);
-            glTexCoord2f(0,0); glVertex3f(x0,y0,z0);
-            glTexCoord2f(1,0); glVertex3f(x1,y1,z1);
-            glTexCoord2f(1,1); glVertex3f(x2,y2,z2);
-            glTexCoord2f(0,1); glVertex3f(x3,y3,z3);
-        glEnd();
+        dksImmediat::debut(GL_QUADS);
+            dksImmediat::couleur4f(1.0,1.0,1.0,alpha);
+            dksImmediat::texture2f(0,0); dksImmediat::sommet3f(x0,y0,z0);
+            dksImmediat::texture2f(1,0); dksImmediat::sommet3f(x1,y1,z1);
+            dksImmediat::texture2f(1,1); dksImmediat::sommet3f(x2,y2,z2);
+            dksImmediat::texture2f(0,1); dksImmediat::sommet3f(x3,y3,z3);
+        dksImmediat::fin();
 
         if (!blend_mem) glDisable(GL_BLEND);
         if (lighting_mem) glEnable(GL_LIGHTING);
@@ -253,13 +253,13 @@ class dksSprite3d
         y3=position[1]+repX->y*cx+repY->y*cy;
         z3=position[2]+repX->z*cx+repY->z*cy;
 
-        glBegin(GL_QUADS);
-            glColor4f(1.0,1.0,1.0,alpha);
-            glTexCoord2f(0,0); glVertex3f(x0,y0,z0);
-            glTexCoord2f(1,0); glVertex3f(x1,y1,z1);
-            glTexCoord2f(1,1); glVertex3f(x2,y2,z2);
-            glTexCoord2f(0,1); glVertex3f(x3,y3,z3);
-        glEnd();
+        dksImmediat::debut(GL_QUADS);
+            dksImmediat::couleur4f(1.0,1.0,1.0,alpha);
+            dksImmediat::texture2f(0,0); dksImmediat::sommet3f(x0,y0,z0);
+            dksImmediat::texture2f(1,0); dksImmediat::sommet3f(x1,y1,z1);
+            dksImmediat::texture2f(1,1); dksImmediat::sommet3f(x2,y2,z2);
+            dksImmediat::texture2f(0,1); dksImmediat::sommet3f(x3,y3,z3);
+        dksImmediat::fin();
 
     }
 

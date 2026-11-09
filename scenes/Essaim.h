@@ -147,7 +147,7 @@ class Essaim :public Scene
         //dksMatrices::identite();
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        glColor3ub(0xff,0xff,0xff);
+        dksImmediat::couleur3ub(0xff,0xff,0xff);
 
 
         conteneur_1->rotation(.05,0.,1.,0.);

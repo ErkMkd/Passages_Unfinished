@@ -1312,7 +1312,7 @@ public:
             if ((erreur!=DKSM3D_OK) || (!drapeau_active)) return;
             dksMatrices::mode(GL_MODELVIEW);
             glDisable(GL_LIGHTING);
-            //glDisableClientState(GL_NORMAL_ARRAY);
+            //dksTableaux::desactive(GL_NORMAL_ARRAY);
             //desactive_textures();
             //glUseProgram(0);
             GLboolean brouillard_mem=glIsEnabled(GL_FOG);
@@ -1344,7 +1344,7 @@ public:
             GLboolean lumieres_mem=glIsEnabled(GL_LIGHTING);
             glDisable(GL_LIGHTING);
             glColorMask(GL_FALSE,GL_FALSE,GL_FALSE,GL_FALSE);
-            glDisableClientState(GL_NORMAL_ARRAY);
+            dksTableaux::desactive(GL_NORMAL_ARRAY);
             desactive_textures();
             glUseProgram(0);
 
@@ -1415,8 +1415,8 @@ public:
                 {
                     glActiveTexture(GL_TEXTURE0+i);
                     glDisable(GL_TEXTURE_2D);
-                    glClientActiveTexture(GL_TEXTURE0+i);
-                    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+                    dksTableaux::unite(GL_TEXTURE0+i);
+                    dksTableaux::desactive(GL_TEXTURE_COORD_ARRAY);
                 }
 		}
 		*/
@@ -1478,30 +1478,30 @@ public:
             switch (volume_courant->mode_rendu)
                 {
                     case DKSVOLUME_MODE_IMMEDIAT:
-                        glDisableClientState(GL_VERTEX_ARRAY);
-                        glDisableClientState(GL_NORMAL_ARRAY);
+                        dksTableaux::desactive(GL_VERTEX_ARRAY);
+                        dksTableaux::desactive(GL_NORMAL_ARRAY);
                     break;
 
                     case DKSVOLUME_MODE_TABLEAUX:
-                        glEnableClientState(GL_VERTEX_ARRAY);
-                        glVertexPointer(3,GL_DOUBLE,0,volume_courant->sommets);
+                        dksTableaux::active(GL_VERTEX_ARRAY);
+                        dksTableaux::pointeur_sommets(3,GL_DOUBLE,0,volume_courant->sommets);
                     break;
 
                     case DKSVOLUME_MODE_LISTE:
-                        glDisableClientState(GL_VERTEX_ARRAY);
-                        glDisableClientState(GL_NORMAL_ARRAY);
+                        dksTableaux::desactive(GL_VERTEX_ARRAY);
+                        dksTableaux::desactive(GL_NORMAL_ARRAY);
 
                     break;
 
                     case DKSVOLUME_MODE_LISTE_OPAQUES_IMMEDIAT_TRANSPARENTES:
-                        glDisableClientState(GL_VERTEX_ARRAY);
-                        glDisableClientState(GL_NORMAL_ARRAY);
+                        dksTableaux::desactive(GL_VERTEX_ARRAY);
+                        dksTableaux::desactive(GL_NORMAL_ARRAY);
 
                     break;
 
                     case DKSVOLUME_MODE_LISTE_OPAQUES_TABLEAUX_TRANSPARENTES:
-                        glEnableClientState(GL_VERTEX_ARRAY);
-                        glVertexPointer(3,GL_DOUBLE,0,volume_courant->sommets);
+                        dksTableaux::active(GL_VERTEX_ARRAY);
+                        dksTableaux::pointeur_sommets(3,GL_DOUBLE,0,volume_courant->sommets);
                     break;
                 }
         }

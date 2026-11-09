@@ -33,6 +33,8 @@ using namespace std;
 #include "Utiles/Banc_Essai.h"
 #include "dksMoteur3d/Rendu/dksMatrices.h"
 #include "dksMoteur3d/Rendu/dksEclairage.h"
+#include "dksMoteur3d/Rendu/dksImmediat.h"
+#include "dksMoteur3d/Rendu/dksTableaux.h"
 #include "dksMoteur2d/dksEcran.h"
 #include "dksMoteur3d/LWO/dksChargeLWO2.h"
 #include "dksMoteur3d/LWO/dksConvertionLWO2.h"

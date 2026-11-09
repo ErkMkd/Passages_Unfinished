@@ -1317,13 +1317,13 @@ class dksJongleur:public dksPersonnage
 
             glPointSize(10.);
             glEnable(GL_POINT_SMOOTH);
-            glBegin(GL_POINTS);
+            dksImmediat::debut(GL_POINTS);
             for(i=0;i<nbr_balles;i++)
             {
-                glColor3f(((balles[i].couleur>>16)&0xff)/255.,((balles[i].couleur>>8)&0xff)/255.,(balles[i].couleur&0xff)/255.);
-                glVertex3dv((balles[i].position));
+                dksImmediat::couleur3f(((balles[i].couleur>>16)&0xff)/255.,((balles[i].couleur>>8)&0xff)/255.,(balles[i].couleur&0xff)/255.);
+                dksImmediat::sommet3dv((balles[i].position));
             }
-            glEnd();
+            dksImmediat::fin();
 
             if (lum_mem)glEnable(GL_LIGHTING);
             if (!point_smooth_mem) glDisable(GL_POINT_SMOOTH);

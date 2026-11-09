@@ -971,12 +971,12 @@ class Annelide :public dksVolume
     {
         glPointSize(3);
         glDisable(GL_LIGHTING);
-        glBegin(GL_POINTS);
-        glColor3f(1.,0.,0.);
-        glVertex3dv(&sommets[(0+1)*3]);
-        glColor3f(1.,1.,0.);
-        glVertex3dv(&sommets[(1+1)*3]);
-        glEnd();
+        dksImmediat::debut(GL_POINTS);
+        dksImmediat::couleur3f(1.,0.,0.);
+        dksImmediat::sommet3dv(&sommets[(0+1)*3]);
+        dksImmediat::couleur3f(1.,1.,0.);
+        dksImmediat::sommet3dv(&sommets[(1+1)*3]);
+        dksImmediat::fin();
         glEnable(GL_LIGHTING);
 
     }
@@ -985,23 +985,23 @@ class Annelide :public dksVolume
     {
         GLboolean lum_mem=glIsEnabled(GL_LIGHTING);
         glDisable(GL_LIGHTING);
-        glColor3f(1.,1.,0.5);
-        glBegin(GL_POINTS);
-        glVertex3dv(vecteur_generateur_position);
-        glVertex3d(vecteur_generateur_position[0]+vecteur_generateur_orientation[0],
+        dksImmediat::couleur3f(1.,1.,0.5);
+        dksImmediat::debut(GL_POINTS);
+        dksImmediat::sommet3dv(vecteur_generateur_position);
+        dksImmediat::sommet3d(vecteur_generateur_position[0]+vecteur_generateur_orientation[0],
                    vecteur_generateur_position[1]+vecteur_generateur_orientation[1],
                    vecteur_generateur_position[2]+vecteur_generateur_orientation[2]
                    );
-        glEnd();
+        dksImmediat::fin();
 
-        glColor3f(0.5,0.5,0.25);
-        glBegin(GL_LINES);
-        glVertex3dv(vecteur_generateur_position);
-        glVertex3d(vecteur_generateur_position[0]+vecteur_generateur_orientation[0],
+        dksImmediat::couleur3f(0.5,0.5,0.25);
+        dksImmediat::debut(GL_LINES);
+        dksImmediat::sommet3dv(vecteur_generateur_position);
+        dksImmediat::sommet3d(vecteur_generateur_position[0]+vecteur_generateur_orientation[0],
                    vecteur_generateur_position[1]+vecteur_generateur_orientation[1],
                    vecteur_generateur_position[2]+vecteur_generateur_orientation[2]
                    );
-        glEnd();
+        dksImmediat::fin();
         if (lum_mem)glEnable(GL_LIGHTING);
     }
 
@@ -1010,22 +1010,22 @@ class Annelide :public dksVolume
         uint16_t i;
         GLboolean lum_mem=glIsEnabled(GL_LIGHTING);
         glDisable(GL_LIGHTING);
-        glColor3f(1.,.5,1.);
+        dksImmediat::couleur3f(1.,.5,1.);
 
-        glBegin(GL_POINTS);
+        dksImmediat::debut(GL_POINTS);
         for(i=0;i<nbrSections+2;i++)
         {
-            glVertex3dv(&colonne[i*3]);
+            dksImmediat::sommet3dv(&colonne[i*3]);
         }
-        glEnd();
+        dksImmediat::fin();
 
-        glColor3f(0.5,0.25,0.5);
-        glBegin(GL_LINE_STRIP);
+        dksImmediat::couleur3f(0.5,0.25,0.5);
+        dksImmediat::debut(GL_LINE_STRIP);
         for(i=0;i<nbrSections+2;i++)
         {
-            glVertex3dv(&colonne[i*3]);
+            dksImmediat::sommet3dv(&colonne[i*3]);
         }
-        glEnd();
+        dksImmediat::fin();
 
         if (lum_mem)glEnable(GL_LIGHTING);
     }

@@ -364,14 +364,14 @@ class dksJetParticules : public dksParticules
         Particule_Jet* particule=(Particule_Jet*)particules_actives;
         glUseProgram(0);
         desactive_textures();
-        glBegin(GL_POINTS);
+        dksImmediat::debut(GL_POINTS);
         while (particule!=NULL)
         {
-            glColor4fv(particule->couleur);
-            glVertex3dv(&points[3*particule->point]);
+            dksImmediat::couleur4fv(particule->couleur);
+            dksImmediat::sommet3dv(&points[3*particule->point]);
             particule=(Particule_Jet*)particule->suivante;
         }
-        glEnd();
+        dksImmediat::fin();
         if(light_mem)glEnable(GL_LIGHTING);
         if(!blend_mem)glDisable(GL_BLEND);
     }
@@ -383,15 +383,15 @@ class dksJetParticules : public dksParticules
         GLboolean blend_mem=glIsEnabled(GL_BLEND);
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-        glBegin(GL_POINTS);
+        dksImmediat::debut(GL_POINTS);
         Particule_Jet* particule=(Particule_Jet*)particules_actives;
         while (particule!=NULL)
         {
-            glColor4fv(particule->couleur);
-            glVertex3dv(&points[3*particule->point]);
+            dksImmediat::couleur4fv(particule->couleur);
+            dksImmediat::sommet3dv(&points[3*particule->point]);
             particule=(Particule_Jet*)particule->suivante;
         }
-        glEnd();
+        dksImmediat::fin();
         if(!blend_mem)glDisable(GL_BLEND);
 
     }

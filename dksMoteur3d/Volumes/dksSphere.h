@@ -307,14 +307,14 @@ class dksSphere : public dksVolume
         glDisable(GL_DEPTH_TEST);
         glDisable(GL_BLEND);
         glDisable(GL_LIGHTING);
-        glBegin(GL_POINTS);
-            glColor3f(1.,0.,0.);
-            glVertex3dv(&sommets[0]);
-            glColor3f(0.,1.,0.);
-            glVertex3dv(&sommets[3]);
-            glColor3f(0.,0.,1.);
-            glVertex3dv(&sommets[6]);
-        glEnd();
+        dksImmediat::debut(GL_POINTS);
+            dksImmediat::couleur3f(1.,0.,0.);
+            dksImmediat::sommet3dv(&sommets[0]);
+            dksImmediat::couleur3f(0.,1.,0.);
+            dksImmediat::sommet3dv(&sommets[3]);
+            dksImmediat::couleur3f(0.,0.,1.);
+            dksImmediat::sommet3dv(&sommets[6]);
+        dksImmediat::fin();
         if (mem_lights)glEnable(GL_LIGHTING);
         if (mem_depth_test)glEnable(GL_DEPTH_TEST);
         */

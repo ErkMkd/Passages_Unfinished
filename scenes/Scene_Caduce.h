@@ -1053,10 +1053,10 @@ class Scene_Caduce: public Scene
             dksMatrices::empile();
             dksMatrices::multiplie(cont->matrice.matrice);
             glPointSize(6);
-            glColor3f(1.,0.,0.);
-            glBegin(GL_POINTS);
-                glVertex3d(0.,0.,0.);
-            glEnd();
+            dksImmediat::couleur3f(1.,0.,0.);
+            dksImmediat::debut(GL_POINTS);
+                dksImmediat::sommet3d(0.,0.,0.);
+            dksImmediat::fin();
             dksMatrices::depile();
             glEnable(GL_LIGHTING);
         }

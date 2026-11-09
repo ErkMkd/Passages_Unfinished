@@ -989,26 +989,26 @@ class dksTrajectoire
 
             if(drapeau_lignes)
             {
-                glBegin(GL_LINE_STRIP);
-                    glColor3f(0.,0.,1.);
-                    for (i=0;i<nbrPoints;i++) glVertex3fv(&points[i*3]);
-                glEnd();
+                dksImmediat::debut(GL_LINE_STRIP);
+                    dksImmediat::couleur3f(0.,0.,1.);
+                    for (i=0;i<nbrPoints;i++) dksImmediat::sommet3fv(&points[i*3]);
+                dksImmediat::fin();
             }
 
 
             if (drapeau_tangentes)
             {
                 float tangente[3];
-                glBegin(GL_LINES);
-                glColor3f(0.,1.,1.);
+                dksImmediat::debut(GL_LINES);
+                dksImmediat::couleur3f(0.,1.,1.);
 
 
                     calcul_tangente_unitairef(NULL,&points[0],&points[3],tangente);
                     tangente[0]+=points[0];
                     tangente[1]+=points[1];
                     tangente[2]+=points[2];
-                    glVertex3fv(&points[0]);
-                    glVertex3fv(tangente);
+                    dksImmediat::sommet3fv(&points[0]);
+                    dksImmediat::sommet3fv(tangente);
 
 
                     for (i=1;i<nbrPoints-1;i++)
@@ -1017,8 +1017,8 @@ class dksTrajectoire
                         tangente[0]+=points[3*i];
                         tangente[1]+=points[3*i+1];;
                         tangente[2]+=points[3*i+2];;
-                        glVertex3fv(&points[3*i]);
-                        glVertex3fv(tangente);
+                        dksImmediat::sommet3fv(&points[3*i]);
+                        dksImmediat::sommet3fv(tangente);
 
                     }
 
@@ -1026,11 +1026,11 @@ class dksTrajectoire
                     tangente[0]+=points[3*i];
                     tangente[1]+=points[3*i+1];
                     tangente[2]+=points[3*i+2];
-                    glVertex3fv(&points[3*i]);
-                    glVertex3fv(tangente);
+                    dksImmediat::sommet3fv(&points[3*i]);
+                    dksImmediat::sommet3fv(tangente);
 
 
-                glEnd();
+                dksImmediat::fin();
             }
         }
 
@@ -1051,58 +1051,58 @@ class dksTrajectoire
             uint8_t b=(couleur)&0xff;
             uint8_t a=(couleur>>24)&0xff;
 
-            glColor4ub(r,v,b,a);
+            dksImmediat::couleur4ub(r,v,b,a);
 
             if (nbrPoints<2) return;
 
             //--- Affiche le point de départ:
             glPointSize(6);
-            glBegin(GL_POINTS);
-                glVertex3fv(&points[0]);
-            glEnd();
+            dksImmediat::debut(GL_POINTS);
+                dksImmediat::sommet3fv(&points[0]);
+            dksImmediat::fin();
 
             //--- Deux points:
 
             if (nbrPoints==2)
             {
-                glBegin(GL_LINE_STRIP);
+                dksImmediat::debut(GL_LINE_STRIP);
                 for (j=0 ;j<=nbr_etapes ; j++ )
                 {
                    calcul_interpolation_spline(NULL,&points[0],&points[3],NULL,(float)j/nbr_etapes,facteur_lissage,position);
-                   glVertex3fv(position);
+                   dksImmediat::sommet3fv(position);
                 }
-                glEnd();
+                dksImmediat::fin();
                 return;
             }
 
             //--- Plus de deux points:
 
-            glBegin(GL_LINE_STRIP);
+            dksImmediat::debut(GL_LINE_STRIP);
                 for (j=0 ;j<=nbr_etapes ; j++ )
                 {
                    calcul_interpolation_spline(NULL,&points[0],&points[3],&points[6],(float)j/nbr_etapes,facteur_lissage,position);
-                   glVertex3fv(position);
+                   dksImmediat::sommet3fv(position);
                 }
-            glEnd();
-            glBegin(GL_LINE_STRIP);
+            dksImmediat::fin();
+            dksImmediat::debut(GL_LINE_STRIP);
                 for ( i=1 ; i<nbrPoints-2 ; i++ )
                 {
                     for ( j=0 ;j<=nbr_etapes ; j++ )
                     {
                        calcul_interpolation_spline(&points[3*(i-1)],&points[3*i],&points[3*(i+1)],&points[3*(i+2)],(float)j/nbr_etapes,facteur_lissage,position);
-                       glVertex3fv(position);
+                       dksImmediat::sommet3fv(position);
                     }
                 }
-            glEnd();
-            glBegin(GL_LINE_STRIP);
+            dksImmediat::fin();
+            dksImmediat::debut(GL_LINE_STRIP);
 
                 for (j=0 ;j<=nbr_etapes ; j++ )
                     {
                        calcul_interpolation_spline(&points[3*(nbrPoints-3)],&points[3*(nbrPoints-2)],&points[3*(nbrPoints-1)],NULL,(float)j/nbr_etapes,facteur_lissage,position);
-                       glVertex3fv(position);
+                       dksImmediat::sommet3fv(position);
                     }
-                glVertex3fv(&points[(nbrPoints-1)*3]);
-            glEnd();
+                dksImmediat::sommet3fv(&points[(nbrPoints-1)*3]);
+            dksImmediat::fin();
         }
 
         //--------------------------------------------------------------------------------------------
@@ -1116,12 +1116,12 @@ class dksTrajectoire
             uint8_t v=(couleur>>8)&0xff;
             uint8_t b=(couleur)&0xff;
             uint8_t a=(couleur>>24)&0xff;
-            glColor4ub(r,v,b,a);
+            dksImmediat::couleur4ub(r,v,b,a);
             glPointSize(taille);
-            glBegin(GL_POINTS);
+            dksImmediat::debut(GL_POINTS);
 
-                for (i=0;i<nbrPoints;i++) glVertex3fv(&points[3*i]);
-            glEnd();
+                for (i=0;i<nbrPoints;i++) dksImmediat::sommet3fv(&points[3*i]);
+            dksImmediat::fin();
         }
 
         void affiche_point(uint32_t point, uint32_t couleur=0xffff0000, float taille=6)
@@ -1132,11 +1132,11 @@ class dksTrajectoire
             uint8_t a=(couleur>>24)&0xff;
 
             if (point>=nbrPoints) return;
-            glColor4ub(r,v,b,a);
+            dksImmediat::couleur4ub(r,v,b,a);
             glPointSize(taille);
-            glBegin(GL_POINTS);
-                glVertex3fv(&points[3*point]);
-            glEnd();
+            dksImmediat::debut(GL_POINTS);
+                dksImmediat::sommet3fv(&points[3*point]);
+            dksImmediat::fin();
         }
 
 };

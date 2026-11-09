@@ -86,15 +86,15 @@ class ES_TransitionTexturesCouleurAxe : public dksEffetSpecial
         {
             if(drapeaux_textures&0x1)
             {
-                glClientActiveTexture(GL_TEXTURE0);
-                glTexCoordPointer(2,GL_FLOAT,0,texture_depart->coordonnees_UV_tableau);
-                glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+                dksTableaux::unite(GL_TEXTURE0);
+                dksTableaux::pointeur_textures(2,GL_FLOAT,0,texture_depart->coordonnees_UV_tableau);
+                dksTableaux::active(GL_TEXTURE_COORD_ARRAY);
             }
             if(drapeaux_textures&0x2)
             {
-                glClientActiveTexture(GL_TEXTURE1);
-                glTexCoordPointer(2,GL_FLOAT,0,texture_dest->coordonnees_UV_tableau);
-                glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+                dksTableaux::unite(GL_TEXTURE1);
+                dksTableaux::pointeur_textures(2,GL_FLOAT,0,texture_dest->coordonnees_UV_tableau);
+                dksTableaux::active(GL_TEXTURE_COORD_ARRAY);
             }
         }
 
@@ -137,16 +137,16 @@ class ES_TransitionTexturesCouleurAxe : public dksEffetSpecial
             {
                 face=surface->faces[j];
 
-                glBegin(GL_POLYGON);
-                    glNormal3dv(face->normale);
+                dksImmediat::debut(GL_POLYGON);
+                    dksImmediat::normale3dv(face->normale);
                     at=face->aretes;
                     for(k=0;k<face->nbrSommets;k++)
                     {
-                        if(drapeaux_textures&0x1)glMultiTexCoord2fv(GL_TEXTURE0,&texture_depart->coordonnees_UV_tableau[2*at[k]]);
-                        if(drapeaux_textures&0x2)glMultiTexCoord2fv(GL_TEXTURE1,&texture_destination->coordonnees_UV_tableau[2*at[k]]);
-                        glVertex3dv(&sommets[at[k]*3]);
+                        if(drapeaux_textures&0x1)dksImmediat::multi_texture2fv(GL_TEXTURE0,&texture_depart->coordonnees_UV_tableau[2*at[k]]);
+                        if(drapeaux_textures&0x2)dksImmediat::multi_texture2fv(GL_TEXTURE1,&texture_destination->coordonnees_UV_tableau[2*at[k]]);
+                        dksImmediat::sommet3dv(&sommets[at[k]*3]);
                     }
-                glEnd();
+                dksImmediat::fin();
             }
         }
         //----------- Surface adoucie:
@@ -156,31 +156,31 @@ class ES_TransitionTexturesCouleurAxe : public dksEffetSpecial
             {
                 face=surface->faces_adoucies[j];
 
-                glBegin(GL_POLYGON);
+                dksImmediat::debut(GL_POLYGON);
                     at=face->aretes;
                     for(k=0;k<face->nbrSommets;k++)
                     {
-                        if(drapeaux_textures&0x1)glMultiTexCoord2fv(GL_TEXTURE0,&texture_depart->coordonnees_UV_tableau[2*at[k]]);
-                        if(drapeaux_textures&0x2)glMultiTexCoord2fv(GL_TEXTURE1,&texture_destination->coordonnees_UV_tableau[2*at[k]]);
-                        glNormal3dv(&normales_sommets[at[k]*3]);
-                        glVertex3dv(&sommets[at[k]*3]);
+                        if(drapeaux_textures&0x1)dksImmediat::multi_texture2fv(GL_TEXTURE0,&texture_depart->coordonnees_UV_tableau[2*at[k]]);
+                        if(drapeaux_textures&0x2)dksImmediat::multi_texture2fv(GL_TEXTURE1,&texture_destination->coordonnees_UV_tableau[2*at[k]]);
+                        dksImmediat::normale3dv(&normales_sommets[at[k]*3]);
+                        dksImmediat::sommet3dv(&sommets[at[k]*3]);
                     }
-                glEnd();
+                dksImmediat::fin();
             }
             for (j=0;j<surface->faces_partiellement_adoucies.size();j++)
             {
                 face=surface->faces_partiellement_adoucies[j];
 
-                glBegin(GL_POLYGON);
+                dksImmediat::debut(GL_POLYGON);
                     at=face->aretes;
                     for(k=0;k<face->nbrSommets;k++)
                     {
-                        if(drapeaux_textures&0x1)glMultiTexCoord2fv(GL_TEXTURE0,&texture_depart->coordonnees_UV_tableau[2*at[k]]);
-                        if(drapeaux_textures&0x2)glMultiTexCoord2fv(GL_TEXTURE1,&texture_destination->coordonnees_UV_tableau[2*at[k]]);
-                        glNormal3dv(&face->normales_sommets[k*3]);
-                        glVertex3dv(&sommets[at[k]*3]);
+                        if(drapeaux_textures&0x1)dksImmediat::multi_texture2fv(GL_TEXTURE0,&texture_depart->coordonnees_UV_tableau[2*at[k]]);
+                        if(drapeaux_textures&0x2)dksImmediat::multi_texture2fv(GL_TEXTURE1,&texture_destination->coordonnees_UV_tableau[2*at[k]]);
+                        dksImmediat::normale3dv(&face->normales_sommets[k*3]);
+                        dksImmediat::sommet3dv(&sommets[at[k]*3]);
                     }
-                glEnd();
+                dksImmediat::fin();
             }
         }
     }
@@ -205,13 +205,13 @@ class ES_TransitionTexturesCouleurAxe : public dksEffetSpecial
         //------------------- Face en aplats:
         if(!surface->drapeau_adoucissement)
         {
-            glNormal3dv(face->normale);
+            dksImmediat::normale3dv(face->normale);
             for(k=0;k<face->nbrSommets;k++)
             {
                 sommet=&sommets[at[k]*3];
-                if(drapeaux_textures&0x1)glMultiTexCoord2fv(GL_TEXTURE0,&texture_depart->coordonnees_UV_tableau[2*at[k]]);
-                if(drapeaux_textures&0x2)glMultiTexCoord2fv(GL_TEXTURE1,&texture_destination->coordonnees_UV_tableau[2*at[k]]);
-                glVertex3dv(sommet);
+                if(drapeaux_textures&0x1)dksImmediat::multi_texture2fv(GL_TEXTURE0,&texture_depart->coordonnees_UV_tableau[2*at[k]]);
+                if(drapeaux_textures&0x2)dksImmediat::multi_texture2fv(GL_TEXTURE1,&texture_destination->coordonnees_UV_tableau[2*at[k]]);
+                dksImmediat::sommet3dv(sommet);
             }
         }
 
@@ -224,10 +224,10 @@ class ES_TransitionTexturesCouleurAxe : public dksEffetSpecial
                 {
                     sommet=&sommets[at[k]*3];
                     nml=&normales_sommets[at[k]*3];
-                    glNormal3dv(nml);
-                    if(drapeaux_textures&0x1)glMultiTexCoord2fv(GL_TEXTURE0,&texture_depart->coordonnees_UV_tableau[2*at[k]]);
-                    if(drapeaux_textures&0x2)glMultiTexCoord2fv(GL_TEXTURE1,&texture_destination->coordonnees_UV_tableau[2*at[k]]);
-                    glVertex3dv(sommet);
+                    dksImmediat::normale3dv(nml);
+                    if(drapeaux_textures&0x1)dksImmediat::multi_texture2fv(GL_TEXTURE0,&texture_depart->coordonnees_UV_tableau[2*at[k]]);
+                    if(drapeaux_textures&0x2)dksImmediat::multi_texture2fv(GL_TEXTURE1,&texture_destination->coordonnees_UV_tableau[2*at[k]]);
+                    dksImmediat::sommet3dv(sommet);
                 }
             }
             else
@@ -236,10 +236,10 @@ class ES_TransitionTexturesCouleurAxe : public dksEffetSpecial
                 {
                     sommet=&sommets[at[k]*3];
                     nml=&face->normales_sommets[k*3];
-                    glNormal3dv(nml);
-                    if(drapeaux_textures&0x1)glMultiTexCoord2fv(GL_TEXTURE0,&texture_depart->coordonnees_UV_tableau[2*at[k]]);
-                    if(drapeaux_textures&0x2)glMultiTexCoord2fv(GL_TEXTURE1,&texture_destination->coordonnees_UV_tableau[2*at[k]]);
-                    glVertex3dv(sommet);
+                    dksImmediat::normale3dv(nml);
+                    if(drapeaux_textures&0x1)dksImmediat::multi_texture2fv(GL_TEXTURE0,&texture_depart->coordonnees_UV_tableau[2*at[k]]);
+                    if(drapeaux_textures&0x2)dksImmediat::multi_texture2fv(GL_TEXTURE1,&texture_destination->coordonnees_UV_tableau[2*at[k]]);
+                    dksImmediat::sommet3dv(sommet);
                 }
             }
 

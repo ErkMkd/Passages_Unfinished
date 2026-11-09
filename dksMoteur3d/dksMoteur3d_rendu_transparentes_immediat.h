@@ -36,7 +36,7 @@
                 volume_courant->initialise_materiau(surface_courante);
             }
 
-            glBegin(GL_POLYGON);
+            dksImmediat::debut(GL_POLYGON);
 
             //===================================== Rendu sans textures:
             if (surface_courante->mode_rendu==DKSSURFACE_RENDU_COULEUR)
@@ -45,12 +45,12 @@
                 //------------------- Face en aplats:
                 if(!surface_courante->drapeau_adoucissement)
                 {
-                    glNormal3dv(face->normale);
+                    dksImmediat::normale3dv(face->normale);
                     at=face->aretes;
                     for(k=0;k<face->nbrSommets;k++)
                     {
                         sommet=&sommets[at[k]*3];
-                        glVertex3dv(sommet);
+                        dksImmediat::sommet3dv(sommet);
                     }
                 }
 
@@ -64,8 +64,8 @@
                         {
                             sommet=&sommets[at[k]*3];
                             nml=&face->normales_sommets[k*3];
-                            glNormal3dv(nml);
-                            glVertex3dv(sommet);
+                            dksImmediat::normale3dv(nml);
+                            dksImmediat::sommet3dv(sommet);
                         }
                     }
                     else
@@ -74,8 +74,8 @@
                         {
                             sommet=&sommets[at[k]*3];
                             nml=&volume_courant->normales_sommets[at[k]*3];
-                            glNormal3dv(nml);
-                            glVertex3dv(sommet);
+                            dksImmediat::normale3dv(nml);
+                            dksImmediat::sommet3dv(sommet);
                         }
                     }
 
@@ -92,13 +92,13 @@
                 //------------------- Face en aplats:
                 if(!surface_courante->drapeau_adoucissement)    ///A optimiser
                 {
-                    glNormal3dv(face->normale);
+                    dksImmediat::normale3dv(face->normale);
                     at=face->aretes;
                     for(k=0;k<face->nbrSommets;k++)
                     {
                         sommet=&sommets[at[k]*3];
-                        glTexCoord2fv(&texture->coordonnees_UV_tableau[2*at[k]]);
-                        glVertex3dv(sommet);
+                        dksImmediat::texture2fv(&texture->coordonnees_UV_tableau[2*at[k]]);
+                        dksImmediat::sommet3dv(sommet);
                     }
                 }
 
@@ -112,9 +112,9 @@
                         {
                             sommet=&sommets[at[k]*3];
                             nml=&face->normales_sommets[k*3];
-                            glNormal3dv(nml);
-                            glTexCoord2fv(&texture->coordonnees_UV_tableau[2*at[k]]);
-                            glVertex3dv(sommet);
+                            dksImmediat::normale3dv(nml);
+                            dksImmediat::texture2fv(&texture->coordonnees_UV_tableau[2*at[k]]);
+                            dksImmediat::sommet3dv(sommet);
                         }
                     }
                     else
@@ -123,9 +123,9 @@
                         {
                             sommet=&sommets[at[k]*3];
                             nml=&volume_courant->normales_sommets[at[k]*3];
-                            glNormal3dv(nml);
-                            glTexCoord2fv(&texture->coordonnees_UV_tableau[2*at[k]]);
-                            glVertex3dv(sommet);
+                            dksImmediat::normale3dv(nml);
+                            dksImmediat::texture2fv(&texture->coordonnees_UV_tableau[2*at[k]]);
+                            dksImmediat::sommet3dv(sommet);
                         }
                     }
 
@@ -151,6 +151,6 @@
                 surface_courante->effet_special->rendu_transparente_immediat(face);
             }
 
-            glEnd();
+            dksImmediat::fin();
         }
     }

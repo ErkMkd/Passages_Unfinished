@@ -86,22 +86,22 @@
                 couleur_diffusion[1]=surface_courante->couleur_diffusion[1]*surface_courante->diffusion;
                 couleur_diffusion[2]=surface_courante->couleur_diffusion[2]*surface_courante->diffusion;
                 couleur_diffusion[3]=1.;
-                glColor3fv(couleur_diffusion);  //Au cas où les éclairages sont désactivés
+                dksImmediat::couleur3fv(couleur_diffusion);  //Au cas où les éclairages sont désactivés
                 dksEclairage::materiau(GL_FRONT,GL_DIFFUSE, couleur_diffusion);
 
                 for (j=0;j<surface_courante->nbr_faces;j++)
                 {
                     face=surface_courante->faces[j];
 
-                    glBegin(GL_POLYGON);
-                        glNormal3dv(face->normale);
+                    dksImmediat::debut(GL_POLYGON);
+                        dksImmediat::normale3dv(face->normale);
                         at=face->aretes;
                         for(k=0;k<face->nbrSommets;k++)
                         {
                             sommet=&sommets[at[k]*3];
-                            glVertex3dv(sommet);
+                            dksImmediat::sommet3dv(sommet);
                         }
-                    glEnd();
+                    dksImmediat::fin();
                 }
             }
         }
@@ -126,15 +126,15 @@
             {
                 face=surface_courante->faces[j];
 
-                glBegin(GL_POLYGON);
-                    //glNormal3dv(face->normale);
+                dksImmediat::debut(GL_POLYGON);
+                    //dksImmediat::normale3dv(face->normale);
                     at=face->aretes;
                     for(k=0;k<face->nbrSommets;k++)
                     {
                         sommet=&sommets[at[k]*3];
-                        glVertex3dv(sommet);
+                        dksImmediat::sommet3dv(sommet);
                     }
-                glEnd();
+                dksImmediat::fin();
             }
         }
 
@@ -153,6 +153,7 @@
             GLdouble* sommet;
             GLdouble* nml;
             glShadeModel(GL_SMOOTH);
+            dksImmediat::debut_lot();
 
             //-------- Rendu en aplats:
                     if (!surface_courante->drapeau_adoucissement)
@@ -161,15 +162,15 @@
                         {
                             face=surface_courante->faces[j];
 
-                            glBegin(GL_POLYGON);
-                                glNormal3dv(face->normale);
+                            dksImmediat::debut(GL_POLYGON);
+                                dksImmediat::normale3dv(face->normale);
                                 at=face->aretes;
                                 for(k=0;k<face->nbrSommets;k++)
                                 {
                                     sommet=&sommets[at[k]*3];
-                                    glVertex3dv(sommet);
+                                    dksImmediat::sommet3dv(sommet);
                                 }
-                            glEnd();
+                            dksImmediat::fin();
                         }
                     }
                     //---------- Surface adoucie:
@@ -179,35 +180,35 @@
                         {
                             face=surface_courante->faces_adoucies[j];
 
-                            glBegin(GL_POLYGON);
+                            dksImmediat::debut(GL_POLYGON);
                                 at=face->aretes;
                                 for(k=0;k<face->nbrSommets;k++)
                                 {
                                     sommet=&sommets[at[k]*3];
                                     nml=&normales_sommets[at[k]*3];
-                                    glNormal3dv(nml);
-                                    glVertex3dv(sommet);
+                                    dksImmediat::normale3dv(nml);
+                                    dksImmediat::sommet3dv(sommet);
                                 }
-                            glEnd();
+                            dksImmediat::fin();
                         }
                         for (j=0;j<surface_courante->faces_partiellement_adoucies.size();j++)
                         {
                             face=surface_courante->faces_partiellement_adoucies[j];
 
-                            glBegin(GL_POLYGON);
+                            dksImmediat::debut(GL_POLYGON);
                                 at=face->aretes;
                                 for(k=0;k<face->nbrSommets;k++)
                                 {
                                     sommet=&sommets[at[k]*3];
                                     nml=&face->normales_sommets[k*3];
                                     //nml=&normales_sommets[at[k]*3];
-                                    glNormal3dv(nml);
-                                    glVertex3dv(sommet);
+                                    dksImmediat::normale3dv(nml);
+                                    dksImmediat::sommet3dv(sommet);
                                 }
-                            glEnd();
+                            dksImmediat::fin();
                         }
                     }
-
+            dksImmediat::fin_lot();
         }
 
         //-------------------------------------------------------------------------------
@@ -232,16 +233,16 @@
                         {
                             face=surface_courante->faces[j];
 
-                            glBegin(GL_POLYGON);
-                                glNormal3dv(face->normale);
+                            dksImmediat::debut(GL_POLYGON);
+                                dksImmediat::normale3dv(face->normale);
                                 at=face->aretes;
                                 for(k=0;k<face->nbrSommets;k++)
                                 {
                                     sommet=&sommets[at[k]*3];
-                                    glTexCoord2fv(&texture->coordonnees_UV_tableau[2*at[k]]);
-                                    glVertex3dv(sommet);
+                                    dksImmediat::texture2fv(&texture->coordonnees_UV_tableau[2*at[k]]);
+                                    dksImmediat::sommet3dv(sommet);
                                 }
-                            glEnd();
+                            dksImmediat::fin();
                         }
                     }
                     //----------- Surface adoucie:
@@ -251,34 +252,34 @@
                         {
                             face=surface_courante->faces_adoucies[j];
 
-                            glBegin(GL_POLYGON);
+                            dksImmediat::debut(GL_POLYGON);
                                 at=face->aretes;
                                 for(k=0;k<face->nbrSommets;k++)
                                 {
                                     sommet=&sommets[at[k]*3];
-                                    glTexCoord2fv(&texture->coordonnees_UV_tableau[2*at[k]]);
+                                    dksImmediat::texture2fv(&texture->coordonnees_UV_tableau[2*at[k]]);
                                     nml=&normales_sommets[at[k]*3];
-                                    glNormal3dv(nml);
-                                    glVertex3dv(sommet);
+                                    dksImmediat::normale3dv(nml);
+                                    dksImmediat::sommet3dv(sommet);
                                 }
-                            glEnd();
+                            dksImmediat::fin();
                         }
 
                         for (j=0;j<surface_courante->faces_partiellement_adoucies.size();j++)
                         {
                             face=surface_courante->faces_partiellement_adoucies[j];
 
-                            glBegin(GL_POLYGON);
+                            dksImmediat::debut(GL_POLYGON);
                                 at=face->aretes;
                                 for(k=0;k<face->nbrSommets;k++)
                                 {
                                     sommet=&sommets[at[k]*3];
-                                    glTexCoord2fv(&texture->coordonnees_UV_tableau[2*at[k]]);
+                                    dksImmediat::texture2fv(&texture->coordonnees_UV_tableau[2*at[k]]);
                                     nml=&face->normales_sommets[k*3];
-                                    glNormal3dv(nml);
-                                    glVertex3dv(sommet);
+                                    dksImmediat::normale3dv(nml);
+                                    dksImmediat::sommet3dv(sommet);
                                 }
-                            glEnd();
+                            dksImmediat::fin();
                         }
                     }
 
@@ -306,17 +307,17 @@
                         {
                             face=surface_courante->faces[j];
 
-                            glBegin(GL_POLYGON);
-                                glNormal3dv(face->normale);
-                                glVertexAttrib3dv(dksShaders::bibliotheque->rugosite->tangente,&texture_rugosite->tangentes_faces[face->indice*3]);
-                                glVertexAttrib3dv(dksShaders::bibliotheque->rugosite->binormale,&texture_rugosite->binormales_faces[face->indice*3]);
+                            dksImmediat::debut(GL_POLYGON);
+                                dksImmediat::normale3dv(face->normale);
+                                dksImmediat::attribut3dv(dksShaders::bibliotheque->rugosite->tangente,&texture_rugosite->tangentes_faces[face->indice*3]);
+                                dksImmediat::attribut3dv(dksShaders::bibliotheque->rugosite->binormale,&texture_rugosite->binormales_faces[face->indice*3]);
                                 at=face->aretes;
                                 for(k=0;k<face->nbrSommets;k++)
                                 {
-                                    glTexCoord2fv(&texture_rugosite->coordonnees_UV_tableau[2*at[k]]);
-                                    glVertex3dv(&sommets[at[k]*3]);
+                                    dksImmediat::texture2fv(&texture_rugosite->coordonnees_UV_tableau[2*at[k]]);
+                                    dksImmediat::sommet3dv(&sommets[at[k]*3]);
                                 }
-                            glEnd();
+                            dksImmediat::fin();
                         }
                     }
                     //----------- Surface adoucie:
@@ -326,33 +327,33 @@
                         {
                             face=surface_courante->faces_adoucies[j];
 
-                            glBegin(GL_POLYGON);
+                            dksImmediat::debut(GL_POLYGON);
                                 at=face->aretes;
                                 for(k=0;k<face->nbrSommets;k++)
                                 {
-                                    glTexCoord2fv(&texture_rugosite->coordonnees_UV_tableau[2*at[k]]);
-                                    glVertexAttrib3dv(dksShaders::bibliotheque->rugosite->tangente,&texture_rugosite->tangentes_sommets[at[k]*3]);
-                                    glVertexAttrib3dv(dksShaders::bibliotheque->rugosite->binormale,&texture_rugosite->binormales_sommets[at[k]*3]);
-                                    glNormal3dv(&normales_sommets[at[k]*3]);
-                                    glVertex3dv(&sommets[at[k]*3]);
+                                    dksImmediat::texture2fv(&texture_rugosite->coordonnees_UV_tableau[2*at[k]]);
+                                    dksImmediat::attribut3dv(dksShaders::bibliotheque->rugosite->tangente,&texture_rugosite->tangentes_sommets[at[k]*3]);
+                                    dksImmediat::attribut3dv(dksShaders::bibliotheque->rugosite->binormale,&texture_rugosite->binormales_sommets[at[k]*3]);
+                                    dksImmediat::normale3dv(&normales_sommets[at[k]*3]);
+                                    dksImmediat::sommet3dv(&sommets[at[k]*3]);
                                 }
-                            glEnd();
+                            dksImmediat::fin();
                         }
                         for (j=0;j<surface_courante->faces_partiellement_adoucies.size();j++)
                         {
                             face=surface_courante->faces_partiellement_adoucies[j];
 
-                            glBegin(GL_POLYGON);
+                            dksImmediat::debut(GL_POLYGON);
                                 at=face->aretes;
                                 for(k=0;k<face->nbrSommets;k++)
                                 {
-                                    glTexCoord2fv(&texture_rugosite->coordonnees_UV_tableau[2*at[k]]);
-                                    glVertexAttrib3dv(dksShaders::bibliotheque->rugosite->tangente,&texture_rugosite->tangentes_sommets[at[k]*3]);
-                                    glVertexAttrib3dv(dksShaders::bibliotheque->rugosite->binormale,&texture_rugosite->binormales_sommets[at[k]*3]);
-                                    glNormal3dv(&face->normales_sommets[k*3]);
-                                    glVertex3dv(&sommets[at[k]*3]);
+                                    dksImmediat::texture2fv(&texture_rugosite->coordonnees_UV_tableau[2*at[k]]);
+                                    dksImmediat::attribut3dv(dksShaders::bibliotheque->rugosite->tangente,&texture_rugosite->tangentes_sommets[at[k]*3]);
+                                    dksImmediat::attribut3dv(dksShaders::bibliotheque->rugosite->binormale,&texture_rugosite->binormales_sommets[at[k]*3]);
+                                    dksImmediat::normale3dv(&face->normales_sommets[k*3]);
+                                    dksImmediat::sommet3dv(&sommets[at[k]*3]);
                                 }
-                            glEnd();
+                            dksImmediat::fin();
                         }
                     }
 
@@ -380,18 +381,18 @@
                 {
                     face=surface_courante->faces[j];
 
-                    glBegin(GL_POLYGON);
-                        glNormal3dv(face->normale);
-                        glVertexAttrib3dv(dksShaders::bibliotheque->couleur_rugosite->tangente,&texture_rugosite->tangentes_faces[face->indice*3]);
-                        glVertexAttrib3dv(dksShaders::bibliotheque->couleur_rugosite->binormale,&texture_rugosite->binormales_faces[face->indice*3]);
+                    dksImmediat::debut(GL_POLYGON);
+                        dksImmediat::normale3dv(face->normale);
+                        dksImmediat::attribut3dv(dksShaders::bibliotheque->couleur_rugosite->tangente,&texture_rugosite->tangentes_faces[face->indice*3]);
+                        dksImmediat::attribut3dv(dksShaders::bibliotheque->couleur_rugosite->binormale,&texture_rugosite->binormales_faces[face->indice*3]);
                         at=face->aretes;
                         for(k=0;k<face->nbrSommets;k++)
                         {
-                            glMultiTexCoord2fv(GL_TEXTURE0,&texture_couleur->coordonnees_UV_tableau[2*at[k]]);
-                            glMultiTexCoord2fv(GL_TEXTURE1,&texture_rugosite->coordonnees_UV_tableau[2*at[k]]);
-                            glVertex3dv(&sommets[at[k]*3]);
+                            dksImmediat::multi_texture2fv(GL_TEXTURE0,&texture_couleur->coordonnees_UV_tableau[2*at[k]]);
+                            dksImmediat::multi_texture2fv(GL_TEXTURE1,&texture_rugosite->coordonnees_UV_tableau[2*at[k]]);
+                            dksImmediat::sommet3dv(&sommets[at[k]*3]);
                         }
-                    glEnd();
+                    dksImmediat::fin();
                 }
             }
             //----------- Surface adoucie:
@@ -401,35 +402,35 @@
                 {
                     face=surface_courante->faces_adoucies[j];
 
-                    glBegin(GL_POLYGON);
+                    dksImmediat::debut(GL_POLYGON);
                         at=face->aretes;
                         for(k=0;k<face->nbrSommets;k++)
                         {
-                            glMultiTexCoord2fv(GL_TEXTURE0,&texture_couleur->coordonnees_UV_tableau[2*at[k]]);
-                            glMultiTexCoord2fv(GL_TEXTURE1,&texture_rugosite->coordonnees_UV_tableau[2*at[k]]);
-                            glVertexAttrib3dv(dksShaders::bibliotheque->couleur_rugosite->tangente,&texture_rugosite->tangentes_sommets[at[k]*3]);
-                            glVertexAttrib3dv(dksShaders::bibliotheque->couleur_rugosite->binormale,&texture_rugosite->binormales_sommets[at[k]*3]);
-                            glNormal3dv(&normales_sommets[at[k]*3]);
-                            glVertex3dv(&sommets[at[k]*3]);
+                            dksImmediat::multi_texture2fv(GL_TEXTURE0,&texture_couleur->coordonnees_UV_tableau[2*at[k]]);
+                            dksImmediat::multi_texture2fv(GL_TEXTURE1,&texture_rugosite->coordonnees_UV_tableau[2*at[k]]);
+                            dksImmediat::attribut3dv(dksShaders::bibliotheque->couleur_rugosite->tangente,&texture_rugosite->tangentes_sommets[at[k]*3]);
+                            dksImmediat::attribut3dv(dksShaders::bibliotheque->couleur_rugosite->binormale,&texture_rugosite->binormales_sommets[at[k]*3]);
+                            dksImmediat::normale3dv(&normales_sommets[at[k]*3]);
+                            dksImmediat::sommet3dv(&sommets[at[k]*3]);
                         }
-                    glEnd();
+                    dksImmediat::fin();
                 }
                 for (j=0;j<surface_courante->faces_partiellement_adoucies.size();j++)
                 {
                     face=surface_courante->faces_partiellement_adoucies[j];
 
-                    glBegin(GL_POLYGON);
+                    dksImmediat::debut(GL_POLYGON);
                         at=face->aretes;
                         for(k=0;k<face->nbrSommets;k++)
                         {
-                            glMultiTexCoord2fv(GL_TEXTURE0,&texture_couleur->coordonnees_UV_tableau[2*at[k]]);
-                            glMultiTexCoord2fv(GL_TEXTURE1,&texture_rugosite->coordonnees_UV_tableau[2*at[k]]);
-                            glVertexAttrib3dv(dksShaders::bibliotheque->couleur_rugosite->tangente,&texture_rugosite->tangentes_sommets[at[k]*3]);
-                            glVertexAttrib3dv(dksShaders::bibliotheque->couleur_rugosite->binormale,&texture_rugosite->binormales_sommets[at[k]*3]);
-                            glNormal3dv(&face->normales_sommets[k*3]);
-                            glVertex3dv(&sommets[at[k]*3]);
+                            dksImmediat::multi_texture2fv(GL_TEXTURE0,&texture_couleur->coordonnees_UV_tableau[2*at[k]]);
+                            dksImmediat::multi_texture2fv(GL_TEXTURE1,&texture_rugosite->coordonnees_UV_tableau[2*at[k]]);
+                            dksImmediat::attribut3dv(dksShaders::bibliotheque->couleur_rugosite->tangente,&texture_rugosite->tangentes_sommets[at[k]*3]);
+                            dksImmediat::attribut3dv(dksShaders::bibliotheque->couleur_rugosite->binormale,&texture_rugosite->binormales_sommets[at[k]*3]);
+                            dksImmediat::normale3dv(&face->normales_sommets[k*3]);
+                            dksImmediat::sommet3dv(&sommets[at[k]*3]);
                         }
-                    glEnd();
+                    dksImmediat::fin();
                 }
             }
 
@@ -454,15 +455,15 @@
                 {
                     face=surface_courante->faces[j];
 
-                    glBegin(GL_POLYGON);
-                        glNormal3dv(face->normale);
+                    dksImmediat::debut(GL_POLYGON);
+                        dksImmediat::normale3dv(face->normale);
                         at=face->aretes;
                         for(k=0;k<face->nbrSommets;k++)
                         {
                             sommet=&sommets[at[k]*3];
-                            glVertex3dv(sommet);
+                            dksImmediat::sommet3dv(sommet);
                         }
-                    glEnd();
+                    dksImmediat::fin();
                 }
             }
             //---------- Surface adoucie:
@@ -472,32 +473,32 @@
                 {
                     face=surface_courante->faces_adoucies[j];
 
-                    glBegin(GL_POLYGON);
+                    dksImmediat::debut(GL_POLYGON);
                         at=face->aretes;
                         for(k=0;k<face->nbrSommets;k++)
                         {
                             sommet=&sommets[at[k]*3];
                             nml=&normales_sommets[at[k]*3];
-                            glNormal3dv(nml);
-                            glVertex3dv(sommet);
+                            dksImmediat::normale3dv(nml);
+                            dksImmediat::sommet3dv(sommet);
                         }
-                    glEnd();
+                    dksImmediat::fin();
                 }
                 for (j=0;j<surface_courante->faces_partiellement_adoucies.size();j++)
                 {
                     face=surface_courante->faces_partiellement_adoucies[j];
 
-                    glBegin(GL_POLYGON);
+                    dksImmediat::debut(GL_POLYGON);
                         at=face->aretes;
                         for(k=0;k<face->nbrSommets;k++)
                         {
                             sommet=&sommets[at[k]*3];
                             nml=&face->normales_sommets[k*3];
                             //nml=&normales_sommets[at[k]*3];
-                            glNormal3dv(nml);
-                            glVertex3dv(sommet);
+                            dksImmediat::normale3dv(nml);
+                            dksImmediat::sommet3dv(sommet);
                         }
-                    glEnd();
+                    dksImmediat::fin();
                 }
             }
         }
@@ -523,15 +524,15 @@
                 {
                     face=surface_courante->faces[j];
 
-                    glBegin(GL_POLYGON);
-                        glNormal3dv(face->normale);
+                    dksImmediat::debut(GL_POLYGON);
+                        dksImmediat::normale3dv(face->normale);
                         at=face->aretes;
                         for(k=0;k<face->nbrSommets;k++)
                         {
                             sommet=&sommets[at[k]*3];
-                            glVertex3dv(sommet);
+                            dksImmediat::sommet3dv(sommet);
                         }
-                    glEnd();
+                    dksImmediat::fin();
                 }
             }
             //---------- Surface adoucie:
@@ -541,32 +542,32 @@
                 {
                     face=surface_courante->faces_adoucies[j];
 
-                    glBegin(GL_POLYGON);
+                    dksImmediat::debut(GL_POLYGON);
                         at=face->aretes;
                         for(k=0;k<face->nbrSommets;k++)
                         {
                             sommet=&sommets[at[k]*3];
                             nml=&normales_sommets[at[k]*3];
-                            glNormal3dv(nml);
-                            glVertex3dv(sommet);
+                            dksImmediat::normale3dv(nml);
+                            dksImmediat::sommet3dv(sommet);
                         }
-                    glEnd();
+                    dksImmediat::fin();
                 }
                 for (j=0;j<surface_courante->faces_partiellement_adoucies.size();j++)
                 {
                     face=surface_courante->faces_partiellement_adoucies[j];
 
-                    glBegin(GL_POLYGON);
+                    dksImmediat::debut(GL_POLYGON);
                         at=face->aretes;
                         for(k=0;k<face->nbrSommets;k++)
                         {
                             sommet=&sommets[at[k]*3];
                             nml=&face->normales_sommets[k*3];
                             //nml=&normales_sommets[at[k]*3];
-                            glNormal3dv(nml);
-                            glVertex3dv(sommet);
+                            dksImmediat::normale3dv(nml);
+                            dksImmediat::sommet3dv(sommet);
                         }
-                    glEnd();
+                    dksImmediat::fin();
                 }
             }
         }
@@ -606,15 +607,15 @@
 
 
 
-                            glBegin(GL_POLYGON);
-                                glNormal3dv(face->normale);
+                            dksImmediat::debut(GL_POLYGON);
+                                dksImmediat::normale3dv(face->normale);
                                 at=face->aretes;
                                 for(k=0;k<face->nbrSommets;k++)
                                 {
                                     sommet=&sommets[at[k]*3];
-                                    glVertex3dv(sommet);
+                                    dksImmediat::sommet3dv(sommet);
                                 }
-                            glEnd();
+                            dksImmediat::fin();
                         }
                     }
                     //---------- Surface adoucie:
@@ -638,15 +639,15 @@
                                 glUniform3f(dksShaders::bibliotheque->ondes->binormale,(face->binormale[0]),
                                                                                     (face->binormale[1]),
                                                                                     (face->binormale[2]));
-                            glBegin(GL_POLYGON);
+                            dksImmediat::debut(GL_POLYGON);
                                 for(k=0;k<face->nbrSommets;k++)
                                 {
                                     sommet=&sommets[at[k]*3];
                                     nml=&normales_sommets[at[k]*3];
-                                    glNormal3dv(nml);
-                                    glVertex3dv(sommet);
+                                    dksImmediat::normale3dv(nml);
+                                    dksImmediat::sommet3dv(sommet);
                                 }
-                            glEnd();
+                            dksImmediat::fin();
                         }
                         for (j=0;j<surface_courante->faces_partiellement_adoucies.size();j++)
                         {
@@ -666,15 +667,15 @@
                                 glUniform3f(dksShaders::bibliotheque->ondes->binormale,(face->binormale[0]),
                                                                                     (face->binormale[1]),
                                                                                     (face->binormale[2]));
-                            glBegin(GL_POLYGON);
+                            dksImmediat::debut(GL_POLYGON);
                                 for(k=0;k<face->nbrSommets;k++)
                                 {
                                     sommet=&sommets[at[k]*3];
                                     nml=&face->normales_sommets[k*3];
-                                    glNormal3dv(nml);
-                                    glVertex3dv(sommet);
+                                    dksImmediat::normale3dv(nml);
+                                    dksImmediat::sommet3dv(sommet);
                                 }
-                            glEnd();
+                            dksImmediat::fin();
                         }
                     }
 
@@ -716,16 +717,16 @@
 
 
 
-                            glBegin(GL_POLYGON);
-                                glNormal3dv(face->normale);
+                            dksImmediat::debut(GL_POLYGON);
+                                dksImmediat::normale3dv(face->normale);
                                 at=face->aretes;
                                 for(k=0;k<face->nbrSommets;k++)
                                 {
                                     sommet=&sommets[at[k]*3];
-                                    glTexCoord2fv(&texture->coordonnees_UV_tableau[2*at[k]]);
-                                    glVertex3dv(sommet);
+                                    dksImmediat::texture2fv(&texture->coordonnees_UV_tableau[2*at[k]]);
+                                    dksImmediat::sommet3dv(sommet);
                                 }
-                            glEnd();
+                            dksImmediat::fin();
                         }
                     }
                     //---------- Surface adoucie:
@@ -749,16 +750,16 @@
                                 glUniform3f(dksShaders::bibliotheque->ondes->binormale,(face->binormale[0]),
                                                                                     (face->binormale[1]),
                                                                                     (face->binormale[2]));
-                            glBegin(GL_POLYGON);
+                            dksImmediat::debut(GL_POLYGON);
                                 for(k=0;k<face->nbrSommets;k++)
                                 {
                                     sommet=&sommets[at[k]*3];
                                     nml=&normales_sommets[at[k]*3];
-                                    glNormal3dv(nml);
-                                    glTexCoord2fv(&texture->coordonnees_UV_tableau[2*at[k]]);
-                                    glVertex3dv(sommet);
+                                    dksImmediat::normale3dv(nml);
+                                    dksImmediat::texture2fv(&texture->coordonnees_UV_tableau[2*at[k]]);
+                                    dksImmediat::sommet3dv(sommet);
                                 }
-                            glEnd();
+                            dksImmediat::fin();
                         }
                         for (j=0;j<surface_courante->faces_partiellement_adoucies.size();j++)
                         {
@@ -778,16 +779,16 @@
                                 glUniform3f(dksShaders::bibliotheque->ondes->binormale,(face->binormale[0]),
                                                                                     (face->binormale[1]),
                                                                                     (face->binormale[2]));
-                            glBegin(GL_POLYGON);
+                            dksImmediat::debut(GL_POLYGON);
                                 for(k=0;k<face->nbrSommets;k++)
                                 {
                                     sommet=&sommets[at[k]*3];
                                     nml=&face->normales_sommets[k*3];
-                                    glNormal3dv(nml);
-                                    glTexCoord2fv(&texture->coordonnees_UV_tableau[2*at[k]]);
-                                    glVertex3dv(sommet);
+                                    dksImmediat::normale3dv(nml);
+                                    dksImmediat::texture2fv(&texture->coordonnees_UV_tableau[2*at[k]]);
+                                    dksImmediat::sommet3dv(sommet);
                                 }
-                            glEnd();
+                            dksImmediat::fin();
                         }
                     }
 
@@ -824,15 +825,15 @@
                                                                                     (face->binormale[1]),
                                                                                     (face->binormale[2]));
 
-                            glBegin(GL_POLYGON);
-                                glNormal3dv(face->normale);
+                            dksImmediat::debut(GL_POLYGON);
+                                dksImmediat::normale3dv(face->normale);
                                 at=face->aretes;
                                 for(k=0;k<face->nbrSommets;k++)
                                 {
                                     sommet=&sommets[at[k]*3];
-                                    glVertex3dv(sommet);
+                                    dksImmediat::sommet3dv(sommet);
                                 }
-                            glEnd();
+                            dksImmediat::fin();
                         }
                     }
                     //---------- Surface adoucie:
@@ -853,15 +854,15 @@
                                 glUniform3f(dksShaders::bibliotheque->reflexion_cube_ondes->binormale,float(face->binormale[0]),
                                                                                         float(face->binormale[1]),
                                                                                         float(face->binormale[2]));
-                            glBegin(GL_POLYGON);
+                            dksImmediat::debut(GL_POLYGON);
                                 for(k=0;k<face->nbrSommets;k++)
                                 {
                                     sommet=&sommets[at[k]*3];
                                     nml=&normales_sommets[at[k]*3];
-                                    glNormal3dv(nml);
-                                    glVertex3dv(sommet);
+                                    dksImmediat::normale3dv(nml);
+                                    dksImmediat::sommet3dv(sommet);
                                 }
-                            glEnd();
+                            dksImmediat::fin();
                         }
                         for (j=0;j<surface_courante->faces_partiellement_adoucies.size();j++)
                         {
@@ -878,15 +879,15 @@
                                 glUniform3f(dksShaders::bibliotheque->reflexion_cube_ondes->binormale,float(face->binormale[0]),
                                                                                         float(face->binormale[1]),
                                                                                         float(face->binormale[2]));
-                            glBegin(GL_POLYGON);
+                            dksImmediat::debut(GL_POLYGON);
                                 for(k=0;k<face->nbrSommets;k++)
                                 {
                                     sommet=&sommets[at[k]*3];
                                     nml=&face->normales_sommets[k*3];
-                                    glNormal3dv(nml);
-                                    glVertex3dv(sommet);
+                                    dksImmediat::normale3dv(nml);
+                                    dksImmediat::sommet3dv(sommet);
                                 }
-                            glEnd();
+                            dksImmediat::fin();
                         }
                     }
 
@@ -915,17 +916,17 @@
                 {
                     face=surface_courante->faces[j];
 
-                    glBegin(GL_POLYGON);
-                        glNormal3dv(face->normale);
+                    dksImmediat::debut(GL_POLYGON);
+                        dksImmediat::normale3dv(face->normale);
                         at=face->aretes;
                         for(k=0;k<face->nbrSommets;k++)
                         {
-                            glMultiTexCoord2fv(GL_TEXTURE0,&texture_depart->coordonnees_UV_tableau[2*at[k]]);
-                            glMultiTexCoord2fv(GL_TEXTURE1,&texture_destination->coordonnees_UV_tableau[2*at[k]]);
-                            glMultiTexCoord2fv(GL_TEXTURE2,&texture_transition->coordonnees_UV_tableau[2*at[k]]);
-                            glVertex3dv(&sommets[at[k]*3]);
+                            dksImmediat::multi_texture2fv(GL_TEXTURE0,&texture_depart->coordonnees_UV_tableau[2*at[k]]);
+                            dksImmediat::multi_texture2fv(GL_TEXTURE1,&texture_destination->coordonnees_UV_tableau[2*at[k]]);
+                            dksImmediat::multi_texture2fv(GL_TEXTURE2,&texture_transition->coordonnees_UV_tableau[2*at[k]]);
+                            dksImmediat::sommet3dv(&sommets[at[k]*3]);
                         }
-                    glEnd();
+                    dksImmediat::fin();
                 }
             }
             //----------- Surface adoucie:
@@ -935,33 +936,33 @@
                 {
                     face=surface_courante->faces_adoucies[j];
 
-                    glBegin(GL_POLYGON);
+                    dksImmediat::debut(GL_POLYGON);
                         at=face->aretes;
                         for(k=0;k<face->nbrSommets;k++)
                         {
-                            glMultiTexCoord2fv(GL_TEXTURE0,&texture_depart->coordonnees_UV_tableau[2*at[k]]);
-                            glMultiTexCoord2fv(GL_TEXTURE1,&texture_destination->coordonnees_UV_tableau[2*at[k]]);
-                            glMultiTexCoord2fv(GL_TEXTURE2,&texture_transition->coordonnees_UV_tableau[2*at[k]]);
-                            glNormal3dv(&normales_sommets[at[k]*3]);
-                            glVertex3dv(&sommets[at[k]*3]);
+                            dksImmediat::multi_texture2fv(GL_TEXTURE0,&texture_depart->coordonnees_UV_tableau[2*at[k]]);
+                            dksImmediat::multi_texture2fv(GL_TEXTURE1,&texture_destination->coordonnees_UV_tableau[2*at[k]]);
+                            dksImmediat::multi_texture2fv(GL_TEXTURE2,&texture_transition->coordonnees_UV_tableau[2*at[k]]);
+                            dksImmediat::normale3dv(&normales_sommets[at[k]*3]);
+                            dksImmediat::sommet3dv(&sommets[at[k]*3]);
                         }
-                    glEnd();
+                    dksImmediat::fin();
                 }
                 for (j=0;j<surface_courante->faces_partiellement_adoucies.size();j++)
                 {
                     face=surface_courante->faces_partiellement_adoucies[j];
 
-                    glBegin(GL_POLYGON);
+                    dksImmediat::debut(GL_POLYGON);
                         at=face->aretes;
                         for(k=0;k<face->nbrSommets;k++)
                         {
-                            glMultiTexCoord2fv(GL_TEXTURE0,&texture_depart->coordonnees_UV_tableau[2*at[k]]);
-                            glMultiTexCoord2fv(GL_TEXTURE1,&texture_destination->coordonnees_UV_tableau[2*at[k]]);
-                            glMultiTexCoord2fv(GL_TEXTURE2,&texture_transition->coordonnees_UV_tableau[2*at[k]]);
-                            glNormal3dv(&face->normales_sommets[k*3]);
-                            glVertex3dv(&sommets[at[k]*3]);
+                            dksImmediat::multi_texture2fv(GL_TEXTURE0,&texture_depart->coordonnees_UV_tableau[2*at[k]]);
+                            dksImmediat::multi_texture2fv(GL_TEXTURE1,&texture_destination->coordonnees_UV_tableau[2*at[k]]);
+                            dksImmediat::multi_texture2fv(GL_TEXTURE2,&texture_transition->coordonnees_UV_tableau[2*at[k]]);
+                            dksImmediat::normale3dv(&face->normales_sommets[k*3]);
+                            dksImmediat::sommet3dv(&sommets[at[k]*3]);
                         }
-                    glEnd();
+                    dksImmediat::fin();
                 }
             }
 
@@ -999,7 +1000,7 @@
             for(k=0;k<face->nbrSommets;k++)
                 {
                     sommet=&sommets[at[k]*3];
-                    glVertex3dv(sommet);
+                    dksImmediat::sommet3dv(sommet);
                 }
             if(eclairage_mem)glEnable(GL_LIGHTING);
         }
@@ -1019,11 +1020,11 @@
             //------------------- Face en aplats:
             if(!surface_courante->drapeau_adoucissement)
             {
-                glNormal3dv(face->normale);
+                dksImmediat::normale3dv(face->normale);
                 for(k=0;k<face->nbrSommets;k++)
                 {
                     sommet=&sommets[at[k]*3];
-                    glVertex3dv(sommet);
+                    dksImmediat::sommet3dv(sommet);
                 }
             }
 
@@ -1036,8 +1037,8 @@
                     {
                         sommet=&sommets[at[k]*3];
                         nml=&face->normales_sommets[k*3];
-                        glNormal3dv(nml);
-                        glVertex3dv(sommet);
+                        dksImmediat::normale3dv(nml);
+                        dksImmediat::sommet3dv(sommet);
                     }
                 }
                 else
@@ -1046,8 +1047,8 @@
                     {
                         sommet=&sommets[at[k]*3];
                         nml=&normales_sommets[at[k]*3];
-                        glNormal3dv(nml);
-                        glVertex3dv(sommet);
+                        dksImmediat::normale3dv(nml);
+                        dksImmediat::sommet3dv(sommet);
                     }
                 }
 
@@ -1070,12 +1071,12 @@
             //------------------- Face en aplats:
             if(!surface_courante->drapeau_adoucissement)
             {
-                glNormal3dv(face->normale);
+                dksImmediat::normale3dv(face->normale);
                 for(k=0;k<face->nbrSommets;k++)
                 {
                     sommet=&sommets[at[k]*3];
-                    glTexCoord2fv(&texture->coordonnees_UV_tableau[2*at[k]]);
-                    glVertex3dv(sommet);
+                    dksImmediat::texture2fv(&texture->coordonnees_UV_tableau[2*at[k]]);
+                    dksImmediat::sommet3dv(sommet);
                 }
             }
 
@@ -1088,9 +1089,9 @@
                     {
                         sommet=&sommets[at[k]*3];
                         nml=&normales_sommets[at[k]*3];
-                        glNormal3dv(nml);
-                        glTexCoord2fv(&texture->coordonnees_UV_tableau[2*at[k]]);
-                        glVertex3dv(sommet);
+                        dksImmediat::normale3dv(nml);
+                        dksImmediat::texture2fv(&texture->coordonnees_UV_tableau[2*at[k]]);
+                        dksImmediat::sommet3dv(sommet);
                     }
                 }
                 else
@@ -1099,9 +1100,9 @@
                     {
                         sommet=&sommets[at[k]*3];
                         nml=&face->normales_sommets[k*3];
-                        glNormal3dv(nml);
-                        glTexCoord2fv(&texture->coordonnees_UV_tableau[2*at[k]]);
-                        glVertex3dv(sommet);
+                        dksImmediat::normale3dv(nml);
+                        dksImmediat::texture2fv(&texture->coordonnees_UV_tableau[2*at[k]]);
+                        dksImmediat::sommet3dv(sommet);
                     }
                 }
 
@@ -1126,13 +1127,13 @@
 
             if (!surface_courante->drapeau_adoucissement)
             {
-                glNormal3dv(face->normale);
-                glVertexAttrib3dv(dksShaders::bibliotheque->rugosite->tangente,&texture_rugosite->tangentes_faces[face->indice*3]);
-                glVertexAttrib3dv(dksShaders::bibliotheque->rugosite->binormale,&texture_rugosite->binormales_faces[face->indice*3]);
+                dksImmediat::normale3dv(face->normale);
+                dksImmediat::attribut3dv(dksShaders::bibliotheque->rugosite->tangente,&texture_rugosite->tangentes_faces[face->indice*3]);
+                dksImmediat::attribut3dv(dksShaders::bibliotheque->rugosite->binormale,&texture_rugosite->binormales_faces[face->indice*3]);
                 for(k=0;k<face->nbrSommets;k++)
                 {
-                    glTexCoord2fv(&texture_rugosite->coordonnees_UV_tableau[2*at[k]]);
-                    glVertex3dv(&sommets[at[k]*3]);
+                    dksImmediat::texture2fv(&texture_rugosite->coordonnees_UV_tableau[2*at[k]]);
+                    dksImmediat::sommet3dv(&sommets[at[k]*3]);
                 }
             }
 
@@ -1143,11 +1144,11 @@
                 {
                     for(k=0;k<face->nbrSommets;k++)
                     {
-                        glTexCoord2fv(&texture_rugosite->coordonnees_UV_tableau[2*at[k]]);
-                        glVertexAttrib3dv(dksShaders::bibliotheque->rugosite->tangente,&texture_rugosite->tangentes_sommets[at[k]*3]);
-                        glVertexAttrib3dv(dksShaders::bibliotheque->rugosite->binormale,&texture_rugosite->binormales_sommets[at[k]*3]);
-                        glNormal3dv(&normales_sommets[at[k]*3]);
-                        glVertex3dv(&sommets[at[k]*3]);
+                        dksImmediat::texture2fv(&texture_rugosite->coordonnees_UV_tableau[2*at[k]]);
+                        dksImmediat::attribut3dv(dksShaders::bibliotheque->rugosite->tangente,&texture_rugosite->tangentes_sommets[at[k]*3]);
+                        dksImmediat::attribut3dv(dksShaders::bibliotheque->rugosite->binormale,&texture_rugosite->binormales_sommets[at[k]*3]);
+                        dksImmediat::normale3dv(&normales_sommets[at[k]*3]);
+                        dksImmediat::sommet3dv(&sommets[at[k]*3]);
                     }
                 }
 
@@ -1155,11 +1156,11 @@
                 {
                     for(k=0;k<face->nbrSommets;k++)
                     {
-                        glTexCoord2fv(&texture_rugosite->coordonnees_UV_tableau[2*at[k]]);
-                        glVertexAttrib3dv(dksShaders::bibliotheque->rugosite->tangente,&texture_rugosite->tangentes_sommets[at[k]*3]);
-                        glVertexAttrib3dv(dksShaders::bibliotheque->rugosite->binormale,&texture_rugosite->binormales_sommets[at[k]*3]);
-                        glNormal3dv(&face->normales_sommets[k*3]);
-                        glVertex3dv(&sommets[at[k]*3]);
+                        dksImmediat::texture2fv(&texture_rugosite->coordonnees_UV_tableau[2*at[k]]);
+                        dksImmediat::attribut3dv(dksShaders::bibliotheque->rugosite->tangente,&texture_rugosite->tangentes_sommets[at[k]*3]);
+                        dksImmediat::attribut3dv(dksShaders::bibliotheque->rugosite->binormale,&texture_rugosite->binormales_sommets[at[k]*3]);
+                        dksImmediat::normale3dv(&face->normales_sommets[k*3]);
+                        dksImmediat::sommet3dv(&sommets[at[k]*3]);
                     }
                 }
             }
@@ -1182,14 +1183,14 @@
 
             if (!surface_courante->drapeau_adoucissement)
             {
-                glNormal3dv(face->normale);
-                glVertexAttrib3dv(dksShaders::bibliotheque->couleur_rugosite->tangente,&texture_rugosite->tangentes_faces[face->indice*3]);
-                glVertexAttrib3dv(dksShaders::bibliotheque->couleur_rugosite->binormale,&texture_rugosite->binormales_faces[face->indice*3]);
+                dksImmediat::normale3dv(face->normale);
+                dksImmediat::attribut3dv(dksShaders::bibliotheque->couleur_rugosite->tangente,&texture_rugosite->tangentes_faces[face->indice*3]);
+                dksImmediat::attribut3dv(dksShaders::bibliotheque->couleur_rugosite->binormale,&texture_rugosite->binormales_faces[face->indice*3]);
                 for(k=0;k<face->nbrSommets;k++)
                 {
-                    glMultiTexCoord2fv(GL_TEXTURE0,&texture_couleur->coordonnees_UV_tableau[2*at[k]]);
-                    glMultiTexCoord2fv(GL_TEXTURE1,&texture_rugosite->coordonnees_UV_tableau[2*at[k]]);
-                    glVertex3dv(&sommets[at[k]*3]);
+                    dksImmediat::multi_texture2fv(GL_TEXTURE0,&texture_couleur->coordonnees_UV_tableau[2*at[k]]);
+                    dksImmediat::multi_texture2fv(GL_TEXTURE1,&texture_rugosite->coordonnees_UV_tableau[2*at[k]]);
+                    dksImmediat::sommet3dv(&sommets[at[k]*3]);
                 }
             }
 
@@ -1201,12 +1202,12 @@
                 {
                     for(k=0;k<face->nbrSommets;k++)
                     {
-                        glMultiTexCoord2fv(GL_TEXTURE0,&texture_couleur->coordonnees_UV_tableau[2*at[k]]);
-                        glMultiTexCoord2fv(GL_TEXTURE1,&texture_rugosite->coordonnees_UV_tableau[2*at[k]]);
-                        glVertexAttrib3dv(dksShaders::bibliotheque->couleur_rugosite->tangente,&texture_rugosite->tangentes_sommets[at[k]*3]);
-                        glVertexAttrib3dv(dksShaders::bibliotheque->couleur_rugosite->binormale,&texture_rugosite->binormales_sommets[at[k]*3]);
-                        glNormal3dv(&normales_sommets[at[k]*3]);
-                        glVertex3dv(&sommets[at[k]*3]);
+                        dksImmediat::multi_texture2fv(GL_TEXTURE0,&texture_couleur->coordonnees_UV_tableau[2*at[k]]);
+                        dksImmediat::multi_texture2fv(GL_TEXTURE1,&texture_rugosite->coordonnees_UV_tableau[2*at[k]]);
+                        dksImmediat::attribut3dv(dksShaders::bibliotheque->couleur_rugosite->tangente,&texture_rugosite->tangentes_sommets[at[k]*3]);
+                        dksImmediat::attribut3dv(dksShaders::bibliotheque->couleur_rugosite->binormale,&texture_rugosite->binormales_sommets[at[k]*3]);
+                        dksImmediat::normale3dv(&normales_sommets[at[k]*3]);
+                        dksImmediat::sommet3dv(&sommets[at[k]*3]);
                     }
                 }
 
@@ -1214,12 +1215,12 @@
                 {
                     for(k=0;k<face->nbrSommets;k++)
                     {
-                        glMultiTexCoord2fv(GL_TEXTURE0,&texture_couleur->coordonnees_UV_tableau[2*at[k]]);
-                        glMultiTexCoord2fv(GL_TEXTURE1,&texture_rugosite->coordonnees_UV_tableau[2*at[k]]);
-                        glVertexAttrib3dv(dksShaders::bibliotheque->couleur_rugosite->tangente,&texture_rugosite->tangentes_sommets[at[k]*3]);
-                        glVertexAttrib3dv(dksShaders::bibliotheque->couleur_rugosite->binormale,&texture_rugosite->binormales_sommets[at[k]*3]);
-                        glNormal3dv(&face->normales_sommets[k*3]);
-                        glVertex3dv(&sommets[at[k]*3]);
+                        dksImmediat::multi_texture2fv(GL_TEXTURE0,&texture_couleur->coordonnees_UV_tableau[2*at[k]]);
+                        dksImmediat::multi_texture2fv(GL_TEXTURE1,&texture_rugosite->coordonnees_UV_tableau[2*at[k]]);
+                        dksImmediat::attribut3dv(dksShaders::bibliotheque->couleur_rugosite->tangente,&texture_rugosite->tangentes_sommets[at[k]*3]);
+                        dksImmediat::attribut3dv(dksShaders::bibliotheque->couleur_rugosite->binormale,&texture_rugosite->binormales_sommets[at[k]*3]);
+                        dksImmediat::normale3dv(&face->normales_sommets[k*3]);
+                        dksImmediat::sommet3dv(&sommets[at[k]*3]);
                     }
                 }
 
@@ -1324,14 +1325,14 @@
             //------------------- Face en aplats:
             if(!surface_courante->drapeau_adoucissement)
             {
-                glNormal3dv(face->normale);
+                dksImmediat::normale3dv(face->normale);
                 for(k=0;k<face->nbrSommets;k++)
                 {
                     sommet=&sommets[at[k]*3];
-                    glMultiTexCoord2fv(GL_TEXTURE0,&texture_depart->coordonnees_UV_tableau[2*at[k]]);
-                    glMultiTexCoord2fv(GL_TEXTURE1,&texture_destination->coordonnees_UV_tableau[2*at[k]]);
-                    glMultiTexCoord2fv(GL_TEXTURE2,&texture_transition->coordonnees_UV_tableau[2*at[k]]);
-                    glVertex3dv(sommet);
+                    dksImmediat::multi_texture2fv(GL_TEXTURE0,&texture_depart->coordonnees_UV_tableau[2*at[k]]);
+                    dksImmediat::multi_texture2fv(GL_TEXTURE1,&texture_destination->coordonnees_UV_tableau[2*at[k]]);
+                    dksImmediat::multi_texture2fv(GL_TEXTURE2,&texture_transition->coordonnees_UV_tableau[2*at[k]]);
+                    dksImmediat::sommet3dv(sommet);
                 }
             }
 
@@ -1344,11 +1345,11 @@
                     {
                         sommet=&sommets[at[k]*3];
                         nml=&normales_sommets[at[k]*3];
-                        glNormal3dv(nml);
-                        glMultiTexCoord2fv(GL_TEXTURE0,&texture_depart->coordonnees_UV_tableau[2*at[k]]);
-                        glMultiTexCoord2fv(GL_TEXTURE1,&texture_destination->coordonnees_UV_tableau[2*at[k]]);
-                        glMultiTexCoord2fv(GL_TEXTURE2,&texture_transition->coordonnees_UV_tableau[2*at[k]]);
-                        glVertex3dv(sommet);
+                        dksImmediat::normale3dv(nml);
+                        dksImmediat::multi_texture2fv(GL_TEXTURE0,&texture_depart->coordonnees_UV_tableau[2*at[k]]);
+                        dksImmediat::multi_texture2fv(GL_TEXTURE1,&texture_destination->coordonnees_UV_tableau[2*at[k]]);
+                        dksImmediat::multi_texture2fv(GL_TEXTURE2,&texture_transition->coordonnees_UV_tableau[2*at[k]]);
+                        dksImmediat::sommet3dv(sommet);
                     }
                 }
                 else
@@ -1357,11 +1358,11 @@
                     {
                         sommet=&sommets[at[k]*3];
                         nml=&face->normales_sommets[k*3];
-                        glNormal3dv(nml);
-                        glMultiTexCoord2fv(GL_TEXTURE0,&texture_depart->coordonnees_UV_tableau[2*at[k]]);
-                        glMultiTexCoord2fv(GL_TEXTURE1,&texture_destination->coordonnees_UV_tableau[2*at[k]]);
-                        glMultiTexCoord2fv(GL_TEXTURE2,&texture_transition->coordonnees_UV_tableau[2*at[k]]);
-                        glVertex3dv(sommet);
+                        dksImmediat::normale3dv(nml);
+                        dksImmediat::multi_texture2fv(GL_TEXTURE0,&texture_depart->coordonnees_UV_tableau[2*at[k]]);
+                        dksImmediat::multi_texture2fv(GL_TEXTURE1,&texture_destination->coordonnees_UV_tableau[2*at[k]]);
+                        dksImmediat::multi_texture2fv(GL_TEXTURE2,&texture_transition->coordonnees_UV_tableau[2*at[k]]);
+                        dksImmediat::sommet3dv(sommet);
                     }
                 }
 
@@ -1439,9 +1440,9 @@
                         initialise_materiau(surface_courante);
                     }
 
-                    glBegin(GL_POLYGON);
+                    dksImmediat::debut(GL_POLYGON);
                         (this->*rendus_immediats_transparentes[surface_courante->mode_rendu])(face);
-                    glEnd();
+                    dksImmediat::fin();
                 }
 
             }
@@ -1482,7 +1483,9 @@
                 surface=surfaces[i];
                 //if(surface->luminescence>0.)   //Décommenter si les surfaces opaques ne recouvrent pas les surfaces luminescentes
                 //{
+                    dksImmediat::fin_lot();
                     initialise_materiau_luminescent(surface);
+                    dksImmediat::debut_lot();
 
                     //========================= Rendu à plat sans texture:
 
@@ -1490,17 +1493,18 @@
                     {
                         dksFace* face=surface->faces[j];
 
-                        glBegin(GL_POLYGON);
+                        dksImmediat::debut(GL_POLYGON);
                             at=face->aretes;
                             for(k=0;k<face->nbrSommets;k++)
                             {
                                 sommet=&sommets[at[k]*3];
-                                glVertex3dv(sommet);
+                                dksImmediat::sommet3dv(sommet);
                             }
-                        glEnd();
+                        dksImmediat::fin();
                     }
                 //}
             }
+            dksImmediat::fin_lot();
         }
 
         //----------------------------------------------------------------
@@ -1526,7 +1530,9 @@
                 surface=surfaces[i];
                 //if(surface->luminescence>0.)
                 //{
+                    dksImmediat::fin_lot();
                     initialise_materiau_profondeur(surface);
+                    dksImmediat::debut_lot();
 
                     //========================= Rendu à plat sans texture:
 
@@ -1534,15 +1540,16 @@
                     {
                         dksFace* face=surface->faces[j];
 
-                        glBegin(GL_POLYGON);
+                        dksImmediat::debut(GL_POLYGON);
                             at=face->aretes;
                             for(k=0;k<face->nbrSommets;k++)
                             {
                                 sommet=&sommets[at[k]*3];
-                                glVertex3dv(sommet);
+                                dksImmediat::sommet3dv(sommet);
                             }
-                        glEnd();
+                        dksImmediat::fin();
                     }
                 //}
             }
+            dksImmediat::fin_lot();
         }

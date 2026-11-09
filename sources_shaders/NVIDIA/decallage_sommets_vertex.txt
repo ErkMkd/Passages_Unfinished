@@ -8,10 +8,10 @@ varying vec3 couleur_speculaire; //Spérarée pour apparaître par dessus les te
 uniform vec3 deplacement;
 uniform float niveau_eclairage;	//Sert surtout pour le rendu des auras.
 
-attribute vec3 centre_gravite_face;
-attribute vec3 tangente_face;
-attribute vec3 normale_face;
-attribute vec3 binormale_face;
+layout(location=4) in vec3 centre_gravite_face;
+layout(location=6) in vec3 tangente_face;
+layout(location=5) in vec3 normale_face;
+layout(location=7) in vec3 binormale_face;
 
 
 void main( void )
