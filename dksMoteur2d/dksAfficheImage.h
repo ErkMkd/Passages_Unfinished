@@ -36,7 +36,7 @@ class dksAfficheImage :public dksRendu
     private:
         dksEcran* ecran;
         //Paramètres de rendu:
-        GLint recouvrement_s;   //GL_CLAMP, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_BORDER, GL_REPEAT, GL_MIRRORED_REPEAT
+        GLint recouvrement_s;   //GL_CLAMP_TO_EDGE, GL_CLAMP_TO_BORDER, GL_REPEAT, GL_MIRRORED_REPEAT
         GLint recouvrement_t;
         GLint type_grossissement;    //GL_LINEAR, GL_NEAREST
         GLint type_diminution;

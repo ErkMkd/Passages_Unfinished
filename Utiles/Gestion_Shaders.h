@@ -1,6 +1,8 @@
 #ifndef GESTION_SHADERS_H_INCLUDED
 #define GESTION_SHADERS_H_INCLUDED
 
+#include "Erreurs_OpenGl.h"
+
 /*
 
         Fonctions de base pour la création des shaders.
@@ -189,7 +191,7 @@ class Gestion_Shaders
                 GLenum erreur_openGl=glGetError();
                 if (erreur_openGl!=GL_NO_ERROR)
                 {
-                    cout<<message<<" : "<<gluErrorString(erreur_openGl)<<endl;
+                    cout<<message<<" : "<<texte_erreur_openGl(erreur_openGl)<<endl;
                     return true;
                 }
                  return false;

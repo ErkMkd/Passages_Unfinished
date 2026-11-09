@@ -1,10 +1,12 @@
 #ifndef IMAGE_H_INCLUDED
 #define IMAGE_H_INCLUDED
 
-#include <GL/glu.h>
+#include "../Utiles/Erreurs_OpenGl.h"
 #include <iostream>
 #include <fstream>
 #include <math.h>
+#include <vector>
+#include <algorithm>
 
 #include "../gestion_fichiers/gestion_fichiers.h"
 #include "Image_infos.h"
@@ -23,7 +25,6 @@
 #define IMAGE_ERREUR_FORMAT 4
 #define IMAGE_ERREUR_LECTURE 5
 #define IMAGE_ERREUR_MEMOIRE 6
-#define IMAGE_ERREUR_GLU 7
 
 #define IMAGEID2_(a,b) (((a)<<8)|(b))
 #define IMAGEFORMAT_BMP   IMAGEID2_('B','M')    //Format BMP
@@ -84,7 +85,7 @@ class Image: public Fichiers
         GLenum erreur_openGl=glGetError();
         if (erreur_openGl!=GL_NO_ERROR)
         {
-            cout<<message<<" : "<<gluErrorString(erreur_openGl)<<endl;
+            cout<<message<<" : "<<texte_erreur_openGl(erreur_openGl)<<endl;
             return true;
         }
          return false;
@@ -428,7 +429,7 @@ private:
     //=======================================================================================
 public:
     bool genere_texture_openGL (bool drapeau_mipmap=false,
-                                GLint recouvrement_s=GL_CLAMP,GLint recouvrement_t=GL_CLAMP,
+                                GLint recouvrement_s=GL_CLAMP_TO_EDGE,GLint recouvrement_t=GL_CLAMP_TO_EDGE,
                                 GLint type_grossisement=GL_LINEAR, GLint type_diminution=GL_LINEAR)
     {
 
@@ -457,28 +458,18 @@ public:
         glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,type_grossisement); //Mode d'étirement de la texture
         glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,type_diminution); //Mode de rétrécissement de la texture
 
+        dksEtat::image_texture(GL_TEXTURE_2D, //Type de  texture
+                    0,      //Niveau de détails de la texture
+                    GL_RGBA,      //Format de la texture: 1:R, 2:RA, 3:RVB, 4:RVBA
+                    largeur,hauteur, //largeur et hauteur de la texture en pixels
+                    0,      //Largeur du bord. l et h sont incrémentées de 2x cette valeur
+                    format_pixels, //Format des pixels
+                    type_pixels, //Type des données
+                    image);
+
         //Génère les textures en "mipmaping", c'est à dire qu'en fonction de la taille de la texture
         //à l'écran, des bitmaps de différentes tailles sont utilisés. Cela peut optimiser l'affichage.
-        if (drapeau_mipmap)
-        {
-            gluBuild2DMipmaps(GL_TEXTURE_2D,
-                            GL_RGBA,    //Format de la texture
-                            largeur,hauteur,
-                            format_pixels,type_pixels,
-                            image);
-        }
-        //Pas de texture de tailles différentes.
-        else
-        {
-            dksEtat::image_texture(GL_TEXTURE_2D, //Type de  texture
-                        0,      //Niveau de détails de la texture
-                        GL_RGBA,      //Format de la texture: 1:R, 2:RA, 3:RVB, 4:RVBA
-                        largeur,hauteur, //largeur et hauteur de la texture en pixels
-                        0,      //Largeur du bord. l et h sont incrémentées de 2x cette valeur
-                        format_pixels, //Format des pixels
-                        type_pixels, //Type des données
-                        image);
-        }
+        if (drapeau_mipmap) glGenerateMipmap(GL_TEXTURE_2D);
 
         return true;
     }
@@ -721,14 +712,20 @@ private:
 //=====================================================================
 public:
 //------------------------------------
-//  Redimensionne l'image
-/// ATTENTION - Il faut que la fenêtre OpenGl soit ouverte.
+//  Redimensionne l'image (composantes de 8 bits)
+//  Chaque pixel reçoit la moyenne des pixels d'origine qu'il recouvre,
+//  pondérée par la surface recouverte, comme avec gluScaleImage.
 //------------------------------------
 
     bool redimensionne(int32_t nl, int32_t nh)
     {
-        glPixelStorei(GL_PACK_ALIGNMENT,1);
-        uint8_t* nouveau_tempon=(uint8_t*)malloc(nl*nh*octets_par_pixel);
+        if (type_pixels!=GL_UNSIGNED_BYTE || nl<=0 || nh<=0)
+        {
+            cout<<"Erreur dans Image.redimensionne() - Format ou dimensions non pris en charge"<<endl;
+            erreur=IMAGE_ERREUR_FORMAT;
+            return false;
+        }
+        uint8_t* nouveau_tempon=(uint8_t*)malloc(size_t(nl)*nh*octets_par_pixel);
         if (nouveau_tempon==NULL)
         {
             cout<<"Erreur dans Image.redimensionne() - Mémoire insuffisante"<<endl;
@@ -736,14 +733,29 @@ public:
             return false;
         }
 
-        int32_t retour=gluScaleImage(format_pixels,largeur,hauteur,type_pixels,image,nl,nh,type_pixels,nouveau_tempon);
-
-        if (retour!=0)
+        double ex=double(largeur)/nl;
+        double ey=double(hauteur)/nh;
+        vector<double> somme(octets_par_pixel);
+        for (int32_t y=0;y<nh;y++)
         {
-            cout<<"Erreur dans Image.redimensionne() - Code GLU: "<<retour<<endl;
-            erreur=IMAGE_ERREUR_GLU;
-            free(nouveau_tempon);
-            return false;
+            double y0=y*ey, y1=y0+ey;
+            for (int32_t x=0;x<nl;x++)
+            {
+                double x0=x*ex, x1=x0+ex;
+                fill(somme.begin(),somme.end(),0.);
+                for (int32_t j=int32_t(y0);j<y1 && j<int32_t(hauteur);j++)
+                {
+                    double surface_y=min(y1,j+1.)-max(y0,double(j));
+                    for (int32_t i=int32_t(x0);i<x1 && i<int32_t(largeur);i++)
+                    {
+                        double surface=surface_y*(min(x1,i+1.)-max(x0,double(i)));
+                        const uint8_t* source=image+(size_t(j)*largeur+i)*octets_par_pixel;
+                        for (uint16_t c=0;c<octets_par_pixel;c++) somme[c]+=surface*source[c];
+                    }
+                }
+                uint8_t* destination=nouveau_tempon+(size_t(y)*nl+x)*octets_par_pixel;
+                for (uint16_t c=0;c<octets_par_pixel;c++) destination[c]=uint8_t(min(somme[c]/(ex*ey)+.5,255.));
+            }
         }
 
         free(image);

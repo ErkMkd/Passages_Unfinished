@@ -21,7 +21,7 @@
 #include <algorithm>
 #include <map>
 #include <GL/glew.h>
-#include <GL/glu.h>
+#include "Utiles/Erreurs_OpenGl.h"
 #include <GLFW/glfw3.h>
 
 using namespace std;
@@ -131,7 +131,7 @@ static bool erreur_openGl(char* message)
         GLenum erreur_openGl=glGetError();
         if (erreur_openGl!=GL_NO_ERROR)
         {
-            cout<<message<<" : "<<gluErrorString(erreur_openGl)<<endl;
+            cout<<message<<" : "<<texte_erreur_openGl(erreur_openGl)<<endl;
             return true;
         }
          return false;
@@ -719,8 +719,7 @@ int main(int argc, char *argv[])
     //Le jeu de shaders NVIDIA est le seul complet: il est utilisé quelle que soit la carte.
     uint8_t id_fabriquant=DKSSHADERS_FABRIQUANT_NVIDIA;
     //------------ Vérifiacation de l'implémentation d'OpenGL:
-    glGetIntegerv(GL_MAX_TEXTURE_UNITS,&dksRendu::nbr_unites_textures_max);
-    cout<<"Nombre max d'unités de texture: "<<dksRendu::nbr_unites_textures_max<<endl;
+    dksRendu::nbr_unites_textures_max=DKSETAT_NBR_UNITES_PIPELINE_FIXE;
 
     //------------ Création des variables statiques qui nécessitent les initialisation précédentes:
      dksShaders::bibliotheque= new dksInitialiseShaders(id_fabriquant);

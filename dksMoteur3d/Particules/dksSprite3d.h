@@ -54,7 +54,6 @@ class dksSprite3d
             erreur=DKSSPRITE3D_ERREUR_IMAGE;
             cout<<"ERREUR - Impossible de charger l'image du sprite3d :"<<nom<<endl;
         }
-        if (!image->genere_buffer_openGl()) {cout<<"ERREUR dans dksSprite3d::dksSprite3d()"<<endl; erreur=DKSSPRITE3D_ERREUR_IMAGE; return;}
         if (!image->genere_texture_openGL()) {cout<<"ERREUR dans dksSprite3d::dksSprite3d()"<<endl;erreur=DKSSPRITE3D_ERREUR_IMAGE; return;}
     }
 
@@ -82,49 +81,6 @@ class dksSprite3d
     //============================================================
     //      Affichage
     //============================================================
-
-    //----------------------------------------------------------------
-    //      Affiche l'image en utilisant les déplacements de pixels.
-    //      Sert pour les affichages à plat.
-    //----------------------------------------------------------------
-
-    void affiche_pixels(double px, double py, double pz, dksOeil* oeil)
-    {
-        bool fog_mem=dksEtat::est_active(GL_FOG);
-        if (!drapeau_affecte_par_brouillard) dksEtat::desactive(GL_FOG);
-        //Calcul la taille du sprite par rapport à l'oeil:
-        float dx=px-oeil->repere_absolu->x;
-        float dy=py-oeil->repere_absolu->y;
-        float dz=pz-oeil->repere_absolu->z;
-
-        float dist=oeil->direction_regard->x*dx+oeil->direction_regard->y*dy+oeil->direction_regard->z*dz;
-
-        if (dist<=0) return;
-        GLint resolution[4];
-        glGetIntegerv(GL_VIEWPORT,resolution);
-        float facteur_resolution=resolution[3]/(2*tanf(oeil->renvoie_ouverture()/360.*M_PI));
-        float zoom=facteur_taille*facteur_resolution/dist;
-        //float taille=facteur_taille/dist;
-        glPixelZoom(zoom,zoom);
-
-        //centrage:
-        float cx=facteur_taille*float(image->largeur)/2.;
-        float cy=facteur_taille*float(image->hauteur)/2.;
-        float Rx= px + oeil->repere_absolu->axe_x->x * cx - oeil->repere_absolu->axe_y->x * cy ;
-        float Ry= py + oeil->repere_absolu->axe_x->y * cx - oeil->repere_absolu->axe_y->y * cy ;
-        float Rz= pz + oeil->repere_absolu->axe_x->z * cx - oeil->repere_absolu->axe_y->z * cy ;
-
-        //Position du raster:
-        glRasterPos3f(Rx,Ry,Rz);
-
-        //affichage:
-        dksEtat::desactive(GL_BLEND);
-        glBindBuffer(GL_PIXEL_UNPACK_BUFFER,image->buffer_id);
-        glDrawPixels(image->largeur,image->hauteur,image->format_pixels,image->type_pixels,(GLubyte*)NULL+(0));
-        glBindBuffer(GL_PIXEL_UNPACK_BUFFER,0);
-
-        if(fog_mem) dksEtat::active(GL_FOG); else dksEtat::desactive(GL_FOG);
-    }
 
     //-------------------------------------------------------------------
     //  Affiche l'image en utilisant une texture.

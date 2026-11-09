@@ -245,8 +245,8 @@ class Scene_Bureau : public Scene
             glGenTextures(1,&texture_filtre_id);
             dksEtat::lie_texture(GL_TEXTURE_2D,texture_filtre_id);
             //Paramètres d'affichage de la texture:
-            glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP);
-            glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_CLAMP);
+            glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP_TO_EDGE);
+            glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_CLAMP_TO_EDGE);
             glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
             glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);    //Il semble que ce paramètre active la texture.....
             dksEtat::image_texture(GL_TEXTURE_2D,0,GL_RGBA,taille_texture_aura,taille_texture_aura,0,GL_RGBA,GL_UNSIGNED_BYTE,NULL);

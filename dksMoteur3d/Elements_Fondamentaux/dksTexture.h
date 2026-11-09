@@ -54,7 +54,7 @@ class dksTexture
 
     //Paramètres de rendu:
     GLint type_enveloppe;   //GL_MODULATE, GL_REPLACE, GL_DECAL, GL_BLEND, GL_ADD, GL_COMBINE
-    GLint recouvrement_s;   //GL_CLAMP, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_BORDER, GL_REPEAT, GL_MIRRORED_REPEAT
+    GLint recouvrement_s;   //GL_CLAMP_TO_EDGE, GL_CLAMP_TO_BORDER, GL_REPEAT, GL_MIRRORED_REPEAT
     GLint recouvrement_t;
     GLint type_grossissement;    //GL_LINEAR, GL_NEAREST
     GLint type_diminution;
@@ -89,8 +89,8 @@ class dksTexture
                 float* p_uvs=NULL, uint32_t* p_indices_sommets=NULL,
                 uint16_t p_nbrSommets=0,
                 bool p_mipmap=false,
-                GLint p_recouvrement_s=GL_CLAMP,
-                GLint p_recouvrement_t=GL_CLAMP,
+                GLint p_recouvrement_s=GL_CLAMP_TO_EDGE,
+                GLint p_recouvrement_t=GL_CLAMP_TO_EDGE,
                 GLint p_type_grossissement=GL_LINEAR,
                 GLint p_type_diminution=GL_LINEAR
                 )

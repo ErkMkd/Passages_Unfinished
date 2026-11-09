@@ -17,6 +17,7 @@
 //*************************************************************************
 
 #define DKSETAT_NBR_UNITES 8
+#define DKSETAT_NBR_UNITES_PIPELINE_FIXE 4     //Unités de texture reproduites par le shader d'émulation
 
 class dksEtat
 {
@@ -156,13 +157,71 @@ class dksEtat
             glBindTexture(cible,texture);
         }
 
+        //Le profil Core n'a plus les formats de luminance, d'intensité et d'alpha seul: la texture
+        //est stockée en rouge (ou rouge et vert), et une permutation de ses composantes
+        //(GL_TEXTURE_SWIZZLE_RGBA) rend aux shaders les valeurs de l'ancien format.
         static void image_texture(GLenum cible,GLint niveau,GLint format_interne,GLsizei largeur,GLsizei hauteur,
                                   GLint bord,GLenum format,GLenum type,const void* pixels)
         {
-            if (cible==GL_TEXTURE_2D && niveau==0 && unite<DKSETAT_NBR_UNITES)
-                formats_textures[textures_liees[unite]]=format_de_base(format_interne);
-            glTexImage2D(cible,niveau,format_interne,largeur,hauteur,bord,format,type,pixels);
+            GLint base=format_de_base(format_interne);
+            if (cible==GL_TEXTURE_2D && niveau==0)
+            {
+                if (unite<DKSETAT_NBR_UNITES) formats_textures[textures_liees[unite]]=base;
+                GLint permutation[4];
+                permutation_composantes(base,format,permutation);
+                glTexParameteriv(GL_TEXTURE_2D,GL_TEXTURE_SWIZZLE_RGBA,permutation);
+            }
+            glTexImage2D(cible,niveau,format_interne_core(format_interne),largeur,hauteur,bord,format_core(format),type,pixels);
         }
+
+    private:
+        //Format interne du profil Core qui remplace un format de l'ancien pipeline:
+        static GLint format_interne_core(GLint format_interne)
+        {
+            switch (format_interne)
+            {
+                case GL_LUMINANCE16: case GL_ALPHA16: case GL_INTENSITY16: return GL_R16;
+                case GL_LUMINANCE16_ALPHA16: return GL_RG16;
+                case 3: return GL_RGB8;
+                case 4: return GL_RGBA8;
+            }
+            switch (format_de_base(format_interne))
+            {
+                case GL_LUMINANCE: case GL_ALPHA: case GL_INTENSITY: return GL_R8;
+                case GL_LUMINANCE_ALPHA: return GL_RG8;
+                default: return format_interne;
+            }
+        }
+
+        //Format des pixels transmis:
+        static GLenum format_core(GLenum format)
+        {
+            switch (format)
+            {
+                case GL_LUMINANCE: case GL_ALPHA: return GL_RED;
+                case GL_LUMINANCE_ALPHA: return GL_RG;
+                default: return format;
+            }
+        }
+
+        //Composantes lues par les shaders, d'après le format de base de la texture
+        //et, pour une texture RGB ou RGBA, d'après le format des pixels transmis:
+        static void permutation_composantes(GLint base,GLenum format,GLint* permutation)
+        {
+            GLint r=GL_RED, g=GL_GREEN, b=GL_BLUE, a=GL_ALPHA;
+            GLenum source= base==GL_RGB || base==GL_RGBA ? format : GLenum(base);
+            switch (source)
+            {
+                case GL_LUMINANCE: g=b=GL_RED; a=GL_ONE; break;
+                case GL_LUMINANCE_ALPHA: g=b=GL_RED; a=GL_GREEN; break;
+                case GL_ALPHA: r=g=b=GL_ZERO; a=GL_RED; break;
+                case GL_INTENSITY: g=b=a=GL_RED; break;
+            }
+            if (base==GL_RGB) a=GL_ONE;
+            permutation[0]=r; permutation[1]=g; permutation[2]=b; permutation[3]=a;
+        }
+
+    public:
 
         //Format de base de la texture liée à une unité:
         static GLint format_texture(GLuint unite_texture)
@@ -312,7 +371,7 @@ class dksEtat
             b.ombrage_plat= modele_ombrage==GL_FLAT;
             b.textures_actives=0;
             b.sprites=0;
-            for (int u=0;u<4;u++)
+            for (int u=0;u<DKSETAT_NBR_UNITES_PIPELINE_FIXE;u++)
             {
                 //Une unité sans texture est désactivée, comme dans le pipeline fixe (texture incomplète).
                 if ((textures&(1u<<u)) && textures_liees[u]!=0) b.textures_actives|=1<<u;

@@ -1,6 +1,8 @@
 #ifndef DKSCONTENEUR_H_INCLUDED
 #define DKSCONTENEUR_H_INCLUDED
 
+#include "../../Utiles/Erreurs_OpenGl.h"
+
 #include <math.h>
 #include <vector>
 
@@ -122,7 +124,7 @@ class dksConteneur :public dksRepere
             GLenum erreur_openGl=glGetError();
             if (erreur_openGl!=GL_NO_ERROR)
             {
-                cout<<message<<" : "<<gluErrorString(erreur_openGl)<<endl;
+                cout<<message<<" : "<<texte_erreur_openGl(erreur_openGl)<<endl;
                 return true;
             }
              return false;

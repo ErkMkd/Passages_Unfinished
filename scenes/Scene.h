@@ -1,6 +1,8 @@
 #ifndef SCENE_H_INCLUDED
 #define SCENE_H_INCLUDED
 
+#include "../Utiles/Erreurs_OpenGl.h"
+
 
 #define SCENE_OK 0
 #define SCENE_ERREUR_INIT 1
@@ -42,7 +44,7 @@ class Scene
         GLenum erreur_openGl=glGetError();
         if (erreur_openGl!=GL_NO_ERROR)
         {
-            cout<<message<<" : "<<gluErrorString(erreur_openGl)<<endl;
+            cout<<message<<" : "<<texte_erreur_openGl(erreur_openGl)<<endl;
             return true;
         }
          return false;
@@ -54,9 +56,7 @@ class Scene
     static void desactive_textures()
     {
         uint16_t i;
-        GLint nbr_unites_textures_max;
-        glGetIntegerv(GL_MAX_TEXTURE_UNITS,&nbr_unites_textures_max);
-        for (i=0;i<nbr_unites_textures_max;i++)
+        for (i=0;i<DKSETAT_NBR_UNITES_PIPELINE_FIXE;i++)
             {
                 dksEtat::unite_active(GL_TEXTURE0+i);
                 dksEtat::desactive(GL_TEXTURE_2D);

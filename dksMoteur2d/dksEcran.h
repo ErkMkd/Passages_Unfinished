@@ -1,6 +1,8 @@
 #ifndef DKSECRAN_H_INCLUDED
 #define DKSECRAN_H_INCLUDED
 
+#include "../Utiles/Erreurs_OpenGl.h"
+
 #include "windows.h"
 
 #define DKSECRAN_OK 0
@@ -109,7 +111,7 @@ class dksEcran
             GLenum erreur_openGl=glGetError();
             if (erreur_openGl!=GL_NO_ERROR)
             {
-                cout<<message<<" : "<<gluErrorString(erreur_openGl)<<endl;
+                cout<<message<<" : "<<texte_erreur_openGl(erreur_openGl)<<endl;
                 return true;
             }
              return false;

@@ -619,23 +619,19 @@ class dksMoteur3d : public dksConteneur
         {
             //----Initialisation des paramètres de rendu des polygones:
 
-            glPolygonMode(GL_FRONT,GL_FILL);//Mode de rendu des faces avant des polygones
-            glPolygonMode(GL_BACK,GL_FILL);//Mode de rendu des faces arrière des polygones
+            glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);//Mode de rendu des faces des polygones
             dksEtat::active(GL_CULL_FACE); //Active la distinction face avant/face arrière des polygones pour le rendu.
             glCullFace(GL_BACK);    //Détermine quelle face des polygones n'est pas affichée.
             dksEtat::taille_point(1); //La taille des sommets en mode d'affichage de sommets
 
             //----Lissage:
             glHint(GL_LINE_SMOOTH_HINT,GL_NICEST);
-            glHint(GL_POINT_SMOOTH_HINT,GL_NICEST);
             glHint(GL_POLYGON_SMOOTH_HINT,GL_NICEST);
             dksEtat::desactive(GL_POLYGON_SMOOTH);
             dksEtat::desactive(GL_LINE_SMOOTH);
             dksEtat::desactive(GL_POINT_SMOOTH);
 
             //----Initialisation du rendu des textures:
-
-            glHint(GL_PERSPECTIVE_CORRECTION_HINT,GL_NICEST);
 
             dksRendu::desactive_textures();
 
@@ -705,7 +701,6 @@ public:
                 dksEtat::brouillard_f(GL_FOG_START,brouillard_min);
                 dksEtat::brouillard_f(GL_FOG_END,brouillard_max);
                 dksEtat::brouillard_f(GL_FOG_DENSITY,1.);
-                glHint(GL_FOG_HINT,GL_NICEST);
                 dksEtat::active(GL_FOG);
             }
 
@@ -744,7 +739,6 @@ public:
                 dksEtat::brouillard_f(GL_FOG_START,brouillard_min);
                 dksEtat::brouillard_f(GL_FOG_END,brouillard_max);
                 dksEtat::brouillard_f(GL_FOG_DENSITY,1.);
-                glHint(GL_FOG_HINT,GL_NICEST);
                 dksEtat::active(GL_FOG);
             }
         }
@@ -885,9 +879,7 @@ public:
         {
             uint16_t i;
             drapeau_eclairage=false;
-            GLint nbr_sources_max;
-            glGetIntegerv(GL_MAX_LIGHTS,&nbr_sources_max);
-            if (nbrSources<=nbr_sources_max)
+            if (nbrSources<=DKSECLAIRAGE_NBR_SOURCES)
             {
                 for (i=0;i<nbrSources;i++)
                 {
