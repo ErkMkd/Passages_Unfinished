@@ -1,0 +1,14 @@
+# Sorties de compilation
+build/
+out/
+bin/
+obj/
+*.o
+.vs/
+vcpkg_installed/
+
+# Documents de travail non publiés (versions allégées dans work/)
+dessins/
+documentation/
+storyboard/
+videos/
