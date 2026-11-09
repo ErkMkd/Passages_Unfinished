@@ -204,8 +204,8 @@ class Fichiers
         //---Taille du fichier:
         taille_fichier=fichier_flux.tellg();
 
-        //----- Allocation:
-        char* tempon=(char*)malloc(taille_fichier);
+        //----- Allocation (un octet de plus pour le zéro final, quand les données sont du texte):
+        char* tempon=(char*)malloc(taille_fichier+1);
         if(tempon==NULL)
         {
             fichier_flux.close();
@@ -215,6 +215,7 @@ class Fichiers
         fichier_flux.seekg(0,ios::beg);
         fichier_flux.read((char*)tempon,taille_fichier);
         fichier_flux.close();
+        tempon[taille_fichier]=0;
 
         /*
         for(uint32_t i=0;i<taille_fichier;i++)

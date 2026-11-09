@@ -2,9 +2,10 @@
 #define RAPPORT_ASSERTIONS_H_INCLUDED
 
 //*************************************************************************
-//      En Debug, une assertion (ex: indice hors limites d'un vector) écrit
-//      son message et la pile d'appels dans la console, puis arrête la démo,
-//      au lieu d'ouvrir une boîte de dialogue.
+//      En Debug, une assertion (ex: indice hors limites d'un vector), une erreur
+//      du runtime (ex: corruption du tas) ou une exception non gérée (ex: accès
+//      mémoire invalide) écrit son message et la pile d'appels dans la console,
+//      puis arrête la démo, au lieu d'ouvrir une boîte de dialogue.
 //*************************************************************************
 
 #ifdef _DEBUG
@@ -22,14 +23,31 @@ class Rapport_Assertions
         static void installe()
         {
             _CrtSetReportHook2(_CRT_RPTHOOK_INSTALL,&rapport);
+            SetUnhandledExceptionFilter(&exception_non_geree);
         }
 
     private:
         static int __cdecl rapport(int type,char* message,int* retour)
         {
-            if (type!=_CRT_ASSERT) return FALSE;
-            fprintf(stderr,"\n!!!! ASSERTION: %s\n",message);
+            if (type==_CRT_WARN) return FALSE;
+            fprintf(stderr,"\n!!!! %s: %s\n",type==_CRT_ASSERT ? "ASSERTION" : "ERREUR",message);
+            affiche_pile();
+            *retour=0;
+            ExitProcess(3);
+            return TRUE;
+        }
 
+        static LONG WINAPI exception_non_geree(EXCEPTION_POINTERS* infos)
+        {
+            fprintf(stderr,"\n!!!! EXCEPTION 0x%08lX à l'adresse %p\n",
+                    infos->ExceptionRecord->ExceptionCode,infos->ExceptionRecord->ExceptionAddress);
+            affiche_pile();
+            ExitProcess(4);
+            return EXCEPTION_EXECUTE_HANDLER;
+        }
+
+        static void affiche_pile()
+        {
             void* pile[64];
             USHORT nbr_appels=CaptureStackBackTrace(1,64,pile,NULL);
             HANDLE processus=GetCurrentProcess();
@@ -51,9 +69,6 @@ class Rapport_Assertions
                 else fprintf(stderr,"    %s\n",symbole->Name);
             }
             fflush(stderr);
-            *retour=0;
-            ExitProcess(3);
-            return TRUE;
         }
 };
 

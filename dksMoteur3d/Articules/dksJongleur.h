@@ -514,7 +514,7 @@ class dksJongleur:public dksPersonnage
             if(flexion_chevilles!=NULL) delete flexion_chevilles;
             if(flexion_genoux!=NULL) delete flexion_genoux;
             if(flexion_hanches!=NULL) delete flexion_hanches;
-            if(abduction_hanches!=NULL) delete flexion_hanches;
+            if(abduction_hanches!=NULL) delete abduction_hanches;
 
             if(courbe_lance!=NULL) delete courbe_lance;
 
