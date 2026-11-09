@@ -41,10 +41,12 @@ class Particule_Jet : public Element_particule
         {
             float etape_couleur=age*float(nbrEtapesCouleurs);
             uint16_t etape_depart=uint16_t(etape_couleur);
+            //La dernière couleur dure jusqu'à la fin de la vie (il n'y a pas de couleur après elle):
+            uint16_t etape_suivante= etape_depart+1<nbrEtapesCouleurs ? etape_depart+1 : etape_depart;
             etape_couleur-=etape_depart;
-            couleur[0]=etapes_couleurs[etape_depart][0]+(etapes_couleurs[etape_depart+1][0]-etapes_couleurs[etape_depart][0])*etape_couleur;
-            couleur[1]=etapes_couleurs[etape_depart][1]+(etapes_couleurs[etape_depart+1][1]-etapes_couleurs[etape_depart][1])*etape_couleur;
-            couleur[2]=etapes_couleurs[etape_depart][2]+(etapes_couleurs[etape_depart+1][2]-etapes_couleurs[etape_depart][2])*etape_couleur;
+            couleur[0]=etapes_couleurs[etape_depart][0]+(etapes_couleurs[etape_suivante][0]-etapes_couleurs[etape_depart][0])*etape_couleur;
+            couleur[1]=etapes_couleurs[etape_depart][1]+(etapes_couleurs[etape_suivante][1]-etapes_couleurs[etape_depart][1])*etape_couleur;
+            couleur[2]=etapes_couleurs[etape_depart][2]+(etapes_couleurs[etape_suivante][2]-etapes_couleurs[etape_depart][2])*etape_couleur;
         }
 
 
