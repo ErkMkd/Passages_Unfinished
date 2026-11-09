@@ -26,14 +26,14 @@ void main( void )
 	
 	float angle_source_normale	= max(0.,dot(direction_source_unitaire,normale_pixel));
 	vec3 reflet_source 			= direction_source_unitaire-angle_source_normale*normale_pixel*2.;
-	float facteur_speculaire	= pow(max(0.,dot(reflet_source,direction_oeil_sommet)),gl_FrontMaterial.shininess);
+	float facteur_speculaire	= pow(max(0.,dot(reflet_source,direction_oeil_sommet)),materiau_brillance);
 	
-	vec4 couleur_diffuse 	= gl_LightSource[0].diffuse * gl_FrontMaterial.diffuse;
-	vec4 couleur_speculaire = gl_LightSource[0].specular * gl_FrontMaterial.specular;
+	vec4 couleur_diffuse 	= sources[0].diffuse * materiau_diffuse;
+	vec4 couleur_speculaire = sources[0].speculaire * materiau_speculaire;
 	
-	float attenuation=1./ (gl_LightSource[0].constantAttenuation 
-							+ gl_LightSource[0].linearAttenuation * distance_source
-							+  distance_source * distance_source * gl_LightSource[0].quadraticAttenuation);
+	float attenuation=1./ (sources[0].attenuation_constante 
+							+ sources[0].attenuation_lineaire * distance_source
+							+  distance_source * distance_source * sources[0].attenuation_quadratique);
 	
 	float alpha=couleur_diffuse.a + facteur_speculaire*couleur_speculaire.a;
 	

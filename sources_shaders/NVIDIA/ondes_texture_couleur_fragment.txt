@@ -75,25 +75,25 @@ void main( void )
 				
 		//Composantes:
 		
-		float attenuation		=	1./ (gl_LightSource[n].constantAttenuation 
-									+ gl_LightSource[n].linearAttenuation * distances_sources[n]
-									+  distances_sources[n] * distances_sources[n] * gl_LightSource[n].quadraticAttenuation);
+		float attenuation		=	1./ (sources[n].attenuation_constante 
+									+ sources[n].attenuation_lineaire * distances_sources[n]
+									+  distances_sources[n] * distances_sources[n] * sources[n].attenuation_quadratique);
 	
-		vec3 couleur_ambiante   = 	gl_FrontMaterial.ambient.rgb*gl_LightSource[n].ambient.rgb;
+		vec3 couleur_ambiante   = 	materiau_ambiante.rgb*sources[n].ambiante.rgb;
    
-		vec3 couleur_diffuse 	= 	gl_LightSource[n].diffuse.rgb * gl_FrontMaterial.diffuse.rgb * angle_source_normale;
+		vec3 couleur_diffuse 	= 	sources[n].diffuse.rgb * materiau_diffuse.rgb * angle_source_normale;
 		
 		couleur_rgb				+=	attenuation * (couleur_ambiante + couleur_diffuse);
 		if (angle_source_normale>0.)
 		{
 			couleur_speculaire 	+= attenuation* (
-													gl_LightSource[n].specular.rgb * gl_FrontMaterial.specular.rgb
-													* pow(max(dot(reflet_source,normale),0.),gl_FrontMaterial.shininess)
+													sources[n].speculaire.rgb * materiau_speculaire.rgb
+													* pow(max(dot(reflet_source,normale),0.),materiau_brillance)
 												);
 		}
 		
 	}
-	vec3 couleur_ambiante_globale = gl_FrontMaterial.ambient.rgb*gl_LightModel.ambient.rgb;
-	vec4 couleur=vec4((gl_FrontMaterial.emission.rgb + couleur_ambiante_globale + couleur_rgb)*texel , gl_FrontMaterial.diffuse.a);	
+	vec3 couleur_ambiante_globale = materiau_ambiante.rgb*ambiante_globale.rgb;
+	vec4 couleur=vec4((materiau_emission.rgb + couleur_ambiante_globale + couleur_rgb)*texel , materiau_diffuse.a);	
     gl_FragColor = clamp((vec4(couleur_speculaire,0.) + couleur),0.,1.);
 }

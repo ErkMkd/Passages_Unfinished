@@ -38,21 +38,21 @@ void main( void )
 		coordonnees_texture_ombres=(matrice_source_uv*gl_Vertex);
 	
 	//--------------- Position du sommet:
-		gl_Position 	=  gl_ModelViewProjectionMatrix * gl_Vertex;
-		normale_face	= gl_NormalMatrix * gl_Normal;
-		vec3 position_sommet 	= (gl_ModelViewMatrix * gl_Vertex).xyz;
+		gl_Position 	=  matrice_modele_vue_projection * gl_Vertex;
+		normale_face	= matrice_normale * gl_Normal;
+		vec3 position_sommet 	= (matrice_modele_vue * gl_Vertex).xyz;
 		direction_oeil 	= -position_sommet;
    
    // ----------------- Calcul des sources:	
 	distance_source_des_ombres=-(matrice_vision_source * gl_Vertex).z;
 			
-	for(int n=0;n<gl_MaxLights;n++)
+	for(int n=0;n<NBR_SOURCES;n++)
 	{
 		if ( (drapeaux_sources & (1<<n))==0 ) continue;
-		vec3 position_source 		= (gl_LightSource[n].position).xyz;
+		vec3 position_source 		= (sources[n].position).xyz;
 		directions_sources[n] 		= position_source-position_sommet;
 		distances_sources[n] 		= length(directions_sources[n]);
 	}
 		
-	couleur_ambiante_globale = gl_FrontMaterial.ambient.rgb*gl_LightModel.ambient.rgb;	
+	couleur_ambiante_globale = materiau_ambiante.rgb*ambiante_globale.rgb;	
 }

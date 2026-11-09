@@ -14,28 +14,77 @@
 //  absentes du profil Core. Mêmes conventions qu'OpenGL: matrices rangées par
 //  colonnes, angles en degrés, chaque transformation multiplie la matrice
 //  courante à droite.
-//  Pendant le portage, chaque changement est recopié dans OpenGL, pour le
-//  pipeline fixe et les shaders qui lisent encore gl_ModelViewMatrix.
+//  Les shaders lisent les matrices courantes dans le bloc d'uniforms "Matrices"
+//  (binding 0, disposition std140), mis à jour à chaque changement.
+//  Pendant le portage, chaque changement est aussi recopié dans OpenGL, pour
+//  le pipeline fixe.
 //
 //  Une seule pile de texture: elle s'applique à l'unité de texture active,
 //  comme dans OpenGL (le moteur n'en utilise qu'une).
 //*************************************************************************
 
+#define DKSMATRICES_BLOC 0
+
 class dksMatrices
 {
     private:
+        //Disposition std140, identique au bloc "Matrices" des shaders:
+        struct Bloc_Matrices
+        {
+            GLfloat modele_vue[16];
+            GLfloat projection[16];
+            GLfloat modele_vue_projection[16];
+            GLfloat texture[16];
+            GLfloat normale[12];    //mat3: trois colonnes de vec4
+        };
+
         enum { MODELE_VUE, PROJECTION, TEXTURE, NBR_PILES };
         inline static std::vector<glm::dmat4> piles[NBR_PILES]={{glm::dmat4(1.)},{glm::dmat4(1.)},{glm::dmat4(1.)}};
         inline static int pile_courante=MODELE_VUE;
+        inline static GLuint tampon=0;
 
         static glm::dmat4& courante()
         {
             return piles[pile_courante].back();
         }
 
-        //Recopie la matrice courante dans OpenGL (le mode d'OpenGL suit celui des piles).
+        static void copie(GLfloat* destination,const glm::dmat4& m)
+        {
+            const GLdouble* valeurs=glm::value_ptr(m);
+            for (int i=0;i<16;i++) destination[i]=GLfloat(valeurs[i]);
+        }
+
+        //Met à jour le bloc d'uniforms des shaders (créé à la première utilisation):
+        static void transmet()
+        {
+            Bloc_Matrices bloc;
+            const glm::dmat4& modele_vue=piles[MODELE_VUE].back();
+            const glm::dmat4& projection=piles[PROJECTION].back();
+            copie(bloc.modele_vue,modele_vue);
+            copie(bloc.projection,projection);
+            copie(bloc.modele_vue_projection,projection*modele_vue);
+            copie(bloc.texture,piles[TEXTURE].back());
+            //Matrice des normales (gl_NormalMatrix): transposée de l'inverse de la partie 3x3 de la matrice modèle-vue.
+            glm::dmat3 normale=glm::transpose(glm::inverse(glm::dmat3(modele_vue)));
+            for (int colonne=0;colonne<3;colonne++)
+            {
+                for (int ligne=0;ligne<3;ligne++) bloc.normale[4*colonne+ligne]=GLfloat(normale[colonne][ligne]);
+                bloc.normale[4*colonne+3]=0.f;
+            }
+
+            if (tampon==0)
+            {
+                glCreateBuffers(1,&tampon);
+                glNamedBufferData(tampon,sizeof(bloc),&bloc,GL_DYNAMIC_DRAW);
+                glBindBufferBase(GL_UNIFORM_BUFFER,DKSMATRICES_BLOC,tampon);
+            }
+            else glNamedBufferSubData(tampon,0,sizeof(bloc),&bloc);
+        }
+
+        //Transmet la matrice courante aux shaders, et la recopie dans OpenGL (le mode d'OpenGL suit celui des piles).
         static void synchronise()
         {
+            transmet();
             glLoadMatrixd(glm::value_ptr(courante()));
         }
 

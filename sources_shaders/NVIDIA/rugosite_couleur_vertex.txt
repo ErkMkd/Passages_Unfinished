@@ -10,18 +10,18 @@ attribute vec3 binormale;
 
 void main( void )
 {
-    gl_Position =  gl_ModelViewProjectionMatrix * gl_Vertex;
-	vec3 position_sommet = (gl_ModelViewMatrix * gl_Vertex).xyz;
+    gl_Position =  matrice_modele_vue_projection * gl_Vertex;
+	vec3 position_sommet = (matrice_modele_vue * gl_Vertex).xyz;
     coordonnees_texture_couleur     = gl_MultiTexCoord0.xy;
     coordonnees_texture_rugosite    = gl_MultiTexCoord1.xy;
    
    //--------- Calcul de l'éclairage:
    
-    vec3 normale = 			gl_NormalMatrix * gl_Normal;
-    vec3 tangente_sommet = 	gl_NormalMatrix * tangente;
-    vec3 binormale_sommet = gl_NormalMatrix * binormale;
+    vec3 normale = 			matrice_normale * gl_Normal;
+    vec3 tangente_sommet = 	matrice_normale * tangente;
+    vec3 binormale_sommet = matrice_normale * binormale;
 	
-	vec3 position_source = (gl_LightSource[0].position).xyz;
+	vec3 position_source = (sources[0].position).xyz;
 	vec3 direction_source = position_source-position_sommet;
 	distance_source = length(direction_source);
 	direction_source=normalize(direction_source);

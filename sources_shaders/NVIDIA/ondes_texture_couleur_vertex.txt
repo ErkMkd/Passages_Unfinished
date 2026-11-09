@@ -27,7 +27,7 @@ varying vec3 normale_face;
 
 void main( void )
 {
-	gl_Position 			=  gl_ModelViewProjectionMatrix * gl_Vertex;
+	gl_Position 			=  matrice_modele_vue_projection * gl_Vertex;
 	
 	//Position du sommet dans le plan de la face:
 	tangente_sommet			= tangente;
@@ -43,8 +43,8 @@ void main( void )
 	texture_couleur_coord     		= gl_MultiTexCoord0.xy;
 	
 	//Données de l'observateur:
-	position_sommet 	= (gl_ModelViewMatrix * gl_Vertex).xyz;
-    normale_face 			= gl_NormalMatrix * gl_Normal;
+	position_sommet 	= (matrice_modele_vue * gl_Vertex).xyz;
+    normale_face 			= matrice_normale * gl_Normal;
 	direction_sommet_oeil 	= -position_sommet;
 	
 	// Calcul des sources:		
@@ -52,7 +52,7 @@ void main( void )
 	for(int n=0;n<4;n++)
 	{
 		if ( (drapeaux_sources & (1<<n))==0 ) continue;
-		vec3 position_source 		= (gl_LightSource[n].position).xyz;
+		vec3 position_source 		= (sources[n].position).xyz;
 		directions_sources[n] 		= position_source-position_sommet;
 		distances_sources[n] 		= length(directions_sources[n]);
 	}

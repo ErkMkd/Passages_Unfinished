@@ -14,7 +14,7 @@ varying vec4 couleur;
 void main( void )
 {
 	//Données de l'observateur:
-    gl_Position =  gl_ModelViewProjectionMatrix * gl_Vertex;
+    gl_Position =  matrice_modele_vue_projection * gl_Vertex;
 	couleur		=	gl_Color;
 	
 	coordonnees_texture_depart     		= gl_MultiTexCoord0.xy;

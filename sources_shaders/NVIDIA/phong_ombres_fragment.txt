@@ -42,27 +42,27 @@ void main(void)
 			
 	//Composantes:
 	
-	float attenuation		=	1./ (gl_LightSource[0].constantAttenuation 
-								+ gl_LightSource[0].linearAttenuation * distances_sources[0]
-								+  distances_sources[0] * distances_sources[0] * gl_LightSource[0].quadraticAttenuation);
+	float attenuation		=	1./ (sources[0].attenuation_constante 
+								+ sources[0].attenuation_lineaire * distances_sources[0]
+								+  distances_sources[0] * distances_sources[0] * sources[0].attenuation_quadratique);
 
-	vec3 couleur_ambiante   = 	gl_FrontMaterial.ambient.rgb*gl_LightSource[0].ambient.rgb;
+	vec3 couleur_ambiante   = 	materiau_ambiante.rgb*sources[0].ambiante.rgb;
 
-	vec3 couleur_diffuse 	= 	gl_LightSource[0].diffuse.rgb * gl_FrontMaterial.diffuse.rgb * angle_source_normale;
+	vec3 couleur_diffuse 	= 	sources[0].diffuse.rgb * materiau_diffuse.rgb * angle_source_normale;
 	
 	couleur_rgb_source_ombres		=	attenuation * (couleur_ambiante + couleur_diffuse);
 	if (angle_source_normale>0.)
 	{
 		couleur_speculaire_source_ombres 	= attenuation* (
-												gl_LightSource[0].specular.rgb * gl_FrontMaterial.specular.rgb
-												* pow(max(dot(reflet_source,normale),0.),gl_FrontMaterial.shininess)
+												sources[0].speculaire.rgb * materiau_speculaire.rgb
+												* pow(max(dot(reflet_source,normale),0.),materiau_brillance)
 											);
 	}
 	
 	
 	//------------- Les autres sources:
 	
-	for (int n=1; n<gl_MaxLights;n++)
+	for (int n=1; n<NBR_SOURCES;n++)
 	{
 		if ( (drapeaux_sources & (1<<n))==0 ) continue;
 		direction_source_unitaire	= normalize(directions_sources[n]);
@@ -71,20 +71,20 @@ void main(void)
 				
 		//Composantes:
 		
-		attenuation		=	1./ (gl_LightSource[n].constantAttenuation 
-									+ gl_LightSource[n].linearAttenuation * distances_sources[n]
-									+  distances_sources[n] * distances_sources[n] * gl_LightSource[n].quadraticAttenuation);
+		attenuation		=	1./ (sources[n].attenuation_constante 
+									+ sources[n].attenuation_lineaire * distances_sources[n]
+									+  distances_sources[n] * distances_sources[n] * sources[n].attenuation_quadratique);
 	
-		couleur_ambiante   = 	gl_FrontMaterial.ambient.rgb*gl_LightSource[n].ambient.rgb;
+		couleur_ambiante   = 	materiau_ambiante.rgb*sources[n].ambiante.rgb;
    
-		couleur_diffuse 	= 	gl_LightSource[n].diffuse.rgb * gl_FrontMaterial.diffuse.rgb * angle_source_normale;
+		couleur_diffuse 	= 	sources[n].diffuse.rgb * materiau_diffuse.rgb * angle_source_normale;
 		
 		couleur_rgb				+=	attenuation * (couleur_ambiante + couleur_diffuse);
 		if (angle_source_normale>0.)
 		{
 			couleur_speculaire 	+= attenuation* (
-													gl_LightSource[n].specular.rgb * gl_FrontMaterial.specular.rgb
-													* pow(max(dot(reflet_source,normale),0.),gl_FrontMaterial.shininess)
+													sources[n].speculaire.rgb * materiau_speculaire.rgb
+													* pow(max(dot(reflet_source,normale),0.),materiau_brillance)
 												);
 		}
 	}
@@ -141,7 +141,7 @@ void main(void)
 		}
 		
 	//------- Détermine la couleur:
-			vec4 couleur=vec4(gl_FrontMaterial.emission.rgb + couleur_ambiante_globale + couleur_rgb , gl_FrontMaterial.diffuse.a);	
+			vec4 couleur=vec4(materiau_emission.rgb + couleur_ambiante_globale + couleur_rgb , materiau_diffuse.a);	
 			gl_FragColor =  clamp(vec4(couleur_speculaire,0.) + couleur,0.,1.);
 			//gl_FragColor=vec4(1.,0.,0.,1.);
 	
