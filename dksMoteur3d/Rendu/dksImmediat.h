@@ -17,8 +17,8 @@
 //
 //  Les sommets alimentent les attributs génériques des shaders, aux emplacements
 //  déclarés dans sources_shaders/sommets.glsl (voir ci-dessous).
-//  Pendant le portage (profil de compatibilité), les primitives d'origine sont
-//  conservées (GL_POLYGON, GL_QUADS...).
+//  Les primitives absentes du profil Core (GL_POLYGON, GL_QUADS, GL_QUAD_STRIP)
+//  sont tracées en triangles.
 //  Tous les tracés du moteur passent par ces fonctions (et par dksTableaux).
 //*************************************************************************
 
@@ -76,6 +76,8 @@ class dksImmediat
         inline static size_t debut_primitive=0;             //Premier sommet de la primitive en cours, dans le lot
         inline static std::vector<GLint> premiers;          //Premier sommet de chaque primitive du lot
         inline static std::vector<GLsizei> nombres;         //Nombre de sommets de chaque primitive du lot
+        inline static std::vector<GLint> premiers_quadrilateres;    //Les quadrilatères d'un tracé, un par un
+        inline static std::vector<GLsizei> nombres_quadrilateres;
         inline static GLuint vao=0;
         inline static GLuint tampon=0;
         inline static Sommet* memoire=NULL;                 //Le buffer, projeté en mémoire en permanence
@@ -143,18 +145,57 @@ class dksImmediat
             return premier;
         }
 
+        //------- Trace en un seul appel des primitives dont les sommets sont dans le buffer.
+        //  Le profil Core n'a plus GL_POLYGON, GL_QUADS ni GL_QUAD_STRIP: un polygone est tracé en
+        //  éventail de triangles (GL_TRIANGLE_FAN), comme le faisait le pilote, chaque quadrilatère
+        //  aussi, et une bande de quadrilatères en bande de triangles.
+        static void trace_primitives(GLenum mode_trace,GLint* p_premiers,GLsizei* p_nombres,size_t nbr_primitives)
+        {
+            GLenum primitive=mode_trace;
+            switch (mode_trace)
+            {
+                case GL_POLYGON:
+                    primitive=GL_TRIANGLE_FAN;
+                    break;
+                case GL_QUAD_STRIP:
+                    primitive=GL_TRIANGLE_STRIP;
+                    for (size_t i=0;i<nbr_primitives;i++) p_nombres[i]-=p_nombres[i]%2;     //Un sommet isolé à la fin est ignoré
+                    break;
+                case GL_QUADS:
+                    primitive=GL_TRIANGLE_FAN;
+                    premiers_quadrilateres.clear();
+                    nombres_quadrilateres.clear();
+                    for (size_t i=0;i<nbr_primitives;i++)
+                    {
+                        for (GLsizei q=0;q+4<=p_nombres[i];q+=4)
+                        {
+                            premiers_quadrilateres.push_back(p_premiers[i]+q);
+                            nombres_quadrilateres.push_back(4);
+                        }
+                    }
+                    p_premiers=premiers_quadrilateres.data();
+                    p_nombres=nombres_quadrilateres.data();
+                    nbr_primitives=premiers_quadrilateres.size();
+                    break;
+            }
+            if (nbr_primitives==0) return;
+            glBindVertexArray(vao);
+            bool emulation=dksEtat::prepare_trace(mode_trace);
+            if (nbr_primitives==1) glDrawArrays(primitive,p_premiers[0],p_nombres[0]);
+            else glMultiDrawArrays(primitive,p_premiers,p_nombres,GLsizei(nbr_primitives));
+            dksEtat::termine_trace(mode_trace,emulation);
+        }
+
         //------- Trace des sommets:
         static void trace(const std::vector<Sommet>& a_tracer,GLenum mode_trace)
         {
             GLint premier=copie_sommets(a_tracer);
             if (premier<0) return;
-            glBindVertexArray(vao);
-            bool emulation=dksEtat::prepare_trace(mode_trace);
-            glDrawArrays(mode_trace,premier,GLsizei(a_tracer.size()));
-            dksEtat::termine_trace(mode_trace,emulation);
+            GLsizei nombre=GLsizei(a_tracer.size());
+            trace_primitives(mode_trace,&premier,&nombre,1);
         }
 
-        //------- Trace les primitives du lot en un seul appel, chacune avec sa primitive d'origine:
+        //------- Trace les primitives du lot en un seul appel:
         static void vide_lot()
         {
             if (!premiers.empty())
@@ -163,10 +204,7 @@ class dksImmediat
                 if (base>=0)
                 {
                     for (GLint& premier:premiers) premier+=base;
-                    glBindVertexArray(vao);
-                    bool emulation=dksEtat::prepare_trace(mode_lot);
-                    glMultiDrawArrays(mode_lot,premiers.data(),nombres.data(),GLsizei(premiers.size()));
-                    dksEtat::termine_trace(mode_lot,emulation);
+                    trace_primitives(mode_lot,premiers.data(),nombres.data(),premiers.size());
                 }
             }
             sommets.clear();
